@@ -1,0 +1,2 @@
+For the Cloudy Body
+<body class="bg-[url('./img/vers_one_shorter.png')] bg-cover bg-center h-screen w-full">

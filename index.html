@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dream Agent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- CSS -->
+  <style>
+  .fade-in {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 6s ease-out, transform 6s ease-out; /* 4s fade */
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+</style>
+
+
+</head>
+<body class="bg-[#032D82] bg-cover bg-center h-screen w-full">
+  <!-- Ambient Audio -->
+  <audio id="ambient-sound" loop muted>
+    <source src="ambient.mp3" type="audio/mpeg">
+  </audio>
+  <button id="audio-toggle" class="fixed bottom-4 right-4 bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700 transition z-50 flex items-center space-x-2">
+    <span id="audio-icon">▶️</span>
+    <span id="audio-label">Play Audio</span>
+  </button>
+
+  <!-- Collapsible Menu -->
+  <header class="fixed top-0 right-0 p-4 z-50">
+    <button id="menu-btn" class="text-white text-2xl">☰</button>
+    <nav id="menu" class="fixed top-0 right-0 w-64 h-full bg-[#1b2a41] transform translate-x-full transition-transform p-6">
+      <button id="close-menu" class="text-white text-xl mb-6">✕</button>
+      <ul class="space-y-4">
+        <li><a href="#" class="hover:text-blue-400">Home</a></li>
+        <li><a href="#about" class="hover:text-blue-400">About</a></li>
+        <li><a href="#lore" class="hover:text-blue-400">Lore</a></li>
+        <li><a href="https://xrpcafe.com/" target="_blank" class="hover:text-blue-400">XRP Café</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center p-6 bg-fixed bg-center bg-cover" style="background-image: url('hero-bg.jpg');">
+    <img src="./img/DreamAgentDreamy.jpg" alt="Dream Agent Logo" class="w-[450px] h-[450px] mb-8 opacity-0" id="logo">
+    <h1 class="text-5xl text-white font-bold mb-4 opacity-0" id="title">No face. No fame. Just the vision.</h1>
+    <!-- <p class="text-2xl italic mb-8 opacity-0" id="tagline">No face. No fame. Just the vision.</p> -->
+    <a href="#lore" class="border border-white px-6 py-3 text-lg text-white hover:bg-white hover:text-[#0f1c2e] transition opacity-0" id="cta">ENTER THE REALM</a>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="max-w-5xl mx-auto p-6 text-center">
+    <h2 class="text-3xl text-white font-semibold mb-4">About Dream Agent</h2>
+    <p class="text-lg mb-8 text-white">A veil of symbolism, myth, and machines threads the unseen.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-[#1b2a41] rounded-xl p-4 transform hover:scale-105 transition fade-in">
+        <img src="./img/pictures/Crypto Fish Tank.png" alt="Crypto Fish Tank" class="rounded mb-3">
+        <p class="text-lg">Crypto Fish Tank</p>
+      </div>
+      <div class="bg-[#1b2a41] rounded-xl p-4 transform hover:scale-105 transition fade-in">
+        <img src="./img/pictures/The Fear Room.png" alt="The Fear Room" class="rounded mb-3">
+        <p class="text-lg">The Fear Room</p>
+      </div>
+      <div class="bg-[#1b2a41] rounded-xl p-4 transform hover:scale-105 transition fade-in">
+        <img src="./img/pictures/The Great Divide.png" alt="The Great Divide" class="rounded mb-3">
+        <p class="text-lg">The Great Divide</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lore Section with Parallax -->
+  <section id="lore" class="bg-[#121e33] py-16 px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-fixed bg-center bg-cover opacity-20" style="background-image: url('lore-bg.jpg');"></div>
+    <div class="relative max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl font-semibold mb-6 parallax">Lore of the Vision</h2>
+      <p class="text-lg leading-relaxed mb-8 parallax">In the twilight between data and dream, a figure emerges—faceless yet visionary. This is the Dream Agent, threading mythology, technology, and symbol into a tapestry of meaning hidden in plain sight. The journey awaits those who dare to look deeper.</p>
+      <a href="https://xrpcafe.com/" target="_blank" class="mt-6 inline-block bg-blue-600 px-8 py-3 text-lg rounded hover:bg-blue-700 transition">Explore on XRP Café</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 text-center text-gray-400 text-sm">
+    © 2025 Courdevelops. All rights reserved.
+  </footer>
+
+  <script>
+    // Smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // GSAP Animations
+    gsap.to("#logo", {opacity:1, y:0, duration:1});
+    gsap.to("#title", {opacity:1, y:0, duration:1, delay:0.5});
+    gsap.to("#tagline", {opacity:1, y:0, duration:1, delay:1});
+    gsap.to("#cta", {opacity:1, y:0, duration:1, delay:1.5});
+
+    // Parallax effect
+    document.addEventListener('scroll', () => {
+      document.querySelectorAll('.parallax').forEach(el => {
+        let speed = 0.3;
+        let offset = window.scrollY * speed;
+        el.style.transform = `translateY(${offset}px)`;
+      });
+    });
+
+    // Menu Toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const closeMenu = document.getElementById('close-menu');
+    const menu = document.getElementById('menu');
+    menuBtn.addEventListener('click', () => menu.classList.remove('translate-x-full'));
+    closeMenu.addEventListener('click', () => menu.classList.add('translate-x-full'));
+
+    // Audio Toggle with LocalStorage Persistence and Fade In/Out
+    const audio = document.getElementById('ambient-sound');
+    const audioToggle = document.getElementById('audio-toggle');
+    const audioIcon = document.getElementById('audio-icon');
+    const audioLabel = document.getElementById('audio-label');
+    const savedAudioState = localStorage.getItem('audioState');
+
+    if (savedAudioState === 'playing') {
+      fadeAudio(audio, true);
+      audio.muted = false;
+      audioIcon.textContent = '⏸️';
+      audioLabel.textContent = 'Pause Audio';
+    }
+
+    function fadeAudio(audioEl, fadeIn = true, duration = 1000) {
+      const step = 50;
+      const volumeChange = step / duration;
+      if (fadeIn) {
+        audioEl.volume = 0;
+        audioEl.muted = false;
+        audioEl.play();
+        const fadeInInterval = setInterval(() => {
+          if (audioEl.volume < 1) {
+            audioEl.volume = Math.min(audioEl.volume + volumeChange, 1);
+          } else {
+            clearInterval(fadeInInterval);
+          }
+        }, step);
+      } else {
+        const fadeOutInterval = setInterval(() => {
+          if (audioEl.volume > 0) {
+            audioEl.volume = Math.max(audioEl.volume - volumeChange, 0);
+          } else {
+            audioEl.pause();
+            audioEl.muted = true;
+            clearInterval(fadeOutInterval);
+          }
+        }, step);
+      }
+    }
+
+    audioToggle.addEventListener('click', () => {
+      if (audio.paused || audio.muted) {
+        fadeAudio(audio, true);
+        audioIcon.textContent = '⏸️';
+        audioLabel.textContent = 'Pause Audio';
+        localStorage.setItem('audioState', 'playing');
+      } else {
+        fadeAudio(audio, false);
+        audioIcon.textContent = '▶️';
+        audioLabel.textContent = 'Play Audio';
+        localStorage.setItem('audioState', 'paused');
+      }
+    });
+
+    // Scroll-triggered fade-in for About section cards
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // animate only once
+        }
+    });
+    }, { threshold: 0.2 });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+  </script>
+</body>
+</html>
