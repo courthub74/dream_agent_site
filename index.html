@@ -21,7 +21,7 @@
 
 
 </head>
-<body class="bg-[url('./img/plain_background.png')] bg-cover bg-center h-screen w-full">
+<body class="bg-[url('./img/plain_background.png')] bg-cover bg-center h-screen w-full" style="font-family: Times New Roman, Times, serif;">
   <!-- Ambient Audio -->
   <audio id="ambient-sound" loop muted>
     <source src="ambient.mp3" type="audio/mpeg">
@@ -33,7 +33,9 @@
 
   <!-- Collapsible Menu -->
   <header class="fixed top-0 right-0 p-4 z-50">
-    <button id="menu-btn" class="text-white text-2xl">☰</button>
+    <!-- <button id="menu-btn" class="text-white text-2xl">☰</button> -->
+    <button id="menu-btn" class="text-white text-2xl pr-6">Menu</button>
+     
     <nav id="menu" class="fixed top-0 right-0 w-64 h-full bg-[#1b2a41] transform translate-x-full transition-transform p-6">
       <button id="close-menu" class="text-white text-xl mb-6">✕</button>
       <ul class="space-y-4">
@@ -48,7 +50,7 @@
   <!-- Hero Section -->
 <section class="min-h-screen flex flex-col justify-center items-center text-center p-6 py-20 sm:py-28 lg:py-40 gap-6 sm:gap-10 lg:gap-16 bg-fixed bg-center bg-cover" style="background-image: url('hero-bg.jpg');">
   <img src="./img/hero_logo.png" alt="Dream Agent Logo" class="hero-animate w-[220px] sm:w-[300px] h-[180px] sm:h-[250px] opacity-0 transition-opacity duration-700" id="logo">
-  <h1 class="hero-animate text-2xl sm:text-3xl lg:text-4xl text-white opacity-0 transition-opacity duration-700 font-normal" id="title">
+  <h1 class="hero-animate text-3xl sm:text-4xl lg:text-6xl text-white opacity-0 transition-opacity duration-700 font-normal" id="title">
     No face. No fame. Just the vision.
   </h1>
   <a href="#about" 
@@ -112,14 +114,6 @@
   dividerObserver.observe(divider);
 
   // Cards staggered animation
-
-  // HERO STAGGERED ANIMATION
-  // const heroElements = document.querySelectorAll('.hero-animate');
-  // heroElements.forEach((el, index) => {
-  //   setTimeout(() => {
-  //     el.classList.remove('opacity-0');
-  //   }, index * 300); // fade in sequentially
-  // });
 
   const cards = document.querySelectorAll('.about-card');
   const cardsObserver = new IntersectionObserver(entries => {
