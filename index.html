@@ -32,24 +32,23 @@
   </button>
 
   <!-- Collapsible Menu -->
-  <header class="fixed top-0 right-0 p-4 z-50">
-    <!-- <button id="menu-btn" class="text-white text-2xl">☰</button> -->
-    <button id="menu-btn" class="text-white text-2xl pr-6">Menu</button>
-     
-    <nav id="menu" class="fixed top-0 right-0 w-64 h-full bg-[#1b2a41] transform translate-x-full transition-transform p-6">
-      <button id="close-menu" class="text-white text-xl mb-6">✕</button>
-      <ul class="space-y-4">
-        <li><a href="#" class="hover:text-blue-400">Home</a></li>
-        <li><a href="#about" class="hover:text-blue-400">About</a></li>
-        <li><a href="#lore" class="hover:text-blue-400">Lore</a></li>
-        <li><a href="https://xrpcafe.com/" target="_blank" class="hover:text-blue-400">XRP Café</a></li>
-      </ul>
-    </nav>
-  </header>
+ <header class="fixed top-0 right-0 w-full bg-none p-4 z-50">
+  <nav id="menu" class="fixed top-0 right-0 w-full bg-none p-6">
+  <ul class="flex justify-end space-x-8 text-white text-lg">
+    <li><a href="#" class="hover:text-blue-400">Home</a></li>
+    <li><a href="#about" class="hover:text-blue-400">About</a></li>
+    <li><a href="#lore" class="hover:text-blue-400">Lore</a></li>
+    <li><a href="https://xrpcafe.com/" target="_blank" class="hover:text-blue-400">XRP Café</a></li>
+    <li><a href="https://opensea.com/" target="_blank" class="hover:text-blue-400">Opensea</a></li>
+  </ul>
+</nav>
+
+</header>
+
 
   <!-- Hero Section -->
-<section class="min-h-screen flex flex-col justify-center items-center text-center p-6 py-20 sm:py-28 lg:py-40 gap-6 sm:gap-10 lg:gap-16 bg-fixed bg-center bg-cover" style="background-image: url('hero-bg.jpg');">
-  <img src="./img/hero_logo.png" alt="Dream Agent Logo" class="hero-animate w-[220px] sm:w-[300px] h-[180px] sm:h-[250px] opacity-0 transition-opacity duration-700" id="logo">
+<section class="min-h-screen flex flex-col justify-center items-center text-center p-6 py-20 sm:py-28 lg:py-80 gap-6 sm:gap-10 lg:gap-16 bg-fixed bg-center bg-cover" style="background-image: url('hero-bg.jpg');">
+  <img src="./img/hero_logo.png" alt="Dream Agent Logo" class="hero-animate w-[220px] sm:w-[300px] h-[180px] sm:h-[250px] opacity-0 transition-opacity duration-700 lg: -mt-40" id="logo">
   <h1 class="hero-animate text-3xl sm:text-4xl lg:text-6xl text-white opacity-0 transition-opacity duration-700 font-normal" id="title">
     No face. No fame. Just the vision.
   </h1>
@@ -62,7 +61,7 @@
 
 <!-- ABOUT SECTION -->
 <section id="about" 
-  class="relative w-full py-20 sm:py-28 lg:py-40 px-6 text-center mb-16 sm:mb-24 lg:mb-40 bg-[url('./img/about_background_lighter.png')] bg-cover bg-center bg-no-repeat">
+  class="relative w-full py-20 sm:py-28 lg:py-60 px-6 text-center mb-0 sm:mb-0 lg:mb-0 -mt-12 bg-[url('./img/about_background_lighter.png')] bg-cover bg-center bg-no-repeat">
 
   <!-- Full-section Blue Tint Overlay -->
   <div class="absolute inset-0 bg-[#0057B8]/10"></div>  <!-- Increased to /30 for better visibility -->
@@ -79,17 +78,17 @@
     
     <!-- IMAGES -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-[-35px]">
-      <div class="about-card bg-[#1b2a41]/10 rounded-xl p-4 transform opacity-0 translate-y-6 transition-all duration-700">
+      <div class="about-card bg-[#1b2a41]/10 rounded-xl p-4 transform opacity-0 translate-y-6 transition-all duration-700 cursor-pointer">
         <img src="./img/pictures/Crypto Fish Tank.png" alt="Crypto Fish Tank" 
             class="rounded mt-[-10px] mb-3 border border-white hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition duration-300">
         <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">Crypto Fish Tank</p>
       </div>
-      <div class="about-card bg-[#1b2a41]/10 rounded-xl p-4 transform opacity-0 translate-y-6 transition-all duration-700">
+      <div class="about-card bg-[#1b2a41]/10 rounded-xl p-4 transform opacity-0 translate-y-6 transition-all duration-700 cursor-pointer">
         <img src="./img/pictures/The Fear Room.png" alt="The Fear Room" 
             class="rounded mt-[-10px] mb-3 border border-white hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition duration-300">
         <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">The Fear Room</p>
       </div>
-      <div class="about-card bg-[#1b2a41]/10 rounded-xl p-4 transform opacity-0 translate-y-6 transition-all duration-700">
+      <div class="about-card bg-[#1b2a41]/10 rounded-xl p-4 transform opacity-0 translate-y-6 transition-all duration-700 cursor-pointer">
         <img src="./img/pictures/The Great Divide.png" alt="The Great Divide" 
             class="rounded mt-[-10px] mb-3 border border-white hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition duration-300">
         <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">The Great Divide</p>
@@ -138,17 +137,21 @@
 
 
   <!-- Lore Section with Parallax -->
-  <section id="lore" class="bg-[#121e33] py-16 px-6 relative overflow-hidden">
-    <div class="absolute inset-0 bg-fixed bg-center bg-cover opacity-20" style="background-image: url('lore-bg.jpg');"></div>
-    <div class="relative max-w-3xl mx-auto text-center">
-      <h2 class="text-4xl font-semibold mb-6 parallax">Lore of the Vision</h2>
-      <p class="text-lg leading-relaxed mb-8 parallax">In the twilight between data and dream, a figure emerges—faceless yet visionary. This is the Dream Agent, threading mythology, technology, and symbol into a tapestry of meaning hidden in plain sight. The journey awaits those who dare to look deeper.</p>
-      <a href="https://xrpcafe.com/" target="_blank" class="mt-6 inline-block bg-blue-600 px-8 py-3 text-lg rounded hover:bg-blue-700 transition">Explore on XRP Café</a>
-    </div>
-  </section>
+<section id="lore" class="bg-[#121e33] py-20 px-6 relative overflow-hidden -mt-16">
+  <div class="absolute inset-0 bg-fixed bg-center bg-cover opacity-20" style="background-image: url('lore-bg.jpg');"></div>
+  <div class="relative max-w-3xl mx-auto text-center text-white">
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6">The Lore</h2>
+    <p class="text-lg sm:text-xl mb-8">
+      This is where the story unfolds — a journey through symbols, myth, and machines.
+    </p>
+    <a href="https://xrpcafe.com/" target="_blank" class="mt-6 inline-block bg-blue-600 px-8 py-3 text-lg rounded hover:bg-blue-700 transition">Explore on XRP Café</a>
+  </div>
+</section>
+
+
 
   <!-- Footer -->
-  <footer class="py-6 text-center text-gray-400 text-sm">
+  <footer class="py-6 text-center text-gray-400 text-sm bg-[#121e33] ">
     © 2025 Courdevelops. All rights reserved.
   </footer>
 
