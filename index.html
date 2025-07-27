@@ -17,8 +17,18 @@
     opacity: 1;
     transform: scale(1);
   }
- 
+ :root {
+    --vh: 100%;
+  }
 </style>
+
+<script>
+  function setVh() {
+    document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+  }
+  window.addEventListener('resize', setVh);
+  window.addEventListener('load', setVh);
+</script>
 
 
 </head>
@@ -72,7 +82,8 @@
 
 <!-- ABOUT SECTION -->
 <section id="about" 
-  class="relative w-full h-[120vh] flex flex-col justify-center items-center px-6 text-center bg-[url('./img/about_background_lighter.png')] bg-cover bg-center bg-no-repeat lg:h-[120vh]">
+  class="relative w-full h-[120vh] flex flex-col justify-center items-center px-6 text-center bg-[url('./img/about_background_lighter.png')] bg-cover bg-center bg-no-repeat lg:h-[120vh]"">
+  
 
 
   <!-- Full-section Blue Tint Overlay -->
@@ -213,38 +224,7 @@
       });
     });
 
-  // Menu Toggle
-  // const menuBtn = document.getElementById('menu-btn');
-  // const menuLinks = document.getElementById('menu-links');
-  // let menuOpen = false;
-
-  // menuBtn.addEventListener('click', () => {
-  //   if (!menuOpen) {
-  //     // Show menu
-  //     menuLinks.classList.remove('hidden');
-  //     gsap.to(menuLinks, { 
-  //       opacity: 1, 
-  //       y: 0, 
-  //       duration: 0.4, 
-  //       ease: "power2.out"
-  //     });
-  //     menuBtn.textContent = "Close";
-  //     menuOpen = true;
-  //   } else {
-  //     // Hide menu with animation
-  //     gsap.to(menuLinks, { 
-  //       opacity: 0, 
-  //       y: -10, 
-  //       duration: 0.3, 
-  //       ease: "power2.in",
-  //       onComplete: () => menuLinks.classList.add('hidden') 
-  //     });
-  //     menuBtn.textContent = "Menu";
-  //     menuOpen = false;
-  //   }
-  // });
-
-
+    // Menu Button
     const menuBtn = document.getElementById('menu-btn');
     const menuLinks = document.getElementById('menu-links');
 
@@ -256,63 +236,6 @@
         menuBtn.textContent = "Menu";
       } else {
         menuBtn.textContent = "Close";
-      }
-    });
-
-
-
-    // Audio Toggle with LocalStorage Persistence and Fade In/Out
-    const audio = document.getElementById('ambient-sound');
-    const audioToggle = document.getElementById('audio-toggle');
-    const audioIcon = document.getElementById('audio-icon');
-    const audioLabel = document.getElementById('audio-label');
-    const savedAudioState = localStorage.getItem('audioState');
-
-    if (savedAudioState === 'playing') {
-      fadeAudio(audio, true);
-      audio.muted = false;
-      audioIcon.textContent = '⏸️';
-      audioLabel.textContent = 'Pause Audio';
-    }
-
-    function fadeAudio(audioEl, fadeIn = true, duration = 1000) {
-      const step = 50;
-      const volumeChange = step / duration;
-      if (fadeIn) {
-        audioEl.volume = 0;
-        audioEl.muted = false;
-        audioEl.play();
-        const fadeInInterval = setInterval(() => {
-          if (audioEl.volume < 1) {
-            audioEl.volume = Math.min(audioEl.volume + volumeChange, 1);
-          } else {
-            clearInterval(fadeInInterval);
-          }
-        }, step);
-      } else {
-        const fadeOutInterval = setInterval(() => {
-          if (audioEl.volume > 0) {
-            audioEl.volume = Math.max(audioEl.volume - volumeChange, 0);
-          } else {
-            audioEl.pause();
-            audioEl.muted = true;
-            clearInterval(fadeOutInterval);
-          }
-        }, step);
-      }
-    }
-
-    audioToggle.addEventListener('click', () => {
-      if (audio.paused || audio.muted) {
-        fadeAudio(audio, true);
-        audioIcon.textContent = '⏸️';
-        audioLabel.textContent = 'Pause Audio';
-        localStorage.setItem('audioState', 'playing');
-      } else {
-        fadeAudio(audio, false);
-        audioIcon.textContent = '▶️';
-        audioLabel.textContent = 'Play Audio';
-        localStorage.setItem('audioState', 'paused');
       }
     });
 
