@@ -35,13 +35,13 @@
 <header class="fixed top-0 right-0 w-full p-4 z-50">
   <nav class="flex justify-end items-center">
     <!-- Menu Button -->
-    <button id="menu-btn" class="text-white text-xl px-4 py-2 bg-[#1b2a41] rounded hover:bg-blue-700 transition">
+    <button id="menu-btn" class="text-white text-xl px-4 py-2 bg-[#1b2a41]/0 rounded hover:bg-blue-700 transition">
       Menu
     </button>
 
     <!-- Hidden Menu -->
-    <ul id="menu-links" class="hidden flex-row space-x-8 text-white text-lg bg-[#1b2a41]/90 px-6 py-3 rounded-lg ml-4">
-      <li><a href="#" class="hover:text-blue-400">Home</a></li>
+    <ul id="menu-links" class="hidden flex-row space-x-8 text-white text-lg bg-[#1b2a41]/50 px-6 py-3 rounded-lg ml-4">
+      <li><a href="#home" class="hover:text-blue-400">Home</a></li>
       <li><a href="#about" class="hover:text-blue-400">About</a></li>
       <li><a href="#lore" class="hover:text-blue-400">Lore</a></li>
       <li><a href="https://xrp.cafe/collection/dreamagent7" target="_blank" class="hover:text-blue-400">XRP Café</a></li>
@@ -56,7 +56,7 @@
 
 
   <!-- Hero Section -->
-<section class="min-h-screen flex flex-col justify-center items-center text-center p-6 py-20 sm:py-28 lg:py-80 gap-6 sm:gap-10 lg:gap-16 bg-fixed bg-center bg-cover" style="background-image: url('hero-bg.jpg');">
+<section id="home" class="min-h-screen flex flex-col justify-center items-center text-center p-6 py-20 sm:py-28 lg:py-80 gap-6 sm:gap-10 lg:gap-16 bg-fixed bg-center bg-cover" style="background-image: url('hero-bg.jpg');">
   <img src="./img/hero_logo.png" alt="Dream Agent Logo" class="hero-animate w-[220px] sm:w-[300px] h-[180px] sm:h-[250px] opacity-0 transition-opacity duration-700 lg: -mt-40" id="logo">
   <h1 class="hero-animate text-3xl sm:text-4xl lg:text-6xl text-white opacity-0 transition-opacity duration-700 font-normal" id="title">
     No face. No fame. Just the vision.
@@ -149,16 +149,17 @@
 <section id="lore" class="bg-[#121e33] py-20 px-6 relative overflow-hidden -mt-16">
   <div class="absolute inset-0 bg-fixed bg-center bg-cover opacity-20" style="background-image: url('lore-bg.jpg');"></div>
   <div class="relative max-w-3xl mx-auto text-center text-white">
-    <!-- <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6">The Lore</h2> -->
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6">The Lore</h2>
     <p class="text-lg sm:text-xl mb-8 flex space-x-8">
       This is where the story unfolds — a journey through symbols, myth, and machines.
-     <img src="./img/logos/Dream Agent Logo White.png" class="w-20 h-20">
     
     </p>
-    <a href="https://xrpcafe.com/" target="_blank" class="mt-6 inline-block bg-blue-600 px-8 py-3 text-lg rounded hover:bg-blue-700 transition">Explore on XRP Café</a>
-    <a href="https://xrpcafe.com/" target="_blank" class="mt-6 inline-block bg-blue-600 px-8 py-3 text-lg rounded hover:bg-blue-700 transition">Explore on XRP Café</a>
-    <a href="https://xrpcafe.com/" target="_blank" class="mt-6 inline-block bg-blue-600 px-8 py-3 text-lg rounded hover:bg-blue-700 transition">Explore on XRP Café</a>
-    <a href="https://xrpcafe.com/" target="_blank" class="mt-6 inline-block bg-blue-600 px-8 py-3 text-lg rounded hover:bg-blue-700 transition">Explore on XRP Café</a>
+    <div class="flex">
+      <a href="https://twitter.com/" target="_blank" class="transition"><img class="w-20 h-20 mr-2" src="./img/logos/Twitter.png" alt="twitter"></a>
+      <a href="https://xrpcafe.com/" target="_blank" class="transition"><img class="w-20 h-20 mr-2" src="./img/logos/XRP Cafe.png" alt="xrpcafe"></a>
+      <a href="https://opensea.com/" target="_blank" class="transition"><img class="w-20 h-20 mr-2" src="./img/logos/opeansea.png" alt="opensea"></a>
+      <img src="./img/logos/Dream Agent Logo White.png" class="w-20 h-20">
+    </div>
   </div>
 </section>
 
