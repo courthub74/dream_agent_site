@@ -31,20 +31,28 @@
     <span id="audio-label">Play Audio</span>
   </button>
 
-  <!-- Collapsible Menu -->
- <header class="fixed top-0 right-0 w-full bg-none p-4 z-50">
-  <nav id="menu" class="fixed top-0 right-0 w-full bg-none p-6">
-  <ul class="flex justify-end space-x-8 text-white text-lg">
-    <li><a href="#" class="hover:text-blue-400">Home</a></li>
-    <li><a href="#about" class="hover:text-blue-400">About</a></li>
-    <li><a href="#lore" class="hover:text-blue-400">Lore</a></li>
-    <li><a href="https://xrp.cafe/collection/dreamagent7" target="_blank" class="hover:text-blue-400">XRP Café</a></li>
-    <li><a href="https://superrare.com/" target="_blank" class="hover:text-blue-400">Super Rare</a></li>
-    <li><a href="https://opensea.com/" target="_blank" class="hover:text-blue-400">Opensea</a></li>
-  </ul>
-</nav>
+<!-- Collapsible Menu -->
+<header class="fixed top-0 right-0 w-full p-4 z-50">
+  <nav class="flex justify-end items-center">
+    <!-- Menu Button -->
+    <button id="menu-btn" class="text-white text-xl px-4 py-2 bg-[#1b2a41] rounded hover:bg-blue-700 transition">
+      Menu
+    </button>
 
+    <!-- Hidden Menu -->
+    <ul id="menu-links" class="hidden flex-row space-x-8 text-white text-lg bg-[#1b2a41]/90 px-6 py-3 rounded-lg ml-4">
+      <li><a href="#" class="hover:text-blue-400">Home</a></li>
+      <li><a href="#about" class="hover:text-blue-400">About</a></li>
+      <li><a href="#lore" class="hover:text-blue-400">Lore</a></li>
+      <li><a href="https://xrp.cafe/collection/dreamagent7" target="_blank" class="hover:text-blue-400">XRP Café</a></li>
+      <li><a href="https://superrare.com/" target="_blank" class="hover:text-blue-400">Super Rare</a></li>
+      <li><a href="https://opensea.com/" target="_blank" class="hover:text-blue-400">Opensea</a></li>
+    </ul>
+  </nav>
 </header>
+
+
+
 
 
   <!-- Hero Section -->
@@ -185,12 +193,53 @@
       });
     });
 
-    // Menu Toggle
+  // Menu Toggle
+  // const menuBtn = document.getElementById('menu-btn');
+  // const menuLinks = document.getElementById('menu-links');
+  // let menuOpen = false;
+
+  // menuBtn.addEventListener('click', () => {
+  //   if (!menuOpen) {
+  //     // Show menu
+  //     menuLinks.classList.remove('hidden');
+  //     gsap.to(menuLinks, { 
+  //       opacity: 1, 
+  //       y: 0, 
+  //       duration: 0.4, 
+  //       ease: "power2.out"
+  //     });
+  //     menuBtn.textContent = "Close";
+  //     menuOpen = true;
+  //   } else {
+  //     // Hide menu with animation
+  //     gsap.to(menuLinks, { 
+  //       opacity: 0, 
+  //       y: -10, 
+  //       duration: 0.3, 
+  //       ease: "power2.in",
+  //       onComplete: () => menuLinks.classList.add('hidden') 
+  //     });
+  //     menuBtn.textContent = "Menu";
+  //     menuOpen = false;
+  //   }
+  // });
+
+
     const menuBtn = document.getElementById('menu-btn');
-    const closeMenu = document.getElementById('close-menu');
-    const menu = document.getElementById('menu');
-    menuBtn.addEventListener('click', () => menu.classList.remove('translate-x-full'));
-    closeMenu.addEventListener('click', () => menu.classList.add('translate-x-full'));
+    const menuLinks = document.getElementById('menu-links');
+
+    menuBtn.addEventListener('click', () => {
+      menuLinks.classList.toggle('hidden');
+      menuLinks.classList.toggle('flex'); // Makes it horizontal
+       // Toggle button text
+      if (menuLinks.classList.contains('hidden')) {
+        menuBtn.textContent = "Menu";
+      } else {
+        menuBtn.textContent = "Close";
+      }
+    });
+
+
 
     // Audio Toggle with LocalStorage Persistence and Fade In/Out
     const audio = document.getElementById('ambient-sound');
