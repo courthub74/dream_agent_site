@@ -17,6 +17,9 @@
     opacity: 1;
     transform: scale(1);
   }
+  .about {
+      height: 100vh; /* Full viewport height */
+    }
 </style>
 
 
@@ -68,17 +71,21 @@
   </a>
 </section>
 
+
 <!-- ABOUT SECTION -->
 <section id="about" 
-  class="relative w-full py-20 sm:py-28 lg:py-60 px-6 text-center mb-0 sm:mb-0 lg:mb-0 -mt-12 bg-[url('./img/about_background_lighter.png')] bg-cover bg-center bg-no-repeat">
+  class="about relative w-full h-[120vh] flex flex-col justify-center items-center px-6 text-center bg-[url('./img/about_background_lighter.png')] bg-cover bg-center bg-no-repeat">
+
 
   <!-- Full-section Blue Tint Overlay -->
-  <div class="absolute inset-0 bg-[#0057B8]/10"></div>  <!-- Increased to /30 for better visibility -->
+  <div class="absolute inset-0 bg-[#0057B8]/10"></div>
 
   <div class="max-w-5xl mx-auto relative z-10">
-    <h2 class="text-2xl sm:text-4xl lg:text-5xl text-white font-semibold mb-4 -mt-20">
+    <!-- Adjusted Heading Spacing -->
+    <h2 class="text-2xl sm:text-4xl lg:text-5xl text-white font-semibold mb-4 mt-10 sm:mt-16 lg:-mt-56">
       About
     </h2>
+
     <p class="text-base sm:text-lg lg:text-xl text-white">
       Dream Agent is an anonymous force emerging from the digital shadows, a curator of machine 
       hallucinations who paints with prompts and sculpts meaning from code. Blurring the line between 
@@ -90,38 +97,30 @@
       look, but to question, decode, and reflect.
     </p>
 
-    <!-- Regular Spacing -->
-    <!-- <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-10 sm:my-14 lg:my-20 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-0 scale-x-0 transition-transform duration-700 ease-out" id="about-divider"></div> -->
-
-    <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-4 sm:my-6 lg:my-8 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-0 scale-x-0 transition-transform duration-700 ease-out" id="about-divider"></div>
-
-    <!-- Closest Spacing -->
-     <!-- <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto mt-2 mb-6 sm:mt-3 sm:mb-8 lg:mt-4 lg:mb-10 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-0 scale-x-0 transition-transform duration-700 ease-out" id="about-divider"></div> -->
-
+    <!-- Divider -->
+    <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-0 scale-x-0 transition-transform duration-700 ease-out" id="about-divider"></div>
     
     <!-- IMAGES -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-[-35px]">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 sm:mt-10 lg:-mt-10">
       <div class="about-card bg-[#1b2a41]/10 rounded-xl p-4 transform opacity-0 translate-y-6 transition-all duration-700 cursor-pointer">
         <img src="./img/pictures/Crypto Fish Tank.png" alt="Crypto Fish Tank" 
-            class="rounded mt-[-10px] mb-3 border border-white hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition duration-300">
-        <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">Crypto Fish Tank</p>
+            class="rounded mb-3 border border-white hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition duration-300">
+        <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">Collection: The firsts</p>
       </div>
       <div class="about-card bg-[#1b2a41]/10 rounded-xl p-4 transform opacity-0 translate-y-6 transition-all duration-700 cursor-pointer">
         <img src="./img/pictures/The Fear Room.png" alt="The Fear Room" 
-            class="rounded mt-[-10px] mb-3 border border-white hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition duration-300">
-        <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">The Fear Room</p>
+            class="rounded mb-3 border border-white hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition duration-300">
+        <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">Collection: The seconds</p>
       </div>
       <div class="about-card bg-[#1b2a41]/10 rounded-xl p-4 transform opacity-0 translate-y-6 transition-all duration-700 cursor-pointer">
         <img src="./img/pictures/The Great Divide.png" alt="The Great Divide" 
-            class="rounded mt-[-10px] mb-3 border border-white hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition duration-300">
-        <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">The Great Divide</p>
+            class="rounded mb-3 border border-white hover:shadow-[0_0_8px_rgba(255,255,255,0.7)] transition duration-300">
+        <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">Collection: The thirds</p>
       </div>
     </div>
-
-</div>
-
   </div>
 </section>
+
 
 
 
@@ -160,27 +159,27 @@
 
 
   <!-- Lore Section with Parallax -->
+<!-- LORE SECTION -->
+
 <section id="lore" class="bg-[#121e33] py-20 px-6 relative overflow-hidden -mt-16">
   <div class="absolute inset-0 bg-fixed bg-center bg-cover opacity-20" style="background-image: url('lore-bg.jpg');"></div>
   <div class="relative max-w-3xl mx-auto text-center text-white bg">
     <h2 class="text-3xl sm:text-4xl lg:text-3xl font-semibold mb-6">Follow the vision</h2>
     <p class="text-lg sm:text-xl mb-8 flex space-x-8">
-      <!-- This is where the story unfolds — a journey through symbols, myth, and machines. -->
        <!-- Follow the path of The Dream Agent, a journey through symbols, myth, and machines. -->
        <!-- Follow the footprints of the Dream Agent, left in sleeping minds and waking dreams. -->
        <!-- Follow the footprints of the Dream Agent, left in sleeping data. -->
-    
     </p>
-    <!-- Socials -->
-    <div class="flex justify-center gap-8 flex-wrap">
-      <a href="https://twitter.com/" target="_blank" class="transition"><img class="w-10 h-10 mr-2" src="./img/logos/Twitter.png" alt="twitter"></a>
-      <a href="https://instagram.com/" target="_blank" class="transition"><img class="w-10 h-10 mr-2" src="./img/logos/Instagram.png" alt="instagram"></a>
-      <a href="https://bluesky.com/" target="_blank" class="transition"><img class="w-10 h-10 mr-2" src="./img/logos/Bluesky.png" alt="bluesky"></a>
-      <a href="https://tiktok.com/" target="_blank" class="transition"><img class="w-10 h-10 mr-2" src="./img/logos/Tiktok.png" alt="tiktok"></a>
-      <a href="https://xrpcafe.com/dreamagent7" target="_blank" class="transition"><img class="w-10 h-10 mr-2" src="./img/logos/XRP Cafe.png" alt="xrpcafe"></a>
-      <a href="https://superrare.com" target="_blank" class="transition"><img class="w-10 h-10 mr-2" src="./img/logos/Superrare.png" alt="superrare"></a>
-      <a href="https://opensea.com/" target="_blank" class="transition"><img class="w-10 h-10 mr-2" src="./img/logos/opeansea.png" alt="opensea"></a>
-       <a href="#home"><img src="./img/logos/DreamAgent Logo Square Wood.png" class="w-10 h-10"></a>
+   
+    <div class="flex justify-center sm:gap-6 lg:gap-8 flex-wrap">
+      <a href="https://twitter.com/" target="_blank" class="transition"><img class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-2" src="./img/logos/Twitter.png" alt="twitter"></a>
+      <a href="https://instagram.com/" target="_blank" class="transition"><img class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-2" src="./img/logos/Instagram.png" alt="instagram"></a>
+      <a href="https://bluesky.com/" target="_blank" class="transition"><img class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-2" src="./img/logos/Bluesky.png" alt="bluesky"></a>
+      <a href="https://tiktok.com/" target="_blank" class="transition"><img class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-2" src="./img/logos/Tiktok.png" alt="tiktok"></a>
+      <a href="https://xrpcafe.com/dreamagent7" target="_blank" class="transition"><img class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-2" src="./img/logos/XRP Cafe.png" alt="xrpcafe"></a>
+      <a href="https://superrare.com" target="_blank" class="transition"><img class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-2" src="./img/logos/Superrare.png" alt="superrare"></a>
+      <a href="https://opensea.com/" target="_blank" class="transition"><img class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-2" src="./img/logos/opeansea.png" alt="opensea"></a>
+       <a href="#home"><img src="./img/logos/DreamAgent Logo Square Wood.png" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-2"></a>
     </div>
   </div>
 </section>
