@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <!-- CSS -->
+   <link rel="stylesheet" href="./style.css">
   <style>
   .fade-in {
     opacity: 0;
@@ -33,14 +34,6 @@
 
 </head>
 <body class="bg-[url('./img/plain_background.png')] bg-cover bg-center h-screen w-full" style="font-family: Times New Roman, Times, serif;">
-  <!-- Ambient Audio -->
-  <!-- <audio id="ambient-sound" loop muted>
-    <source src="ambient.mp3" type="audio/mpeg">
-  </audio> -->
-  <!-- <button id="audio-toggle" class="fixed bottom-4 right-4 bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700 transition z-50 flex items-center space-x-2">
-    <span id="audio-icon">▶️</span>
-    <span id="audio-label">Play Audio</span>
-  </button> -->
 
 <!-- Collapsible Menu -->
 <header class="fixed top-0 right-0 w-full p-4 z-50">
@@ -67,35 +60,35 @@
 
 
   <!-- Hero Section -->
-<section id="home" class="min-h-screen flex flex-col justify-center items-center text-center p-6 py-20 sm:py-28 lg:py-80 gap-6 sm:gap-10 lg:gap-16 bg-fixed bg-center bg-cover lg: h-[120vh]" style="background-image: url('hero-bg.jpg');">
-  <img src="./img/hero_logo.png" alt="Dream Agent Logo" class="hero-animate w-[220px] sm:w-[300px] h-[180px] sm:h-[250px] opacity-0 transition-opacity duration-700 lg: -mt-40" id="logo">
-  <h1 class="hero-animate text-3xl sm:text-4xl lg:text-6xl text-white opacity-0 transition-opacity duration-700 font-normal" id="title">
-    No face. No fame. Just the vision.
-  </h1>
-  <a href="#about" 
-     class="hero-animate border border-white px-6 py-3 sm:py-4 lg:py-5 mt-6 lg:mt-10 text-base sm:text-lg lg:text-xl text-white hover:bg-white hover:text-[#0f1c2e] transition-opacity duration-700 opacity-0" 
-     id="cta">
-    ENTER THE REALM
-  </a>
+<section id="home" class="home">
+  <div class="home_container">
+    <img src="./img/hero_logo.png" alt="Dream Agent Logo" class="hero-animate w-[220px] sm:w-[300px] h-[180px] sm:h-[250px] opacity-0 transition-opacity duration-700 lg: -mt-40" id="logo">
+    <h1 class="hero-animate text-3xl sm:text-4xl lg:text-6xl text-white opacity-0 transition-opacity duration-700 font-normal" id="title">
+      No face. No fame. Just the vision.
+    </h1>
+    <a href="#about" 
+      class="hero-animate border border-white px-6 py-3 sm:py-4 lg:py-5 mt-6 lg:mt-10 text-base sm:text-lg lg:text-xl text-white hover:bg-white hover:text-[#0f1c2e] transition-opacity duration-700 opacity-0" 
+      id="cta">
+      ENTER THE REALM
+    </a>
+  </div>
 </section>
 
 
 <!-- ABOUT SECTION -->
 <section id="about" 
-  class="relative w-full h-[120vh] flex flex-col justify-center items-center px-6 text-center bg-[url('./img/about_background_lighter.png')] bg-cover bg-center bg-no-repeat lg:h-[120vh]"">
-  
+  class="about">
+  <div class="about_container">
+     <!-- Full-section Blue Tint Overlay -->
+  <!-- <div class="absolute inset-0 bg-[#0057B8]/10"></div> -->
 
-
-  <!-- Full-section Blue Tint Overlay -->
-  <div class="absolute inset-0 bg-[#0057B8]/10"></div>
-
-  <div class="max-w-5xl mx-auto relative z-10">
+  <div class="titles">
     <!-- Adjusted Heading Spacing -->
-    <h2 class="text-2xl sm:text-4xl lg:text-5xl text-white font-semibold mb-4 mt-10 sm:mt-16 lg:-mt-56">
+    <h2>
       About
     </h2>
 
-    <p class="text-base sm:text-lg lg:text-xl text-white">
+    <p class="Para">
       Dream Agent is an anonymous force emerging from the digital shadows, a curator of machine 
       hallucinations who paints with prompts and sculpts meaning from code. Blurring the line between 
       creator and creation, they transform AI-generated art into symbolic, surrealist worlds—each piece 
@@ -127,6 +120,7 @@
         <p class="text-lg sm:text-xl lg:text-2xl text-white font-normal">Collection: The thirds</p>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
