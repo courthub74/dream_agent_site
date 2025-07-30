@@ -13,40 +13,45 @@
    <!-- For the Transitions -->
   <style>
 
-  /* FADE IN ANIMATES */
-  .fade-in {
-    opacity: 0;
-    transform: scale(0.8);
-    /* transition: opacity 6s ease-out, transform 6s ease-out; 4s fade */
-    transition: opacity 1s ease-out, transform 1s ease-out; /* 4s fade */
-  }
-  .fade-in.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
+    /* FADE IN ANIMATES */
+    .fade-in {
+      opacity: 0;
+      transform: scale(0.8);
+      /* transition: opacity 6s ease-out, transform 6s ease-out; 4s fade */
+      transition: opacity 1s ease-out, transform 1s ease-out; /* 4s fade */
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
 
-  /* Cards initial + visible state */
-  .about-card {
-    opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  }
-  .about-card.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
+    /* Cards initial + visible state */
+    .about-card {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .about-card.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
 
-  /* Divider smooth animation */
-  #about-divider {
-    transform: scaleX(0);
-    opacity: 0;
-    transition: transform 1s ease-out, opacity 1s ease-out;
-  }
-  #about-divider.visible {
-    transform: scaleX(1);
-    opacity: 1;
-  }
+    /* Divider smooth animation */
+    #about-divider {
+      transform: scaleX(0);
+      opacity: 0;
+      transition: transform 1s ease-out, opacity 1s ease-out;
+    }
+    #about-divider.visible {
+      transform: scaleX(1);
+      opacity: 1;
+    }
 
+    .about-link {
+      border: 1px solid white;
+      /* border-color: rgba(255, 255, 255, 0); fully transparent at start */
+      transition: opacity 1s ease-out, transform 1s ease-out, border-color 1s ease-out;
+    }
 </style>
 
 
@@ -78,14 +83,14 @@
 <section id="home" class="home">
   <div class="home_container">
       <img src="./img/hero_logo.png" alt="Dream Agent Logo" class="hero-animate" id="logo">
-      <h1 class="hero-animate" id="title">
+      <h1 class="hero-animate fade-in" id="title">
         No face. No fame. Just the vision.
       </h1>
-      <a href="#about" 
-        class="about-link hero-animate" 
-        id="cta">
-        ENTER THE REALM
-      </a>
+  
+        <a href="#about" class="about-link hero-animate fade-in" id="cta">
+          ENTER THE REALM
+        </a>
+  
   </div>
 </section>
 
@@ -139,40 +144,6 @@
   </div>
   </div>
 </section>
-
-
-
-
-
-<!-- <script>
-  // Divider animation
-  const divider = document.getElementById('about-divider');
-  const dividerObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        divider.classList.remove('opacity-0', 'scale-x-0');
-        divider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
-      }
-    });
-  }, { threshold: 0.5 });
-  dividerObserver.observe(divider);
-
-  // Cards staggered animation
-  const cards = document.querySelectorAll('.about-card');
-  const cardsObserver = new IntersectionObserver(entries => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.remove('opacity-0');
-        }, index * 200); // stagger effect (200ms between each)
-      }
-    });
-  }, { threshold: 0.3 });
-  cards.forEach(card => cardsObserver.observe(card));
-</script> -->
-
-
-
 
 
 
@@ -269,6 +240,17 @@
       });
     }, { threshold: 0.3 });
     cards.forEach(card => cardsObserver.observe(card));
+
+    // Fade ins on the Hero section
+    const fadeIns = document.querySelectorAll('.fade-in');
+    const fadeInObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeInObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
 </script>
 
 </body>
