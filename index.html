@@ -12,15 +12,41 @@
 
    <!-- For the Transitions -->
   <style>
+
+  /* FADE IN ANIMATES */
   .fade-in {
     opacity: 0;
     transform: scale(0.8);
-    transition: opacity 6s ease-out, transform 6s ease-out; /* 4s fade */
+    /* transition: opacity 6s ease-out, transform 6s ease-out; 4s fade */
+    transition: opacity 1s ease-out, transform 1s ease-out; /* 4s fade */
   }
   .fade-in.visible {
     opacity: 1;
     transform: scale(1);
   }
+
+  /* Cards initial + visible state */
+  .about-card {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .about-card.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Divider smooth animation */
+  #about-divider {
+    transform: scaleX(0);
+    opacity: 0;
+    transition: transform 1s ease-out, opacity 1s ease-out;
+  }
+  #about-divider.visible {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
 </style>
 
 
@@ -56,7 +82,7 @@
         No face. No fame. Just the vision.
       </h1>
       <a href="#about" 
-        class="" 
+        class="about-link hero-animate" 
         id="cta">
         ENTER THE REALM
       </a>
@@ -88,19 +114,24 @@
     </p>
 
     <!-- Divider -->
+     <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-0 scale-x-0 transition-transform duration-700 ease-out" id="about-divider"></div>
     
+      <h3>
+        Collections
+     </h3>
     
     <!-- IMAGES -->
     <div class="collection-gallery">
-      <div class="each-photo-div">
+    
+      <div class="each-photo-div about-card fade-in ">
         <img src="./img/pictures/Crypto Fish Tank.png" alt="Crypto Fish Tank" class="each-photo">
         <p class="photo-title">Collection: The firsts</p>
       </div>
-      <div class="each-photo">
+      <div class="each-photo-div about-card fade-in ">
         <img src="./img/pictures/The Fear Room.png" alt="The Fear Room" class="each-photo">
         <p class="photo-title">Collection: The seconds</p>
       </div>
-      <div class="each-photo">
+      <div class="each-photo-div about-card fade-in ">
         <img src="./img/pictures/The Great Divide.png" alt="The Great Divide" class="each-photo">
         <p class="photo-title">Collection: The thirds</p>
       </div>
@@ -113,7 +144,7 @@
 
 
 
-<script>
+<!-- <script>
   // Divider animation
   const divider = document.getElementById('about-divider');
   const dividerObserver = new IntersectionObserver(entries => {
@@ -127,7 +158,6 @@
   dividerObserver.observe(divider);
 
   // Cards staggered animation
-
   const cards = document.querySelectorAll('.about-card');
   const cardsObserver = new IntersectionObserver(entries => {
     entries.forEach((entry, index) => {
@@ -139,7 +169,7 @@
     });
   }, { threshold: 0.3 });
   cards.forEach(card => cardsObserver.observe(card));
-</script>
+</script> -->
 
 
 
@@ -189,10 +219,9 @@
       });
     });
 
-    // GSAP Animations
+    // GSAP Animations for Hero
     gsap.to("#logo", {opacity:1, y:0, duration:1});
     gsap.to("#title", {opacity:1, y:0, duration:1, delay:0.5});
-    gsap.to("#tagline", {opacity:1, y:0, duration:1, delay:1});
     gsap.to("#cta", {opacity:1, y:0, duration:1, delay:1.5});
 
     // Parallax effect
@@ -204,34 +233,43 @@
       });
     });
 
-    // Menu Button
+    // Menu Button Toggle
     const menuBtn = document.getElementById('menu-btn');
     const menuLinks = document.getElementById('menu-links');
-
     menuBtn.addEventListener('click', () => {
       menuLinks.classList.toggle('hidden');
-      menuLinks.classList.toggle('flex'); // Makes it horizontal
-       // Toggle button text
-      if (menuLinks.classList.contains('hidden')) {
-        menuBtn.textContent = "Menu";
-      } else {
-        menuBtn.textContent = "Close";
-      }
+      menuLinks.classList.toggle('flex'); 
+      menuBtn.textContent = menuLinks.classList.contains('hidden') ? "Menu" : "Close";
     });
 
-    // Scroll-triggered fade-in for About section cards
-    const fadeEls = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
+    // Divider animation
+    const divider = document.getElementById('about-divider');
+    const dividerObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // animate only once
+          divider.classList.add('visible');
+          dividerObserver.unobserve(divider);
+          divider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
         }
-    });
-    }, { threshold: 0.2 });
+      });
+    }, { threshold: 0.5 });
+    dividerObserver.observe(divider);
 
-    fadeEls.forEach(el => observer.observe(el));
+    // Cards staggered animation
+    const cards = document.querySelectorAll('.about-card');
+    const cardsObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = Array.from(cards).indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 200); // 200ms stagger per card
+          cardsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    cards.forEach(card => cardsObserver.observe(card));
+</script>
 
-  </script>
 </body>
 </html>

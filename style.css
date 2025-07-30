@@ -1,5 +1,6 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
+    color: beige;
 }
 
 body {
@@ -18,6 +19,7 @@ body {
 .navbar {
     display: none;
 }
+
 /* ************************************* */
 /* *******HERO SECTION****************** */
 .home {
@@ -27,6 +29,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
 }
 
 .home_container {
@@ -34,6 +37,46 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: -5rem;
+    gap: 3rem;
+}
+
+#logo {
+    width: 300px;
+    height: 270px;
+    margin-bottom: 2rem;
+}
+
+#title {
+    font-size: 3rem;
+    /* color: white; */
+    text-align: center;
+    margin-bottom: 1rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.about-link {
+    border: 1px solid white;
+    /* color: white; */
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-top: 1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.about-link:hover {
+    background-color: #0057b8;
+    background-color: beige;
+    /* color: white; */
+    color: darkblue;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-top: 1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 
@@ -55,18 +98,33 @@ body {
 }
 
 .about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     flex: 1;
     object-fit: cover;
     height: 100%;
     padding: 5rem; 
     background-size: cover;
-    color: white;
+}
+
+.about-content {
+    margin-top: -5em;
 }
 
 /* Title ABOUT */
 .about-content h2 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+.about-content h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .about-paragraph {
@@ -83,18 +141,27 @@ body {
     align-items: center;
     gap: 2rem;
 }
+
+.each-photo-div {
+
+}
 .each-photo {
     width: 300px;
     height: 300px;
     overflow: hidden;
     position: relative;
+    border: 1px solid beige;
+}
+
+.photo-title {
+    
 }
 
 /* *************************************** */
 /* **************LORE/FOOTER************** */
 .lore {
     background-color: #121e33;
-    color: white;
+    /* color: white; */
     padding: 6rem;
     display: flex;
     flex-direction: column;
@@ -105,6 +172,7 @@ body {
 
 .lore-header {
     font-size: 2rem;
+    font-family: 'Times New Roman', Times, serif;
     /* margin-bottom: 1rem; */
 }
 
@@ -125,7 +193,7 @@ body {
 footer {
     text-align: center;
     margin-top: 5rem;
-    color: white;
+    /* color: white; */
     font-size: 0.9rem;  
 }
 
