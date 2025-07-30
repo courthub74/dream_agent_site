@@ -12,6 +12,10 @@
 
    <!-- For the Transitions -->
   <style>
+    /* General styles */
+    * {
+      color: beige;
+    }
 
     /* FADE IN ANIMATES */
     .fade-in {
@@ -48,10 +52,14 @@
     }
 
     .about-link {
-      border: 1px solid white;
-      /* border-color: rgba(255, 255, 255, 0); fully transparent at start */
-      transition: opacity 1s ease-out, transform 1s ease-out, border-color 1s ease-out;
+      background-color: none;
+      background-color: #0057B8;
+      /* color: rgb(185, 185, 162); */
+      font-family: 'Times New Roman', Times, serif;
+      border: 1px solid rgba(255,255,255,0); /* invisible at start */
+      /* font-size: 2rem; */
     }
+
 </style>
 
 
@@ -193,6 +201,13 @@
     // GSAP Animations for Hero
     gsap.to("#logo", {opacity:1, y:0, duration:1});
     gsap.to("#title", {opacity:1, y:0, duration:1, delay:0.5});
+    // Animate text opacity & border color together
+    // gsap.to("#cta", { 
+    //   opacity: 1, 
+    //   y: 0, 
+    //   borderColor: "rgba(255,255,255,1)", 
+    //   duration: 1, 
+    //   delay: 1.5});
     gsap.to("#cta", {opacity:1, y:0, duration:1, delay:1.5});
 
     // Parallax effect
