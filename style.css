@@ -371,7 +371,7 @@ footer {
 }
 
    .each-social {
-        height: 30px;         /* Set height only */
+        height: 20px;         /* Set height only */
         width: auto;          /* Let width scale proportionally */
         object-fit: contain;  /* Keep the whole logo visible */
     }
