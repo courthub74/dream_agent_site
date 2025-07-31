@@ -302,6 +302,19 @@
         }
       });
     }, { threshold: 0.1 });
+
+    // ABOUT LINK BUTTON
+    const cta = document.getElementById('cta');
+    function updateCTALink() {
+      if (window.innerWidth <= 500) {
+        cta.setAttribute('href', '#mobile_about');
+      } else {
+        cta.setAttribute('href', '#about');
+      }
+    }
+    window.addEventListener('resize', updateCTALink);
+    updateCTALink();
+
 </script>
 
 </body>
