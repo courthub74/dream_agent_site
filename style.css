@@ -251,6 +251,7 @@ footer {
         margin-bottom: 0.5rem;
     }
 
+    /* WHOLE ABOUT SECTION */
     .mobile_about {
         display: flex;
         flex-direction: column;
@@ -262,8 +263,61 @@ footer {
         background-size: cover; /* <-- This makes it cover the whole container */
         height: 200vh; /* full viewport height */
         width: 100%; /* full width */
+        /* overflow: auto; */
+        margin: 0 0 2rem 0; /* margin to avoid content being cut off */
     }
 
+    /* Mobile About Header */
+    .mobile_about_header {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    /* Mobile About Paragraph */
+    .mobile_about_paragraph {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    /* Collections Title */
+    .mobile_about_collections_header {
+        font-size: 1.5rem;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    /* Collection Gallery */
+    .collection-gallery {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .each-photo-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        /* width: 100%; */
+    }
+
+    .each-photo {
+        width: 200px;
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid beige;
+        /* margin-bottom: 2rem; Add some space between photos */
+    }
 
 
     .mobile_about_container {
