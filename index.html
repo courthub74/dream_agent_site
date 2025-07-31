@@ -144,15 +144,15 @@
     
       <div class="each-photo-div about-card fade-in ">
         <img src="./img/collections/Symbols in Motion.png" alt="symbols in motion" class="each-photo">
-        <p class="photo-title">Collection: Symbols in Motion</p>
+        <p class="photo-title">Symbols in Motion</p>
       </div>
       <div class="each-photo-div about-card fade-in ">
         <img src="./img/collections/Signals and Ascensions.png" alt="signals and ascensions" class="each-photo">
-        <p class="photo-title">Collection: Signals and Ascensions</p>
+        <p class="photo-title">Signals and Ascensions</p>
       </div>
       <div class="each-photo-div about-card fade-in ">
         <img src="./img/collections/Dominion Archives.png" alt="dominion archives" class="each-photo">
-        <p class="photo-title">Collection: Dominion Archives</p>
+        <p class="photo-title">Dominion Archives</p>
       </div>
     </div>
   </div>
@@ -161,11 +161,17 @@
 
 <!-- ABOUT SECTION MOBILE/TABLET -->
 <section id="mobile_about" class="mobile_about">
-  <h1>About</h1>
-  <p>Lorem, ipsum dolor sit amet consectetur adipisicing 
-    elit. Aperiam, corporis ad! Assumenda quis quos pariatur 
-    voluptate magnam exercitationem, alias laudantium. 
-    Adipisci laudantium natus velit culpa ipsum quae cum perspiciatis eaque.</p>
+  <div class="mobile_about_container">
+     <h1>About</h1>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing 
+      elit. Aperiam, corporis ad! Assumenda quis quos pariatur 
+      voluptate magnam exercitationem, alias laudantium. 
+      Adipisci laudantium natus velit culpa ipsum quae cum perspiciatis eaque.</p>
+
+      <!-- DIVIDER -->
+     <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-0 scale-x-0 transition-transform duration-700 ease-out" id="mobile-about-divider"></div>
+
+  </div>
 </section>
 
 
@@ -244,6 +250,8 @@
     });
 
     // Divider animation
+
+    // Desktop Divider
     const divider = document.getElementById('about-divider');
     const dividerObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -255,6 +263,19 @@
       });
     }, { threshold: 0.5 });
     dividerObserver.observe(divider);
+
+    // Mobile Divider
+    const mobileDivider = document.getElementById('mobile-about-divider');
+    const mobileDividerObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          mobileDivider.classList.add('visible');
+          mobileDividerObserver.unobserve(mobileDivider);
+          mobileDivider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
+        }
+      });
+    }, { threshold: 0.5 });
+    mobileDividerObserver.observe(mobileDivider);
 
     // Cards staggered animation
     const cards = document.querySelectorAll('.about-card');
