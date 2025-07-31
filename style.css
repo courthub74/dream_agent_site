@@ -212,7 +212,7 @@ footer {
     }
     body {
         /* Remove height: 100vh to allow scrolling */
-        min-height: 300vh; /* Use min-height instead */
+        min-height: 320vh; /* Use min-height instead */
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -253,19 +253,21 @@ footer {
 
     /* WHOLE ABOUT SECTION */
     .mobile_about {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem;
-        background-image: linear-gradient(rgb(0,87,184,0.1), rgba(0,87,184,0.2)), url('./img/about_background.png');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover; /* <-- This makes it cover the whole container */
-        height: 200vh; /* full viewport height */
-        width: 100%; /* full width */
-        /* overflow: auto; */
-        margin: 0 0 2rem 0; /* margin to avoid content being cut off */
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    padding-bottom: 6rem; /* <-- Extra space at bottom */
+    background-image: linear-gradient(rgb(0,87,184,0.1), rgba(0,87,184,0.2)), url('./img/about_background.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: auto; /* Let it expand with content */
+    min-height: 200vh; /* Keep extra space */
+    width: 100%;
+    margin: 0 0 5rem 0;
+}
+
 
     /* Mobile About Header */
     .mobile_about_header {
@@ -299,6 +301,7 @@ footer {
         flex-direction: column;
         align-items: center;
         gap: 2rem;
+        margin-bottom: 2em;
     }
 
     .each-photo-div {
@@ -311,8 +314,10 @@ footer {
     }
 
     .each-photo {
-        width: 200px;
-        height: 220px;
+        width: 270px;
+        /* width: 300px; */
+        height: 290px;
+        /* height: 320px; */
         overflow: hidden;
         position: relative;
         border: 1px solid beige;
