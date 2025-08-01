@@ -213,7 +213,7 @@ footer {
     }
     body {
         /* Remove height: 100vh to allow scrolling */
-        min-height: 355vh; /* Use min-height instead */
+        min-height: 400vh; /* Use min-height instead */
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -257,6 +257,7 @@ footer {
         display: flex;
         flex-direction: column;
         align-items: center;
+        flex: 1;
         padding: 2rem;
         padding-bottom: 6rem; /* <-- Extra space at bottom */
         background-image: linear-gradient(rgb(0,87,184,0.1), rgba(0,87,184,0.2)), url('./img/about_background.png');
@@ -350,6 +351,7 @@ footer {
         text-align: center;
         /* padding: 2em; */
         height: auto;
+        margin-top: auto;
     }
 
     /* .socials-gallery {
@@ -363,7 +365,7 @@ footer {
         display: flex;
         /* justify-content: space-evenly;  */
         justify-content: center;
-        flex-wrap: wrap; 
+        flex-wrap: nowrap; 
         gap: 1rem;
         width: 100%;
         /* background-color: bisque; */
@@ -371,9 +373,15 @@ footer {
 }
 
    .each-social {
-        height: 20px;         /* Set height only */
+        height: 55px;         /* Set height only */
         width: auto;          /* Let width scale proportionally */
         object-fit: contain;  /* Keep the whole logo visible */
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 0.7rem;  
     }
 
 }
