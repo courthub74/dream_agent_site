@@ -265,7 +265,7 @@ footer {
         background-repeat: no-repeat;
         background-size: cover;
         height: auto; /* Let it expand with content */
-        min-height: 200vh; /* Keep extra space */
+        min-height: 230vh; /* Keep extra space */
         width: 100%;
         /* margin: 0 0 5rem 0; */
 }
