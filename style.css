@@ -323,11 +323,13 @@ footer {
         padding: 2rem;
         padding-bottom: 6rem; /* <-- Extra space at bottom */
         background-image: linear-gradient(rgb(0,87,184,0.1), rgba(0,87,184,0.2)), url('./img/about_background.png');
+        background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/about_background.png');
+
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         height: auto; /* Let it expand with content */
-        min-height: 230vh; /* Keep extra space */
+        /* min-height: 230vh; */
         width: 100%;
         /* margin: 0 0 5rem 0; */
 }
@@ -362,7 +364,7 @@ footer {
     /* Collection Gallery */
     .collection-gallery {
         display: flex;
-        flex-direction: column;
+        /* flex-direction: column; */
         align-items: center;
         gap: 2rem;
         /* margin-bottom: 45rem; */
@@ -384,7 +386,7 @@ footer {
         /* height: 320px; */
         overflow: hidden;
         position: relative;
-        border: 1px solid beige;
+        /* border: 1px solid beige; */
         /* margin-bottom: 2rem; Add some space between photos */
     }
 
@@ -392,6 +394,52 @@ footer {
     .mobile_about_container {
         margin-top: 2rem;
     }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.collection-card {
+  position: relative;
+  /* width: 220px;
+  height: 300px; */
+  width: 100px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.collection-card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s;
+}
+
+.collection-card:hover img {
+  transform: scale(1.1);
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: beige;
+  /* color: turquoise; */
+  text-align: center;
+  padding: 0.5rem;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
     
      a.about-link {
         font-size: 1.2rem !important;
