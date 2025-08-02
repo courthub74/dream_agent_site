@@ -158,6 +158,24 @@ body {
     border: 1px solid beige;
 }
 
+/* Hovers */
+/* .collection-card {
+  position: relative;
+  width: 220px;
+  overflow: hidden;
+  border-radius: 8px;
+} */
+
+.each-photo img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s;
+}
+
+.each-photo:hover img {
+  transform: scale(1.1);
+}
+
 
 
 /* *************************************** */
