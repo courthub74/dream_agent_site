@@ -275,7 +275,7 @@ footer {
     }
     body {
         /* Remove height: 100vh to allow scrolling */
-        min-height: 400vh; /* Use min-height instead */
+        min-height: 250vh; /* Use min-height instead */
         display: flex;
         flex-direction: column;
         margin: 0;
