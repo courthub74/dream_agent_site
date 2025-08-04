@@ -144,18 +144,6 @@ body {
     gap: 2rem;
 }
 
-.each-photo-div {
-    text-align: center;
-}
-
-.each-photo {
-    width: 300px;
-    height: 350px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid beige;
-}
-
 .overlay {
   position: fixed;
   top: 0;
@@ -167,14 +155,25 @@ body {
   pointer-events: none;
 }
 
+
 .collection-card {
   position: relative;
-  width: 220px;
-  width: 300px;
+  height: 500px;
+  width: 420px;
   overflow: hidden;
   border-radius: 8px;
+  /* START HIDDEN */
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
+.collection-card.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* HOVERS FOR IMG STRETCH */
 .collection-card img {
   width: 100%;
   height: auto;
@@ -184,6 +183,7 @@ body {
 .collection-card:hover img {
   transform: scale(1.1);
 }
+
 
 .overlay-text {
   position: absolute;
@@ -203,23 +203,6 @@ body {
   opacity: 1;
 }
 
-/* Hovers */
-/* .collection-card {
-  position: relative;
-  width: 220px;
-  overflow: hidden;
-  border-radius: 8px;
-} */
-
-.each-photo img {
-  width: 100%;
-  height: auto;
-  transition: transform 0.5s;
-}
-
-.each-photo:hover img {
-  transform: scale(1.1);
-}
 
 
 
@@ -268,7 +251,7 @@ footer {
 /* ********SMARTPHONE PORTRAIT******* */
 /* ********************************** */
 @media screen and (max-width: 500px) {
-    * {
+    .about {
         display: none;
     }
 }
@@ -277,7 +260,7 @@ footer {
 /* ************TABLET PORTRAIT*********** */
 /* ************************************** */
 @media screen and (min-width: 501px) and (max-width: 800px) {
-    * {
+    .about {
         display: none;
     }
 }

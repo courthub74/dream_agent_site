@@ -272,21 +272,25 @@
     }, { threshold: 0.5 });
     mobileDividerObserver.observe(mobileDivider);
 
-    // Cards staggered animation
-    const cards = document.querySelectorAll('.about-card');
-    const cardsObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const index = Array.from(cards).indexOf(entry.target);
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, index * 200); // 200ms stagger per card
-          cardsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    cards.forEach(card => cardsObserver.observe(card));
+   // Cards staggered animation (Collections Gallery)
+    document.addEventListener("DOMContentLoaded", () => { 
+      const cards = document.querySelectorAll('.collection-card'); // <- Target collection cards
+      const cardsObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = Array.from(cards).indexOf(entry.target);
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, index * 200); // Staggered delay
+            cardsObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 }); 
 
+      cards.forEach((card) => cardsObserver.observe(card));
+    });
+
+    
     // Fade ins on the Hero section
     const fadeIns = document.querySelectorAll('.fade-in');
     const fadeInObserver = new IntersectionObserver(entries => {
