@@ -422,17 +422,17 @@ footer {
     }
 
     .overlay-text {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 1);
-    color: beige;
-    /* color: turquoise; */
-    text-align: center;
-    padding: 0.5rem;
-    opacity: 1;
-    transition: opacity 0.3s;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 1);
+        color: beige;
+        /* color: turquoise; */
+        text-align: center;
+        padding: 0.5rem;
+        opacity: 1;
+        transition: opacity 0.3s;
     }
 
     
