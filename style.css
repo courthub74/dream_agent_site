@@ -262,6 +262,7 @@ body {
     display: flex;
     justify-content: center;
     justify-content: space-between;
+    /* flex-direction: column; */
     align-items: center;
     /* gap: 5rem; */
     /* margin-top: 2rem; */
@@ -283,7 +284,7 @@ body {
     /* width: 50px;
     height: 50px; */
     border-radius: 5px;
-    width: 2em;
+    width: 2.5em;
     height: auto;
     object-fit: contain; /* Keep the whole logo visible */
     transition: transform 0.3s ease;
@@ -306,6 +307,31 @@ body {
     /* font-weight: bold; */
     font-size: 1rem;
     transition: color 0.3s ease;
+}
+
+#cafe {
+    color: beige;
+    background-color: #0057b8;
+    padding: 0 .5rem 0 0;
+    border-radius: 5px;
+}
+
+#rare {
+    color: black;
+    background-color: rgb(167, 167, 131);
+    padding: 0 .5rem 0 0;
+    border-radius: 5px;
+}
+
+#sea {
+    color: white;
+    background-color: rgb(55, 55, 226);
+    padding: 0 .5rem 0 0;
+    border-radius: 5px;
+}
+
+.mobile_list {
+    display: none;
 }
 
 
@@ -500,6 +526,7 @@ footer {
 
     .socials-gallery {
         display: flex;
+        flex-direction: column;
         /* justify-content: space-evenly;  */
         justify-content: center;
         flex-wrap: nowrap; 
@@ -515,10 +542,11 @@ footer {
         align-items: center;
         gap: 1rem;
         margin-top: 1rem;
+        display: none;
     }
 
    .each-social {
-        height: 5em;         /* Set height only */
+        height: 2em;         /* Set height only */
         width: auto;          /* Let width scale proportionally */
         object-fit: contain;  /* Keep the whole logo visible */
     }
@@ -530,6 +558,7 @@ footer {
         justify-content: center;
         gap: 1rem;
         margin-top: 1rem;
+        display: none;
     }
 
     .the_list a {
@@ -538,6 +567,16 @@ footer {
         /* font-weight: bold; */
         font-size: 1rem;
         transition: color 0.3s ease;
+        display: none;
+    }
+
+    .mobile_list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
     }
 
     footer {
