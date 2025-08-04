@@ -263,7 +263,7 @@ body {
     justify-content: center;
     justify-content: space-between;
     align-items: center;
-    gap: 5rem;
+    /* gap: 5rem; */
     /* margin-top: 2rem; */
     width: 100%;
 }
@@ -274,7 +274,7 @@ body {
     justify-content: center;
     /* justify-content: space-between; */
     align-items: center;
-    gap: 1rem;
+    gap: 3rem;
     margin-top: 2rem;
 }
 
@@ -283,7 +283,7 @@ body {
     /* width: 50px;
     height: 50px; */
     border-radius: 5px;
-    width: 3em;
+    width: 2em;
     height: auto;
     object-fit: contain; /* Keep the whole logo visible */
     transition: transform 0.3s ease;
@@ -297,14 +297,14 @@ body {
     justify-content: center;
     /* align-items: center; */
     gap: 2rem;
-    /* margin-top: 2rem; */
+    font-weight: bold;
 }
 
 .the_list a {
     color: beige;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 1.2rem;
+    /* font-weight: bold; */
+    font-size: 1rem;
     transition: color 0.3s ease;
 }
 
@@ -535,7 +535,7 @@ footer {
     .the_list a {
         color: beige;
         text-decoration: none;
-        font-weight: bold;
+        /* font-weight: bold; */
         font-size: 1rem;
         transition: color 0.3s ease;
     }
