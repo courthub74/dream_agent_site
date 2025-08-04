@@ -178,6 +178,7 @@ body {
   transition: border 0.3s ease;
   /* You might also want to set a default border to avoid layout shift */
   border: 2px solid transparent;
+  transition: box-shadow 0.3s ease;
 }
 
 .collection-card img {
@@ -195,7 +196,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.248);
+  /* background: rgba(0, 0, 0, 0.248); */
   background: rgba(0, 0, 0, 0.155);
   color: beige;
   /* color: turquoise; */
@@ -207,8 +208,9 @@ body {
 
 /* Border for Collection Card Hover */
 .collection-card:hover {
-  border: 2px solid beige;
-  /* border: 2px solid turquoise; */
+  /* border: 2px solid beige; */
+  border: 2px solid rgb(3, 3, 37);
+  box-shadow: 0 0 40px rgba(245, 245, 220, 0.4);
 }
 
 .collection-card:hover .overlay-text {
