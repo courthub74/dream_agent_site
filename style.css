@@ -243,7 +243,7 @@ body {
     background-color: #121e33;
     /* background-color: #0057b8;  */
     /* background-color: #001261; */
-    padding: 6rem;
+    padding: 4rem 6rem 2rem 6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -257,26 +257,64 @@ body {
     /* margin-bottom: 1rem; */
 }
 
+/* In the Lore Footer */
 .socials-gallery {
     display: flex;
     justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    gap: 5rem;
+    /* margin-top: 2rem; */
+    width: 100%;
+}
+
+/* The Social Icons */
+.the_socials {
+    display: flex;
+    justify-content: center;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 1rem;
     margin-top: 2rem;
 }
 
+/* Each Social Icon */
 .each-social {
-    width: 50px;
-    height: 50px;
+    /* width: 50px;
+    height: 50px; */
+    border-radius: 5px;
+    width: 3em;
+    height: auto;
+    object-fit: contain; /* Keep the whole logo visible */
     transition: transform 0.3s ease;
+}
+
+/* List on Footer */
+.the_list {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 2rem;
+    /* margin-top: 2rem; */
+}
+
+.the_list a {
+    color: beige;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
 }
 
 
 footer {
     text-align: center;
-    margin-top: 5rem;
+    margin-top: 6rem;
     /* color: white; */
     font-size: 0.9rem;  
+    opacity: 0.3;
 }
 
 /* ********SMARTPHONE PORTRAIT******* */
@@ -454,18 +492,11 @@ footer {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        text-align: center;
+        /* text-align: center; */
         /* padding: 2em; */
-        height: auto;
-        margin-top: auto;
+        /* height: auto;
+        margin-top: auto; */
     }
-
-    /* .socials-gallery {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    } */
 
     .socials-gallery {
         display: flex;
@@ -476,12 +507,37 @@ footer {
         width: 100%;
         /* background-color: bisque; */
         /* padding: 1rem 0; */
-}
+    }
+
+    .the_socials {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
 
    .each-social {
-        height: 55px;         /* Set height only */
+        height: 5em;         /* Set height only */
         width: auto;          /* Let width scale proportionally */
         object-fit: contain;  /* Keep the whole logo visible */
+    }
+
+    .the_list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .the_list a {
+        color: beige;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: color 0.3s ease;
     }
 
     footer {
