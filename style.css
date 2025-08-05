@@ -334,6 +334,10 @@ body {
     display: none;
 }
 
+.lore-and-socials {
+    display: flex;
+    flex-direction: column;
+}
 
 footer {
     text-align: center;
