@@ -353,14 +353,14 @@ footer {
     }
     body {
         /* Remove height: 100vh to allow scrolling */
-        min-height: 250vh; /* Use min-height instead */
+        min-height: 300vh; /* Use min-height instead */
         display: flex;
         flex-direction: column;
         margin: 0;
     }
     
     .home {
-        height: 100vh;
+        height: 120vh;
         /* width: 100%; */
         background-image: url('./img/plain_background_bigger.png');
         background-position: center;
