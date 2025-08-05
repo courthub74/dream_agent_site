@@ -97,6 +97,26 @@ body {
   transform: scale(1.05); /* Subtle pop */
 }
 
+/* Looping */
+.ambient-bg {
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(0,87,184,0.15), transparent 70%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05), transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0.3), transparent 100%);
+  background-size: 200% 200%;
+  animation: drift 60s infinite linear;
+  opacity: 0.3; /* Make it subtle */
+  z-index: 1;
+}
+
+@keyframes drift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+
+
 
 /* **************************************** */
 /* ************ABOUT SECTION************** */
@@ -115,37 +135,52 @@ body {
 .about-container {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    object-fit: cover;
+    height: 100%;
+    padding: 5rem 10rem; 
+    /* flex-direction: column;
     align-items: center;
     justify-content: center;
     flex: 1;
     object-fit: cover;
     height: 100%;
     padding: 5rem; 
-    background-size: cover;
+    background-size: cover; */
 }
 
 .about-content {
-    margin-top: -5em;
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: yellow; */
+    justify-content: left;
+    width: 100%;
+    /* text-align: left; */
 }
 
 /* Title ABOUT */
-.about-content h2 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    font-family: 'Times New Roman', Times, serif;
-}
 .about-content h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    /* background-color: yellow; */
+    width: 100%;
+}
+/* .about-content h3 {
     font-size: 2rem;
     margin-bottom: 1rem;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
-}
+} */
 
 .about-paragraph {
     font-size: 1.2rem;
     line-height: 1.6;
     margin-top: 1rem;
+    text-align: left;
 }
 
 .mobile_about {
