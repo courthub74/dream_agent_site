@@ -73,12 +73,28 @@ body {
     background-color: beige;
     /* color: white; */
     color: darkblue;
+    color: beige;
     padding: 1rem 2rem;
     border-radius: 5px;
     text-decoration: none;
     font-size: 1.5rem;
     margin-top: 1em;
     transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#cta {
+  background-color: #0057B8; 
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 87, 184, 0.4);
+}
+
+#cta:hover {
+  background-color: #007bff; /* Slightly brighter blue */
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+  transform: scale(1.05); /* Subtle pop */
 }
 
 
