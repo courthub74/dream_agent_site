@@ -136,6 +136,8 @@ body {
 .about-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex: 1;
     object-fit: cover;
     height: 100%;
@@ -144,13 +146,15 @@ body {
 }
 
 .about-content {
-    margin-top: 1em;
+    /* margin-top: 1em; */
+    margin-top: -11em;
     display: flex;
     flex-direction: column;
     align-items: center;
     /* background-color: yellow; */
     justify-content: left;
     width: 100%;
+    width: 70%;
     /* text-align: left; */
 }
 
@@ -168,7 +172,7 @@ body {
     /* width: 20vw;
     height: 2px;
     background-color: rgba(255, 255, 255, 0.3); */
-    margin: 5rem auto;
+    margin: 3rem auto;
     /* border-radius: 5px;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
     transition: transform 0.3s ease; */
@@ -190,7 +194,7 @@ body {
     flex-wrap: nowrap;
     justify-content: left;
     align-items: center;
-    gap: 8rem;
+    gap: 5rem;
     width: 100%;
 }
 
@@ -215,7 +219,9 @@ body {
   position: relative;
   /* width: 220px;
   height: auto; */
-  width: 340px;
+  /* width: 340px;
+  height: 400px; */
+  width: 400px;
   height: 400px;
   overflow: hidden;
   border-radius: 8px;
@@ -231,34 +237,43 @@ body {
   transition: transform 0.5s;
 }
 
-.collection-card:hover img {
+/* .collection-card:hover img {
   transform: scale(1.1);
-}
+} */
 
 .overlay-text {
   position: absolute;
+  font-family: 'Times New Roman', Times, sans-serif;
+  top: 80%;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: 5;
   /* background: rgba(0, 0, 0, 0.248); */
-  background: rgba(0, 0, 0, 0.155);
+  /* background: rgba(0, 0, 0, 0.155); */
   color: beige;
   /* color: turquoise; */
   text-align: center;
   padding: 0.5rem;
   opacity: 0;
   transition: opacity 0.3s;
+  font-size: 18px;
+  font-size: 20px;
+  /* font-size: 28px; */
 }
 
 /* Border for Collection Card Hover */
 .collection-card:hover {
   /* border: 2px solid beige; */
-  border: 2px solid rgb(25, 25, 146);
-  box-shadow: 0 0 40px rgba(245, 245, 220, 0.4);
+  /* border: 2px solid rgb(25, 25, 146); */
+  /* box-shadow: 0 0 40px rgba(245, 245, 220, 0.4); */
+  box-shadow: 0 0 5px rgba(245, 245, 220, 0.4);
 }
 
 .collection-card:hover .overlay-text {
-  opacity: 1;
+  opacity: .3;
+  font-size: 18px;
+  font-size: 20px;
+  /* font-size: 28px; */
 }
 
 /* Hovers */
