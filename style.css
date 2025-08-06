@@ -1,7 +1,13 @@
 * {
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
     color: beige;
+    box-sizing: border-box;
 }
+
+h1, h2, h3, h4, #title, .about-link, .overlay-text, .mobile_about_header, .mobile_about_collections_header, #cta {
+  font-family: 'Playfair Display', serif;
+}
+
 
 body {
     margin: 0;
@@ -12,7 +18,20 @@ body {
     background-repeat: no-repeat;
     background-size: 100%;
     height: 100vh;
+    font-family: 'Inter', sans-serif;
 }
+
+/* FONTS */
+h1 {
+  font-weight: 700;
+}
+
+.about-paragraph, .mobile_about_paragraph {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 300; /* Inter Light */
+}
+
 
 /* ************************************* */
 /* ****************NAVBAR ************** */
@@ -54,7 +73,7 @@ body {
     /* color: white; */
     text-align: center;
     margin-bottom: 1rem;
-    font-family: 'Times New Roman', Times, serif;
+    /* font-family: 'Times New Roman', Times, serif; */
 }
 
 .about-link {
@@ -65,7 +84,7 @@ body {
     text-decoration: none;
     font-size: 1.5rem;
     margin-top: 1em;
-    font-family: 'Times New Roman', Times, serif;
+    /* font-family: 'Times New Roman', Times, serif; */
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.437);
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -80,6 +99,7 @@ body {
     border-radius: 5px;
     text-decoration: none;
     font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-top: 1em;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -89,6 +109,7 @@ body {
   padding: 1rem 2rem;
   border-radius: 8px;
   font-size: 1.25rem;
+  font-size: 1.8rem;
   transition: all 0.3s ease;
   box-shadow: 0 0 8px rgba(0, 87, 184, 0.4);
 }
@@ -232,7 +253,8 @@ body {
   /* width: 340px;
   height: 400px; */
   width: 400px;
-  height: 400px;
+  height: auto;
+  /* height: 400px; */
   overflow: hidden;
   border-radius: 8px;
   transition: border 0.3s ease;
