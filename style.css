@@ -43,7 +43,9 @@ body {
 
 #logo {
     width: 300px;
+    width: 250px;
     height: 270px;
+    height: 200px;
     margin-bottom: 2rem;
 }
 
@@ -167,6 +169,14 @@ body {
     /* background-color: yellow; */
     width: 100%;
 }
+.about-content h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    /* background-color: yellow; */
+    width: 100%;
+}
 
 #about-divider {
     /* width: 20vw;
@@ -250,7 +260,7 @@ body {
   right: 5;
   /* background: rgba(0, 0, 0, 0.248); */
   /* background: rgba(0, 0, 0, 0.155); */
-  color: beige;
+  color: rgba(245, 245, 220, 0.308);
   /* color: turquoise; */
   text-align: center;
   padding: 0.5rem;
@@ -267,7 +277,7 @@ body {
 }
 
 .collection-card:hover .overlay-text {
-  opacity: .4;
+  opacity: 1;
   font-size: 18px;
   font-size: 20px;
   /* font-size: 28px; */
