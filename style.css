@@ -535,11 +535,26 @@ footer {
     /* Collection Gallery */
     .collection-gallery {
         display: flex;
-        /* flex-direction: column; */
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
         gap: 1rem;
+        /* align-items: center;
+        justify-content: center;
         /* margin-bottom: 45rem; */
+    }
+
+    .first-collect-row-mobile {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+    .second-collect-row-mobile {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
     }
 
     .mobile_about_container {
@@ -563,6 +578,8 @@ footer {
         height: auto;
         overflow: hidden;
         border-radius: 8px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        /* box-shadow: 2px 2px 5px rgba(234, 237, 238, 0.2); */
     }
 
     .collection-card img {
