@@ -448,7 +448,7 @@ footer {
         /* Use min-height instead */
         /* min-height: 300vh;  */
         /* Shorter About Section */
-        min-height: 300vh;
+        min-height: 320vh;
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -550,6 +550,13 @@ footer {
         gap: 1rem;
     }
     .second-collect-row-mobile {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+    .third-collect-row-mobile {
         display: flex;
         flex-direction: row;
         justify-content: center;
