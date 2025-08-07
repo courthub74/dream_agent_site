@@ -448,7 +448,7 @@ footer {
         /* Use min-height instead */
         /* min-height: 300vh;  */
         /* Shorter About Section */
-        min-height: 250vh;
+        min-height: 300vh;
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -493,7 +493,7 @@ footer {
         flex-direction: column;
         align-items: center;
         flex: 1;
-        padding: 2rem;
+        padding: 2rem 5rem;
         /* padding-bottom: 6rem;  */
         background-image: linear-gradient(rgb(0,87,184,0.1), rgba(0,87,184,0.2)), url('./img/about_background.png');
         background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/about_background.png');
@@ -519,6 +519,8 @@ footer {
     /* Mobile About Paragraph */
     .mobile_about_paragraph {
         font-size: 1.2rem;
+        /* Smaller Font */
+        font-size: 1rem;
         line-height: 1.6;
         margin-top: 1rem;
         margin-bottom: 3rem;
@@ -527,7 +529,7 @@ footer {
 
     /* Collections Title */
     .mobile_about_collections_header {
-        font-size: 1.5rem;
+        font-size: 2rem;
         margin-top: 3rem;
         margin-bottom: 1rem;
         text-align: left;
@@ -543,8 +545,6 @@ footer {
         gap: 2rem;
         /* margin-bottom: 45rem; */
     }
-
-
 
     .mobile_about_container {
         margin-top: 2rem;
@@ -565,8 +565,8 @@ footer {
         position: relative;
         /* width: 220px;
         height: 300px; */
-        width: 300px;
-        height: 350px;
+        width: 370px;
+        height: 390px;
         overflow: hidden;
         border-radius: 8px;
     }
@@ -577,9 +577,9 @@ footer {
         transition: transform 0.5s;
     }
 
-    .collection-card:hover img {
+    /* .collection-card:hover img {
         transform: scale(1.1);
-    }
+    } */
 
     .overlay-text {
         position: absolute;
