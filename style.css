@@ -509,7 +509,7 @@ footer {
     .mobile_about_header {
         font-size: 2rem;
         margin-bottom: 1rem;
-        text-align: center;
+        text-align: left;
         font-family: 'Times New Roman', Times, serif;
     }
 
@@ -519,7 +519,7 @@ footer {
         line-height: 1.6;
         margin-top: 1rem;
         margin-bottom: 3rem;
-        text-align: center;
+        text-align: left;
     }
 
     /* Collections Title */
