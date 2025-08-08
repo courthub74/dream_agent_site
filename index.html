@@ -12,6 +12,23 @@
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  section.mobile_about {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
     /* Mobile About Section */
 .mobile_about {
   width: 100%;
@@ -123,6 +140,15 @@ button {
   font-size: 1rem;
   margin-left: 5px;
   padding: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #003d7a;
+  color: white;
+  position: relative;
+  margin-top: auto;
 }
 
 /* .collection-card:hover .overlay-text {
@@ -246,6 +272,22 @@ button {
 
       </div>
     </div>
+
+    <footer>
+      <div class="mobile_about_container">
+        <div class="logo" style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 10px;">
+          <img src="./img/logos/Dream Agent Logo Round 9.png" alt="dream_agent-logo" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #0057B8;">
+          <img src="./img/clear_logos/twitter.png" alt="twitter-logo" style="width: 15px; height: 15px; ">
+          <img src="./img/clear_logos/instagram.png" alt="discord-logo" style="width: 20px; height: 20px; ">
+          <img src="./img/clear_logos/bluesky.png" alt="bluesky-logo" style="width: 17px; height: 15px; ">
+          <img src="./img/clear_logos/tiktok.png" alt="tiktok-logo" style="width: 20px; height: 20px; ">
+
+        </div>
+        <p style="text-align: center; font-size: 0.8rem; color: #ccc;">
+          &copy; 2023 Dream Agent. All rights reserved.
+        </p>
+      </div>
+    </footer>
 
 </section>
 
