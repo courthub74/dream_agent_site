@@ -194,7 +194,7 @@
 
     <p class="mobile_about_paragraph">
           Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
-          but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
+          but as a surrealist force. A curator of machine hallucinations whopaints with prompts and sculpts 
           meaning from code. Operating anonymously across the web, Dream Agent blurs the line between 
           creator and creation, transforming AI-generated art into deeply symbolic, surrealist worlds. 
           Their work speaks in riddles and symbols, conjuring visual poetry from data, algorithms, and 
@@ -239,7 +239,31 @@
 
 </section>
 
+<script>
+  // JavaScript to replace the short portion with the full paragraph on 'Read More', and revert on 'Read Less'
+  const portion = document.querySelector('.mobile_about_portion');
+  const full = document.querySelector('.mobile_about_paragraph');
+  const btn = portion.querySelector('button');
 
+  btn.addEventListener('click', function() {
+    if (portion.style.display !== 'none') {
+      portion.style.display = 'none';
+      full.style.display = 'block';
+      this.textContent = 'Read Less';
+      // Optionally, add a button to the full paragraph for 'Read Less'
+      if (!full.querySelector('button')) {
+        const lessBtn = document.createElement('button');
+        lessBtn.innerHTML = '<b>Read Less</b>';
+        lessBtn.onclick = () => {
+          full.style.display = 'none';
+          portion.style.display = 'block';
+          btn.textContent = 'Read More';
+        };
+        full.appendChild(lessBtn);
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
