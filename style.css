@@ -199,6 +199,10 @@ h1 {
     width: 100%;
 }
 
+.mobile_about_portion {
+    display: none;
+}
+
 #about-divider {
     /* width: 20vw;
     height: 2px;
@@ -448,7 +452,7 @@ footer {
         /* Use min-height instead */
         /* min-height: 300vh;  */
         /* Shorter About Section */
-        min-height: 320vh;
+        min-height: 250vh;
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -497,7 +501,6 @@ footer {
         /* padding-bottom: 6rem;  */
         background-image: linear-gradient(rgb(0,87,184,0.1), rgba(0,87,184,0.2)), url('./img/about_background.png');
         background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/about_background.png');
-
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -522,6 +525,16 @@ footer {
         margin-top: 1rem;
         margin-bottom: 3rem;
         text-align: left;
+        display: none;
+    }
+    .mobile_about_portion {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+        text-align: left;
+        /* display: none; */
+        display: block;
     }
 
     /* Collections Title */
@@ -531,6 +544,27 @@ footer {
         margin-bottom: 1.2rem;
         text-align: left;
     }
+
+    /* About Link */
+    .about-link {
+        font-size: 1.2rem;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        text-decoration: none;
+        color: beige;
+        background-color: #0057b8;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .about-link:hover {
+        background-color: beige;
+        color: darkblue;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
 
     /* Collection Gallery */
     .collection-gallery {
