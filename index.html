@@ -1,188 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dream Agent</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="./style.css">
-
-  <!-- ADDED FONT -->
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
-  <!-- FAVICON -->
-  <!-- <link rel="icon" href="./img/favicon.png" type="image/png"> -->
-
-   <!-- For the Transitions -->
-  <style>
-    /* General styles */
-    * {
-      color: beige;
-    }
-
-    /* FADE IN ANIMATES */
-    .fade-in {
-      opacity: 0;
-      transform: scale(0.8);
-      /* transition: opacity 6s ease-out, transform 6s ease-out; 4s fade */
-      transition: opacity 1s ease-out, transform 1s ease-out; /* 4s fade */
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* Cards initial + visible state */
-    .about-card {
-      opacity: 0;
-      transform: scale(0.8);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      cursor: pointer;
-    }
-    .about-card.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* About Paragraph */
-    .about-paragraph {
-      text-align: center;
-    }
-
-    /* Divider smooth animation */
-    #about-divider {
-      transform: scaleX(0);
-      opacity: 0;
-      transition: transform 1s ease-out, opacity 1s ease-out;
-    }
-    #about-divider.visible {
-      transform: scaleX(1);
-      opacity: 1;
-    }
-
-    .about-link {
-      background-color: none;
-      /* border: 1px solid rgba(255,255,255,0); */
-      background-color: #0057B8;
-      /* color: rgb(185, 185, 162); */
-      font-family: 'Times New Roman', Times, serif;
-      /* font-size: 2rem; */
-    }
-
-</style>
-
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Something</title>
 </head>
+<style type="text/css">
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+    /* Mobile About Section */
+.mobile_about {
+  width: 100%;
+  /* padding: 20px; */
+  background-color: #121212;
+  color: white;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+.mobile_about_container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.mobile_about_header {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.mobile_about_portion,
+.mobile_about_paragraph {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.mobile_about_collections_header {
+  text-align: center;
+  margin: 30px 0 20px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Horizontal Scrolling Gallery */
+.collection-gallery {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 10px;
+}
+
+.first-collect-row-mobile {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 10px 0 20px 0;
+  
+  /* Hide scrollbar for cleaner look */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.first-collect-row-mobile::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Webkit */
+}
+
+/* Collection Cards */
+.collection-card {
+  position: relative;
+  flex: 0 0 250px; /* Fixed width, no shrinking/growing */
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.collection-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.collection-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.collection-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Overlay Text */
+.overlay-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  padding: 20px 15px 15px 15px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.collection-card:hover .overlay-text {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .collection-card {
+    flex: 0 0 200px;
+    height: 160px;
+  }
+  
+  .mobile_about {
+    padding: 15px;
+  }
+  
+  .first-collect-row-mobile {
+    gap: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .collection-card {
+    flex: 0 0 180px;
+    height: 140px;
+  }
+  
+  .first-collect-row-mobile {
+    gap: 10px;
+  }
+  
+  .overlay-text {
+    font-size: 0.8rem;
+    padding: 15px 10px 10px 10px;
+  }
+}
+
+/* Optional: Add scroll indicators */
+.collection-gallery::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 40px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Smooth scroll snap (optional) */
+.first-collect-row-mobile {
+  scroll-snap-type: x mandatory;
+}
+
+.collection-card {
+  scroll-snap-align: start;
+}
+
+/*Dissapear the paragraph*/
+.mobile_about_paragraph {
+    display: none;
+}
+</style>
 <body>
 
-<!-- Collapsible Menu -->
-<header>
-  <nav class="navbar">
-    <!-- Menu Button -->
-    <button id="menu-btn" class="menu-btn">
-      Menu
-    </button>
-
-    <!-- Hidden Menu -->
-    <ul id="menu-links" class="menu-links">
-      <li><a href="#home" class="hover:text-blue-400">Home</a></li>
-      <li><a href="#about" class="hover:text-blue-400">About</a></li>
-      <li><a href="#lore" class="hover:text-blue-400">Lore</a></li>
-      <li><a href="https://xrp.cafe/collection/dreamagent7" target="_blank" class="hover:text-blue-400">XRP Café</a></li>
-      <li><a href="https://superrare.com/" target="_blank" class="hover:text-blue-400">Super Rare</a></li>
-      <li><a href="https://opensea.com/" target="_blank" class="hover:text-blue-400">Opensea</a></li>
-    </ul>
-  </nav>
-</header>
-
-
-<!-- Hero Section -->
-<section id="home" class="home relative overflow-hidden">
-  <!-- Ambient floating background -->
-  <div class="ambient-bg absolute inset-0 pointer-events-none"></div>
-
-  <div class="home_container relative z-10">
-    <!-- Rustic Hero Logo -->
-    <img src="./img/hero_logo.png" alt="Dream Agent Logo" class="hero-animate" id="logo">
-    <!-- Second Hero logo -->
-    <!-- <img src="./img/dream_agent_logo 1.png" alt="Dream Agent Logo" class="hero-animate" id="logo"> -->
-    <h1 class="hero-animate fade-in" id="title">Machine dreams in metaphor.</h1>
-    <a href="#about" class="about-link hero-animate fade-in" id="cta">Enter The Realm</a>
-  </div>
-</section>
-
-
-<!-- <section id="home" class="home">
-  <div class="home_container">
-      <img src="./img/hero_logo.png" alt="Dream Agent Logo" class="hero-animate" id="logo">
-      <h1 class="hero-animate fade-in" id="title">
-        Machine dreams in metaphor.
-      </h1>
-  
-        <a href="#about" class="about-link hero-animate fade-in" id="cta">
-          ENTER THE REALM
-        </a>
-  </div>
-</section> -->
-
-
-<!-- ABOUT SECTION DESKTOP -->
-<section id="about" class="about">
-  <div class="about-container">
-
-  <div class="about-content">
-    <!-- Adjusted Heading Spacing -->
-    <h3>
-      Who is Dream Agent?
-    </h3>
-
-    <p class="about-paragraph text-left text-lg leading-relaxed mt-2">
-        Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
-        but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
-        meaning from code. Operating anonymously across the web, Dream Agent blurs the line between 
-        creator and creation, transforming AI-generated art into deeply symbolic, surrealist worlds. 
-        Their work speaks in riddles and symbols, conjuring visual poetry from data, algorithms, and 
-        imagination. Each piece is less a picture and more a portal—one that invites viewers to question, 
-        decode, and reflect.
-    </p>
-
-    <!-- Divider -->
-     <!-- <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-0 scale-x-0 transition-transform duration-700 ease-out" id="about-divider"></div> -->
-     <div class="w-[20vw] sm:w-[50vw] lg:w-[40vw] h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] opacity-0 scale-x-0 transition-transform duration-700 ease-out" id="about-divider"></div>
-
-      <h4>
-        Explore the Surrealist Collections
-     </h4>
-    
-    <!-- IMAGES -->
-    <div class="collection-gallery">
-    
-
-       <a href="#" class="collection-card about-card">
-          <img src="./img/collections/Symbols in Motion.png" alt="Symbols in Motion" />
-          <div class="overlay-text">Symbols in Motion</div>
-        </a>
-        <a href="#" class="collection-card about-card">
-          <img src="./img/collections/Signals and Ascensions.png" alt="Signals and Ascensions" />
-          <div class="overlay-text">Signals & Ascensions</div>
-        </a>
-        <a href="#" class="collection-card about-card">
-          <img src="./img/collections/Dominion Archives.png" alt="Dominion Archives" />
-          <div class="overlay-text">Dominion Archives</div>
-        </a>
-       <!-- <a href="#" class="collection-card about-card">
-          <img src="./img/collections/Symbols in Motion.png" alt="Symbols in Motion" />
-          <div class="overlay-text">Symbols in Motion</div>
-        </a>
-       -->
-    </div>
-  </div>
-  </div>
-</section>
-
-<!-- ABOUT SECTION MOBILE/TABLET -->
+    <!-- ABOUT SECTION MOBILE/TABLET -->
 <section id="mobile_about" class="mobile_about">
   <div class="mobile_about_container">
     <h1 class="mobile_about_header">Who is Dream Agent?</h1>
@@ -208,6 +209,8 @@
         Collections
      </h3>
 
+    
+
      <!-- IMAGES in MOBILE GALLERY -->
     <div class="collection-gallery">
 
@@ -221,195 +224,22 @@
             <img src="./img/collections/Signals and Ascensions.png" alt="Signals and Ascensions" />
             <div class="overlay-text">Signals & Ascensions</div>
         </a>
+        <a href="#" class="collection-card">
+            <img src="./img/collections/Dominion Archives.png" alt="Dominion Archives" />
+            <div class="overlay-text">Dominion Archives</div>
+          </a> 
+          <a href="#" class="collection-card about-card">
+              <img src="./img/collections/Signals and Ascensions.png" alt="Signals and Ascensions" />
+              <div class="overlay-text">Signals & Ascensions</div>
+          </a>
       </div>
 
-      <!-- ROW TWO -->
-       <!-- <div class="second-collect-row-mobile">
-          <a href="#" class="collection-card">
-            <img src="./img/collections/Dominion Archives.png" alt="Dominion Archives" />
-            <div class="overlay-text">Dominion Archives</div>
-          </a> 
-          <a href="#" class="collection-card about-card">
-              <img src="./img/collections/Signals and Ascensions.png" alt="Signals and Ascensions" />
-              <div class="overlay-text">Signals & Ascensions</div>
-          </a>
-       </div> -->
-
-      <!-- ROW THREE -->
-       <!-- <div class="third-collect-row-mobile">
-          <a href="#" class="collection-card">
-            <img src="./img/collections/Dominion Archives.png" alt="Dominion Archives" />
-            <div class="overlay-text">Dominion Archives</div>
-          </a> 
-          <a href="#" class="collection-card about-card">
-              <img src="./img/collections/Signals and Ascensions.png" alt="Signals and Ascensions" />
-              <div class="overlay-text">Signals & Ascensions</div>
-          </a>
-       </div> -->
-
+      </div>
     </div>
-  </div>
+
 </section>
 
 
-
-  <!-- Lore Section with Parallax -->
-<!-- LORE SECTION -->
-
-<section id="lore" class="lore">
-  
-   
-    <div class="socials-gallery">
-
-       <div class="lore-and-socials">
-          <div class="lore-container text-left text-md">
-            <p>Dream Agent leaves no face, only visions.</p>
-             <!-- <p>Follow the vision.</p> -->
-          </div>
-
-          <div class="the_socials">
-            <!-- <p><b>Follow:</b></p> -->
-            <a href="https://twitter.com/" target="_blank" class="transition"><img class="each-social" src="./img/white_block_logos/Twitter.png" alt="twitter"></a>
-            <a href="https://instagram.com/" target="_blank" class="transition"><img class="each-social" src="./img/white_block_logos/Instagram.png" alt="instagram"></a>
-            <a href="https://bluesky.com/" target="_blank" class="transition"><img class="each-social" src="./img/white_block_logos/BlueSky.png" alt="bluesky"></a>
-            <a href="https://tiktok.com/" target="_blank" class="transition"><img class="each-social" src="./img/white_block_logos/Tiktok.png" alt="tiktok"></a>
-          </div>
-       </div>
-
-      <!-- The List -->
-       <div class="the_list mt-10">
-          <a href="https://xrp.cafe/collection/dreamagent7" class="flex items-center justify-center gap-2" id="cafe" target="_blank"><img class="each-social" src="./img/logos/XRP Cafe.png" alt="xrpcafe">XRP Cafe</a>
-          <a href="https://superrare.com/" class="flex items-center justify-center gap-2" id="rare" target="_blank"><img class="each-social" src="./img/logos/Superrare.png" alt="superrare">Super Rare</a>
-          <a href="https://opensea.com/" class="flex items-center justify-center gap-2" id="sea" target="_blank"><img class="each-social" src="./img/logos/opeansea.png" alt="opensea">Opensea</a>
-          <a href="#">Terms and Conditions</a>
-       </div>
-
-       <!-- Mobile List -->
-        <div class="mobile_list">
-            <a href="https://xrp.cafe/collection/dreamagent7" class="flex items-center justify-center gap-1" target="_blank"><img class="each-social" src="./img/logos/XRP Cafe.png" alt="xrpcafe">XRP Cafe</a>
-            <a href="https://superrare.com/" class="flex items-center justify-center gap-1" target="_blank"><img class="each-social" src="./img/logos/Superrare.png" alt="superrare">Superrare</a>
-            <a href="https://opensea.com/" target="_blank">Opensea</a>
-        </div>
-      
-    </div>
-
-     <!-- Footer -->
-  <footer>
-    © 2025 Courdevelops. All rights reserved.
-  </footer>
- 
-</section>
-
-
-
- 
-
-  <script>
-    // Smooth scroll behavior
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-
-    // GSAP Animations for Hero
-    gsap.to("#logo", {opacity:1, y:0, duration:1});
-    gsap.to("#title", {opacity:1, y:0, duration:1, delay:0.5});
-    // Animate text opacity & border color together
-    // gsap.to("#cta", { 
-    //   opacity: 1, 
-    //   y: 0, 
-    //   borderColor: "rgba(255,255,255,1)", 
-    //   duration: 1, 
-    //   delay: 1.5});
-    gsap.to("#cta", {opacity:1, y:0, duration:1, delay:1.5});
-
-    // Parallax effect
-    document.addEventListener('scroll', () => {
-      document.querySelectorAll('.parallax').forEach(el => {
-        let speed = 0.3;
-        let offset = window.scrollY * speed;
-        el.style.transform = `translateY(${offset}px)`;
-      });
-    });
-
-    // Menu Button Toggle
-    const menuBtn = document.getElementById('menu-btn');
-    const menuLinks = document.getElementById('menu-links');
-    menuBtn.addEventListener('click', () => {
-      menuLinks.classList.toggle('hidden');
-      menuLinks.classList.toggle('flex'); 
-      menuBtn.textContent = menuLinks.classList.contains('hidden') ? "Menu" : "Close";
-    });
-
-    // Divider animation
-
-    // Desktop Divider
-    const divider = document.getElementById('about-divider');
-    const dividerObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          divider.classList.add('visible');
-          dividerObserver.unobserve(divider);
-          divider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
-        }
-      });
-    }, { threshold: 0.5 });
-    dividerObserver.observe(divider);
-
-    // Mobile Divider
-    const mobileDivider = document.getElementById('mobile-about-divider');
-    const mobileDividerObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          mobileDivider.classList.add('visible');
-          mobileDividerObserver.unobserve(mobileDivider);
-          mobileDivider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
-        }
-      });
-    }, { threshold: 0.5 });
-    mobileDividerObserver.observe(mobileDivider);
-
-    // Cards staggered animation
-    const cards = document.querySelectorAll('.about-card');
-    const cardsObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const index = Array.from(cards).indexOf(entry.target);
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, index * 200); // 200ms stagger per card
-          cardsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    cards.forEach(card => cardsObserver.observe(card));
-
-    // Fade ins on the Hero section
-    const fadeIns = document.querySelectorAll('.fade-in');
-    const fadeInObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          fadeInObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    // ABOUT LINK BUTTON
-    const cta = document.getElementById('cta');
-    function updateCTALink() {
-      if (window.innerWidth <= 500) {
-        cta.setAttribute('href', '#mobile_about');
-      } else {
-        cta.setAttribute('href', '#about');
-      }
-    }
-    window.addEventListener('resize', updateCTALink);
-    updateCTALink();
-
-</script>
 
 </body>
 </html>
