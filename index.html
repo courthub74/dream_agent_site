@@ -23,6 +23,16 @@
     flex-direction: column;
   }
 
+  /* More spacing between the sections */
+  h2 { /* Collections heading */
+    margin-top: 1.5rem;
+  }
+
+  p {
+    margin-bottom: 1.2rem;
+  }
+
+
   section.mobile_about {
     flex: 1 0 auto;
     display: flex;
@@ -55,6 +65,7 @@
 .mobile_about_paragraph {
   margin-bottom: 15px;
   line-height: 1.6;
+  padding: 0 1rem;
 }
 
 .mobile_about_collections_header {
@@ -92,6 +103,7 @@
   .collection-card {
     position: relative;
     flex: 0 0 320px; /* Wider */
+    flex: 1 1 calc(50% - 1rem);
     height: 260px;   /* Longer */
     border-radius: 16px;
     overflow: hidden;
@@ -142,9 +154,13 @@ button {
   color: white;
   cursor: pointer;
   font-size: 1rem;
-  margin-left: 5px;
+  /* margin-left: 5px; */
   padding: 0;
   font-weight: bold;
+   display: inline-block;
+  margin-top: 0.5rem;
+
+  text-decoration: underline;
 }
 
 footer {
@@ -154,6 +170,9 @@ footer {
   color: white;
   position: relative;
   margin-top: auto;
+  /* margin-top: 2rem; */
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.2);
 }
 
 /* .collection-card:hover .overlay-text {
@@ -241,7 +260,7 @@ footer {
 
     <p class="mobile_about_paragraph">
           Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
-          but as a surrealist force. A curator of machine hallucinations whopaints with prompts and sculpts 
+          but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
           meaning from code. Operating anonymously across the web, Dream Agent blurs the line between 
           creator and creation, transforming AI-generated art into deeply symbolic, surrealist worlds. 
           Their work speaks in riddles and symbols, conjuring visual poetry from data, algorithms, and 
