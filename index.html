@@ -18,11 +18,17 @@
     
   }
 
-  body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+   /* background-color: #0057B8; */
+}
 
   /* More spacing between the sections */
   h2 { /* Collections heading */
@@ -43,27 +49,28 @@
     min-height: 0;
   }
     /* Mobile About Section */
-.mobile_about {
-  width: 100%;
-  /* padding: 20px; */
-  background-color: #0057B8;
-  color: white;
-  box-sizing: border-box;
-  /* height: 100vh; */
-}
+  .mobile_about {
+    width: 100%;
+    /* padding: 20px; */
+    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
 
-.mobile_about_container {
-  max-width: 100%;
-  margin: 0 auto;
-}
+    color: white;
+    box-sizing: border-box;
+    /* height: 100vh; */
+  }
 
-.mobile_about_header {
-  text-align: left;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding-left: 1rem;
-}
+  .mobile_about_container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .mobile_about_header {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-left: 1rem;
+  }
 
 .mobile_about_portion,
 .mobile_about_paragraph {
@@ -154,7 +161,8 @@
   }
 
 button {
-  background: #0057B8;
+  /* background: #0057B8; */
+  background: none;
   border: none;
   color: white;
   cursor: pointer;
@@ -172,6 +180,7 @@ footer {
   text-align: center;
   padding: 20px;
   background-color: #003d7a;
+  background-color: #002057;
   color: white;
   position: relative;
   margin-top: auto;
