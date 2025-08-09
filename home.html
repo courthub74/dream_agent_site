@@ -294,7 +294,6 @@ footer {
     </p>
 
       <!-- DIVIDER -->
-     <!-- <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0" id="mobile-about-divider"></div> -->
      <div class="w-40 sm:w-56 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0" id="mobile-about-divider"></div>
 
       <h3 class="mobile_about_collections_header">
@@ -308,20 +307,20 @@ footer {
 
       <!-- ROW ONE -->
       <div class="first-collect-row-mobile">
-        <a href="#home.html" class="collection-card about-card">
-          <img src="./img/collections/Symbols in Motion.png" alt="Symbols in Motion" />
+        <a href="#" class="collection-card about-card">
+          <img src="https://via.placeholder.com/320x260/4A90E2/FFFFFF?text=Symbols+in+Motion" alt="Symbols in Motion" />
           <div class="overlay-text">Symbols in Motion</div>
         </a>
-        <a href="#index.html" class="collection-card about-card">
-            <img src="./img/collections/Signals and Ascensions.png" alt="Signals and Ascensions" />
+        <a href="#" class="collection-card about-card">
+            <img src="https://via.placeholder.com/320x260/E74C3C/FFFFFF?text=Signals+%26+Ascensions" alt="Signals and Ascensions" />
             <div class="overlay-text">Signals & Ascensions</div>
         </a>
         <a href="#" class="collection-card">
-            <img src="./img/collections/Dominion Archives.png" alt="Dominion Archives" />
+            <img src="https://via.placeholder.com/320x260/8E44AD/FFFFFF?text=Dominion+Archives" alt="Dominion Archives" />
             <div class="overlay-text">Dominion Archives</div>
           </a> 
           <a href="#" class="collection-card about-card">
-              <img src="./img/collections/Signals and Ascensions.png" alt="Signals and Ascensions" />
+              <img src="https://via.placeholder.com/320x260/27AE60/FFFFFF?text=Signals+%26+Ascensions" alt="Signals and Ascensions" />
               <div class="overlay-text">Signals & Ascensions</div>
           </a>
       </div>
@@ -332,12 +331,11 @@ footer {
     <footer>
       <div class="mobile_about_container">
         <div class="logo" style="display: flex; justify-content: center; align-items: center; gap: 1.2em; margin-bottom: 10px; padding: .4em;">
-          <img src="./img/logos/Dream Agent Logo White.png" alt="dream_agent-logo" style="width: 45px; height: 45px; border-radius: 50%; border: 1px solid black;">
-          <img src="./img/clear_logos/twitter.png" alt="twitter-logo" style="width: 20px; height: 20px; ">
-          <img src="./img/clear_logos/instagram.png" alt="discord-logo" style="width: 27px; height: 27px; ">
-          <img src="./img/clear_logos/bluesky.png" alt="bluesky-logo" style="width: 24px; height: 22px; ">
-          <img src="./img/clear_logos/tiktok.png" alt="tiktok-logo" style="width: 27px; height: 27px; ">
-
+          <div style="width: 45px; height: 45px; border-radius: 50%; border: 1px solid black; background: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">DA</div>
+          <div style="width: 20px; height: 20px; background: #1DA1F2; border-radius: 3px;"></div>
+          <div style="width: 27px; height: 27px; background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); border-radius: 6px;"></div>
+          <div style="width: 24px; height: 22px; background: #00D4FF; border-radius: 3px;"></div>
+          <div style="width: 27px; height: 27px; background: #000; border-radius: 6px;"></div>
         </div>
         <p style="text-align: center; font-size: 0.8rem; color: #ccc;">
           &copy; 2023 Dream Agent. All rights reserved.
@@ -372,32 +370,32 @@ footer {
     }
   });
 
-    // Desktop Divider
-    // const divider = document.getElementById('about-divider');
-    // const dividerObserver = new IntersectionObserver(entries => {
-    //   entries.forEach(entry => {
-    //     if (entry.isIntersecting) {
-    //       divider.classList.add('visible');
-    //       dividerObserver.unobserve(divider);
-    //       divider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
-    //     }
-    //   });
-    // }, { threshold: 0.5 });
-    // dividerObserver.observe(divider);
-
-    // Mobile Divider
+    // Mobile Divider Animation - Fixed
     const mobileDivider = document.getElementById('mobile-about-divider');
-    const mobileDividerObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          mobileDivider.classList.add('visible');
-          mobileDividerObserver.unobserve(mobileDivider);
-          mobileDivider.classList.remove('opacity-0', 'scale-x-0');
-          mobileDivider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
-        }
+    
+    if (mobileDivider) {
+      const mobileDividerObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            mobileDivider.classList.remove('opacity-0', 'scale-x-0');
+            mobileDivider.classList.add('opacity-100', 'scale-x-100');
+            
+            // Add pulse animation after the scale animation
+            setTimeout(() => {
+              mobileDivider.classList.add('animate-pulse');
+            }, 700);
+            
+            // Unobserve after animation triggers
+            mobileDividerObserver.unobserve(mobileDivider);
+          }
+        });
+      }, { 
+        threshold: 0.5,
+        rootMargin: '0px 0px -50px 0px' // Trigger slightly before element is fully visible
       });
-    }, { threshold: 0.5 });
-    mobileDividerObserver.observe(mobileDivider);
+      
+      mobileDividerObserver.observe(mobileDivider);
+    }
 </script>
 
 </body>
