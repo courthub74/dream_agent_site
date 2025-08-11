@@ -208,10 +208,10 @@ footer {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .collection-card {
-    flex: 0 0 260px;
-    flex: 0 0 400px;
-    height: 180px;
-    height: 260px;
+    flex: 0 0 160px;
+    /* flex: 0 0 400px; */
+    height: 160px;
+    /* height: 260px; */
     box-shadow: 2px 2px 2px rgb(8, 36, 90);
   }
   
@@ -321,6 +321,38 @@ footer {
 .hero-animate {
     animation: fadeIn 1.5s ease-in-out;
 }
+
+/* Generic fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered card reveal */
+.about-card {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.about-card.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+/* @keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  } 
+} */
 </style>
 <body>
   <!-- HOME/HERO SECTION -->
@@ -329,7 +361,7 @@ footer {
           <!-- Logo -->
           <img src="./img/hero_logo.png" class="hero_logo" alt="dream_agent">
           <!-- Phrase -->
-          <p class="hero_phrase">Machine dreams in Metaphor</p>
+          <p class="hero_phrase hero-animate fade-in">Machine dreams in Metaphor</p>
           <!-- About Button -->
           <!-- <button class="about-link hero-animate fade-in" id="cta">Enter the Realm</button> -->
           <a class="about-link hero-animate fade-in" id="cta">Enter the Realm</a>
@@ -365,7 +397,7 @@ footer {
      <div class="w-40 sm:w-56 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0 mt-12 mb-12" id="mobile-about-divider"></div>
 
       <h3 class="mobile_about_collections_header">
-        Collections
+        Explore the Collections
      </h3>
 
     
@@ -424,9 +456,26 @@ footer {
     });
   });
 
+  // Animate hero phrase first
+  gsap.to(".hero_phrase", {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    delay: 1.2 // phrase appears first
+  });
+
+  // Then animate CTA slightly later
+  gsap.to("#cta", {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    delay: 1.5 // CTA appears just after phrase
+  });
+
+
   // GSAP Animations for Hero
-  gsap.to("#logo", {opacity:1, y:0, duration:1});
-  gsap.to("#title", {opacity:1, y:0, duration:1, delay:0.5});
+  // gsap.to("#logo", {opacity:1, y:0, duration:1});
+  // gsap.to("#title", {opacity:1, y:0, duration:1, delay:0.5});
   // Animate text opacity & border color together
   // gsap.to("#cta", { 
   //   opacity: 1, 
@@ -434,7 +483,7 @@ footer {
   //   borderColor: "rgba(255,255,255,1)", 
   //   duration: 1, 
   //   delay: 1.5});
-  gsap.to("#cta", {opacity:1, y:0, duration:1, delay:1.5});
+  // gsap.to("#cta", {opacity:1, y:0, duration:1, delay:1.5});
 
   // Parallax effect
   document.addEventListener('scroll', () => {
@@ -444,6 +493,32 @@ footer {
       el.style.transform = `translateY(${offset}px)`;
     });
   });
+
+    // Cards staggered animation
+    const cards = document.querySelectorAll('.about-card');
+    const cardsObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = Array.from(cards).indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 200); // 200ms stagger per card
+          cardsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    cards.forEach(card => cardsObserver.observe(card));
+
+    // Fade ins on the Hero section
+    const fadeIns = document.querySelectorAll('.fade-in');
+    const fadeInObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeInObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
 
   // JavaScript to replace the short portion with the full paragraph on 'Read More', and revert on 'Read Less'
   const portion = document.querySelector('.mobile_about_portion');
