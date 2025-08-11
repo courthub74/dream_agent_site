@@ -326,11 +326,11 @@ footer {
   <section id="mobile_hero" class="mobile_hero">
       <div class="mobile_hero_container">
           <!-- Logo -->
-          <img src="./img/hero_logo.png" alt="dream_agent">
+          <img src="./img/hero_logo.png" class="hero_logo" alt="dream_agent">
           <!-- Phrase -->
           <p class="hero_phrase">Machine dreams in Metaphor</p>
           <!-- About Button -->
-          <button class="about-link hero-animate fade-in">Enter the Realm</button>
+          <button class="about-link hero-animate fade-in" id="cta">Enter the Realm</button>
       </div>
   </section>
 
@@ -413,11 +413,42 @@ footer {
 </section>
 
 <script>
+
+  // Smooth scroll behavior
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // GSAP Animations for Hero
+  gsap.to("#logo", {opacity:1, y:0, duration:1});
+  gsap.to("#title", {opacity:1, y:0, duration:1, delay:0.5});
+  // Animate text opacity & border color together
+  // gsap.to("#cta", { 
+  //   opacity: 1, 
+  //   y: 0, 
+  //   borderColor: "rgba(255,255,255,1)", 
+  //   duration: 1, 
+  //   delay: 1.5});
+  gsap.to("#cta", {opacity:1, y:0, duration:1, delay:1.5});
+
+  // Parallax effect
+  document.addEventListener('scroll', () => {
+    document.querySelectorAll('.parallax').forEach(el => {
+      let speed = 0.3;
+      let offset = window.scrollY * speed;
+      el.style.transform = `translateY(${offset}px)`;
+    });
+  });
+
   // JavaScript to replace the short portion with the full paragraph on 'Read More', and revert on 'Read Less'
   const portion = document.querySelector('.mobile_about_portion');
   const full = document.querySelector('.mobile_about_paragraph');
   const btn = portion.querySelector('button');
 
+  // Read More functionality
   btn.addEventListener('click', function() {
     if (portion.style.display !== 'none') {
       portion.style.display = 'none';
@@ -463,6 +494,18 @@ footer {
       });
     }, { threshold: 0.5 });
     mobileDividerObserver.observe(mobileDivider);
+
+    // ABOUT LINK BUTTON
+    const cta = document.getElementById('cta');
+    function updateCTALink() {
+      if (window.innerWidth <= 500) {
+        cta.setAttribute('href', '#mobile_about');
+      } else {
+        cta.setAttribute('href', '#mobile_about');
+      }
+    }
+    window.addEventListener('resize', updateCTALink);
+    updateCTALink();
 </script>
 
 </body>
