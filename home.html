@@ -24,6 +24,7 @@
 
 body {
   min-height: 110vh;
+  min-height: 250vh;
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
@@ -271,8 +272,40 @@ footer {
 .mobile_about_paragraph {
     display: none;
 }
+
+/* Home/Hero */
+.mobile_hero {
+    height: 100vh;
+    background-image: url('./img/plain_background_bigger.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.mobile_hero_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
 </style>
+
+
+
+<!-- Actual Page -->
 <body>
+
+<!-- HOME/HERO SECTION -->
+<section id="mobile_hero" class="mobile_hero">
+    <div class="mobile_hero_container">
+        <!-- Logo -->
+        <img src="./img/hero_logo.png" alt="dream_agent">
+        <!-- Phrase -->
+        <p class="hero_phrase">Machine dreams in Metaphor</p>
+        <!-- About Button -->
+        <button class="about-link hero-animate fade-in">Enter the Realm</button>
+    </div>
+</section>
 
     <!-- ABOUT SECTION MOBILE/TABLET -->
 <section id="mobile_about" class="mobile_about">

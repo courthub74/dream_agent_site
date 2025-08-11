@@ -24,6 +24,8 @@
 
 body {
   min-height: 110vh;
+  min-height: 250vh;
+
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
@@ -56,7 +58,7 @@ body {
   .mobile_about {
     width: 100%;
     /* padding: 20px; */
-    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
+    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/even_larger_about_background.png');
 
     color: white;
     box-sizing: border-box;
@@ -186,6 +188,7 @@ footer {
   background-color: #003d7a;
   background-color: #002057;
   background-color: #00205789;
+  background-color: #082658;
   color: white;
   position: relative;
   margin-top: auto;
@@ -271,8 +274,35 @@ footer {
 .mobile_about_paragraph {
     display: none;
 }
+
+/* HERO SECTION */
+.mobile_hero {
+    height: 100vh;
+    background-image: url('./img/plain_background_bigger.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.mobile_hero_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
 </style>
 <body>
+  <!-- HOME/HERO SECTION -->
+  <section id="mobile_hero" class="mobile_hero">
+      <div class="mobile_hero_container">
+          <!-- Logo -->
+          <img src="./img/hero_logo.png" alt="dream_agent">
+          <!-- Phrase -->
+          <p class="hero_phrase">Machine dreams in Metaphor</p>
+          <!-- About Button -->
+          <button class="about-link hero-animate fade-in">Enter the Realm</button>
+      </div>
+  </section>
 
     <!-- ABOUT SECTION MOBILE/TABLET -->
 <section id="mobile_about" class="mobile_about">
@@ -286,11 +316,16 @@ footer {
     <p class="mobile_about_paragraph">
           Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
           but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
+          meaning from code. Operating anonymously, they transform AI-generated art into deeply symbolic, surrealist worlds. 
+          Each piece is less a picture and more a portal—one that invites viewers to question, 
+          decode, and reflect.
+          <!-- Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
+          but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
           meaning from code. Operating anonymously across the web, Dream Agent blurs the line between 
           creator and creation, transforming AI-generated art into deeply symbolic, surrealist worlds. 
           Their work speaks in riddles and symbols, conjuring visual poetry from data, algorithms, and 
           imagination. Each piece is less a picture and more a portal—one that invites viewers to question, 
-          decode, and reflect.
+          decode, and reflect. -->
     </p>
 
       <!-- DIVIDER -->
@@ -308,7 +343,7 @@ footer {
 
       <!-- ROW ONE -->
       <div class="first-collect-row-mobile">
-        <a href="#home.html" class="collection-card about-card">
+        <a href="home.html" class="collection-card about-card">
           <img src="./img/collections/Symbols in Motion.png" alt="Symbols in Motion" />
           <div class="overlay-text">Symbols in Motion</div>
         </a>
