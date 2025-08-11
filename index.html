@@ -19,13 +19,16 @@
 
   html, body {
     height: 100%;
-    
+    color: beige;
   }
+
+  h1, h2, h3, h4, #title, .about-link, .overlay-text, .mobile_about_header, .mobile_about_collections_header, #cta {
+  font-family: 'Playfair Display', serif;
+}
 
 body {
   min-height: 110vh;
   min-height: 250vh;
-
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
@@ -288,8 +291,34 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 4em;
+    margin-top: -50px;
+    gap: 6em;
     height: 100%;
+}
+
+.hero_phrase {
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, sans-serif;
+    font-family: 'Playfair Display', serif;
+
+    /* color: white; */
+    text-align: center;
+    margin-top: 10px;
+}
+
+.about-link {
+    background: #0057B8;
+    /* color: white; */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.hero-animate {
+    animation: fadeIn 1.5s ease-in-out;
 }
 </style>
 <body>
