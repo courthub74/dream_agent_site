@@ -61,14 +61,17 @@ body {
   }
     /* Mobile About Section */
   .mobile_about {
-    width: 100%;
-    /* padding: 20px; */
-    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/even_larger_about_background.png');
+  width: 100%;
+  background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)),
+                    url('./img/even_larger_about_background.png');
+  background-size: cover;        /* Stretches to cover entire area */
+  background-repeat: no-repeat;  /* Prevents tiling */
+  background-position: center;   /* Keeps image centered */
+  background-attachment: scroll; /* Change to 'fixed' for parallax-like effect */
+  color: white;
+  box-sizing: border-box;
+}
 
-    color: white;
-    box-sizing: border-box;
-    /* height: 100vh; */
-  }
 
   .mobile_about_container {
     max-width: 100%;
