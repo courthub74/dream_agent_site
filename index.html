@@ -655,16 +655,27 @@ footer {
     }, { threshold: 0.3 });
     cards.forEach(card => cardsObserver.observe(card));
 
-    // Fade ins on the Hero section
-    const fadeIns = document.querySelectorAll('.fade-in');
-    const fadeInObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
+   // Fade ins on the Hero section
+const fadeIns = document.querySelectorAll('.fade-in');
+const fadeInObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // If it's the CTA button, delay its visibility
+      if (entry.target.id === 'cta') {
+        setTimeout(() => {
           entry.target.classList.add('visible');
-          fadeInObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
+        }, 500); // 0.5 second delay
+      } else {
+        entry.target.classList.add('visible');
+      }
+
+      fadeInObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+fadeIns.forEach(el => fadeInObserver.observe(el));
+
 
   // JavaScript to replace the short portion with the full paragraph on 'Read More', and revert on 'Read Less'
   const portion = document.querySelector('.mobile_about_portion');
