@@ -30,7 +30,7 @@
 body {
   min-height: 110vh;
   min-height: 250vh;
-  min-height: 450vh;
+  min-height: 500vh;
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
@@ -194,13 +194,14 @@ footer {
   text-align: center;
   padding: 20px;
   background-color: #003d7a;
-  background-color: #002057;
+  background: none;
+  /* background-color: #002057;
   background-color: #00205789;
   background-color: #082658;
-  color: white;
+  background-color: #121e33; */
   position: relative;
   margin-top: auto;
-  /* margin-top: 2rem; */
+  border-radius: 5px;
   padding-top: 1rem;
   border-top: 1px solid rgba(255,255,255,0.2);
 }
@@ -456,10 +457,11 @@ footer {
              class="w-full h-56 md:h-full object-cover md:rounded-l-2xl" />
       </figure>
       <div class="md:col-span-8 p-5 md:p-6 flex flex-col justify-center">
-        <h3 class="text-xl sm:text-2xl font-semibold mb-1">Symbols in Motion</h3>
-        <p class="text-sm sm:text-base text-neutral-200/90">Recurring signs caught in perpetual drift.</p>
+        <h3 class="text-xl sm:text-2xl font-bold mb-1">Symbols in Motion</h3>
+        <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Recurring signs caught in perpetual drift.</p>
          <!-- Painting list -->
           <ul class="mt-2 space-y-1 text-sm text-neutral-400">
+            <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300">Works include:</li>
             <li>Hollywood Moderne</li>
             <li>Sephardic Tango</li>
             <li>Crypto Fish Tank</li>
@@ -479,9 +481,10 @@ footer {
              class="w-full h-56 md:h-full object-cover md:rounded-l-2xl" />
       </figure>
       <div class="md:col-span-8 p-5 md:p-6 flex flex-col justify-center">
-        <h3 class="text-xl sm:text-2xl font-semibold mb-1">Signals &amp; Ascensions</h3>
-        <p class="text-sm sm:text-base text-neutral-200/90">Messages in transit between epochs.</p>
+        <h3 class="text-xl sm:text-2xl font-bold mb-1">Signals &amp; Ascensions</h3>
+        <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Messages in transit between epochs.</p>
         <ul class="mt-2 space-y-1 text-sm text-neutral-400">
+          <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300">Works include:</li>
           <li>Revolutionary Balloon</li>
           <li>The Magic of ’86</li>
           <li>Bitcoin 2017</li>
@@ -502,9 +505,10 @@ footer {
              class="w-full h-56 md:h-full object-cover md:rounded-l-2xl" />
       </figure>
       <div class="md:col-span-8 p-5 md:p-6 flex flex-col justify-center">
-        <h3 class="text-xl sm:text-2xl font-semibold mb-1">War &amp; Feast</h3>
-        <p class="text-sm sm:text-base text-neutral-200/90">Conflict, appetite, and ceremonial excess.</p>
+        <h3 class="text-xl sm:text-2xl font-bold mb-1">War &amp; Feast</h3>
+        <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Conflict, appetite, and ceremonial excess.</p>
         <ul class="mt-2 space-y-1 text-sm text-neutral-400">
+          <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300">Works include:</li>
           <li>Coeur of the Grapes</li>
           <li>The Wine Wars</li>
           <li>Some Things Were Meant to Last Forever</li>
@@ -523,9 +527,10 @@ footer {
              class="w-full h-56 md:h-full object-cover md:rounded-l-2xl" />
       </figure>
       <div class="md:col-span-8 p-5 md:p-6 flex flex-col justify-center">
-        <h3 class="text-xl sm:text-2xl font-semibold mb-1">Industrial Myths</h3>
-        <p class="text-sm sm:text-base text-neutral-200/90">Machines, labor, and systems recast as modern gods.</p>
+        <h3 class="text-xl sm:text-2xl font-bold mb-1">Industrial Myths</h3>
+        <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Machines, labor, and systems recast as modern gods.</p>
         <ul class="mt-2 space-y-1 text-sm text-neutral-400">
+          <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300">Works include:</li>
           <li>The Cursor of Fate</li>
           <li>The Future of Industry</li>
           <li>The Fear Room</li>
@@ -545,9 +550,10 @@ footer {
              class="w-full h-56 md:h-full object-cover md:rounded-l-2xl" />
       </figure>
       <div class="md:col-span-8 p-5 md:p-6 flex flex-col justify-center">
-        <h3 class="text-xl sm:text-2xl font-semibold mb-1">The Digital Unconscious</h3>
-        <p class="text-sm sm:text-base text-neutral-200/90">Where AI dreams and data remembers.</p>
+        <h3 class="text-xl sm:text-2xl font-bold mb-1">The Digital Unconscious</h3>
+        <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Where AI dreams and data remembers.</p>
         <ul class="mt-2 space-y-1 text-sm text-neutral-400">
+          <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300">Works include:</li>
           <li>Internet of the Old World</li>
           <li>Internet of the Middle World</li>
           <li>Internet of the New World</li>
@@ -567,8 +573,17 @@ footer {
              class="w-full h-56 md:h-full object-cover md:rounded-l-2xl" />
       </figure>
       <div class="md:col-span-8 p-5 md:p-6 flex flex-col justify-center">
-        <h3 class="text-xl sm:text-2xl font-semibold">The Dominion Archive</h3>
-        <p class="text-sm sm:text-base text-neutral-200/90">Power recorded, repackaged, ritualized.</p>
+        <h3 class="text-xl sm:text-2xl font-bold">The Dominion Archive</h3>
+        <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Power recorded, repackaged, ritualized.</p>
+        <ul class="mt-2 space-y-1 text-sm text-neutral-400">
+          <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300">Works include:</li>
+          <li>Bottling the Republic</li>
+          <li>Discovery of the Indigenous</li>
+          <li>The Refactoring Ritual</li>
+          <li>The Census Ritual</li>
+          <li>Etch the Empire</li>
+        </ul>
+
       </div>
     </div>
   </a>
