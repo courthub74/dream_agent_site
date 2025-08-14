@@ -230,7 +230,27 @@ footer {
   box-shadow: 0 0 0 rgba(255,255,255,0);
 }
 
+.works-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    color: #ccc;
+  }
+  .header {
+    font-size: 1rem;
+    color: #bbb;
+  }
+  #work-title {
+    color: white;
+    margin-left: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
 
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
 
 /* Responsive adjustments */
 
@@ -256,6 +276,32 @@ footer {
     padding-left: 5px;
     padding-right: 5px;
   }
+
+  /* COLLECTIONS WORK TITLE FLASH */
+  .works-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    color: #ccc;
+  }
+  /* .header {
+    font-size: 1rem;
+    color: #bbb;
+  } */
+  #work-title {
+    color: white;
+    /* margin-left: 0.5rem; */
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  .rotator-fade { transition: opacity .35s ease; }
+  .rotator-hidden { opacity: 0; }
+
 }
 
 @media (max-width: 480px) {
@@ -443,6 +489,17 @@ footer {
   }
 
   /* MAKE THE COLLECTIONS GALLERY SMALLER */
+
+  /* COLLECTIONS WORK TITLE FLASH */
+   .work-item {
+    opacity: 0;
+    animation: flash 2.5s ease-in-out infinite; /* slower speed */
+  }
+
+  @keyframes flash {
+    0%, 100% { opacity: 0; }
+    20%, 80% { opacity: 1; }
+  }
 }
 
 
@@ -508,11 +565,12 @@ footer {
          <!-- Painting list -->
           <ul class="mt-2 space-y-1 text-sm text-neutral-400 pt-3 pb-2 md:pt-4 md:pb-3">
             <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300">Works include:</li>
-            <li>Hollywood Moderne</li>
-            <!-- <li>Sephardic Tango</li>
-            <li>Crypto Fish Tank</li>
-            <li>The Rusher, The Incrementer…</li>
-            <li>Rinse and Repeat</li> -->
+            <li id="symbol-title"></li>
+            <!-- <li class="work-item">Hollywood Moderne</li>
+            <li class="work-item">Sephardic Tango</li>
+            <li class="work-item">Crypto Fish Tank</li>
+            <li class="work-item">The Rusher, The Incrementer…</li>
+            <li class="work-item">Rinse and Repeat</li> -->
           </ul>
       </div>
     </div>
@@ -531,8 +589,9 @@ footer {
         <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Messages in transit between epochs.</p>
         <ul class="mt-2 space-y-1 text-sm text-neutral-400 pt-3 pb-2 md:pt-4 md:pb-3">
           <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300">Works include:</li>
-          <li>Revolutionary Balloon</li>
-          <!-- <li>The Magic of ’86</li>
+          <li id="signal-title"></li>
+          <!-- <li>Revolutionary Balloon</li>
+          <li>The Magic of ’86</li>
           <li>Bitcoin 2017</li>
           <li>Hip Hop 1978</li>
           <li>The Biblicals</li> -->
@@ -847,9 +906,75 @@ fadeIns.forEach(el => fadeInObserver.observe(el));
       setTimeout(() => io.observe(el), i * 70); // 70ms stagger only affects when we start observing
     });
   })();
-</script>
+  /////////////////////////////////////////////////////
+  // Collection blurb reveal
+  // Collection title rotators (single place display per card)
+document.addEventListener("DOMContentLoaded", () => {
+  // Generic rotator: swaps text every `intervalMs`
+  function rotateTitles(el, titles, intervalMs = 3000) {
+    if (!el || !Array.isArray(titles) || titles.length === 0) return;
+    let i = 0;
+    el.textContent = titles[i];
+    i = (i + 1) % titles.length;
+    setInterval(() => {
+      el.textContent = titles[i];
+      i = (i + 1) % titles.length;
+    }, intervalMs);
+  }
 
+  // These are going to eventually come from a CMS or data file
+  // Symbols in Motion (FIXED names)
+  const symbolsWorks = [
+    "Hollywood Moderne",
+    "Sephardic Tango",
+    "Crypto Fish Tank",
+    "The Rusher, The Incrementer and the Protester",
+    "Rinse and Repeat",
+  ];
+  const symbolTitleEl = document.getElementById("symbol-title");
+  rotateTitles(symbolTitleEl, symbolsWorks, 3000);
 
+  // Signals & Ascensions
+  const signalsWorks = [
+    "Revolutionary Balloon",
+    "The Magic of ’86",
+    "Bitcoin 2017",
+    "Hip Hop 1978",
+    "The Biblicals",
+  ];
+  const signalsTitleEl = document.getElementById("signal-title");
+  rotateTitles(signalsTitleEl, signalsWorks, 3000);
+});
+
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   const items = document.querySelectorAll(".work-item");
+  //   const speed = 2.5;
+  //   items.forEach((item, index) => {
+  //     item.style.animationDelay = `${index * speed}s`;
+  //   });
+  // });
+
+  // For the CSS fade-in of the blurbs
+  function rotateTitles(el, titles, intervalMs = 3000) {
+  if (!el || !Array.isArray(titles) || titles.length === 0) return;
+
+  el.classList.add("rotator-fade");
+  let i = 0;
+
+  const show = () => {
+    el.textContent = titles[i];
+    el.classList.remove("rotator-hidden");
+    i = (i + 1) % titles.length;
+  };
+
+  // first paint
+  show();
+
+  setInterval(() => {
+    el.classList.add("rotator-hidden");
+    setTimeout(show, 350); // match CSS transition
+  }, intervalMs);
+}
 
 </script>
 
