@@ -759,7 +759,8 @@ fadeIns.forEach(el => fadeInObserver.observe(el));
         lessBtn.onclick = () => {
           full.style.display = 'none';
           portion.style.display = 'block';
-          btn.textContent = 'Read More';
+          btn.innerHTML = '<b>Read More</b>';
+          // btn.textContent = '<b>Read More</b>';
         };
         full.appendChild(lessBtn);
       }
