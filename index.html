@@ -505,7 +505,7 @@ footer {
 /* DESKTOP */
 @media screen and (min-width: 1025px) {
   body {
-    min-height: 500vh;
+    min-height: 250vh;
     background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -559,6 +559,7 @@ footer {
   /* ABOUT SECTION */
   .mobile_about {
     padding: 5em;
+    height: 100vh;
   }
 
   .mobile_about_portion {
@@ -572,9 +573,89 @@ footer {
     /* padding: 0 2rem; */
   }
 
+
+
    .group {
-    max-width: 500px;
+    max-width: 1000px;
     height: auto;
+  }
+
+  footer {
+    margin-top: auto;
+  }
+
+  :root { --cc-gap: 1rem; }
+
+  /* Carousel shell */
+  #collections .collections-carousel {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* prev | viewport | next */
+    align-items: center;
+    gap: .5rem;
+  }
+
+  #collections .cc-viewport {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  #collections .cc-track {
+    display: flex;
+    gap: var(--cc-gap);
+    will-change: transform;
+    scroll-behavior: smooth;
+  }
+
+  /* Show exactly 3 cards */
+  #collections .cc-track > a.group {
+    flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
+    max-width: calc((100% - (2 * var(--cc-gap))) / 3);
+  }
+
+  /* Arrows */
+  #collections .cc-arrow {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.35);
+    color: white;
+    font-weight: 700;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform .15s ease, background-color .15s ease, opacity .2s ease;
+    opacity: .9;
+  }
+  #collections .cc-arrow:hover { transform: translateY(-1px); background-color: rgba(255,255,255,.08); }
+  #collections .cc-arrow:disabled { opacity: .35; cursor: default; }
+
+   /* Use the same max width + side padding for both sections */
+  :root {
+    --content-max: 64rem; /* Tailwind's max-w-4xl */
+    --content-pad: 2rem;  /* ~px-8 */
+  }
+
+  .mobile_about_container,
+  #collections {
+    max-width: var(--content-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--content-pad);
+    padding-right: var(--content-pad);
+  }
+
+  /* Desktop Collections Text */
+   /* Reduce heading & description text inside collection cards */
+  #collections a.group h3 {
+    font-size: 1.1rem; /* smaller title */
+  }
+  #collections a.group p {
+    font-size: 0.85rem; /* smaller subtitle/description */
+  }
+  #collections a.group li {
+    font-size: 0.8rem; /* works list items */
   }
 }
 
@@ -624,7 +705,8 @@ footer {
 
 
   <section id="collections" class="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8 py-10 space-y-8">
-  <h2 class="text-2xl sm:text-3xl font-semibold mb-2">Explore the Collections</h2>
+  <h2 class="collections-title text-xl font-semibold mb-2">Explore the Collections</h2>
+  <!-- <h2 class="collections-title text-2xl sm:text-3xl font-semibold mb-2">Explore the Collections</h2> -->
 
   <!-- Card -->
   <a href="/collections/symbols-in-motion"
@@ -1097,6 +1179,142 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(show, 350); // match CSS transition
   }, intervalMs);
 }
+
+  // Desktop carousel logic
+(function(){
+  const mq = window.matchMedia('(min-width: 1025px)');
+  const collections = document.querySelector('#collections');
+  if (!collections) return;
+
+  // Original card nodes (anchors with class "group")
+  const cardSelector = ':scope > a.group';
+  let shell = null, viewport = null, track = null, prevBtn = null, nextBtn = null;
+  let cardsCache = [];
+
+  // Build the desktop carousel shell and move cards inside
+  function enableDesktopCarousel() {
+    if (shell) return; // already enabled
+
+    // Cache current cards in order
+    cardsCache = Array.from(collections.querySelectorAll(cardSelector));
+    if (!cardsCache.length) return;
+
+    // Create shell
+    shell = document.createElement('div');
+    shell.className = 'collections-carousel';
+
+    prevBtn = document.createElement('button');
+    prevBtn.className = 'cc-arrow cc-prev';
+    prevBtn.setAttribute('aria-label', 'Previous');
+    prevBtn.textContent = '←';
+
+    nextBtn = document.createElement('button');
+    nextBtn.className = 'cc-arrow cc-next';
+    nextBtn.setAttribute('aria-label', 'Next');
+    nextBtn.textContent = '→';
+
+    viewport = document.createElement('div');
+    viewport.className = 'cc-viewport';
+
+    track = document.createElement('div');
+    track.className = 'cc-track';
+
+    viewport.appendChild(track);
+    shell.appendChild(prevBtn);
+    shell.appendChild(viewport);
+    shell.appendChild(nextBtn);
+
+    // Insert shell **after** the H2 heading
+    const heading = collections.querySelector('h2');
+    if (heading && heading.nextSibling) {
+      collections.insertBefore(shell, heading.nextSibling.nextSibling || heading.nextSibling);
+    } else {
+      collections.appendChild(shell);
+    }
+
+    // Move cards into track
+    cardsCache.forEach(card => track.appendChild(card));
+
+    // Wire up behavior
+    initControls();
+    updateArrows();
+  }
+
+  // Tear down and put cards back where they were
+  function disableDesktopCarousel() {
+    if (!shell) return;
+
+    // Place cards back in original order before the shell (inside #collections)
+    const anchor = shell; // insert before shell
+    cardsCache.forEach(card => collections.insertBefore(card, anchor));
+
+    // Remove shell
+    shell.remove();
+    shell = viewport = track = prevBtn = nextBtn = null;
+
+    // Clear cached listeners by relying on garbage collection
+  }
+
+  function isDesktop() { return mq.matches; }
+
+  function getStep() {
+    if (!track) return 0;
+    const style = getComputedStyle(track);
+    const gap = parseFloat(style.columnGap || style.gap || 0);
+    const card = track.querySelector('a.group');
+    if (!card) return 0;
+    const w = card.getBoundingClientRect().width;
+    return w + gap;
+  }
+
+  function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+
+  function updateArrows() {
+    if (!track || !viewport) return;
+    const maxScroll = track.scrollWidth - viewport.clientWidth;
+    if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
+    if (nextBtn) nextBtn.disabled = track.scrollLeft >= (maxScroll - 2);
+  }
+
+  function scrollByCards(dir = 1, count = 1) {
+    if (!track || !viewport) return;
+    const step = getStep() * count;
+    const maxScroll = track.scrollWidth - viewport.clientWidth;
+    const target = clamp(track.scrollLeft + dir * step, 0, maxScroll);
+    track.scrollTo({ left: target, behavior: 'smooth' });
+  }
+
+  function initControls() {
+    if (!prevBtn || !nextBtn || !track) return;
+
+    prevBtn.addEventListener('click', () => scrollByCards(-1, 1)); // move 1 card
+    nextBtn.addEventListener('click', () => scrollByCards( 1, 1));
+
+    track.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+
+    // Keyboard (when hovering/focused in section)
+    document.addEventListener('keydown', (e) => {
+      if (!isDesktop() || !shell) return;
+      const within = document.activeElement.closest?.('#collections') || document.querySelector('#collections:hover');
+      if (!within) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); scrollByCards(1, 1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollByCards(-1, 1); }
+    });
+  }
+
+  // Respond to breakpoint changes
+  function handleChange() {
+    if (isDesktop()) enableDesktopCarousel();
+    else disableDesktopCarousel();
+  }
+
+  // Init on load and on change
+  handleChange();
+  mq.addEventListener('change', handleChange);
+})();
+
+
 
 </script>
 
