@@ -502,6 +502,82 @@ footer {
   }
 }
 
+/* DESKTOP */
+@media screen and (min-width: 1025px) {
+  body {
+    min-height: 500vh;
+    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .mobile_hero {
+    height: 100vh;
+    background-image: url('./img/plain_background_bigger.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .mobile_hero_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: -60px;
+    gap: 5em;
+    height: 100%;
+  }
+
+  .hero_logo {
+    width: 200px; /* Adjusted for larger screens */
+    height: auto;
+  }
+
+  .hero_phrase {
+    font-size: 1.8rem;
+    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin-top: -5px;
+  }
+
+  .about-link {
+    background: #0057B8;
+    color: white;
+    padding: 12px 24px; /* Slightly larger padding */
+    border-radius: 6px; /* Slightly larger border radius */
+    font-size: 1.1rem; /* Slightly larger font size */
+    /* margin-top: 1.5em; */
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  /* ABOUT SECTION */
+  .mobile_about {
+    padding: 5em;
+  }
+
+  .mobile_about_portion {
+    display: none;
+  }
+
+  .mobile_about_paragraph {
+    display: block;
+    margin-bottom: 2em;
+    line-height: 1.8;
+    /* padding: 0 2rem; */
+  }
+
+   .group {
+    max-width: 500px;
+    height: auto;
+  }
+}
+
 
 </style>
 <body>
