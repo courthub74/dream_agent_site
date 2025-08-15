@@ -614,7 +614,8 @@ footer {
         <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Conflict, appetite, and ceremonial excess.</p>
         <ul class="mt-2 space-y-1 text-sm text-neutral-400 pt-3 pb-2 md:pt-4 md:pb-3">
           <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300">Works include:</li>
-          <li>Coeur of the Grapes</li>
+          <li id="war-title"></li>
+          <!-- <li>Coeur of the Grapes</li> -->
           <!-- <li>The Wine Wars</li>
           <li>Some Things Were Meant to Last Forever</li> -->
         </ul>
@@ -636,7 +637,8 @@ footer {
         <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Machines, labor, and systems recast as modern gods.</p>
         <ul class="mt-2 space-y-1 text-sm text-neutral-400">
           <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300 pt-3 pb-2 md:pt-4 md:pb-3">Works include:</li>
-          <li>The Cursor of Fate</li>
+          <li id="industrial-title"></li>
+          <!-- <li>The Cursor of Fate</li> -->
           <!-- <li>The Future of Industry</li>
           <li>The Fear Room</li>
           <li>The Great Divide</li> -->
@@ -659,7 +661,8 @@ footer {
         <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Where AI dreams and data remembers.</p>
         <ul class="mt-2 space-y-1 text-sm text-neutral-400">
           <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300 pt-3 pb-2 md:pt-4 md:pb-3">Works include:</li>
-          <li>Internet of the Old World</li>
+          <li id="digital-title"></li>
+          <!-- <li>Internet of the Old World</li> -->
           <!-- <li>Internet of the Middle World</li>
           <li>Internet of the New World</li>
           <li>Prince Carl laying in front of the Tele, trying not to watch it</li> -->
@@ -682,7 +685,8 @@ footer {
         <p class="text-sm sm:text-base font-semibold text-neutral-200/90">Power recorded, repackaged, ritualized.</p>
         <ul class="mt-2 space-y-1 text-sm text-neutral-400">
           <li class="mt-2 space-y-1 font-semibold text-sm text-neutral-300 pt-3 pb-2 md:pt-4 md:pb-3">Works include:</li>
-          <li>Bottling the Republic</li>
+          <li id="dominion-title"></li>
+          <!-- <li>Bottling the Republic</li> -->
           <!-- <li>Discovery of the Indigenous</li>
           <li>The Refactoring Ritual</li>
           <li>The Census Ritual</li>
@@ -951,7 +955,42 @@ document.addEventListener("DOMContentLoaded", () => {
     "The Wine Wars",
     "Some Things Were Meant to Last Forever",
   ];
+  const warTitleEl = document.getElementById("war-title");
+  rotateTitles(warTitleEl, warWorks, 3000);
+
+  // Industrial Myths
+  const industrialWorks = [
+    "The Cursor of Fate",
+    "The Future of Industry",
+    "The Fear Room",
+    "The Great Divide",
+  ];
+  const industrialTitleEl = document.getElementById("industrial-title");
+  rotateTitles(industrialTitleEl, industrialWorks, 3000);
+
+  // Digital Unconscious
+  const digitalWorks = [
+    "Internet of the Old World",
+    "Internet of the Middle World",
+    "Internet of the New World",
+    "Prince Carl laying in front of the TV....",
+  ];
+  const digitalTitleEl = document.getElementById("digital-title");
+  rotateTitles(digitalTitleEl, digitalWorks, 3000);
+
+  // Dominion Archive
+  const dominionWorks = [
+    "Bottling the Republic",
+    "Discovery of the Indigenous",
+    "The Refactoring Ritual",
+    "The Census Ritual",
+    "Etch the Empire",
+  ];
+  const dominionTitleEl = document.getElementById("dominion-title");
+  rotateTitles(dominionTitleEl, dominionWorks, 3000);
 });
+
+
 
   // document.addEventListener("DOMContentLoaded", () => {
   //   const items = document.querySelectorAll(".work-item");
