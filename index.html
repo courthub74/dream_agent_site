@@ -583,18 +583,24 @@ footer {
     margin-top: auto;
   }
 
-  :root { --cc-gap: 1rem; }
+  :root { --cc-gap: 1rem; --content-max: 64rem; --content-pad: 2rem; }
+
+  .mobile_about_container,
+  #collections {
+    max-width: var(--content-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--content-pad);
+    padding-right: var(--content-pad);
+  }
 
   /* Carousel shell */
   #collections .collections-carousel {
-    position: relative;
-    display: grid;
-    grid-template-columns: auto 1fr auto; /* prev | viewport | next */
-    align-items: center;
-    gap: .5rem;
+    position: relative; /* allows absolute-positioned controls inside */
   }
 
   #collections .cc-viewport {
+    position: relative;
     overflow: hidden;
     width: 100%;
   }
@@ -610,10 +616,21 @@ footer {
   #collections .cc-track > a.group {
     flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
     max-width: calc((100% - (2 * var(--cc-gap))) / 3);
+    height: 360px;
   }
 
-  /* Arrows */
-  #collections .cc-arrow {
+  /* Top-right overlay controls */
+  #collections .cc-controls {
+    position: absolute;
+    top: -18px;          /* sits just above the row */
+    right: 0;            /* top-right of viewport */
+    display: flex;
+    gap: .5rem;
+    z-index: 5;
+    pointer-events: none; /* so only buttons receive events */
+  }
+  #collections .cc-controls .cc-arrow {
+    pointer-events: auto;
     background: transparent;
     border: 1px solid rgba(255,255,255,.35);
     color: white;
@@ -627,35 +644,8 @@ footer {
     transition: transform .15s ease, background-color .15s ease, opacity .2s ease;
     opacity: .9;
   }
-  #collections .cc-arrow:hover { transform: translateY(-1px); background-color: rgba(255,255,255,.08); }
-  #collections .cc-arrow:disabled { opacity: .35; cursor: default; }
-
-   /* Use the same max width + side padding for both sections */
-  :root {
-    --content-max: 64rem; /* Tailwind's max-w-4xl */
-    --content-pad: 2rem;  /* ~px-8 */
-  }
-
-  .mobile_about_container,
-  #collections {
-    max-width: var(--content-max);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--content-pad);
-    padding-right: var(--content-pad);
-  }
-
-  /* Desktop Collections Text */
-   /* Reduce heading & description text inside collection cards */
-  #collections a.group h3 {
-    font-size: 1.1rem; /* smaller title */
-  }
-  #collections a.group p {
-    font-size: 0.85rem; /* smaller subtitle/description */
-  }
-  #collections a.group li {
-    font-size: 0.8rem; /* works list items */
-  }
+  #collections .cc-controls .cc-arrow:hover { transform: translateY(-1px); background-color: rgba(255,255,255,.08); }
+  #collections .cc-controls .cc-arrow:disabled { opacity: .35; cursor: default; }
 
    #collections .cc-track > a.group {
     flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
@@ -1221,52 +1211,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Build the desktop carousel shell and move cards inside
   function enableDesktopCarousel() {
-    if (shell) return; // already enabled
+  if (shell) return;
 
-    // Cache current cards in order
-    cardsCache = Array.from(collections.querySelectorAll(cardSelector));
-    if (!cardsCache.length) return;
+  cardsCache = Array.from(collections.querySelectorAll(cardSelector));
+  if (!cardsCache.length) return;
 
-    // Create shell
-    shell = document.createElement('div');
-    shell.className = 'collections-carousel';
+  shell = document.createElement('div');
+  shell.className = 'collections-carousel';
 
-    prevBtn = document.createElement('button');
-    prevBtn.className = 'cc-arrow cc-prev';
-    prevBtn.setAttribute('aria-label', 'Previous');
-    prevBtn.textContent = '←';
+  viewport = document.createElement('div');
+  viewport.className = 'cc-viewport';
 
-    nextBtn = document.createElement('button');
-    nextBtn.className = 'cc-arrow cc-next';
-    nextBtn.setAttribute('aria-label', 'Next');
-    nextBtn.textContent = '→';
+  // Track holds the cards
+  track = document.createElement('div');
+  track.className = 'cc-track';
 
-    viewport = document.createElement('div');
-    viewport.className = 'cc-viewport';
+  // Top-right overlay controls INSIDE the viewport
+  const controls = document.createElement('div');
+  controls.className = 'cc-controls';
 
-    track = document.createElement('div');
-    track.className = 'cc-track';
+  prevBtn = document.createElement('button');
+  prevBtn.className = 'cc-arrow cc-prev';
+  prevBtn.setAttribute('aria-label', 'Previous');
+  prevBtn.textContent = '←';
 
-    viewport.appendChild(track);
-    shell.appendChild(prevBtn);
-    shell.appendChild(viewport);
-    shell.appendChild(nextBtn);
+  nextBtn = document.createElement('button');
+  nextBtn.className = 'cc-arrow cc-next';
+  nextBtn.setAttribute('aria-label', 'Next');
+  nextBtn.textContent = '→';
 
-    // Insert shell **after** the H2 heading
-    const heading = collections.querySelector('h2');
-    if (heading && heading.nextSibling) {
-      collections.insertBefore(shell, heading.nextSibling.nextSibling || heading.nextSibling);
-    } else {
-      collections.appendChild(shell);
-    }
+  controls.appendChild(prevBtn);
+  controls.appendChild(nextBtn);
 
-    // Move cards into track
-    cardsCache.forEach(card => track.appendChild(card));
+  viewport.appendChild(controls);
+  viewport.appendChild(track);
+  shell.appendChild(viewport);
 
-    // Wire up behavior
-    initControls();
-    updateArrows();
+  // Insert shell after the H2
+  const heading = collections.querySelector('h2');
+  if (heading && heading.nextSibling) {
+    collections.insertBefore(shell, heading.nextSibling.nextSibling || heading.nextSibling);
+  } else {
+    collections.appendChild(shell);
   }
+
+  // Move cards into track
+  cardsCache.forEach(card => track.appendChild(card));
+
+  initControls();
+  updateArrows();
+}
+
 
   // Tear down and put cards back where they were
   function disableDesktopCarousel() {
