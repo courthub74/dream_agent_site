@@ -583,6 +583,44 @@ footer {
     margin-top: auto;
   }
 
+  /* CAROUSEL CSS */
+    #collections .collections-carousel {
+    position: relative; /* anchor for absolute controls */
+  }
+
+  /* float above the card row, not clipped by viewport */
+  #collections .cc-controls {
+  top: 0;              /* aligned with heading */
+  transform: translateY(-100%); /* sit just above it */
+}
+
+  /* #collections .cc-controls {
+    position: absolute;
+    right: 0;
+    top: -18px; 
+    display: flex;
+    gap: .5rem;
+    z-index: 10;
+    pointer-events: none;
+  } */
+  #collections .cc-controls .cc-arrow {
+    pointer-events: auto;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.35);
+    color: white;
+    font-weight: 700;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform .15s ease, background-color .15s ease, opacity .2s ease;
+    opacity: .9;
+  }
+  #collections .cc-controls .cc-arrow:hover { transform: translateY(-1px); background: rgba(255,255,255,.08); }
+  #collections .cc-controls .cc-arrow:disabled { opacity: .35; cursor: default; }
+
   :root { --cc-gap: 1rem; --content-max: 64rem; --content-pad: 2rem; }
 
   .mobile_about_container,
@@ -1222,11 +1260,10 @@ document.addEventListener("DOMContentLoaded", () => {
   viewport = document.createElement('div');
   viewport.className = 'cc-viewport';
 
-  // Track holds the cards
   track = document.createElement('div');
   track.className = 'cc-track';
 
-  // Top-right overlay controls INSIDE the viewport
+  // Controls (now sibling to viewport, so they won't be clipped)
   const controls = document.createElement('div');
   controls.className = 'cc-controls';
 
@@ -1243,11 +1280,12 @@ document.addEventListener("DOMContentLoaded", () => {
   controls.appendChild(prevBtn);
   controls.appendChild(nextBtn);
 
-  viewport.appendChild(controls);
+  // assemble
   viewport.appendChild(track);
   shell.appendChild(viewport);
+  shell.appendChild(controls);  // 👈 moved here
 
-  // Insert shell after the H2
+  // insert shell after the H2
   const heading = collections.querySelector('h2');
   if (heading && heading.nextSibling) {
     collections.insertBefore(shell, heading.nextSibling.nextSibling || heading.nextSibling);
@@ -1255,12 +1293,13 @@ document.addEventListener("DOMContentLoaded", () => {
     collections.appendChild(shell);
   }
 
-  // Move cards into track
+  // move cards
   cardsCache.forEach(card => track.appendChild(card));
 
   initControls();
   updateArrows();
 }
+
 
 
   // Tear down and put cards back where they were
