@@ -594,30 +594,31 @@ footer {
   transform: translateY(-100%); /* sit just above it */
 }
 
-  /* #collections .cc-controls {
-    position: absolute;
-    right: 0;
-    top: -18px; 
-    display: flex;
-    gap: .5rem;
-    z-index: 10;
-    pointer-events: none;
-  } */
-  #collections .cc-controls .cc-arrow {
-    pointer-events: auto;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.35);
-    color: white;
-    font-weight: 700;
-    width: 42px;
-    height: 42px;
-    border-radius: 999px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    transition: transform .15s ease, background-color .15s ease, opacity .2s ease;
-    opacity: .9;
-  }
+
+/* Frosted, glowing circular buttons */
+#collections .cc-controls .cc-arrow{
+  pointer-events: auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+
+  /* frosted glass look */
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.28);
+  backdrop-filter: blur(8px);
+
+  /* depth */
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.28),
+    inset 0 0 0 1px rgba(255,255,255,.08);
+
+  transition: transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease;
+  opacity: .95;
+}
+
   #collections .cc-controls .cc-arrow:hover { transform: translateY(-1px); background: rgba(255,255,255,.08); }
   #collections .cc-controls .cc-arrow:disabled { opacity: .35; cursor: default; }
 
@@ -690,6 +691,77 @@ footer {
     max-width: calc((100% - (2 * var(--cc-gap))) / 3);
     height: 360px; /* 👈 increase card height here */
   }
+
+  #collections .cc-controls {
+  top: -24px;               /* keep them a touch higher */
+  right: 0;
+  display: flex;
+  gap: .75rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Frosted, glowing circular buttons */
+#collections .cc-controls .cc-arrow{
+  pointer-events: auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+
+  /* frosted glass look */
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.28);
+  backdrop-filter: blur(8px);
+
+  /* depth */
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.28),
+    inset 0 0 0 1px rgba(255,255,255,.08);
+
+  transition: transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease;
+  opacity: .95;
+}
+
+#collections .cc-controls .cc-arrow:hover{
+  background: rgba(255,255,255,.20);
+  transform: translateY(-1px);
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.32),
+    inset 0 0 0 1px rgba(255,255,255,.12);
+}
+#collections .cc-controls .cc-arrow:active{
+  transform: translateY(0) scale(.98);
+}
+#collections .cc-controls .cc-arrow:disabled{
+  opacity: .38; cursor: default;
+}
+
+/* SVG icon tint/size */
+#collections .cc-controls .cc-arrow svg{
+  width: 22px; height: 22px;
+  stroke: #EAF2FF;         /* light ink */
+  stroke-width: 2.25;
+  fill: none;
+}
+#collections .cc-controls .cc-arrow:disabled svg{
+  stroke: #D7E2FF;
+}
+
+/* keyboard focus */
+#collections .cc-controls .cc-arrow:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.45),
+    0 10px 28px rgba(0,0,0,.28),
+    inset 0 0 0 1px rgba(255,255,255,.12);
+}
+@media (prefers-reduced-motion: reduce){
+  #collections .cc-controls .cc-arrow{ transition: none; }
+}
+
 }
 
 
@@ -1270,12 +1342,22 @@ document.addEventListener("DOMContentLoaded", () => {
   prevBtn = document.createElement('button');
   prevBtn.className = 'cc-arrow cc-prev';
   prevBtn.setAttribute('aria-label', 'Previous');
-  prevBtn.textContent = '←';
+  // prevBtn.textContent = '←';
+  prevBtn.innerHTML = `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M15 5 L8 12 L15 19" />
+    </svg>
+  `;
 
   nextBtn = document.createElement('button');
   nextBtn.className = 'cc-arrow cc-next';
   nextBtn.setAttribute('aria-label', 'Next');
-  nextBtn.textContent = '→';
+  // nextBtn.textContent = '→';
+  nextBtn.innerHTML = `
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M9 5 L16 12 L9 19" />
+  </svg>
+`;
 
   controls.appendChild(prevBtn);
   controls.appendChild(nextBtn);
