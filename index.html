@@ -8,6 +8,10 @@
     <!-- TailWind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+
 </head>
 <style type="text/css">
   * {
@@ -142,25 +146,33 @@ body {
 
   /* Overall Collections Text */
   .collection-title {
-    color: white;
-    font-weight: normal;
-    opacity: 76%;
+     font-family: 'Playfair Display', serif;
+     font-size: 5rem;
+     font-weight: 400;
+     font-size: clamp(16px, 1.1vw, 19px);  /* 👈 custom size */
+     line-height: 1.2;
+     color: rgba(255,255,255,.95);
+    /* color: white; */
+    /* font-size: small; */
+    /* font-weight: normal; */
+    /* opacity: 76%; */
   }
 
   .collection-description {
-    font-family: 'Times New Roman', Times, sans-serif;
+         font-family: 'Playfair Display', serif;
     font-weight: normal;
     font-size: 1rem;
     opacity: 34%;
   }
 
   .works-include {
-    font-family: 'Times New Roman', Times, sans-serif;
+         font-family: 'Playfair Display', serif;
     opacity: 34%;
   }
 
   .flashing-title {
-    font-family: 'Times New Roman', Times, sans-serif;
+         font-family: 'Playfair Display', serif;
+
     opacity: 34%;
   }
 
@@ -277,6 +289,48 @@ footer {
     to { opacity: 1; }
   }
 
+  /* Universal for Collection Card Text */
+  /* Tighter rhythm inside each card */
+.collection-title{
+  margin-bottom: .15rem;           /* tighter under title */
+  font-size: 1.7rem;
+}
+.collection-description{
+  margin: 0 0 .35rem 0;            /* small space before divider */
+  line-height: 1.35;
+}
+
+/* Subtle hairline divider above the works list */
+#collections a.group .relative.z-10 ul{
+  margin-top: .35rem;
+  padding-top: .55rem;
+  border-top: 1px solid rgba(255,255,255,.14);      /* hairline */
+  box-shadow: 0 -1px 0 rgba(0,0,0,.15) inset;       /* adds crispness */
+}
+
+/* Slightly stronger on hover for feedback */
+#collections a.group:hover .relative.z-10 ul{
+  border-top-color: rgba(255,255,255,.20);
+}
+
+/* Mobile: keep it readable, a hair more breathing room */
+@media (max-width: 480px){
+  .collection-description{ margin-bottom: .45rem; }
+  #collections a.group .relative.z-10 ul{
+    padding-top: .6rem;
+    border-top-color: rgba(255,255,255,.18);
+  }
+}
+
+/* Divider in the Cards */
+.card-divider{
+  height: 1px;
+  background: linear-gradient(to right, rgba(255,255,255,.0), rgba(255,255,255,.18), rgba(255,255,255,.0));
+  margin: .4rem 0 .55rem 0;
+}
+
+
+
 /* Responsive adjustments */
 
 /* Portrait Cellphones */
@@ -297,13 +351,25 @@ footer {
   }
 
   .mobile_about_header {
+    font-family: 'Playfair Display', serif;
     margin-top: 1em;
+  }
+
+  .collections-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
   }
   
   .first-collect-row-mobile {
     gap: 12px;
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  /* COLLECTIONS PADDING */
+  #collections {
+    padding-left: 7px;
+    padding-right: 7px;
   }
 
   /* COLLECTIONS WORK TITLE FLASH */
@@ -614,6 +680,11 @@ footer {
     width: 100%;
   }
 
+  .collections-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+  }
+
   /* CAROUSEL CSS */
     #collections .collections-carousel {
     position: relative; /* anchor for absolute controls */
@@ -860,7 +931,7 @@ footer {
 
 
   <section id="collections" class="mx-auto py-10 space-y-8">
-  <h2 class="collections-title text-xl font-semibold mb-2">Explore the Collections</h2>
+  <h2 class="collections-title font-semibold mb-2">Explore the Collections</h2>
   <!-- <h2 class="collections-title text-2xl sm:text-3xl font-semibold mb-2">Explore the Collections</h2> -->
 
   <!-- Cards -->
@@ -883,7 +954,7 @@ footer {
 
     <!-- Text content positioned at bottom-left -->
     <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-xl sm:text-2xl font-normal mb-1 collection-title">Symbols in Motion</h3>
+      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Symbols in Motion</h3>
       <p class="text-neutral-200/90 collection-description">Recurring signs caught in perpetual drift.</p>
       
       <!-- Painting list -->
@@ -912,8 +983,8 @@ footer {
 
     <!-- Text content positioned at bottom-left -->
     <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-xl sm:text-2xl mb-1 collection-title">Signals &amp; Ascensions</h3>
-      <p class="text-sm sm:text-base font-semibold text-neutral-200/90 collection-description">Messages in transit between epochs.</p>
+      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Signals &amp; Ascensions</h3>
+      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Messages in transit between epochs.</p>
       
       <!-- Painting list -->
       <ul class="mt-2 space-y-1 text-sm text-neutral-300">
@@ -942,7 +1013,7 @@ footer {
 
     <!-- Text content positioned at bottom-left -->
     <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-xl sm:text-2xl mb-1 collection-title">War &amp; Feast</h3>
+      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">War &amp; Feast</h3>
       <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Conflict, appetite, and ceremonial excess.</p>
       
       <!-- Painting list -->
@@ -968,7 +1039,7 @@ footer {
 
     <!-- Text content positioned at bottom-left -->
     <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-xl sm:text-2xl font-normal mb-1 collection-title">Industrial &amp; Myths</h3>
+      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Industrial &amp; Myths</h3>
       <p class="text-sm sm:text-base text-neutral-200/90 collection-description">A surreal meditation on machines, labor, and digital systems reimagined.</p>
       
       <!-- Painting list -->
@@ -995,7 +1066,7 @@ footer {
 
     <!-- Text content positioned at bottom-left -->
     <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-xl sm:text-2xl mb-1 collection-title">The Digital Unconscious</h3>
+      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Digital Unconscious</h3>
       <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Where AI dreams and data remembers.</p>
       
       <!-- Painting list -->
@@ -1022,9 +1093,10 @@ footer {
 
     <!-- Text content positioned at bottom-left -->
     <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-xl sm:text-2xl font-normal mb-1 collection-title">The Dominion Archive</h3>
+      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Dominion Archive</h3>
       <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Power recorded, repackaged, ritualized.</p>
-      
+      <!-- Divider -->
+      <div class="card-divider"></div>
       <!-- Painting list -->
       <ul class="mt-2 space-y-1 text-sm text-neutral-300">
         <li class="font-semibold works-include">Works include:</li>
