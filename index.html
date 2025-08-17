@@ -132,6 +132,7 @@ body {
     flex: 0 0 320px; /* Wider */
     flex: 1 1 calc(50% - 1rem);
     height: 260px;   /* Longer */
+    /* height: 320px; */
     border-radius: 16px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -558,7 +559,7 @@ footer {
 
   /* ABOUT SECTION */
   .mobile_about {
-    padding: 5em;
+    padding: 3em;
     height: 100vh;
   }
 
@@ -573,9 +574,7 @@ footer {
     /* padding: 0 2rem; */
   }
 
-
-
-   .group {
+  .group {
     max-width: 1000px;
     height: auto;
   }
@@ -656,6 +655,12 @@ footer {
   }
   #collections a.group li {
     font-size: 0.8rem; /* works list items */
+  }
+
+   #collections .cc-track > a.group {
+    flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
+    max-width: calc((100% - (2 * var(--cc-gap))) / 3);
+    height: 360px; /* 👈 increase card height here */
   }
 }
 
