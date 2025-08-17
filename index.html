@@ -29,8 +29,8 @@
 
 /* UNIVERSAL BODY */
 body {
-  min-height: 110vh;
-  min-height: 250vh;
+  /* min-height: 110vh;
+  min-height: 250vh; */
   min-height: 500vh;
   display: flex;
   flex-direction: column;
@@ -257,11 +257,15 @@ footer {
 
 /* Portrait Cellphones */
 @media (max-width: 768px) {
-  .collection-card {
-    flex: 0 0 160px;
-    flex: 0 0 60px;
-    height: 60px;
-    box-shadow: 2px 2px 2px rgb(8, 36, 90);
+
+  body {
+    min-height: 450vh;
+  }
+
+  .group {
+    flex: 0 0 40vw !important;
+    height: 40vh !important;   /* uniform height */
+    min-height: 0 !important;
   }
   
   .mobile_about {
@@ -306,12 +310,10 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .collection-card {
-    flex: 0 0 200px;
-    flex: 0 0 260px;
-    height: 120px;
-    height: 260px;
-    box-shadow: 2px 2px 2px rgb(8, 36, 90);
+  .collection-card.collection-card {
+    flex: 0 0 85vw !important;
+    height: 55vh !important;   /* uniform height */
+    min-height: 0 !important;
   }
   
   .first-collect-row-mobile {
