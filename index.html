@@ -439,21 +439,70 @@ footer {
 /* Portrait Cellphones */
 @media (max-width: 768px) {
 
-  body {
+    /* Use the real mobile viewport; avoid fake extra height */
+  body { height: auto; min-height: 100dvh; }
+  @supports not (min-height: 100dvh) {
+    body { min-height: 100svh; }
+  }
+
+  .group {
+    flex: 0 0 40vw !important;
+    height: 40vh !important;
+    min-height: 0 !important;
+  }
+
+  /* About fills the screen; page scrolls (not the section) */
+  section.mobile_about {
+    padding: 15px;
+    overflow: visible;          /* was: auto */
+    min-height: 100svh;
+    border-top: 1px solid transparent;  /* stop margin-collapsing */
+  }
+  @supports (min-height: 100dvh) {
+    section.mobile_about { min-height: 100dvh; }
+  }
+  section.mobile_about > *:first-child { margin-top: 0; }
+
+  .mobile_about_header {
+    font-family: 'Playfair Display', serif;
+    margin-top: 1em;
+  }
+
+  .collections-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+  }
+
+  .first-collect-row-mobile { gap: 12px; padding-left: 5px; padding-right: 5px; }
+
+  #collections { padding-left: 12px; padding-right: 12px; }
+
+  .flashing-title { font-family: 'Playfair Display', serif; font-size: clamp(12px, 1vw, 15px); opacity: 50%; }
+
+  .works-list { list-style: none; padding: 0; margin: 0; font-weight: bold; color: #ccc; }
+
+  #work-title { color: white; opacity: 0; animation: fadeIn 0.5s ease-in-out forwards; }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+  .rotator-fade { transition: opacity .35s ease; }
+  .rotator-hidden { opacity: 0; }
+
+  /* LEGACY CSS */
+  /* body {
     height: auto;
     min-height: 450vh;
     min-height: 100%;
   }
 
-  .group {
-    flex: 0 0 40vw !important;
-    height: 40vh !important;   /* uniform height */
-    min-height: 0 !important;
-  }
-  
   .mobile_about {
     padding: 15px;
     overflow: auto;
+  } */
+
+  /* .group {
+    flex: 0 0 40vw !important;
+    height: 40vh !important;   
+    min-height: 0 !important;
   }
 
   .mobile_about_header {
@@ -472,7 +521,7 @@ footer {
     padding-right: 5px;
   }
 
-  /* COLLECTIONS PADDING */
+ 
   #collections {
     padding-left: 12px;
     padding-right: 12px;
@@ -484,7 +533,7 @@ footer {
     opacity: 50%;
   }
 
-  /* COLLECTIONS WORK TITLE FLASH */
+ 
   .works-list {
     list-style: none;
     padding: 0;
@@ -492,13 +541,10 @@ footer {
     font-weight: bold;
     color: #ccc;
   }
-  /* .header {
-    font-size: 1rem;
-    color: #bbb;
-  } */
+
   #work-title {
     color: white;
-    /* margin-left: 0.5rem; */
+  
     opacity: 0;
     animation: fadeIn 0.5s ease-in-out forwards;
   }
@@ -507,7 +553,7 @@ footer {
     to { opacity: 1; }
   }
   .rotator-fade { transition: opacity .35s ease; }
-  .rotator-hidden { opacity: 0; }
+  .rotator-hidden { opacity: 0; } */
 
 }
 
@@ -784,9 +830,22 @@ footer {
     height: auto;
   }
 
-  footer {
+  /* Desktop Footer spacing */
+  footer{
     margin-top: auto;
+    /* top & bottom, then left & right */
+    padding: 2rem 1rem;            /* fallback */
+    padding-block: 2rem;           /* modern: top & bottom */
+    padding-inline: 1rem;          /* modern: left & right */
   }
+
+  /* Give it a bit more breathing room on larger screens */
+  @media (min-width: 1025px){
+    footer{
+      padding-block: 2.75rem;      /* taller top/bottom on desktop */
+    }
+  }
+
 
   #collections {
     margin-top: -3em;
