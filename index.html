@@ -166,13 +166,13 @@ body {
   }
 
   .works-include {
-         font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', serif;
     opacity: 34%;
   }
 
   .flashing-title {
-         font-family: 'Playfair Display', serif;
-
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(12px, 1vw, 15px);
     opacity: 34%;
   }
 
@@ -365,7 +365,7 @@ footer {
 /* Rotating individual work titles */
 .flashing-title {
   font-family: 'Times New Roman', Times, serif;
-  font-size: clamp(11px, 0.8vw, 13px);
+  font-size: clamp(12px, 1vw, 15px);
   font-weight: 400;
   color: rgba(255,255,255,.55);
 }
@@ -471,8 +471,14 @@ footer {
 
   /* COLLECTIONS PADDING */
   #collections {
-    padding-left: 7px;
-    padding-right: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .flashing-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(12px, 1vw, 15px);
+    opacity: 50%;
   }
 
   /* COLLECTIONS WORK TITLE FLASH */
@@ -583,7 +589,7 @@ footer {
     padding: 10px 20px;
     border-radius: 5px;
     font-size: 1rem;
-    font-weight: bold;
+    /* font-weight: bold; */
     text-decoration: none;
     transition: background-color 0.3s ease;
 }
@@ -747,7 +753,7 @@ footer {
     border-radius: 6px; /* Slightly larger border radius */
     font-size: 1.1rem; /* Slightly larger font size */
     /* margin-top: 1.5em; */
-    font-weight: bold;
+    /* font-weight: bold; */
     text-decoration: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
   }
@@ -781,6 +787,12 @@ footer {
   #collections {
     margin-top: -3em;
     width: 100%;
+  }
+
+   .flashing-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(12px, 1vw, 15px);
+    opacity: 50%;
   }
 
   .collections-title {
@@ -1058,7 +1070,7 @@ footer {
     <!-- Text content positioned at bottom-left -->
     <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
       <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Symbols in Motion</h3>
-      <p class="text-neutral-200/90 collection-description">Recurring signs caught in perpetual drift.</p>
+      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Recurring signs caught in perpetual drift.</p>
       
       <!-- Painting list -->
       <ul class="mt-2 space-y-1 text-sm text-neutral-300">
