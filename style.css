@@ -1,0 +1,551 @@
+* {
+    /* font-family: Arial, Helvetica, sans-serif; */
+    color: beige;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, #title, .about-link, .overlay-text, .mobile_about_header, .mobile_about_collections_header, #cta {
+  font-family: 'Playfair Display', serif;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+     background-image: url('./img/plain_background_bigger.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+/* FONTS */
+h1 {
+  font-weight: 700;
+}
+
+.about-paragraph, .mobile_about_paragraph {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 300; /* Inter Light */
+}
+
+
+/* ************************************* */
+/* ****************NAVBAR ************** */
+.navbar {
+    display: none;
+}
+
+/* ************************************* */
+/* *******HERO SECTION****************** */
+.home {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.home_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: -5rem;
+    gap: 3rem;
+}
+
+#logo {
+    width: 300px;
+    /* width: 250px; */
+    height: 250px;
+    /* height: 200px; */
+    margin-bottom: 2rem;
+}
+
+#title {
+    font-size: 3rem;
+    /* color: white; */
+    text-align: center;
+    margin-bottom: 1rem;
+    /* font-family: 'Times New Roman', Times, serif; */
+}
+
+.about-link {
+    /* border: 1px solid white; */
+    /* color: white; */
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-top: 1em;
+    /* font-family: 'Times New Roman', Times, serif; */
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.437);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.about-link:hover {
+    background-color: #0057b8;
+    background-color: beige;
+    /* color: white; */
+    color: darkblue;
+    color: beige;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-size: 1.8rem;
+    margin-top: 1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#cta {
+  background-color: #0057B8; 
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  font-size: 1.8rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 87, 184, 0.4);
+}
+
+#cta:hover {
+  background-color: #007bff; /* Slightly brighter blue */
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+  transform: scale(1.05); /* Subtle pop */
+}
+
+/* Looping */
+.ambient-bg {
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(0,87,184,0.15), transparent 70%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05), transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0.3), transparent 100%);
+  background-size: 200% 200%;
+  animation: drift 60s infinite linear;
+  opacity: 0.3; /* Make it subtle */
+  z-index: 1;
+}
+
+@keyframes drift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+
+
+
+/* **************************************** */
+/* ************ABOUT SECTION************** */
+.about {
+    display: flex;
+    width: 100vw;
+    /* height: 100vh; */
+    height: 120vh;
+    /* background-image: linear-gradient(rgb(0,87,184,0.1), rgba(0,87,184,0.2)), url('./img/about_background.png'); */
+    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/about_background.png');
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.about-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    object-fit: cover;
+    height: 100%;
+    padding: 2.5rem 10rem;  
+    background-size: cover;
+}
+
+.about-content {
+    /* margin-top: 1em; */
+    margin-top: -11em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: yellow; */
+    justify-content: left;
+    width: 100%;
+    width: 70%;
+    /* text-align: left; */
+}
+
+/* Title ABOUT */
+.about-content h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    /* background-color: yellow; */
+    width: 100%;
+}
+.about-content h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    /* background-color: yellow; */
+    width: 100%;
+}
+
+.mobile_about_portion {
+    display: none;
+}
+
+#about-divider {
+    /* width: 20vw;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.3); */
+    margin: 3rem auto;
+    /* border-radius: 5px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    transition: transform 0.3s ease; */
+}
+
+.about-paragraph {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-top: 1rem;
+    text-align: left;
+}
+
+.mobile_about {
+    display: none;
+}
+/* Pictures Gallery WHOLE DIV*/
+.collection-gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: left;
+    align-items: center;
+    gap: 5rem;
+    width: 100%;
+}
+
+.each-photo-div {
+    text-align: center;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+  /* background: repeating-linear-gradient(rgba(23, 57, 102, 0.382) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 3px); */
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Collection Card Base State */
+.collection-card {
+  position: relative;
+  /* width: 220px;
+  height: auto; */
+  /* width: 340px;
+  height: 400px; */
+  width: 400px;
+  height: auto;
+  /* height: 400px; */
+  overflow: hidden;
+  border-radius: 8px;
+  transition: border 0.3s ease;
+  /* You might also want to set a default border to avoid layout shift */
+  border: 2px solid transparent;
+  transition: box-shadow 0.3s ease;
+}
+
+.collection-card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s;
+}
+
+/* .collection-card:hover img {
+  transform: scale(1.1);
+} */
+
+.overlay-text {
+  position: absolute;
+  font-family: 'Times New Roman', Times, sans-serif;
+  top: 80%;
+  bottom: 0;
+  left: 0;
+  right: 5;
+  /* background: rgba(0, 0, 0, 0.248); */
+  /* background: rgba(0, 0, 0, 0.155); */
+  color: rgba(245, 245, 220, 0.308);
+  /* color: turquoise; */
+  text-align: center;
+  padding: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 18px;
+  font-size: 20px;
+  /* font-size: 28px; */
+}
+
+/* Border for Collection Card Hover */
+.collection-card:hover {
+  box-shadow: 0 0 5px rgba(245, 245, 220, 0.4);
+}
+
+.collection-card:hover .overlay-text {
+  opacity: 1;
+  font-size: 18px;
+  font-size: 20px;
+  /* font-size: 28px; */
+}
+
+/* Hovers */
+/* .collection-card {
+  position: relative;
+  width: 220px;
+  overflow: hidden;
+  border-radius: 8px;
+} */
+
+.each-photo img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s;
+}
+
+.each-photo:hover img {
+  transform: scale(1.1);
+}
+
+
+
+/* *************************************** */
+/* **************LORE/FOOTER************** */
+.lore {
+    background-color: #121e33;
+    /* background-color: #0057b8;  */
+    /* background-color: #001261; */
+    padding: 4rem 6rem 2rem 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.lore-header {
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, serif;
+    /* margin-bottom: 1rem; */
+}
+
+/* In the Lore Footer */
+.socials-gallery {
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    /* flex-direction: column; */
+    align-items: center;
+    /* gap: 5rem; */
+    /* margin-top: 2rem; */
+    width: 100%;
+}
+
+/* The Social Icons */
+.the_socials {
+    display: flex;
+    justify-content: center;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+/* Each Social Icon */
+.each-social {
+    /* width: 50px;
+    height: 50px; */
+    border-radius: 5px;
+    width: 2.5em;
+    height: auto;
+    object-fit: contain; /* Keep the whole logo visible */
+    transition: transform 0.3s ease;
+}
+
+/* List on Footer */
+.the_list {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 2rem;
+    font-weight: bold;
+}
+
+.the_list a {
+    color: beige;
+    text-decoration: none;
+    /* font-weight: bold; */
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+#cafe {
+    color: beige;
+    background-color: #0057b8;
+    padding: 0 .5rem 0 0;
+    border-radius: 5px;
+}
+
+#rare {
+    color: black;
+    background-color: rgb(167, 167, 131);
+    padding: 0 .5rem 0 0;
+    border-radius: 5px;
+}
+
+#sea {
+    color: white;
+    background-color: rgb(55, 55, 226);
+    padding: 0 .5rem 0 0;
+    border-radius: 5px;
+}
+
+.mobile_list {
+    display: none;
+}
+
+.lore-and-socials {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    text-align: center;
+    margin-top: 6rem;
+    /* color: white; */
+    font-size: 0.9rem;  
+    opacity: 0.3;
+}
+
+/* ********SMARTPHONE PORTRAIT******* */
+/* ********************************** */
+@media screen and (max-width: 500px) {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        /* Remove height: 100vh to allow scrolling */
+        /* Use min-height instead */
+        /* min-height: 300vh;  */
+        /* Shorter About Section */
+        min-height: 250vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    
+    .home {
+        height: 120vh;
+        /* width: 100%; */
+        background-image: url('./img/plain_background_bigger.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .home-container {
+        /* margin-top: 1rem; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: -5rem;
+        gap: 3rem;
+    }
+    
+    #logo {
+        width: 200px;
+        height: 170px;
+    }
+    
+    #title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* WHOLE ABOUT SECTION */
+    .mobile_about {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        padding: 2rem 5rem;
+        background-image: linear-gradient(rgb(0,87,184,0.1), rgba(0,87,184,0.2)), url('./img/about_background.png');
+        background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/about_background.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: auto; /* Let it expand with content */
+        width: 100%;
+        display: none;
+    }
+
+    .about {
+        display: none;
+    }
+
+    .lore {
+        display: none;
+    }
+
+
+
+}
+
+
+/* ************TABLET PORTRAIT*********** */
+/* ************************************** */
+@media screen and (min-width: 501px) and (max-width: 1024px) {
+    body {
+        background-image: url('./img/plain_background_bigger.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
+    .home {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        display: none;
+    }
+    .about {
+        display: flex;
+        height: 40vh;
+        display: none;
+    }
+    .lore {
+        display: none;
+    }
+}
