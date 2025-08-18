@@ -329,6 +329,109 @@ footer {
   margin: .4rem 0 .55rem 0;
 }
 
+/* UPDATED CARD STYLES */
+/* Global collection card title */
+.collection-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(15px, 1vw, 18px);   /* smaller title */
+  line-height: 1.25;
+  color: rgba(255,255,255,.95);
+  margin-bottom: .25rem;
+  letter-spacing: .2px;
+}
+
+/* Collection description text */
+.collection-description {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 400;
+  font-size: clamp(12px, 0.9vw, 14px); /* a notch smaller */
+  line-height: 1.35;
+  color: rgba(255,255,255,.65);
+  margin-bottom: .4rem;
+}
+
+/* “Works include:” label */
+.works-include {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: clamp(11px, 0.8vw, 13px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 0.15rem;
+}
+
+/* Rotating individual work titles */
+.flashing-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: clamp(11px, 0.8vw, 13px);
+  font-weight: 400;
+  color: rgba(255,255,255,.55);
+}
+
+/* Base: fade out only on the right */
+#collections a.group .relative.z-10 ul {
+  margin-top: .35rem;
+  padding-top: .45rem;
+  border-top: none;
+  position: relative;
+}
+
+#collections a.group .relative.z-10 ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,.25) 0%,
+    rgba(255,255,255,.25) 70%,  /* solid most of the way */
+    rgba(255,255,255,0) 100%   /* fade out on right */
+  );
+  opacity: .6;
+  pointer-events: none;
+}
+
+/* Mobile: fade sooner (around halfway) */
+@media (max-width: 480px) {
+  #collections a.group .relative.z-10 ul::before {
+    background: linear-gradient(
+      to right,
+      rgba(255,255,255,.25) 0%,
+      rgba(255,255,255,.25) 50%,   /* fade starts earlier */
+      rgba(255,255,255,0) 100%
+    );
+  }
+}
+
+/* Tablet: medium fade */
+@media (min-width: 481px) and (max-width: 1024px) {
+  #collections a.group .relative.z-10 ul::before {
+    background: linear-gradient(
+      to right,
+      rgba(255,255,255,.25) 0%,
+      rgba(255,255,255,.25) 65%,
+      rgba(255,255,255,0) 100%
+    );
+  }
+}
+
+/* Desktop: long solid, fade only at far right */
+@media (min-width: 1025px) {
+  #collections a.group .relative.z-10 ul::before {
+    background: linear-gradient(
+      to right,
+      rgba(255,255,255,.25) 0%,
+      rgba(255,255,255,.25) 80%,   /* fade much later */
+      rgba(255,255,255,0) 100%
+    );
+  }
+}
+
+
 
 
 /* Responsive adjustments */
