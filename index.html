@@ -231,9 +231,16 @@ button {
 footer {
   text-align: center;
   padding: 20px;
-  background: linear-gradient(
+  /* background-color: #033465; */
+  /* Original Brighter one */
+  /* background: linear-gradient(
     to bottom,
     #145CAB,
+    #033465
+  ); */
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 82, 170, 0.512),
     #033465
   );
   color: white;
@@ -1293,21 +1300,32 @@ footer {
  <footer>
       <div class="mobile_about_container py-6 sm:py-4">
         <div class="footer_icons flex flex-col sm:flex-row items-center w-full sm:justify-between">
-        <!-- Socials -->
-        <div class="logo flex items-center gap-5 mb-2 p-1">
-          <img src="./img/logos/DreamAgent Logo 11.png" alt="dream_agent-logo" class="w-[50px] h-[50px] rounded-full border border-white/10" />
-          <img src="./img/round_logos/twitter_black_circle.png" alt="twitter-logo" class="w-[40px] h-[40px] border-white/10" />
-          <img src="./img/round_logos/instagram_red_circle.png" alt="instagram-logo" class="w-[42px] h-[42px] border-white/10" />
-          <img src="./img/round_logos/bluesky_liteblue_circle.png" alt="bluesky-logo" class="w-[42px] h-[42px] border-white/10" />
-          <img src="./img/round_logos/tiktok_black_circle.png" alt="tiktok-logo" class="w-[42px] h-[42px] border-white/10" />
-        </div>
+          <!-- <img src="./img/logos/DreamAgent Logo 11.png" alt="dream_agent-logo" class="w-[50px] h-[50px] rounded-full border border-white/10" /> -->
 
-        <!-- NFTs (hidden on mobile, visible ≥sm) -->
-        <div class="nft_icons hidden sm:flex items-center gap-5 mb-2 p-1">
-          <img src="./img/round_logos/xrpcafe_circle.png" alt="xrp_cafe" class="w-[50px] h-[50px]" />
-          <img src="./img/round_logos/opensea_circle.png" alt="opensea" class="[50px] h-[50px]" />
-          <img src="./img/round_logos/superrare_circle.png" alt="super_rare" class="[50px] h-[50px]" />
-        </div>
+          <div class="sm:flex sm:flex-col sm:gap-4">
+            <p class="hidden sm:block text-sm text-center">No face, No fame, just the vision</p>
+            <!-- <p class="hidden sm:block text-sm">Follow:</p> -->
+            <!-- Socials -->
+            <div class="logo flex items-center gap-5 mb-2 p-1">
+              <img src="./img/logos/DreamAgent Logo 11.png" alt="dream_agent-logo" class="w-[50px] h-[50px] rounded-full border border-white/10" />
+              <img src="./img/round_logos/twitter_black_circle.png" alt="twitter-logo" class="w-[40px] h-[40px] border-white/10" />
+              <img src="./img/round_logos/instagram_red_circle.png" alt="instagram-logo" class="w-[42px] h-[42px] border-white/10" />
+              <img src="./img/round_logos/bluesky_liteblue_circle.png" alt="bluesky-logo" class="w-[42px] h-[42px] border-white/10" />
+              <img src="./img/round_logos/tiktok_black_circle.png" alt="tiktok-logo" class="w-[42px] h-[42px] border-white/10" />
+            </div>
+          </div>
+
+          <!-- NFTs (hidden on mobile, visible ≥sm) -->
+           <!-- RIGHT column -->
+<div class="hidden sm:flex sm:flex-col sm:items-center sm:gap-4">
+  <p class="text-sm text-center">Buy the NFTs:</p>
+  <div class="nft_icons flex items-center justify-center gap-5 p-1">
+    <img src="./img/round_logos/xrpcafe_circle.png" alt="xrp_cafe" class="w-[42px] h-[42px]" />
+    <img src="./img/round_logos/opensea_circle.png" alt="opensea" class="w-[42px] h-[42px]" />
+    <img src="./img/round_logos/superrare_circle.png" alt="super_rare" class="w-[42px] h-[42px]" />
+  </div>
+</div>
+
       </div>
 
         <p style="text-align: center; font-size: 0.8rem; color: #ccc;">
