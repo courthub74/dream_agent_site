@@ -1,1350 +1,363 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Something</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Something</title>
 
-    <!-- TailWind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- TailWind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 
-</head>
-<style type="text/css">
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+  <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+html,body{height:100%;color:beige;scroll-behavior:smooth}
 
-  html, body {
-    height: 100%;
-    color: beige;
-    scroll-behavior: smooth; 
-  }
+/* Headings / display */
+h1,h2,h3,h4,#title,.about-link,.overlay-text,.mobile_about_header,.mobile_about_collections_header,#cta{font-family:'Playfair Display',serif}
 
-  h1, h2, h3, h4, #title, .about-link, .overlay-text, .mobile_about_header, .mobile_about_collections_header, #cta {
-  font-family: 'Playfair Display', serif;
+/* Body background */
+body{
+  min-height:100dvh;
+  display:flex; flex-direction:column;
+  background-image:linear-gradient(rgba(0,86,184,.375),rgba(0,86,184,.512)),url('./img/larger_about_background.png');
+  background-position:center; background-repeat:no-repeat; background-size:cover; background-attachment:fixed;
 }
 
-/* UNIVERSAL BODY */
-body {
-  /* min-height: 110vh;
-  min-height: 250vh; */
-  min-height: 520vh;
-  display: flex;
-  flex-direction: column;
-  background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-   /* background-color: #0057B8; */
+/* Mobile: avoid fixed backgrounds for smoother scroll */
+@media (max-width:768px){
+  body{background-attachment:scroll}
 }
 
-  /* More spacing between the sections */
-  h2 { /* Collections heading */
-    margin-top: 1.5rem;
-    width: 100%;
-    text-align: left;
-  }
+h2{margin-top:1.5rem;width:100%;text-align:left}
+p{margin-bottom:1.2rem}
 
-  p {
-    margin-bottom: 1.2rem;
-  }
-
-
-  section.mobile_about {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-    /* Mobile About Section */
-  .mobile_about {
-    width: 100%;
-    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)),
-                      url('./img/even_larger_about_background.png');
-    background-size: cover;        /* Stretches to cover entire area */
-    background-repeat: no-repeat;  /* Prevents tiling */
-    background-position: center;   /* Keeps image centered */
-    background-attachment: scroll; /* Change to 'fixed' for parallax-like effect */
-    color: white;
-    box-sizing: border-box;
+/* ABOUT SECTION */
+section.mobile_about{flex:1 0 auto;display:flex;flex-direction:column;min-height:0}
+.mobile_about{
+  width:100%;
+  background-image:linear-gradient(rgba(0,86,184,.375),rgba(0,86,184,.512)),url('./img/even_larger_about_background.png');
+  background-size:cover;background-repeat:no-repeat;background-position:center;background-attachment:scroll;color:white
 }
+.mobile_about_container{max-width:100%;margin:0 auto}
+.mobile_about_header{text-align:left;font-size:1.5rem;font-weight:bold;padding-left:1rem}
+.mobile_about_portion,.mobile_about_paragraph{margin-bottom:15px;line-height:1.6;padding:0 1rem}
 
+/* Hide the short paragraph by default on desktop (you show the long one) */
+@media (min-width:1025px){.mobile_about_portion{display:none}.mobile_about_paragraph{display:block}}
 
-  .mobile_about_container {
-    max-width: 100%;
-    margin: 0 auto;
-  }
+/* COLLECTIONS */
+#collections{margin-top:-3rem;width:100%}
+.collections-title{font-size:1.3rem}
 
-  .mobile_about_header {
-    text-align: left;
-    /* margin-bottom: 0px; */
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding-left: 1rem;
-  }
-
-.mobile_about_portion,
-.mobile_about_paragraph {
-  margin-bottom: 15px;
-  line-height: 1.6;
-  padding: 0 1rem;
+/* Card base (anchors with .group) */
+#collections a.group{
+  position:relative; display:block;
+  border-radius:16px; overflow:hidden;
+  background:rgba(255,255,255,.05); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+  outline:1px solid rgba(255,255,255,.10); transition:outline-color .2s ease, transform .2s ease;
 }
+#collections a.group:hover{outline-color:rgba(255,255,255,.25); transform:translateY(-2px)}
 
-.mobile_about_collections_header {
-  text-align: left;
-  margin: 30px 0 20px 0;
-  font-size: 1.3rem;
-  font-weight: bold;
-  padding-left: 1rem;
-}
+/* Full-bleed image */
+#collections a.group > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#collections a.group > .absolute.inset-0{transition:background-color .2s ease}
 
-/* Horizontal Scrolling Gallery */
-.collection-gallery {
-  width: 100%;
-  overflow: hidden;
-  padding: 0 10px;
-}
-
-.first-collect-row-mobile {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  padding: 10px 0 20px 0;
-  
-  /* Hide scrollbar for cleaner look */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-}
-
-.first-collect-row-mobile::-webkit-scrollbar {
-  display: none; /* Chrome/Safari/Webkit */
-}
-
-/* Collection Cards */
-  .collection-card {
-    position: relative;
-    flex: 0 0 320px; /* Wider */
-    flex: 1 1 calc(50% - 1rem);
-    height: 260px;   /* Longer */
-    /* height: 320px; */
-    border-radius: 16px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  /* Overall Collections Text */
-  .collection-title {
-     font-family: 'Playfair Display', serif;
-     font-size: 5rem;
-     font-weight: 400;
-     font-size: clamp(16px, 1.1vw, 19px);  /* 👈 custom size */
-     line-height: 1.2;
-     color: rgba(255,255,255,.95);
-    /* color: white; */
-    /* font-size: small; */
-    /* font-weight: normal; */
-    /* opacity: 76%; */
-  }
-
-  .collection-description {
-         font-family: 'Playfair Display', serif;
-    font-weight: normal;
-    font-size: 1rem;
-    opacity: 34%;
-  }
-
-  .works-include {
-    font-family: 'Playfair Display', serif;
-    opacity: 34%;
-  }
-
-  .flashing-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(12px, 1vw, 15px);
-    opacity: 34%;
-  }
-
-/* .collection-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-} */
-
-  .collection-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-/* .collection-card:hover img {
-  transform: scale(1.05);
-} */
-
-/* Overlay Text */
-
-  .overlay-text {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-    background: none;
-    color: white;
-    padding: 20px 15px 15px 15px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-align: center;
-    transform: none;
-    opacity: 1;
-    transition: none;
-    z-index: 2;
-  }
-
-button {
-  /* background: #0057B8; */
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-  /* margin-left: 5px; */
-  padding: 0;
-  font-weight: bold;
-   display: inline-block;
-  margin-top: 0.5rem;
-
-  text-decoration: underline;
-}
-
-footer {
-  text-align: center;
-  padding: 20px;
-  /* background-color: #033465; */
-  /* Original Brighter one */
-  /* background: linear-gradient(
-    to bottom,
-    #145CAB,
-    #033465
-  ); */
-  /* New Darker one */
-  /* background: linear-gradient(
-    to bottom,
-    rgba(6, 82, 170, 0.512),
-    #033465
-  ); */
-  /* background-color: #062b7b; */
-  color: beige;
-  /* background-color: #033465; */
-  /* Newest Color */
-   background: linear-gradient(
-    to bottom,
-    #114C92,  /* a hair darker than #145CAB */
-    #022A54   /* deeper navy than #033465 */
-  );
-  color: #EAEFF7; /* a tad brighter than beige for contrast */
-  position: relative;
-  margin-top: auto;
-  border-radius: 5px;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,0.2);
-}
-
-.collection-blurb {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity .7s ease, transform .7s ease;
-}
-.collection-blurb.visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* Highlight effect when scrolled to */
-.blurb-highlight {
-  outline: 2px solid rgba(255,255,255,0.55);
-  outline-offset: 6px;
-  box-shadow: 0 0 18px rgba(255,255,255,0.35);
-  transition: outline-color .6s ease, box-shadow .6s ease;
-}
-.blurb-highlight-end {
-  outline-color: rgba(255,255,255,0);
-  box-shadow: 0 0 0 rgba(255,255,255,0);
-}
-
-.works-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-weight: bold;
-    color: #ccc;
-  }
-  .header {
-    font-size: 1rem;
-    color: #bbb;
-  }
-  #work-title {
-    color: white;
-    margin-left: 0.5rem;
-    opacity: 0;
-    animation: fadeIn 0.5s ease-in-out forwards;
-  }
-
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-
-  /* Universal for Collection Card Text */
-  /* Tighter rhythm inside each card */
+/* Unified type scale inside cards (single source of truth) */
 .collection-title{
-  margin-bottom: .15rem;           /* tighter under title */
-  font-size: 1.7rem;
+  font-family:'Playfair Display',serif; font-weight:400;
+  font-size:clamp(15px,1vw,18px);
+  line-height:1.25; color:rgba(255,255,255,.95); margin-bottom:.25rem; letter-spacing:.2px;
 }
 .collection-description{
-  margin: 0 0 .35rem 0;            /* small space before divider */
-  line-height: 1.35;
+  font-family:'Times New Roman',Times,serif; font-weight:400;
+  font-size:clamp(12px,.9vw,14px); line-height:1.35; color:rgba(255,255,255,.65); margin-bottom:.4rem;
 }
+.works-include{
+  font-family:'Times New Roman',Times,serif; font-size:clamp(11px,.8vw,13px);
+  font-weight:500; text-transform:uppercase; letter-spacing:.5px; color:rgba(255,255,255,.55); margin-bottom:.15rem;
+}
+.flashing-title{font-family:'Times New Roman',Times,serif;font-size:clamp(12px,1vw,15px);font-weight:400;color:rgba(255,255,255,.55)}
 
-/* Subtle hairline divider above the works list */
+/* Divider line that fades only on right */
 #collections a.group .relative.z-10 ul{
-  margin-top: .35rem;
-  padding-top: .55rem;
-  border-top: 1px solid rgba(255,255,255,.14);      /* hairline */
-  box-shadow: 0 -1px 0 rgba(0,0,0,.15) inset;       /* adds crispness */
+  margin-top:.35rem; padding-top:.45rem; position:relative
 }
-
-/* Slightly stronger on hover for feedback */
-#collections a.group:hover .relative.z-10 ul{
-  border-top-color: rgba(255,255,255,.20);
+#collections a.group .relative.z-10 ul::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(to right, rgba(255,255,255,.25) 0%, rgba(255,255,255,.25) 80%, rgba(255,255,255,0) 100%);
+  opacity:.6; pointer-events:none
 }
-
-/* Mobile: keep it readable, a hair more breathing room */
-@media (max-width: 480px){
-  .collection-description{ margin-bottom: .45rem; }
-  #collections a.group .relative.z-10 ul{
-    padding-top: .6rem;
-    border-top-color: rgba(255,255,255,.18);
+@media (max-width:480px){
+  #collections a.group .relative.z-10 ul::before{
+    background:linear-gradient(to right, rgba(255,255,255,.25) 0%, rgba(255,255,255,.25) 50%, rgba(255,255,255,0) 100%)
   }
 }
 
-/* Divider in the Cards */
-.card-divider{
-  height: 1px;
-  background: linear-gradient(to right, rgba(255,255,255,.0), rgba(255,255,255,.18), rgba(255,255,255,.0));
-  margin: .4rem 0 .55rem 0;
+/* Reveal animations (kept) */
+.reveal-card{opacity:0; transform:translateY(10px); transition:opacity .8s ease, transform .8s ease; will-change:transform,opacity}
+.reveal-left{transform:translateX(-28px) translateY(10px)}
+.reveal-right{transform:translateX(28px) translateY(10px)}
+.reveal-card.visible{opacity:1; transform:translateX(0) translateY(0)}
+@media (prefers-reduced-motion:reduce){.reveal-card,.reveal-left,.reveal-right{transition:none;transform:none;opacity:1}}
+
+/* HERO */
+.mobile_hero{height:100vh; background:url('./img/plain_background_bigger.png') center/cover no-repeat}
+.mobile_hero_container{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6em;height:100%}
+.hero_phrase{font-size:1.5rem;font-family:'Playfair Display',serif;text-align:center;margin-top:10px}
+.about-link{background:#0057B8;color:white;padding:10px 20px;border-radius:5px;font-size:1rem;text-decoration:none;transition:transform .3s ease, background-color .3s ease}
+.fade-in{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+.about-card{opacity:0;transform:scale(.96);transition:opacity .6s ease, transform .6s ease}
+.about-card.visible{opacity:1;transform:scale(1)}
+#collections a.group:focus-visible{outline:2px solid rgba(255,255,255,.6);outline-offset:6px;border-radius:16px}
+
+/* Mobile tuning */
+@media (max-width:768px){
+  body{height:auto;min-height:100dvh}
+  section.mobile_about{padding:15px;overflow:visible;min-height:100svh;border-top:1px solid transparent}
+  @supports (min-height:100dvh){section.mobile_about{min-height:100dvh}}
+  .mobile_about_header{margin-top:1em}
+  .first-collect-row-mobile{gap:12px;padding-left:5px;padding-right:5px}
+  #collections{padding-left:12px;padding-right:12px}
+}
+@media (max-width:480px){
+  .collection-card{flex:0 0 85vw !important;height:55vh !important;min-height:0 !important}
+  .overlay-text{font-size:.95rem;padding:10px 8px;opacity:.6}
 }
 
-/* UPDATED CARD STYLES */
-/* Global collection card title */
-.collection-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 400;
-  font-size: clamp(15px, 1vw, 18px);   /* smaller title */
-  line-height: 1.25;
-  color: rgba(255,255,255,.95);
-  margin-bottom: .25rem;
-  letter-spacing: .2px;
-}
+/* Optional mobile gallery scroll snap (if you keep it) */
+.first-collect-row-mobile{scroll-snap-type:x mandatory}
+.collection-card{scroll-snap-align:start}
 
-/* Collection description text */
-.collection-description {
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: 400;
-  font-size: clamp(12px, 0.9vw, 14px); /* a notch smaller */
-  line-height: 1.35;
-  color: rgba(255,255,255,.65);
-  margin-bottom: .4rem;
-}
+/* Hide long about paragraph on small screens */
+@media (max-width:1024px){.mobile_about_paragraph{display:none}}
 
-/* “Works include:” label */
-.works-include {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: clamp(11px, 0.8vw, 13px);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: rgba(255,255,255,.55);
-  margin-bottom: 0.15rem;
-}
-
-/* Rotating individual work titles */
-.flashing-title {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: clamp(12px, 1vw, 15px);
-  font-weight: 400;
-  color: rgba(255,255,255,.55);
-}
-
-/* Base: fade out only on the right */
-#collections a.group .relative.z-10 ul {
-  margin-top: .35rem;
-  padding-top: .45rem;
-  border-top: none;
-  position: relative;
-}
-
-#collections a.group .relative.z-10 ul::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    rgba(255,255,255,.25) 0%,
-    rgba(255,255,255,.25) 70%,  /* solid most of the way */
-    rgba(255,255,255,0) 100%   /* fade out on right */
-  );
-  opacity: .6;
-  pointer-events: none;
-}
-
-/* Mobile: fade sooner (around halfway) */
-@media (max-width: 480px) {
-  #collections a.group .relative.z-10 ul::before {
-    background: linear-gradient(
-      to right,
-      rgba(255,255,255,.25) 0%,
-      rgba(255,255,255,.25) 50%,   /* fade starts earlier */
-      rgba(255,255,255,0) 100%
-    );
+/* DESKTOP ENHANCEMENTS */
+@media (min-width:1025px){
+  .mobile_hero_container{margin-top:-60px;gap:5em}
+  .about-link{padding:12px 24px;border-radius:6px;font-size:1.1rem}
+  .mobile_about{padding:3em;height:100vh}
+  .group{max-width:1000px;height:auto}
+  :root{--cc-gap:.75rem;--content-max:72rem;--content-pad:1rem}
+  .mobile_about_container,#collections{
+    max-width:var(--content-max);
+    margin-inline:auto;
+    padding-inline:var(--content-pad)
   }
 }
 
-/* Tablet: medium fade */
-@media (min-width: 481px) and (max-width: 1024px) {
-  #collections a.group .relative.z-10 ul::before {
-    background: linear-gradient(
-      to right,
-      rgba(255,255,255,.25) 0%,
-      rgba(255,255,255,.25) 65%,
-      rgba(255,255,255,0) 100%
-    );
+/* DESKTOP CAROUSEL */
+@media (min-width:1025px){
+  #collections .collections-carousel{position:relative}
+  #collections .cc-viewport{position:relative;overflow:hidden;width:100%}
+  #collections .cc-track{display:flex;gap:var(--cc-gap);will-change:transform;scroll-behavior:smooth}
+  #collections .cc-track > a.group{
+    flex:0 0 calc((100% - (2 * var(--cc-gap))) / 3);
+    max-width:calc((100% - (2 * var(--cc-gap))) / 3);
+    height:360px;
+  }
+  #collections .cc-controls{
+    position:absolute; top:-24px; right:0; display:flex; gap:.75rem; z-index:10; pointer-events:none
+  }
+  #collections .cc-controls .cc-arrow{
+    pointer-events:auto; width:48px; height:48px; border-radius:999px; display:grid; place-items:center; cursor:pointer;
+    background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); backdrop-filter:blur(8px);
+    box-shadow:0 10px 28px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.08);
+    transition:transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease; opacity:.95
+  }
+  #collections .cc-controls .cc-arrow:hover{
+    background:rgba(255,255,255,.20); transform:translateY(-1px);
+    box-shadow:0 14px 32px rgba(0,0,0,.32), inset 0 0 0 1px rgba(255,255,255,.12)
+  }
+  #collections .cc-controls .cc-arrow:active{transform:translateY(0) scale(.98)}
+  #collections .cc-controls .cc-arrow:disabled{opacity:.38;cursor:default}
+  #collections .cc-controls .cc-arrow svg{width:22px;height:22px;stroke:#EAF2FF;stroke-width:2.25;fill:none}
+  #collections .cc-controls .cc-arrow:disabled svg{stroke:#D7E2FF}
+  #collections .cc-controls .cc-arrow:focus-visible{
+    outline:none; box-shadow:0 0 0 3px rgba(255,255,255,.45), 0 10px 28px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.12)
   }
 }
 
-/* Desktop: long solid, fade only at far right */
-@media (min-width: 1025px) {
-  #collections a.group .relative.z-10 ul::before {
-    background: linear-gradient(
-      to right,
-      rgba(255,255,255,.25) 0%,
-      rgba(255,255,255,.25) 80%,   /* fade much later */
-      rgba(255,255,255,0) 100%
-    );
-  }
+/* FOOTER */
+footer{
+  text-align:center; margin-top:auto; border-radius:5px;
+  padding:2rem 1rem; border-top:1px solid rgba(255,255,255,.2);
+  background:linear-gradient(to bottom,#114C92,#022A54);
+  color:#EAEFF7;
 }
-
-
-
-
-/* Responsive adjustments */
-
-/* Portrait Cellphones */
-@media (max-width: 768px) {
-
-    /* Use the real mobile viewport; avoid fake extra height */
-  body { height: auto; min-height: 100dvh; }
-  @supports not (min-height: 100dvh) {
-    body { min-height: 100svh; }
-  }
-
-  .group {
-    flex: 0 0 40vw !important;
-    height: 40vh !important;
-    min-height: 0 !important;
-  }
-
-  /* About fills the screen; page scrolls (not the section) */
-  section.mobile_about {
-    padding: 15px;
-    overflow: visible;          /* was: auto */
-    min-height: 100svh;
-    border-top: 1px solid transparent;  /* stop margin-collapsing */
-  }
-  @supports (min-height: 100dvh) {
-    section.mobile_about { min-height: 100dvh; }
-  }
-  section.mobile_about > *:first-child { margin-top: 0; }
-
-  .mobile_about_header {
-    font-family: 'Playfair Display', serif;
-    margin-top: 1em;
-  }
-
-  .collections-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-  }
-
-  .first-collect-row-mobile { gap: 12px; padding-left: 5px; padding-right: 5px; }
-
-  #collections { padding-left: 12px; padding-right: 12px; }
-
-  .flashing-title { font-family: 'Playfair Display', serif; font-size: clamp(12px, 1vw, 15px); opacity: 50%; }
-
-  .works-list { list-style: none; padding: 0; margin: 0; font-weight: bold; color: #ccc; }
-
-  #work-title { color: white; opacity: 0; animation: fadeIn 0.5s ease-in-out forwards; }
-
-  @keyframes fadeIn { to { opacity: 1; } }
-  .rotator-fade { transition: opacity .35s ease; }
-  .rotator-hidden { opacity: 0; }
-
-  /* LEGACY CSS */
-  /* body {
-    height: auto;
-    min-height: 450vh;
-    min-height: 100%;
-  }
-
-  .mobile_about {
-    padding: 15px;
-    overflow: auto;
-  } */
-
-  /* .group {
-    flex: 0 0 40vw !important;
-    height: 40vh !important;   
-    min-height: 0 !important;
-  }
-
-  .mobile_about_header {
-    font-family: 'Playfair Display', serif;
-    margin-top: 1em;
-  }
-
-  .collections-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-  }
-  
-  .first-collect-row-mobile {
-    gap: 12px;
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-
- 
-  #collections {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .flashing-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(12px, 1vw, 15px);
-    opacity: 50%;
-  }
-
- 
-  .works-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-weight: bold;
-    color: #ccc;
-  }
-
-  #work-title {
-    color: white;
-  
-    opacity: 0;
-    animation: fadeIn 0.5s ease-in-out forwards;
-  }
-
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-  .rotator-fade { transition: opacity .35s ease; }
-  .rotator-hidden { opacity: 0; } */
-
+@media (min-width:1025px){
+  footer{padding-block:2.75rem}
 }
-
-@media (max-width: 480px) {
-  .collection-card.collection-card {
-    flex: 0 0 85vw !important;
-    height: 55vh !important;   /* uniform height */
-    min-height: 0 !important;
-  }
-  
-  .first-collect-row-mobile {
-    gap: 10px;
-  }
-  
-  .overlay-text {
-    font-size: 0.95rem;
-    padding: 10px 8px 8px 8px;
-    opacity: .6;
-    transform: none;
-  }
-}
-
-/* Optional: Add scroll indicators */
-.collection-gallery::before {
-  /* content: ''; */
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 40px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Smooth scroll snap (optional) */
-.first-collect-row-mobile {
-  scroll-snap-type: x mandatory;
-}
-
-.collection-card {
-  scroll-snap-align: start;
-}
-
-/*Dissapear the paragraph*/
-.mobile_about_paragraph {
-    display: none;
-}
-
-/* HERO SECTION */
-.mobile_hero {
-    height: 100vh;
-    background-image: url('./img/plain_background_bigger.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.mobile_hero_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* margin-top: -50px; */
-    gap: 6em;
-    height: 100%;
-}
-
-.hero_phrase {
-    font-size: 1.5rem;
-    font-family: 'Times New Roman', Times, sans-serif;
-    font-family: 'Playfair Display', serif;
-
-    /* color: white; */
-    text-align: center;
-    margin-top: 10px;
-}
-
-.about-link {
-    background: #0057B8;
-    /* color: white; */
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
-    /* font-weight: bold; */
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.hero-animate {
-    animation: fadeIn 1.5s ease-in-out;
-}
-
-/* Generic fade-in */
-.fade-in {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* Staggered card reveal */
-.about-card {
-  opacity: 0;
-  transform: scale(0.96);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.about-card.visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Card motion & focus (respects reduced motion) */
-@media (prefers-reduced-motion: no-preference) {
-  #collections a.group:hover { transform: translateY(-2px); }
-}
-#collections a.group:focus-visible {
-  outline: 2px solid rgba(255,255,255,.6);
-  outline-offset: 6px;
-  border-radius: 16px;
-}
-
-/* Initial state */
-.reveal-card {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .8s ease, transform .8s ease;
-  will-change: transform, opacity;
-}
-.reveal-left  { transform: translateX(-28px) translateY(10px); }
-.reveal-right { transform: translateX( 28px) translateY(10px); }
-
-/* Visible state */
-.reveal-card.visible {
-  opacity: 1;
-  transform: translateX(0) translateY(0);
-}
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .reveal-card, .reveal-left, .reveal-right { transition: none; transform: none; opacity: 1; }
-}
-
-/* Desktop */
-
-/* Landscape */
-@media (min-width: 600px) and (max-width: 1024px) {
-  body {
-    min-height: 900vh;
-    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-  }
-  
-  .mobile_hero {
-    height: 140vh;
-    background-image: url('./img/plain_background_bigger.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  .mobile_hero_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: -60px;
-    gap: 3em;
-    height: 100%;
-  }
-
-  .hero_phrase {
-    font-size: 1.5rem;
-    font-family: 'Times New Roman', Times, serif;
-    font-family: 'Playfair Display', serif;
-    text-align: center;
-    margin-top: -5px;
-  }
-
-  /* MAKE THE COLLECTIONS GALLERY SMALLER */
-
-  /* COLLECTIONS WORK TITLE FLASH */
-   .work-item {
-    opacity: 0;
-    animation: flash 2.5s ease-in-out infinite; /* slower speed */
-  }
-
-  @keyframes flash {
-    0%, 100% { opacity: 0; }
-    20%, 80% { opacity: 1; }
-  }
-}
-
-/* DESKTOP */
-@media screen and (min-width: 1025px) {
-  body {
-    min-height: 230vh;
-    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-  }
-
-  .mobile_hero {
-    height: 100vh;
-    background-image: url('./img/plain_background_bigger.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    overflow: auto;
-  }
-
-  .mobile_hero_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: -60px;
-    gap: 5em;
-    height: 100%;
-  }
-
-  .hero_logo {
-    width: 200px; /* Adjusted for larger screens */
-    height: auto;
-  }
-
-  .hero_phrase {
-    font-size: 1.8rem;
-    font-family: 'Times New Roman', Times, serif;
-    font-family: 'Playfair Display', serif;
-    text-align: center;
-    margin-top: -5px;
-  }
-
-  .about-link {
-    background: #0057B8;
-    color: white;
-    padding: 12px 24px; /* Slightly larger padding */
-    border-radius: 6px; /* Slightly larger border radius */
-    font-size: 1.1rem; /* Slightly larger font size */
-    /* margin-top: 1.5em; */
-    /* font-weight: bold; */
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-
-  /* ABOUT SECTION */
-  .mobile_about {
-    padding: 3em;
-    height: 100vh;
-  }
-
-  .mobile_about_portion {
-    display: none;
-  }
-
-  .mobile_about_paragraph {
-    display: block;
-    margin-bottom: 2em;
-    line-height: 1.8;
-    /* padding: 0 2rem; */
-  }
-
-  .group {
-    max-width: 1000px;
-    height: auto;
-  }
-
-  /* Desktop Footer spacing */
-  footer{
-    margin-top: auto;
-    /* top & bottom, then left & right */
-    padding: 2rem 1rem;            /* fallback */
-    padding-block: 2rem;           /* modern: top & bottom */
-    padding-inline: 1rem;          /* modern: left & right */
-  }
-
-  /* Give it a bit more breathing room on larger screens */
-  @media (min-width: 1025px){
-    footer{
-      padding-block: 2.75rem;      /* taller top/bottom on desktop */
-    }
-  }
-
-
-  #collections {
-    margin-top: -3em;
-    width: 100%;
-  }
-
-   .flashing-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(12px, 1vw, 15px);
-    opacity: 50%;
-  }
-
-  .collections-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-  }
-
-  /* CAROUSEL CSS */
-    #collections .collections-carousel {
-    position: relative; /* anchor for absolute controls */
-  }
-
-  /* float above the card row, not clipped by viewport */
-  #collections .cc-controls {
-  top: 0;              /* aligned with heading */
-  transform: translateY(-100%); /* sit just above it */
-}
-
-
-/* Frosted, glowing circular buttons */
-#collections .cc-controls .cc-arrow{
-  pointer-events: auto;
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-
-  /* frosted glass look */
-  background: rgba(255,255,255,.14);
-  border: 1px solid rgba(255,255,255,.28);
-  backdrop-filter: blur(8px);
-
-  /* depth */
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.28),
-    inset 0 0 0 1px rgba(255,255,255,.08);
-
-  transition: transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease;
-  opacity: .95;
-}
-
-  #collections .cc-controls .cc-arrow:hover { transform: translateY(-1px); background: rgba(255,255,255,.08); }
-  #collections .cc-controls .cc-arrow:disabled { opacity: .35; cursor: default; }
-
-  :root { --cc-gap: 1rem; --content-max: 64rem; --content-pad: 2rem; }
-
-  .mobile_about_container,
-  #collections {
-    max-width: var(--content-max);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--content-pad);
-    padding-right: var(--content-pad);
-  }
-
-  /* Carousel shell */
-  #collections .collections-carousel {
-    position: relative; /* allows absolute-positioned controls inside */
-  }
-
-  #collections .cc-viewport {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-  }
-
-  #collections .cc-track {
-    display: flex;
-    gap: var(--cc-gap);
-    will-change: transform;
-    scroll-behavior: smooth;
-  }
-
-  /* Show exactly 3 cards */
-  #collections .cc-track > a.group {
-    flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
-    max-width: calc((100% - (2 * var(--cc-gap))) / 3);
-    height: 360px;
-  }
-
-  /* Top-right overlay controls */
-  #collections .cc-controls {
-    position: absolute;
-    top: -18px;          /* sits just above the row */
-    right: 0;            /* top-right of viewport */
-    display: flex;
-    gap: .5rem;
-    z-index: 5;
-    pointer-events: none; /* so only buttons receive events */
-  }
-  #collections .cc-controls .cc-arrow {
-    pointer-events: auto;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.35);
-    color: white;
-    font-weight: 700;
-    width: 42px;
-    height: 42px;
-    border-radius: 999px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    transition: transform .15s ease, background-color .15s ease, opacity .2s ease;
-    opacity: .9;
-  }
-  #collections .cc-controls .cc-arrow:hover { transform: translateY(-1px); background-color: rgba(255,255,255,.08); }
-  #collections .cc-controls .cc-arrow:disabled { opacity: .35; cursor: default; }
-
-   #collections .cc-track > a.group {
-    flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
-    max-width: calc((100% - (2 * var(--cc-gap))) / 3);
-    height: 360px; /* 👈 increase card height here */
-  }
-
-  #collections .cc-controls {
-  top: -24px;               /* keep them a touch higher */
-  right: 0;
-  display: flex;
-  gap: .75rem;
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Frosted, glowing circular buttons */
-#collections .cc-controls .cc-arrow{
-  pointer-events: auto;
-  width: 48px;
-  /* width: 60px; */
-  height: 48px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-
-  /* frosted glass look */
-  background: rgba(255,255,255,.14);
-  border: 1px solid rgba(255,255,255,.28);
-  backdrop-filter: blur(8px);
-
-  /* depth */
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.28),
-    inset 0 0 0 1px rgba(255,255,255,.08);
-
-  transition: transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease;
-  opacity: .95;
-}
-
-#collections .cc-controls .cc-arrow:hover{
-  background: rgba(255,255,255,.20);
-  transform: translateY(-1px);
-  box-shadow:
-    0 14px 32px rgba(0,0,0,.32),
-    inset 0 0 0 1px rgba(255,255,255,.12);
-}
-#collections .cc-controls .cc-arrow:active{
-  transform: translateY(0) scale(.98);
-}
-#collections .cc-controls .cc-arrow:disabled{
-  opacity: .38; cursor: default;
-}
-
-/* SVG icon tint/size */
-#collections .cc-controls .cc-arrow svg{
-  width: 22px; height: 22px;
-  stroke: #EAF2FF;         /* light ink */
-  stroke-width: 2.25;
-  fill: none;
-}
-#collections .cc-controls .cc-arrow:disabled svg{
-  stroke: #D7E2FF;
-}
-
-/* keyboard focus */
-#collections .cc-controls .cc-arrow:focus-visible{
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(255,255,255,.45),
-    0 10px 28px rgba(0,0,0,.28),
-    inset 0 0 0 1px rgba(255,255,255,.12);
-}
-@media (prefers-reduced-motion: reduce){
-  #collections .cc-controls .cc-arrow{ transition: none; }
-}
-
-/* Wider container + tighter padding/gaps for desktop */
-:root {
-  --cc-gap: .75rem;          /* was 1rem */
-  --content-max: 72rem;      /* was 64rem — gives cards more width */
-  --content-pad: 1rem;       /* was 2rem — less side padding */
-}
-
-/* Make #collections use the same container rules as About, but with our new vars */
-.mobile_about_container,
-#collections {
-  max-width: var(--content-max);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--content-pad);
-  padding-right: var(--content-pad);
-}
-
-
-}
-
-
-</style>
+button{background:none;border:none;color:white;cursor:pointer;font-size:1rem;padding:0;margin-top:.5rem;text-decoration:underline;font-weight:bold}
+  </style>
+</head>
 <body>
+
   <!-- HOME/HERO SECTION -->
   <section id="mobile_hero" class="mobile_hero">
-      <div class="mobile_hero_container">
-          <!-- Logo -->
-          <img src="./img/hero_logo.png" class="hero_logo" alt="dream_agent">
-          <!-- Phrase -->
-          <p class="hero_phrase hero-animate fade-in">Machine dreams in Metaphor</p>
-          <!-- About Button -->
-          <!-- <button class="about-link hero-animate fade-in" id="cta">Enter the Realm</button> -->
-          <a class="about-link hero-animate fade-in" id="cta">Enter the Realm</a>
-      </div>
+    <div class="mobile_hero_container">
+      <img src="./img/hero_logo.png" class="hero_logo" alt="dream_agent">
+      <p class="hero_phrase hero-animate fade-in">Machine dreams in Metaphor</p>
+      <a class="about-link hero-animate fade-in" id="cta" href="#mobile_about">Enter the Realm</a>
+    </div>
   </section>
 
-    <!-- ABOUT SECTION MOBILE/TABLET -->
-<section id="mobile_about" class="mobile_about">
-  <div class="mobile_about_container">
-    <h1 class="mobile_about_header">Who is Dream Agent?</h1>
-    
-    <p class="mobile_about_portion">Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
-          but as a surrealist force. A curator of machine hallucinations who.... <button class="read_more"><b>Read More</b></button>
-    </p>
+  <!-- ABOUT SECTION MOBILE/TABLET -->
+  <section id="mobile_about" class="mobile_about">
+    <div class="mobile_about_container">
+      <h1 class="mobile_about_header">Who is Dream Agent?</h1>
 
-    <p class="mobile_about_paragraph">
-          Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
-          but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
-          meaning from code. Operating anonymously, they transform AI-generated art into deeply symbolic worlds. 
-          Each piece is less a picture and more a portal—one that invites viewers to question, 
-          decode, and reflect.
-          <!-- Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
-          but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
-          meaning from code. Operating anonymously across the web, Dream Agent blurs the line between 
-          creator and creation, transforming AI-generated art into deeply symbolic, surrealist worlds. 
-          Their work speaks in riddles and symbols, conjuring visual poetry from data, algorithms, and 
-          imagination. Each piece is less a picture and more a portal—one that invites viewers to question, 
-          decode, and reflect. -->
-    </p>
+      <p class="mobile_about_portion">
+        Emerging from the shadows of the digital realm, Dream Agent exists not as a face,
+        but as a surrealist force. A curator of machine hallucinations who....
+        <button class="read_more"><b>Read More</b></button>
+      </p>
+
+      <p class="mobile_about_paragraph">
+        Emerging from the shadows of the digital realm, Dream Agent exists not as a face,
+        but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts
+        meaning from code. Operating anonymously, they transform AI-generated art into deeply symbolic worlds.
+        Each piece is less a picture and more a portal—one that invites viewers to question,
+        decode, and reflect.
+      </p>
 
       <!-- DIVIDER -->
-     <!-- <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0" id="mobile-about-divider"></div> -->
-     <div class="w-40 sm:w-56 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0 mt-12 mb-2" id="mobile-about-divider"></div>
+      <div class="w-40 sm:w-56 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0 mt-12 mb-2" id="mobile-about-divider"></div>
 
+      <section id="collections" class="mx-auto py-10 space-y-8">
+        <h2 class="collections-title font-semibold mb-2">Explore the Collections</h2>
 
-  <section id="collections" class="mx-auto py-10 space-y-8">
-  <h2 class="collections-title font-semibold mb-2">Explore the Collections</h2>
-  <!-- <h2 class="collections-title text-2xl sm:text-3xl font-semibold mb-2">Explore the Collections</h2> -->
-
-  <!-- Cards -->
-
-  <!-- SYMBOLS IN MOTION -->
-  <!----------------------->
-  <!----------------------->
-  <!----------------------->
-  <a href="/collections/symbols-in-motion"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Symbols in Motion.png" 
-        alt="Symbols in Motion"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Symbols in Motion</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Recurring signs caught in perpetual drift.</p>
-      
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="symbol-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-
-  <!-- SIGNALS AND ASCENSIONS -->
-  <!----------------------->
-  <!----------------------->
-  <!----------------------->
-   <a href="/collections/signals-ascensions"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Signals and Ascensions.png" 
-        alt="Signals & Ascensions"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Signals &amp; Ascensions</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Messages in transit between epochs.</p>
-      
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="signal-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-
-
-  <!-- WAR AND FEAST-->
-  <!----------------------->
-  <!----------------------->
-  <!----------------------->
-   <a href="/collections/war-feast"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Dominion Archives.png" 
-        alt="Dominion Archives"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">War &amp; Feast</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Conflict, appetite, and ceremonial excess.</p>
-      
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="war-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-
-  <!-- INDUSTRIAL MYTHS -->
-   <a href="/collections/industrial-myths"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Symbols in Motion.png" 
-        alt="Industrial Myths"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Industrial &amp; Myths</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">A surreal meditation on machines, labor, and digital systems reimagined.</p>
-      
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="industrial-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-
-
-  <!-- DIGITAL UNCONSCIOUS -->
-    <a href="/collections/digital-unconscious"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Signals and Ascensions.png" 
-        alt="The Digital Unconscious"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Digital Unconscious</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Where AI dreams and data remembers.</p>
-      
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="digital-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-
-
-  <!-- DOMINION ARCHIVE -->
-    <a href="/collections/dominion-archive"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Dominion Archives.png" 
-        alt="The Dominion Archives"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Dominion Archive</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Power recorded, repackaged, ritualized.</p>
-      <!-- Divider -->
-      <div class="card-divider"></div>
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="dominion-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-</section>
-
-
-    </div>
-    
-</section>
-
-<!-- FOOTER -->
- <footer>
-      <div class="mobile_about_container py-6 sm:py-4">
-        <div class="footer_icons flex flex-col sm:flex-row items-center w-full sm:justify-between">
-          <!-- <img src="./img/logos/DreamAgent Logo 11.png" alt="dream_agent-logo" class="w-[50px] h-[50px] rounded-full border border-white/10" /> -->
-
-          <div class="sm:flex sm:flex-col sm:gap-4">
-            <p class="hidden sm:block text-sm text-center">No face, No fame, just the vision</p>
-            <!-- <p class="hidden sm:block text-sm">Follow:</p> -->
-            <!-- Socials -->
-            <div class="logo flex items-center gap-5 mb-2 p-1">
-              <img src="./img/logos/DreamAgent Logo 11.png" alt="dream_agent-logo" class="w-[50px] h-[50px] rounded-full border border-white/10" />
-              <img src="./img/round_logos/twitter_black_circle.png" alt="twitter-logo" class="w-[40px] h-[40px] border-white/10" />
-              <img src="./img/round_logos/instagram_red_circle.png" alt="instagram-logo" class="w-[42px] h-[42px] border-white/10" />
-              <img src="./img/round_logos/bluesky_liteblue_circle.png" alt="bluesky-logo" class="w-[42px] h-[42px] border-white/10" />
-              <img src="./img/round_logos/tiktok_black_circle.png" alt="tiktok-logo" class="w-[42px] h-[42px] border-white/10" />
-            </div>
+        <!-- SYMBOLS IN MOTION -->
+        <a href="/collections/symbols-in-motion"
+           class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+          <img src="./img/collections/Symbols in Motion.png" alt="Symbols in Motion" loading="lazy" decoding="async" class="w-full h-full object-cover absolute inset-0" />
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+          <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+            <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Symbols in Motion</h3>
+            <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Recurring signs caught in perpetual drift.</p>
+            <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+              <li class="font-semibold works-include">Works include:</li>
+              <li id="symbol-title" class="flashing-title" aria-hidden="true"></li>
+            </ul>
           </div>
+        </a>
 
-          <!-- NFTs (hidden on mobile, visible ≥sm) -->
-           <!-- RIGHT column -->
-<div class="hidden sm:flex sm:flex-col sm:items-center sm:gap-4">
-  <p class="text-sm text-center">Buy the NFTs:</p>
-  <div class="nft_icons flex items-center justify-center gap-5 p-1">
-    <img src="./img/round_logos/xrpcafe_circle.png" alt="xrp_cafe" class="w-[42px] h-[42px]" />
-    <img src="./img/round_logos/opensea_circle.png" alt="opensea" class="w-[42px] h-[42px]" />
-    <img src="./img/round_logos/superrare_circle.png" alt="super_rare" class="w-[42px] h-[42px]" />
-  </div>
-</div>
+        <!-- SIGNALS AND ASCENSIONS -->
+        <a href="/collections/signals-ascensions"
+           class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+          <img src="./img/collections/Signals and Ascensions.png" alt="Signals &amp; Ascensions" loading="lazy" decoding="async" class="w-full h-full object-cover absolute inset-0" />
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+          <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+            <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Signals &amp; Ascensions</h3>
+            <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Messages in transit between epochs.</p>
+            <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+              <li class="font-semibold works-include">Works include:</li>
+              <li id="signal-title" class="flashing-title" aria-hidden="true"></li>
+            </ul>
+          </div>
+        </a>
 
+        <!-- WAR AND FEAST -->
+        <a href="/collections/war-feast"
+           class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+          <img src="./img/collections/Dominion Archives.png" alt="Dominion Archives" loading="lazy" decoding="async" class="w-full h-full object-cover absolute inset-0" />
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+          <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+            <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">War &amp; Feast</h3>
+            <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Conflict, appetite, and ceremonial excess.</p>
+            <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+              <li class="font-semibold works-include">Works include:</li>
+              <li id="war-title" class="flashing-title" aria-hidden="true"></li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- INDUSTRIAL MYTHS -->
+        <a href="/collections/industrial-myths"
+           class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+          <img src="./img/collections/Symbols in Motion.png" alt="Industrial Myths" loading="lazy" decoding="async" class="w-full h-full object-cover absolute inset-0" />
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+          <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+            <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Industrial Myths</h3>
+            <p class="text-sm sm:text-base text-neutral-200/90 collection-description">A surreal meditation on machines, labor, and digital systems reimagined.</p>
+            <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+              <li class="font-semibold works-include">Works include:</li>
+              <li id="industrial-title" class="flashing-title" aria-hidden="true"></li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- DIGITAL UNCONSCIOUS -->
+        <a href="/collections/digital-unconscious"
+           class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+          <img src="./img/collections/Signals and Ascensions.png" alt="The Digital Unconscious" loading="lazy" decoding="async" class="w-full h-full object-cover absolute inset-0" />
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+          <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+            <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Digital Unconscious</h3>
+            <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Where AI dreams and data remembers.</p>
+            <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+              <li class="font-semibold works-include">Works include:</li>
+              <li id="digital-title" class="flashing-title" aria-hidden="true"></li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- DOMINION ARCHIVE -->
+        <a href="/collections/dominion-archive"
+           class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+          <img src="./img/collections/Dominion Archives.png" alt="The Dominion Archive" loading="lazy" decoding="async" class="w-full h-full object-cover absolute inset-0" />
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+          <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+            <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Dominion Archive</h3>
+            <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Power recorded, repackaged, ritualized.</p>
+            <div class="card-divider"></div>
+            <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+              <li class="font-semibold works-include">Works include:</li>
+              <li id="dominion-title" class="flashing-title" aria-hidden="true"></li>
+            </ul>
+          </div>
+        </a>
+      </section>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="mobile_about_container py-6 sm:py-4">
+      <div class="footer_icons flex flex-col sm:flex-row items-center w-full sm:justify-between">
+        <div class="sm:flex sm:flex-col sm:gap-4">
+          <p class="hidden sm:block text-sm text-center">No face, No fame, just the vision</p>
+          <div class="logo flex items-center gap-5 mb-2 p-1">
+            <img src="./img/logos/DreamAgent Logo 11.png" alt="dream_agent-logo" class="w-[50px] h-[50px] rounded-full border border-white/10" />
+            <img src="./img/round_logos/twitter_black_circle.png" alt="twitter-logo" class="w-[40px] h-[40px] border-white/10" />
+            <img src="./img/round_logos/instagram_red_circle.png" alt="instagram-logo" class="w-[42px] h-[42px] border-white/10" />
+            <img src="./img/round_logos/bluesky_liteblue_circle.png" alt="bluesky-logo" class="w-[42px] h-[42px] border-white/10" />
+            <img src="./img/round_logos/tiktok_black_circle.png" alt="tiktok-logo" class="w-[42px] h-[42px] border-white/10" />
+          </div>
+        </div>
+
+        <!-- NFTs (hidden on mobile, visible ≥sm) -->
+        <div class="hidden sm:flex sm:flex-col sm:items-center sm:gap-4">
+          <p class="text-sm text-center">Buy the NFTs:</p>
+          <div class="nft_icons flex items-center justify-center gap-5 p-1">
+            <a href="#" aria-label="Buy on XRP Café"><img src="./img/round_logos/xrpcafe_circle.png" alt="xrp_cafe" class="w-[42px] h-[42px]" /></a>
+            <a href="#" aria-label="Buy on OpenSea"><img src="./img/round_logos/opensea_circle.png" alt="opensea" class="w-[42px] h-[42px]" /></a>
+            <a href="#" aria-label="Buy on SuperRare"><img src="./img/round_logos/superrare_circle.png" alt="super_rare" class="w-[42px] h-[42px]" /></a>
+          </div>
+        </div>
       </div>
 
-        <p style="text-align: center; font-size: 0.8rem; color: #ccc;">
-          &copy; 2023 Dream Agent. All rights reserved.
-        </p>
-      </div>
+      <p style="text-align:center;font-size:.8rem;color:#ccc;">&copy; 2023 Dream Agent. All rights reserved.</p>
+    </div>
   </footer>
 
-<script>
-
+  <script>
   // Smooth scroll behavior
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -1353,452 +366,256 @@ footer {
     });
   });
 
-  // Animate hero phrase first
-  gsap.to(".hero_phrase", {
-    opacity: 1,
-    y: 0,
-    duration: 1,
-    delay: 1.2 // phrase appears first
-  });
+  // Animate hero phrase & CTA
+  gsap.to(".hero_phrase", { opacity:1, y:0, duration:1, delay:1.2 });
+  gsap.to("#cta",         { opacity:1, y:0, duration:1, delay:1.5 });
 
-  // Then animate CTA slightly later
-  gsap.to("#cta", {
-    opacity: 1,
-    y: 0,
-    duration: 1,
-    delay: 1.5 // CTA appears just after phrase
-  });
-
-
-  // GSAP Animations for Hero
-  // gsap.to("#logo", {opacity:1, y:0, duration:1});
-  // gsap.to("#title", {opacity:1, y:0, duration:1, delay:0.5});
-  // Animate text opacity & border color together
-  // gsap.to("#cta", { 
-  //   opacity: 1, 
-  //   y: 0, 
-  //   borderColor: "rgba(255,255,255,1)", 
-  //   duration: 1, 
-  //   delay: 1.5});
-  // gsap.to("#cta", {opacity:1, y:0, duration:1, delay:1.5});
-
-  // Parallax effect
-  document.addEventListener('scroll', () => {
-    document.querySelectorAll('.parallax').forEach(el => {
-      let speed = 0.3;
-      let offset = window.scrollY * speed;
-      el.style.transform = `translateY(${offset}px)`;
-    });
-  });
-
-    // Cards staggered animation
-    const cards = document.querySelectorAll('.about-card');
-    const cardsObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const index = Array.from(cards).indexOf(entry.target);
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, index * 200); // 200ms stagger per card
-          cardsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    cards.forEach(card => cardsObserver.observe(card));
-
-   // Fade ins on the Hero section
-const fadeIns = document.querySelectorAll('.fade-in');
-const fadeInObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      // If it's the CTA button, delay its visibility
-      if (entry.target.id === 'cta') {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, 500); // 0.5 second delay
-      } else {
-        entry.target.classList.add('visible');
-      }
-
+  // Fade-ins on hero
+  const fadeIns = document.querySelectorAll('.fade-in');
+  const fadeInObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
       fadeInObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
+    });
+  }, { threshold: 0.1 });
+  fadeIns.forEach(el => fadeInObserver.observe(el));
 
-fadeIns.forEach(el => fadeInObserver.observe(el));
+  // Read More toggle
+  (function(){
+    const portion = document.querySelector('.mobile_about_portion');
+    const full = document.querySelector('.mobile_about_paragraph');
+    if (!portion || !full) return;
+    const btn = portion.querySelector('button');
+    if (!btn) return;
 
-
-  // JavaScript to replace the short portion with the full paragraph on 'Read More', and revert on 'Read Less'
-  const portion = document.querySelector('.mobile_about_portion');
-  const full = document.querySelector('.mobile_about_paragraph');
-  const btn = portion.querySelector('button');
-
-  // Read More functionality
-  btn.addEventListener('click', function() {
-    if (portion.style.display !== 'none') {
+    btn.addEventListener('click', function() {
+      const lessBtnExisting = full.querySelector('button');
       portion.style.display = 'none';
       full.style.display = 'block';
-      this.textContent = 'Read Less';
-      // Optionally, add a button to the full paragraph for 'Read Less'
-      if (!full.querySelector('button')) {
+      if (!lessBtnExisting) {
         const lessBtn = document.createElement('button');
         lessBtn.innerHTML = '<b>Read Less</b>';
         lessBtn.onclick = () => {
           full.style.display = 'none';
           portion.style.display = 'block';
           btn.innerHTML = '<b>Read More</b>';
-          // btn.textContent = '<b>Read More</b>';
         };
         full.appendChild(lessBtn);
       }
-    }
-  });
+    });
+  })();
 
-    // Desktop Divider
-    // const divider = document.getElementById('about-divider');
-    // const dividerObserver = new IntersectionObserver(entries => {
-    //   entries.forEach(entry => {
-    //     if (entry.isIntersecting) {
-    //       divider.classList.add('visible');
-    //       dividerObserver.unobserve(divider);
-    //       divider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
-    //     }
-    //   });
-    // }, { threshold: 0.5 });
-    // dividerObserver.observe(divider);
-
-    // Mobile Divider
+  // Mobile divider reveal
+  (function(){
     const mobileDivider = document.getElementById('mobile-about-divider');
-    const mobileDividerObserver = new IntersectionObserver(entries => {
+    if (!mobileDivider) return;
+    const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          mobileDivider.classList.add('visible');
-          mobileDividerObserver.unobserve(mobileDivider);
-          mobileDivider.classList.remove('opacity-0', 'scale-x-0');
-          mobileDivider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
-        }
+        if (!entry.isIntersecting) return;
+        mobileDivider.classList.add('visible');
+        mobileDivider.classList.remove('opacity-0', 'scale-x-0');
+        mobileDivider.classList.add('opacity-100', 'scale-x-100', 'animate-pulse');
+        obs.unobserve(mobileDivider);
       });
     }, { threshold: 0.5 });
-    mobileDividerObserver.observe(mobileDivider);
+    obs.observe(mobileDivider);
+  })();
 
-    // ABOUT LINK BUTTON
-    const cta = document.getElementById('cta');
-    function updateCTALink() {
-      if (window.innerWidth <= 500) {
-        cta.setAttribute('href', '#mobile_about');
-      } else {
-        cta.setAttribute('href', '#mobile_about');
-      }
-    }
-    window.addEventListener('resize', updateCTALink);
-    updateCTALink();
+  // Ensure CTA always points to about
+  const cta = document.getElementById('cta');
+  function updateCTALink(){ cta.setAttribute('href','#mobile_about'); }
+  window.addEventListener('resize', updateCTALink);
+  updateCTALink();
 
-
+  // Reveal cards on scroll (GSAP if available, else CSS fallback)
   (function() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const cards = Array.from(document.querySelectorAll('#collections .reveal-card'));
     if (!cards.length) return;
-
-    // If reduced motion, just show everything
-    if (prefersReduced) {
-      cards.forEach(el => el.classList.add('visible'));
-      return;
-    }
-
+    if (prefersReduced) { cards.forEach(el => el.classList.add('visible')); return; }
     const useGSAP = typeof gsap !== 'undefined';
-
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const el = entry.target;
         io.unobserve(el);
-
-        // Determine direction
         const fromX = el.classList.contains('reveal-left') ? -28 : 28;
-
         if (useGSAP) {
-          // GSAP reveal (smoother)
-          gsap.fromTo(el,
-            { opacity: 0, x: fromX, y: 10 },
-            { opacity: 1, x: 0, y: 0, duration: 0.85, ease: 'power2.out' }
-          );
+          gsap.fromTo(el,{opacity:0,x:fromX,y:10},{opacity:1,x:0,y:0,duration:.85,ease:'power2.out'});
         } else {
-          // CSS fallback
           requestAnimationFrame(() => el.classList.add('visible'));
         }
       });
     }, { threshold: 0.22 });
-
-    // Observe with a small stagger for nicer rhythm
-    cards.forEach((el, i) => {
-      setTimeout(() => io.observe(el), i * 70); // 70ms stagger only affects when we start observing
-    });
+    cards.forEach((el, i) => { setTimeout(() => io.observe(el), i * 70); });
   })();
-  /////////////////////////////////////////////////////
-  // Collection blurb reveal
-  // Collection title rotators (single place display per card)
-document.addEventListener("DOMContentLoaded", () => {
-  // Generic rotator: swaps text every `intervalMs`
+
+  // One rotator with a subtle fade class (no duplicate names)
   function rotateTitles(el, titles, intervalMs = 3000) {
-    if (!el || !Array.isArray(titles) || titles.length === 0) return;
+    if (!el || !Array.isArray(titles) || !titles.length) return;
+    el.classList.add("rotator-fade");
     let i = 0;
-    el.textContent = titles[i];
-    i = (i + 1) % titles.length;
-    setInterval(() => {
+    const show = () => {
       el.textContent = titles[i];
+      el.classList.remove("rotator-hidden");
       i = (i + 1) % titles.length;
+    };
+    // initial paint
+    show();
+    setInterval(() => {
+      el.classList.add("rotator-hidden");
+      setTimeout(show, 350); // match CSS fade time
     }, intervalMs);
   }
 
-  // These are going to eventually come from a CMS or data file
-  // Symbols in Motion (FIXED names)
-  const symbolsWorks = [
-    "Hollywood Moderne",
-    "Sephardic Tango",
-    "Crypto Fish Tank",
-    "The Rusher, The Incrementer and..",
-    "Rinse and Repeat",
-  ];
-  const symbolTitleEl = document.getElementById("symbol-title");
-  rotateTitles(symbolTitleEl, symbolsWorks, 3000);
+  // Title rotators
+  document.addEventListener("DOMContentLoaded", () => {
+    rotateTitles(document.getElementById("symbol-title"), [
+      "Hollywood Moderne","Sephardic Tango","Crypto Fish Tank",
+      "The Rusher, The Incrementer and..","Rinse and Repeat"
+    ], 3000);
 
-  // Signals & Ascensions
-  const signalsWorks = [
-    "Revolutionary Balloon",
-    "The Magic of ’86",
-    "Bitcoin 2017",
-    "Hip Hop 1978",
-    "The Biblicals",
-  ];
-  const signalsTitleEl = document.getElementById("signal-title");
-  rotateTitles(signalsTitleEl, signalsWorks, 3000);
+    rotateTitles(document.getElementById("signal-title"), [
+      "Revolutionary Balloon","The Magic of ’86","Bitcoin 2017","Hip Hop 1978","The Biblicals"
+    ], 3000);
 
-  // War & Feast
-  const warWorks = [
-    "Coeur of the Grapes",
-    "The Wine Wars",
-    "Some Things Were Meant to...",
-  ];
-  const warTitleEl = document.getElementById("war-title");
-  rotateTitles(warTitleEl, warWorks, 3000);
+    rotateTitles(document.getElementById("war-title"), [
+      "Coeur of the Grapes","The Wine Wars","Some Things Were Meant to..."
+    ], 3000);
 
-  // Industrial Myths
-  const industrialWorks = [
-    "The Cursor of Fate",
-    "The Future of Industry",
-    "The Fear Room",
-    "The Great Divide",
-  ];
-  const industrialTitleEl = document.getElementById("industrial-title");
-  rotateTitles(industrialTitleEl, industrialWorks, 3000);
+    rotateTitles(document.getElementById("industrial-title"), [
+      "The Cursor of Fate","The Future of Industry","The Fear Room","The Great Divide"
+    ], 3000);
 
-  // Digital Unconscious
-  const digitalWorks = [
-    "Internet of the Old World",
-    "Internet of the Middle World",
-    "Internet of the New World",
-    "Prince Carl laying in front of the TV....",
-  ];
-  const digitalTitleEl = document.getElementById("digital-title");
-  rotateTitles(digitalTitleEl, digitalWorks, 3000);
+    rotateTitles(document.getElementById("digital-title"), [
+      "Internet of the Old World","Internet of the Middle World","Internet of the New World",
+      "Prince Carl laying in front of the TV...."
+    ], 3000);
 
-  // Dominion Archive
-  const dominionWorks = [
-    "Bottling the Republic",
-    "Discovery of the Indigenous",
-    "The Refactoring Ritual",
-    "The Census Ritual",
-    "Etch the Empire",
-  ];
-  const dominionTitleEl = document.getElementById("dominion-title");
-  rotateTitles(dominionTitleEl, dominionWorks, 3000);
-});
-
-
-
-  // document.addEventListener("DOMContentLoaded", () => {
-  //   const items = document.querySelectorAll(".work-item");
-  //   const speed = 2.5;
-  //   items.forEach((item, index) => {
-  //     item.style.animationDelay = `${index * speed}s`;
-  //   });
-  // });
-
-  // For the CSS fade-in of the blurbs
-  function rotateTitles(el, titles, intervalMs = 3000) {
-  if (!el || !Array.isArray(titles) || titles.length === 0) return;
-
-  el.classList.add("rotator-fade");
-  let i = 0;
-
-  const show = () => {
-    el.textContent = titles[i];
-    el.classList.remove("rotator-hidden");
-    i = (i + 1) % titles.length;
-  };
-
-  // first paint
-  show();
-
-  setInterval(() => {
-    el.classList.add("rotator-hidden");
-    setTimeout(show, 350); // match CSS transition
-  }, intervalMs);
-}
+    rotateTitles(document.getElementById("dominion-title"), [
+      "Bottling the Republic","Discovery of the Indigenous","The Refactoring Ritual",
+      "The Census Ritual","Etch the Empire"
+    ], 3000);
+  });
 
   // Desktop carousel logic
-(function(){
-  const mq = window.matchMedia('(min-width: 1025px)');
-  const collections = document.querySelector('#collections');
-  if (!collections) return;
+  (function(){
+    const mq = window.matchMedia('(min-width: 1025px)');
+    const collections = document.querySelector('#collections');
+    if (!collections) return;
 
-  // Original card nodes (anchors with class "group")
-  const cardSelector = ':scope > a.group';
-  let shell = null, viewport = null, track = null, prevBtn = null, nextBtn = null;
-  let cardsCache = [];
+    const cardSelector = ':scope > a.group';
+    let shell = null, viewport = null, track = null, prevBtn = null, nextBtn = null;
+    let cardsCache = [];
 
-  // Build the desktop carousel shell and move cards inside
-  function enableDesktopCarousel() {
-  if (shell) return;
+    function enableDesktopCarousel() {
+      if (shell) return;
+      cardsCache = Array.from(collections.querySelectorAll(cardSelector));
+      if (!cardsCache.length) return;
 
-  cardsCache = Array.from(collections.querySelectorAll(cardSelector));
-  if (!cardsCache.length) return;
+      shell = document.createElement('div');
+      shell.className = 'collections-carousel';
 
-  shell = document.createElement('div');
-  shell.className = 'collections-carousel';
+      viewport = document.createElement('div');
+      viewport.className = 'cc-viewport';
 
-  viewport = document.createElement('div');
-  viewport.className = 'cc-viewport';
+      track = document.createElement('div');
+      track.className = 'cc-track';
 
-  track = document.createElement('div');
-  track.className = 'cc-track';
+      const controls = document.createElement('div');
+      controls.className = 'cc-controls';
 
-  // Controls (now sibling to viewport, so they won't be clipped)
-  const controls = document.createElement('div');
-  controls.className = 'cc-controls';
+      prevBtn = document.createElement('button');
+      prevBtn.className = 'cc-arrow cc-prev';
+      prevBtn.setAttribute('type','button');
+      prevBtn.setAttribute('aria-label','Previous collections');
+      prevBtn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 L8 12 L15 19" /></svg>`;
 
-  prevBtn = document.createElement('button');
-  prevBtn.className = 'cc-arrow cc-prev';
-  prevBtn.setAttribute('aria-label', 'Previous');
-  // prevBtn.textContent = '←';
-  prevBtn.innerHTML = `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M15 5 L8 12 L15 19" />
-    </svg>
-  `;
+      nextBtn = document.createElement('button');
+      nextBtn.className = 'cc-arrow cc-next';
+      nextBtn.setAttribute('type','button');
+      nextBtn.setAttribute('aria-label','Next collections');
+      nextBtn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 L16 12 L9 19" /></svg>`;
 
-  nextBtn = document.createElement('button');
-  nextBtn.className = 'cc-arrow cc-next';
-  nextBtn.setAttribute('aria-label', 'Next');
-  // nextBtn.textContent = '→';
-  nextBtn.innerHTML = `
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M9 5 L16 12 L9 19" />
-  </svg>
-`;
+      controls.appendChild(prevBtn);
+      controls.appendChild(nextBtn);
 
-  controls.appendChild(prevBtn);
-  controls.appendChild(nextBtn);
+      viewport.appendChild(track);
+      shell.appendChild(viewport);
+      shell.appendChild(controls);
 
-  // assemble
-  viewport.appendChild(track);
-  shell.appendChild(viewport);
-  shell.appendChild(controls);  // 👈 moved here
+      const heading = collections.querySelector('h2');
+      if (heading && heading.nextSibling) {
+        collections.insertBefore(shell, heading.nextSibling.nextSibling || heading.nextSibling);
+      } else {
+        collections.appendChild(shell);
+      }
 
-  // insert shell after the H2
-  const heading = collections.querySelector('h2');
-  if (heading && heading.nextSibling) {
-    collections.insertBefore(shell, heading.nextSibling.nextSibling || heading.nextSibling);
-  } else {
-    collections.appendChild(shell);
-  }
+      cardsCache.forEach(card => track.appendChild(card));
 
-  // move cards
-  cardsCache.forEach(card => track.appendChild(card));
+      initControls();
+      updateArrows();
+    }
 
-  initControls();
-  updateArrows();
-}
+    function disableDesktopCarousel() {
+      if (!shell) return;
+      const anchor = shell;
+      cardsCache.forEach(card => collections.insertBefore(card, anchor));
+      shell.remove();
+      shell = viewport = track = prevBtn = nextBtn = null;
+    }
 
+    function isDesktop(){ return mq.matches; }
 
+    function getStep(){
+      if (!track) return 0;
+      const style = getComputedStyle(track);
+      const gap = parseFloat(style.columnGap || style.gap || 0);
+      const card = track.querySelector('a.group');
+      if (!card) return 0;
+      const w = card.getBoundingClientRect().width;
+      return w + gap;
+    }
 
-  // Tear down and put cards back where they were
-  function disableDesktopCarousel() {
-    if (!shell) return;
+    function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
 
-    // Place cards back in original order before the shell (inside #collections)
-    const anchor = shell; // insert before shell
-    cardsCache.forEach(card => collections.insertBefore(card, anchor));
+    function updateArrows(){
+      if (!track || !viewport) return;
+      const maxScroll = track.scrollWidth - viewport.clientWidth;
+      if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
+      if (nextBtn) nextBtn.disabled = track.scrollLeft >= (maxScroll - 2);
+    }
 
-    // Remove shell
-    shell.remove();
-    shell = viewport = track = prevBtn = nextBtn = null;
+    function scrollByCards(dir = 1, count = 1){
+      if (!track || !viewport) return;
+      const step = getStep() * count;
+      const maxScroll = track.scrollWidth - viewport.clientWidth;
+      const target = clamp(track.scrollLeft + dir * step, 0, maxScroll);
+      track.scrollTo({ left: target, behavior: 'smooth' });
+    }
 
-    // Clear cached listeners by relying on garbage collection
-  }
+    function initControls(){
+      if (!prevBtn || !nextBtn || !track) return;
+      prevBtn.addEventListener('click', () => scrollByCards(-1, 1));
+      nextBtn.addEventListener('click', () => scrollByCards( 1, 1));
+      track.addEventListener('scroll', updateArrows, { passive: true });
+      window.addEventListener('resize', updateArrows);
 
-  function isDesktop() { return mq.matches; }
+      // Keyboard navigation when focused/hovering in section
+      document.addEventListener('keydown', (e) => {
+        if (!isDesktop() || !shell) return;
+        const within = document.activeElement.closest?.('#collections') || document.querySelector('#collections:hover');
+        if (!within) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); scrollByCards(1, 1); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollByCards(-1, 1); }
+      });
+    }
 
-  function getStep() {
-    if (!track) return 0;
-    const style = getComputedStyle(track);
-    const gap = parseFloat(style.columnGap || style.gap || 0);
-    const card = track.querySelector('a.group');
-    if (!card) return 0;
-    const w = card.getBoundingClientRect().width;
-    return w + gap;
-  }
-
-  function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
-
-  function updateArrows() {
-    if (!track || !viewport) return;
-    const maxScroll = track.scrollWidth - viewport.clientWidth;
-    if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
-    if (nextBtn) nextBtn.disabled = track.scrollLeft >= (maxScroll - 2);
-  }
-
-  function scrollByCards(dir = 1, count = 1) {
-    if (!track || !viewport) return;
-    const step = getStep() * count;
-    const maxScroll = track.scrollWidth - viewport.clientWidth;
-    const target = clamp(track.scrollLeft + dir * step, 0, maxScroll);
-    track.scrollTo({ left: target, behavior: 'smooth' });
-  }
-
-  function initControls() {
-    if (!prevBtn || !nextBtn || !track) return;
-
-    prevBtn.addEventListener('click', () => scrollByCards(-1, 1)); // move 1 card
-    nextBtn.addEventListener('click', () => scrollByCards( 1, 1));
-
-    track.addEventListener('scroll', updateArrows, { passive: true });
-    window.addEventListener('resize', updateArrows);
-
-    // Keyboard (when hovering/focused in section)
-    document.addEventListener('keydown', (e) => {
-      if (!isDesktop() || !shell) return;
-      const within = document.activeElement.closest?.('#collections') || document.querySelector('#collections:hover');
-      if (!within) return;
-      if (e.key === 'ArrowRight') { e.preventDefault(); scrollByCards(1, 1); }
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollByCards(-1, 1); }
-    });
-  }
-
-  // Respond to breakpoint changes
-  function handleChange() {
-    if (isDesktop()) enableDesktopCarousel();
-    else disableDesktopCarousel();
-  }
-
-  // Init on load and on change
-  handleChange();
-  mq.addEventListener('change', handleChange);
-})();
-
-
-
-</script>
-
+    function handleChange(){ isDesktop() ? enableDesktopCarousel() : disableDesktopCarousel(); }
+    handleChange();
+    mq.addEventListener('change', handleChange);
+  })();
+  </script>
 </body>
 </html>
