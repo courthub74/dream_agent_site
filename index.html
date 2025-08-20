@@ -1661,6 +1661,12 @@ document.addEventListener("DOMContentLoaded", () => {
   ///////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////
   // CAROUSEL for desktop only
+
+// let leftCloneCount = 0;
+// let rightCloneCount = 0;
+requestAnimationFrame(() => goToIndex(leftCloneCount, false));
+
+
 // ==============================
 // Desktop carousel (infinite loop)
 // ==============================
@@ -1715,14 +1721,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // keep it seamless: when on a clone, jump instantly to the matching real slide
   function normalizeIndex(){
-    const n = cardsCache.length;   // real count
-    const idx = getIndex();
-    if (idx <= 0){                // left clone -> last real
-      goToIndex(n, false);
-    } else if (idx >= n + 1){     // right clone -> first real
-      goToIndex(1, false);
-    }
+  const n   = cardsCache.length;         // real count
+  const idx = getIndex();
+
+  if (idx < leftCloneCount) {
+    // in left clones -> jump forward by one full set
+    goToIndex(idx + n, false);
+  } else if (idx >= leftCloneCount + n) {
+    // in right clones -> jump back by one full set
+    goToIndex(idx - n, false);
   }
+}
+  // function normalizeIndex(){
+  //   const n = cardsCache.length;  
+  //   const idx = getIndex();
+  //   if (idx <= 0){              
+  //     goToIndex(n, false);
+  //   } else if (idx >= n + 1){     
+  //     goToIndex(1, false);
+  //   }
+  // }
 
   function scrollByCards(dir = 1, count = 1){
     goToIndex(getIndex() + dir * count, true);
@@ -1788,15 +1806,27 @@ document.addEventListener("DOMContentLoaded", () => {
     else collections.appendChild(shell);
 
     // SENTINEL CLONES (prevent blank gaps at ends)
-    const firstClone = cardsCache[0].cloneNode(true);
-    const lastClone  = cardsCache[cardsCache.length - 1].cloneNode(true);
-    stripIds(firstClone);
-    stripIds(lastClone);
-
-    // Order: [left clone][real...][right clone]
-    track.appendChild(lastClone);
+    // --- move REAL cards into the track first ---
     cardsCache.forEach(card => track.appendChild(card));
-    track.appendChild(firstClone);
+
+    // --- CLONE THE ENTIRE SET to both ends (bullet-proof infinite loop) ---
+    leftCloneCount  = cardsCache.length;
+    rightCloneCount = cardsCache.length;
+
+    // Left clones in ORIGINAL order (insert before first, iterating backwards)
+    for (let i = cardsCache.length - 1; i >= 0; i--) {
+      const clone = cardsCache[i].cloneNode(true);
+      stripIds(clone); // avoid duplicate IDs
+      track.insertBefore(clone, track.firstChild);
+    }
+
+    // Right clones in ORIGINAL order (append)
+    for (let i = 0; i < cardsCache.length; i++) {
+      const clone = cardsCache[i].cloneNode(true);
+      stripIds(clone);
+      track.appendChild(clone);
+    }
+
 
     // events
     prevBtn.addEventListener('click', () => scrollByCards(-1, 1));
