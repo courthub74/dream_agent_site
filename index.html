@@ -1655,157 +1655,199 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(show, 350); // match CSS transition
   }, intervalMs);
 }
-
-  // Desktop carousel logic
+  ///////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////
+  // CAROUSEL for desktop only
 (function(){
   const mq = window.matchMedia('(min-width: 1025px)');
   const collections = document.querySelector('#collections');
   if (!collections) return;
 
-  // Original card nodes (anchors with class "group")
   const cardSelector = ':scope > a.group';
   let shell = null, viewport = null, track = null, prevBtn = null, nextBtn = null;
   let cardsCache = [];
+  let autoplayTimer = null;
+  let autoplayPaused = false;
 
-  // Build the desktop carousel shell and move cards inside
-  function enableDesktopCarousel() {
-  if (shell) return;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  cardsCache = Array.from(collections.querySelectorAll(cardSelector));
-  if (!cardsCache.length) return;
+  function isDesktop(){ return mq.matches; }
 
-  shell = document.createElement('div');
-  shell.className = 'collections-carousel';
-
-  viewport = document.createElement('div');
-  viewport.className = 'cc-viewport';
-
-  track = document.createElement('div');
-  track.className = 'cc-track';
-
-  // Controls (now sibling to viewport, so they won't be clipped)
-  const controls = document.createElement('div');
-  controls.className = 'cc-controls';
-
-  prevBtn = document.createElement('button');
-  prevBtn.className = 'cc-arrow cc-prev';
-  prevBtn.setAttribute('aria-label', 'Previous');
-  // prevBtn.textContent = '←';
-  prevBtn.innerHTML = `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M15 5 L8 12 L15 19" />
-    </svg>
-  `;
-
-  nextBtn = document.createElement('button');
-  nextBtn.className = 'cc-arrow cc-next';
-  nextBtn.setAttribute('aria-label', 'Next');
-  // nextBtn.textContent = '→';
-  nextBtn.innerHTML = `
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M9 5 L16 12 L9 19" />
-  </svg>
-`;
-
-  controls.appendChild(prevBtn);
-  controls.appendChild(nextBtn);
-
-  // assemble
-  viewport.appendChild(track);
-  shell.appendChild(viewport);
-  shell.appendChild(controls);  // 👈 moved here
-
-  // insert shell after the H2
-  const heading = collections.querySelector('h2');
-  if (heading && heading.nextSibling) {
-    collections.insertBefore(shell, heading.nextSibling.nextSibling || heading.nextSibling);
-  } else {
-    collections.appendChild(shell);
+  function stripIds(root){
+    root.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
   }
 
-  // move cards
-  cardsCache.forEach(card => track.appendChild(card));
+  // --- Helpers bound to this carousel instance ---
+  function scrollEl(){ return viewport; } // viewport is the scroller
 
-  initControls();
-  updateArrows();
-}
-
-
-
-  // Tear down and put cards back where they were
-  function disableDesktopCarousel() {
-    if (!shell) return;
-
-    // Place cards back in original order before the shell (inside #collections)
-    const anchor = shell; // insert before shell
-    cardsCache.forEach(card => collections.insertBefore(card, anchor));
-
-    // Remove shell
-    shell.remove();
-    shell = viewport = track = prevBtn = nextBtn = null;
-
-    // Clear cached listeners by relying on garbage collection
-  }
-
-  function isDesktop() { return mq.matches; }
-
-  function getStep() {
+  function getStep(){
     if (!track) return 0;
     const style = getComputedStyle(track);
     const gap = parseFloat(style.columnGap || style.gap || 0);
-    const card = track.querySelector('a.group');
+    const card = track.querySelector('a.group'); // first real card
     if (!card) return 0;
     const w = card.getBoundingClientRect().width;
     return w + gap;
   }
 
-  function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
-
-  function updateArrows() {
-    if (!track || !viewport) return;
-    const maxScroll = track.scrollWidth - viewport.clientWidth;
-    if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
-    if (nextBtn) nextBtn.disabled = track.scrollLeft >= (maxScroll - 2);
+  function getIndex(){
+    const el = scrollEl();
+    return Math.round(el.scrollLeft / getStep());
   }
 
-  function scrollByCards(dir = 1, count = 1) {
-    if (!track || !viewport) return;
-    const step = getStep() * count;
-    const maxScroll = track.scrollWidth - viewport.clientWidth;
-    const target = clamp(track.scrollLeft + dir * step, 0, maxScroll);
-    track.scrollTo({ left: target, behavior: 'smooth' });
+  function goToIndex(idx, smooth=true){
+    const el = scrollEl();
+    const left = idx * getStep();
+    if (smooth && 'scrollTo' in el){
+      el.scrollTo({ left, behavior: 'smooth' });
+    } else {
+      el.scrollLeft = left;
+    }
   }
 
-  function initControls() {
-    if (!prevBtn || !nextBtn || !track) return;
+  function normalizeIndex(){
+    const el = scrollEl();
+    const n = cardsCache.length; // real cards
+    const idx = getIndex();
+    // If we land on clones, instantly teleport to the corresponding real slide
+    if (idx <= 0){            // left clone -> last real (index n)
+      goToIndex(n, false);
+    } else if (idx >= n+1){   // right clone -> first real (index 1)
+      goToIndex(1, false);
+    }
+  }
 
-    prevBtn.addEventListener('click', () => scrollByCards(-1, 1)); // move 1 card
+  function scrollByCards(dir = 1, count = 1){
+    goToIndex(getIndex() + dir * count, true);
+  }
+
+  // --- Autoplay ---
+  const CARD_INTERVAL_MS = 3000;
+
+  function startAutoplay(){
+    if (prefersReduced) return;
+    stopAutoplay();
+    autoplayTimer = setInterval(() => {
+      if (autoplayPaused) return;
+      scrollByCards(1, 1);
+    }, CARD_INTERVAL_MS);
+  }
+  function stopAutoplay(){
+    if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = null;
+  }
+
+  function enableDesktopCarousel() {
+    if (shell) return;
+
+    cardsCache = Array.from(collections.querySelectorAll(cardSelector));
+    if (!cardsCache.length) return;
+
+    shell = document.createElement('div');
+    shell.className = 'collections-carousel';
+
+    viewport = document.createElement('div');
+    viewport.className = 'cc-viewport'; // this is the scroller
+
+    track = document.createElement('div');
+    track.className = 'cc-track';
+
+    // Controls
+    const controls = document.createElement('div');
+    controls.className = 'cc-controls';
+
+    prevBtn = document.createElement('button');
+    prevBtn.className = 'cc-arrow cc-prev';
+    prevBtn.setAttribute('aria-label', 'Previous');
+    prevBtn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 L8 12 L15 19"/></svg>`;
+
+    nextBtn = document.createElement('button');
+    nextBtn.className = 'cc-arrow cc-next';
+    nextBtn.setAttribute('aria-label', 'Next');
+    nextBtn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 L16 12 L9 19"/></svg>`;
+
+    controls.appendChild(prevBtn);
+    controls.appendChild(nextBtn);
+
+    viewport.appendChild(track);
+    shell.appendChild(viewport);
+    shell.appendChild(controls);
+
+    // Insert shell after the heading
+    const heading = collections.querySelector('h2');
+    if (heading) {
+      collections.insertBefore(shell, heading.nextSibling);
+    } else {
+      collections.appendChild(shell);
+    }
+
+    // Build with clones for seamless loop
+    const firstClone = cardsCache[0].cloneNode(true);
+    const lastClone  = cardsCache[cardsCache.length - 1].cloneNode(true);
+    stripIds(firstClone);
+    stripIds(lastClone);
+
+    track.appendChild(lastClone); // left sentinel
+    cardsCache.forEach(card => track.appendChild(card)); // real slides
+    track.appendChild(firstClone); // right sentinel
+
+    // Events
+    prevBtn.addEventListener('click', () => scrollByCards(-1, 1));
     nextBtn.addEventListener('click', () => scrollByCards( 1, 1));
 
-    track.addEventListener('scroll', updateArrows, { passive: true });
-    window.addEventListener('resize', updateArrows);
+    // Keep loop tight for any scroll (wheel, arrows, autoplay)
+    viewport.addEventListener('scroll', normalizeIndex, { passive: true });
 
-    // Keyboard (when hovering/focused in section)
+    // Pause autoplay on hover/focus, resume on leave/blur
+    shell.addEventListener('mouseenter', () => { autoplayPaused = true; });
+    shell.addEventListener('mouseleave', () => { autoplayPaused = false; });
+    shell.addEventListener('focusin',   () => { autoplayPaused = true; });
+    shell.addEventListener('focusout',  () => { autoplayPaused = false; });
+
+    // Keyboard arrows when hovered/focused in #collections
     document.addEventListener('keydown', (e) => {
-      if (!isDesktop() || !shell) return;
+      if (!shell || !isDesktop()) return;
       const within = document.activeElement.closest?.('#collections') || document.querySelector('#collections:hover');
       if (!within) return;
       if (e.key === 'ArrowRight') { e.preventDefault(); scrollByCards(1, 1); }
       if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollByCards(-1, 1); }
     });
+
+    // Keep slide aligned after resize
+    window.addEventListener('resize', () => {
+      if (!viewport) return;
+      goToIndex(getIndex(), false);
+    });
+
+    // Start on first REAL slide
+    requestAnimationFrame(() => goToIndex(1, false));
+
+    // Autoplay on desktop
+    startAutoplay();
   }
 
-  // Respond to breakpoint changes
-  function handleChange() {
+  function disableDesktopCarousel() {
+    if (!shell) return;
+
+    // Put real cards back where they belonged (before shell)
+    const anchor = shell;
+    cardsCache.forEach(card => collections.insertBefore(card, anchor));
+
+    stopAutoplay();
+
+    shell.remove();
+    shell = viewport = track = prevBtn = nextBtn = null;
+  }
+
+  function handleChange(){
     if (isDesktop()) enableDesktopCarousel();
     else disableDesktopCarousel();
   }
 
-  // Init on load and on change
   handleChange();
   mq.addEventListener('change', handleChange);
 })();
-
 
 
 </script>
