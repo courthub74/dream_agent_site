@@ -1092,37 +1092,57 @@ footer {
 
   /* NEW CAROUSEL DOTS */
   /* Dots: centered below the row */
+  /* Dots: fixed size, no transforms/box-shadows that can jiggle */
   #collections .cc-dots{
     display:flex;
     justify-content:center;
-    gap: .9rem;
-    margin-top: 1.25rem;
+    align-items:center;         /* lock vertical alignment */
+    gap:.9rem;
+    margin-top:1.25rem;
+    min-height:18px;            /* reserve height so nothing shifts */
+    user-select:none;
   }
 
   #collections .cc-dot{
-    width: 12px;
-    height: 12px;
-    border-radius: 999px;
-    background: transparent;
-    border: 2px solid rgba(255,255,255,.45);
-    opacity: .7;
-    box-shadow:
-      0 6px 16px rgba(0,0,0,.25),
-      inset 0 0 0 1px rgba(255,255,255,.06);
-    cursor: pointer;
-    transition: transform .15s ease, opacity .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
+    position:relative;
+    width:12px;
+    height:12px;
+    flex:0 0 12px;              /* width never changes */
+    border-radius:999px;
+    box-sizing:content-box;     /* border sits outside the 12x12 core */
+    border:2px solid rgba(255,255,255,.45);
+    background:transparent;
+    opacity:.75;
+    cursor:pointer;
+    line-height:0;
+    /* no transform animations */
+    transition: opacity .15s linear, background-color .15s linear, border-color .15s linear;
   }
-  #collections .cc-dot:hover{ transform: scale(1.1); opacity: .95; }
-
+  #collections .cc-dot:hover{ opacity:.95; }
   #collections .cc-dot.is-active{
-    background: rgba(234,242,255, .95);
+    background: rgba(234,242,255,.95);
     border-color: rgba(255,255,255,.95);
-    box-shadow:
-      0 0 0 4px rgba(255,255,255,.12),
-      0 10px 26px rgba(0,0,0,.28),
-      inset 0 0 0 1px rgba(255,255,255,.18);
-    opacity: 1;
+    opacity:1;
   }
+  #collections .cc-dot:focus-visible{
+    outline:2px solid rgba(255,255,255,.6);
+    outline-offset:2px;
+  }
+
+  /* Soft Glow without jiggle */
+  #collections .cc-dot{ position:relative; }       /* already set above */
+  #collections .cc-dot::after{
+    content:"";
+    position:absolute;
+    inset:-6px;                     /* outside the 12x12 core */
+    border-radius:inherit;
+    pointer-events:none;
+    opacity:0;
+    transition: opacity .2s ease;
+    box-shadow:0 0 0 4px rgba(255,255,255,.12);
+  }
+  #collections .cc-dot.is-active::after{ opacity:1; }
+
 
 
 
@@ -1702,6 +1722,11 @@ document.addEventListener("DOMContentLoaded", () => {
 // let rightCloneCount = 0;
 // requestAnimationFrame(() => goToIndex(leftCloneCount, false));
 
+// To Prevent the dots glitch
+let rafId = 0;
+let scrollIdleTimer = 0;
+const SCROLL_IDLE_MS = 140;  // wait time after last scroll event
+let pendingIndex = 0;
 
 // ==============================
 // Desktop carousel (finite, no loop)
@@ -1781,12 +1806,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function onScroll(){
+  // throttle to animation frames
+  if (rafId) cancelAnimationFrame(rafId);
+  rafId = requestAnimationFrame(() => {
     const s = step();
     if (s <= 0) return;
-    index = Math.round(viewport.scrollLeft / s);
+
+    // compute where we're heading but don't flip dots yet
+    pendingIndex = clampIndex(Math.round(viewport.scrollLeft / s));
+
+    // arrows can update continuously; they won't "glitch"
     updateArrows();
-    updateDots();
-  }
+
+    // only commit the dot change once scrolling goes idle
+    clearTimeout(scrollIdleTimer);
+    scrollIdleTimer = setTimeout(() => {
+      if (index !== pendingIndex) {
+        index = pendingIndex;
+      }
+      updateDots();
+    }, SCROLL_IDLE_MS);
+  });
+}
+
 
   function rebuildDots(){
     if (!dotsWrap) return;
