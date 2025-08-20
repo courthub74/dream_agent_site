@@ -781,155 +781,305 @@ footer {
 
 /* DESKTOP */
 @media screen and (min-width: 1025px) {
-  body {
-    min-height: 230vh;
-    background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-  }
-
-  .mobile_hero {
-    height: 100vh;
-    background-image: url('./img/plain_background_bigger.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    overflow: auto;
-  }
-
-  .mobile_hero_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: -60px;
-    gap: 5em;
-    height: 100%;
-  }
-
-  .hero_logo {
-    width: 200px; /* Adjusted for larger screens */
-    height: auto;
-  }
-
-  .hero_phrase {
-    font-size: 1.8rem;
-    font-family: 'Times New Roman', Times, serif;
-    font-family: 'Playfair Display', serif;
-    text-align: center;
-    margin-top: -5px;
-  }
-
-  .about-link {
-    background: #0057B8;
-    color: white;
-    padding: 12px 24px; /* Slightly larger padding */
-    border-radius: 6px; /* Slightly larger border radius */
-    font-size: 1.1rem; /* Slightly larger font size */
-    /* margin-top: 1.5em; */
-    /* font-weight: bold; */
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-
-  /* ABOUT SECTION */
-  .mobile_about {
-    padding: 3em;
-    height: 100vh;
-  }
-
-  .mobile_about_portion {
-    display: none;
-  }
-
-  .mobile_about_paragraph {
-    display: block;
-    margin-bottom: 2em;
-    line-height: 1.8;
-    /* padding: 0 2rem; */
-  }
-
-  .group {
-    max-width: 1000px;
-    height: auto;
-  }
-
-  /* Desktop Footer spacing */
-  footer{
-    margin-top: auto;
-    /* top & bottom, then left & right */
-    padding: 2rem 1rem;            /* fallback */
-    padding-block: 2rem;           /* modern: top & bottom */
-    padding-inline: 1rem;          /* modern: left & right */
-  }
-
-  /* Give it a bit more breathing room on larger screens */
-  @media (min-width: 1025px){
-    footer{
-      padding-block: 2.75rem;      /* taller top/bottom on desktop */
+    body {
+      min-height: 230vh;
+      background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
     }
+
+    .mobile_hero {
+      height: 100vh;
+      background-image: url('./img/plain_background_bigger.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      overflow: auto;
+    }
+
+    .mobile_hero_container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: -60px;
+      gap: 5em;
+      height: 100%;
+    }
+
+    .hero_logo {
+      width: 200px; /* Adjusted for larger screens */
+      height: auto;
+    }
+
+    .hero_phrase {
+      font-size: 1.8rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      margin-top: -5px;
+    }
+
+    .about-link {
+      background: #0057B8;
+      color: white;
+      padding: 12px 24px; /* Slightly larger padding */
+      border-radius: 6px; /* Slightly larger border radius */
+      font-size: 1.1rem; /* Slightly larger font size */
+      /* margin-top: 1.5em; */
+      /* font-weight: bold; */
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* ABOUT SECTION */
+    .mobile_about {
+      padding: 3em;
+      height: 100vh;
+    }
+
+    .mobile_about_portion {
+      display: none;
+    }
+
+    .mobile_about_paragraph {
+      display: block;
+      margin-bottom: 2em;
+      line-height: 1.8;
+      /* padding: 0 2rem; */
+    }
+
+    .group {
+      max-width: 1000px;
+      height: auto;
+    }
+
+    /* Desktop Footer spacing */
+    footer{
+      margin-top: auto;
+      /* top & bottom, then left & right */
+      padding: 2rem 1rem;            /* fallback */
+      padding-block: 2rem;           /* modern: top & bottom */
+      padding-inline: 1rem;          /* modern: left & right */
+    }
+
+    /* Give it a bit more breathing room on larger screens */
+    @media (min-width: 1025px){
+      footer{
+        padding-block: 2.75rem;      /* taller top/bottom on desktop */
+      }
+    }
+
+
+    #collections {
+      margin-top: -3em;
+      width: 100%;
+    }
+
+    .flashing-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(12px, 1vw, 15px);
+      opacity: 50%;
+    }
+
+    .collections-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+    }
+
+    /* CAROUSEL CSS */
+      #collections .collections-carousel {
+      position: relative; /* anchor for absolute controls */
+    }
+
+    /* float above the card row, not clipped by viewport */
+    #collections .cc-controls {
+    top: 0;              /* aligned with heading */
+    transform: translateY(-100%); /* sit just above it */
   }
 
 
-  #collections {
-    margin-top: -3em;
-    width: 100%;
+  /* Frosted, glowing circular buttons */
+  #collections .cc-controls .cc-arrow{
+    pointer-events: auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+
+    /* frosted glass look */
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.28);
+    backdrop-filter: blur(8px);
+
+    /* depth */
+    box-shadow:
+      0 10px 28px rgba(0,0,0,.28),
+      inset 0 0 0 1px rgba(255,255,255,.08);
+
+    transition: transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease;
+    opacity: .95;
   }
 
-   .flashing-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(12px, 1vw, 15px);
-    opacity: 50%;
-  }
+    #collections .cc-controls .cc-arrow:hover { transform: translateY(-1px); background: rgba(255,255,255,.08); }
+    #collections .cc-controls .cc-arrow:disabled { opacity: .35; cursor: default; }
 
-  .collections-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-  }
+    :root { --cc-gap: 1rem; --content-max: 64rem; --content-pad: 2rem; }
 
-  /* CAROUSEL CSS */
+    .mobile_about_container,
+    #collections {
+      max-width: var(--content-max);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: var(--content-pad);
+      padding-right: var(--content-pad);
+    }
+
+    /* Carousel shell */
     #collections .collections-carousel {
-    position: relative; /* anchor for absolute controls */
+      position: relative; /* allows absolute-positioned controls inside */
+    }
+
+    #collections .cc-viewport {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    /* #collections .cc-track {
+      display: flex;
+      gap: var(--cc-gap);
+      will-change: transform;
+      scroll-behavior: smooth;
+    } */
+
+    /* Horizontal track for cards */
+    #collections .cc-track { display:flex; flex-wrap:nowrap; gap:var(--cc-gap); }
+
+    /* Show exactly 3 cards */
+    #collections .cc-track > a.group {
+      flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
+      max-width: calc((100% - (2 * var(--cc-gap))) / 3);
+      height: 360px;
+    }
+
+    /* Top-right overlay controls */
+    #collections .cc-controls {
+      position: absolute;
+      top: -18px;          /* sits just above the row */
+      right: 0;            /* top-right of viewport */
+      display: flex;
+      gap: .5rem;
+      z-index: 5;
+      pointer-events: none; /* so only buttons receive events */
+    }
+    #collections .cc-controls .cc-arrow {
+      pointer-events: auto;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.35);
+      color: white;
+      font-weight: 700;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform .15s ease, background-color .15s ease, opacity .2s ease;
+      opacity: .9;
+    }
+    #collections .cc-controls .cc-arrow:hover { transform: translateY(-1px); background-color: rgba(255,255,255,.08); }
+    #collections .cc-controls .cc-arrow:disabled { opacity: .35; cursor: default; }
+
+    #collections .cc-track > a.group {
+      flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
+      max-width: calc((100% - (2 * var(--cc-gap))) / 3);
+      height: 360px; /* 👈 increase card height here */
+    }
+
+    #collections .cc-controls {
+    top: -24px;               /* keep them a touch higher */
+    right: 0;
+    display: flex;
+    gap: .75rem;
+    z-index: 10;
+    pointer-events: none;
   }
 
-  /* float above the card row, not clipped by viewport */
-  #collections .cc-controls {
-  top: 0;              /* aligned with heading */
-  transform: translateY(-100%); /* sit just above it */
-}
+  /* Frosted, glowing circular buttons */
+  #collections .cc-controls .cc-arrow{
+    pointer-events: auto;
+    width: 48px;
+    /* width: 60px; */
+    height: 48px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
 
+    /* frosted glass look */
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.28);
+    backdrop-filter: blur(8px);
 
-/* Frosted, glowing circular buttons */
-#collections .cc-controls .cc-arrow{
-  pointer-events: auto;
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
+    /* depth */
+    box-shadow:
+      0 10px 28px rgba(0,0,0,.28),
+      inset 0 0 0 1px rgba(255,255,255,.08);
 
-  /* frosted glass look */
-  background: rgba(255,255,255,.14);
-  border: 1px solid rgba(255,255,255,.28);
-  backdrop-filter: blur(8px);
+    transition: transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease;
+    opacity: .95;
+  }
 
-  /* depth */
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.28),
-    inset 0 0 0 1px rgba(255,255,255,.08);
+  #collections .cc-controls .cc-arrow:hover{
+    background: rgba(255,255,255,.20);
+    transform: translateY(-1px);
+    box-shadow:
+      0 14px 32px rgba(0,0,0,.32),
+      inset 0 0 0 1px rgba(255,255,255,.12);
+  }
+  #collections .cc-controls .cc-arrow:active{
+    transform: translateY(0) scale(.98);
+  }
+  #collections .cc-controls .cc-arrow:disabled{
+    opacity: .38; cursor: default;
+  }
 
-  transition: transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease;
-  opacity: .95;
-}
+  /* SVG icon tint/size */
+  #collections .cc-controls .cc-arrow svg{
+    width: 22px; height: 22px;
+    stroke: #EAF2FF;         /* light ink */
+    stroke-width: 2.25;
+    fill: none;
+  }
+  #collections .cc-controls .cc-arrow:disabled svg{
+    stroke: #D7E2FF;
+  }
 
-  #collections .cc-controls .cc-arrow:hover { transform: translateY(-1px); background: rgba(255,255,255,.08); }
-  #collections .cc-controls .cc-arrow:disabled { opacity: .35; cursor: default; }
+  /* keyboard focus */
+  #collections .cc-controls .cc-arrow:focus-visible{
+    outline: none;
+    box-shadow:
+      0 0 0 3px rgba(255,255,255,.45),
+      0 10px 28px rgba(0,0,0,.28),
+      inset 0 0 0 1px rgba(255,255,255,.12);
+  }
+  @media (prefers-reduced-motion: reduce){
+    #collections .cc-controls .cc-arrow{ transition: none; }
+  }
 
-  :root { --cc-gap: 1rem; --content-max: 64rem; --content-pad: 2rem; }
+  /* Wider container + tighter padding/gaps for desktop */
+  :root {
+    --cc-gap: .75rem;          /* was 1rem */
+    --content-max: 72rem;      /* was 64rem — gives cards more width */
+    --content-pad: 1rem;       /* was 2rem — less side padding */
+  }
 
+  /* Make #collections use the same container rules as About, but with our new vars */
   .mobile_about_container,
   #collections {
     max-width: var(--content-max);
@@ -939,155 +1089,41 @@ footer {
     padding-right: var(--content-pad);
   }
 
-  /* Carousel shell */
-  #collections .collections-carousel {
-    position: relative; /* allows absolute-positioned controls inside */
+
+  /* NEW CAROUSEL DOTS */
+  /* Dots: centered below the row */
+  #collections .cc-dots{
+    display:flex;
+    justify-content:center;
+    gap: .9rem;
+    margin-top: 1.25rem;
   }
 
-  #collections .cc-viewport {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-  }
-
-  /* #collections .cc-track {
-    display: flex;
-    gap: var(--cc-gap);
-    will-change: transform;
-    scroll-behavior: smooth;
-  } */
-
-  /* Horizontal track for cards */
-  #collections .cc-track { display:flex; flex-wrap:nowrap; gap:var(--cc-gap); }
-
-  /* Show exactly 3 cards */
-  #collections .cc-track > a.group {
-    flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
-    max-width: calc((100% - (2 * var(--cc-gap))) / 3);
-    height: 360px;
-  }
-
-  /* Top-right overlay controls */
-  #collections .cc-controls {
-    position: absolute;
-    top: -18px;          /* sits just above the row */
-    right: 0;            /* top-right of viewport */
-    display: flex;
-    gap: .5rem;
-    z-index: 5;
-    pointer-events: none; /* so only buttons receive events */
-  }
-  #collections .cc-controls .cc-arrow {
-    pointer-events: auto;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.35);
-    color: white;
-    font-weight: 700;
-    width: 42px;
-    height: 42px;
+  #collections .cc-dot{
+    width: 12px;
+    height: 12px;
     border-radius: 999px;
-    display: grid;
-    place-items: center;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.45);
+    opacity: .7;
+    box-shadow:
+      0 6px 16px rgba(0,0,0,.25),
+      inset 0 0 0 1px rgba(255,255,255,.06);
     cursor: pointer;
-    transition: transform .15s ease, background-color .15s ease, opacity .2s ease;
-    opacity: .9;
+    transition: transform .15s ease, opacity .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
   }
-  #collections .cc-controls .cc-arrow:hover { transform: translateY(-1px); background-color: rgba(255,255,255,.08); }
-  #collections .cc-controls .cc-arrow:disabled { opacity: .35; cursor: default; }
+  #collections .cc-dot:hover{ transform: scale(1.1); opacity: .95; }
 
-   #collections .cc-track > a.group {
-    flex: 0 0 calc((100% - (2 * var(--cc-gap))) / 3);
-    max-width: calc((100% - (2 * var(--cc-gap))) / 3);
-    height: 360px; /* 👈 increase card height here */
+  #collections .cc-dot.is-active{
+    background: rgba(234,242,255, .95);
+    border-color: rgba(255,255,255,.95);
+    box-shadow:
+      0 0 0 4px rgba(255,255,255,.12),
+      0 10px 26px rgba(0,0,0,.28),
+      inset 0 0 0 1px rgba(255,255,255,.18);
+    opacity: 1;
   }
 
-  #collections .cc-controls {
-  top: -24px;               /* keep them a touch higher */
-  right: 0;
-  display: flex;
-  gap: .75rem;
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Frosted, glowing circular buttons */
-#collections .cc-controls .cc-arrow{
-  pointer-events: auto;
-  width: 48px;
-  /* width: 60px; */
-  height: 48px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-
-  /* frosted glass look */
-  background: rgba(255,255,255,.14);
-  border: 1px solid rgba(255,255,255,.28);
-  backdrop-filter: blur(8px);
-
-  /* depth */
-  box-shadow:
-    0 10px 28px rgba(0,0,0,.28),
-    inset 0 0 0 1px rgba(255,255,255,.08);
-
-  transition: transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease;
-  opacity: .95;
-}
-
-#collections .cc-controls .cc-arrow:hover{
-  background: rgba(255,255,255,.20);
-  transform: translateY(-1px);
-  box-shadow:
-    0 14px 32px rgba(0,0,0,.32),
-    inset 0 0 0 1px rgba(255,255,255,.12);
-}
-#collections .cc-controls .cc-arrow:active{
-  transform: translateY(0) scale(.98);
-}
-#collections .cc-controls .cc-arrow:disabled{
-  opacity: .38; cursor: default;
-}
-
-/* SVG icon tint/size */
-#collections .cc-controls .cc-arrow svg{
-  width: 22px; height: 22px;
-  stroke: #EAF2FF;         /* light ink */
-  stroke-width: 2.25;
-  fill: none;
-}
-#collections .cc-controls .cc-arrow:disabled svg{
-  stroke: #D7E2FF;
-}
-
-/* keyboard focus */
-#collections .cc-controls .cc-arrow:focus-visible{
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(255,255,255,.45),
-    0 10px 28px rgba(0,0,0,.28),
-    inset 0 0 0 1px rgba(255,255,255,.12);
-}
-@media (prefers-reduced-motion: reduce){
-  #collections .cc-controls .cc-arrow{ transition: none; }
-}
-
-/* Wider container + tighter padding/gaps for desktop */
-:root {
-  --cc-gap: .75rem;          /* was 1rem */
-  --content-max: 72rem;      /* was 64rem — gives cards more width */
-  --content-pad: 1rem;       /* was 2rem — less side padding */
-}
-
-/* Make #collections use the same container rules as About, but with our new vars */
-.mobile_about_container,
-#collections {
-  max-width: var(--content-max);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--content-pad);
-  padding-right: var(--content-pad);
-}
 
 
 }
@@ -1668,10 +1704,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ==============================
-// Desktop carousel (infinite loop)
-// ==============================
-// ==============================
 // Desktop carousel (finite, no loop)
+// ==============================
+// ==============================
+// Desktop carousel (finite + dots)
 // ==============================
 (function(){
   const mq = window.matchMedia('(min-width: 1025px)');
@@ -1680,8 +1716,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const cardSelector = ':scope > a.group';
   let shell = null, viewport = null, track = null, prevBtn = null, nextBtn = null;
+  let dotsWrap = null, dots = [];
   let cardsCache = [];
-  let index = 0; // current left-most visible card index
+  let index = 0; // left-most visible card index
 
   function getGap(){
     if (!track) return 0;
@@ -1699,10 +1736,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!viewport) return 1;
     const s = step();
     if (s <= 0) return 1;
-    // +gap avoids off-by-one when a final gap exists
+    // add gap to avoid off-by-one at the tail
     return Math.max(1, Math.floor((viewport.clientWidth + getGap()) / s));
   }
-  function maxIndex(){
+  function maxIndex(){                 // last left-most position
     return Math.max(0, cardsCache.length - visibleCount());
   }
   function clampIndex(i){
@@ -1713,14 +1750,22 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateArrows(){
     if (!prevBtn || !nextBtn) return;
     const mi = maxIndex();
-
-    // hide controls if everything fits
-    const hide = mi === 0;
+    const hide = mi === 0;            // everything fits, hide arrows
     prevBtn.style.display = hide ? 'none' : '';
     nextBtn.style.display = hide ? 'none' : '';
-
     prevBtn.disabled = index <= 0;
     nextBtn.disabled = index >= mi;
+  }
+
+  function updateDots(){
+    if (!dotsWrap) return;
+    const needed = maxIndex() + 1;    // number of positions (1 card step)
+    // rebuild if count changed
+    if (dots.length !== needed){
+      rebuildDots();
+      return;
+    }
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
   }
 
   function goToIndex(i, smooth = true){
@@ -1732,6 +1777,7 @@ document.addEventListener("DOMContentLoaded", () => {
       viewport.scrollLeft = left;
     }
     updateArrows();
+    updateDots();
   }
 
   function onScroll(){
@@ -1739,6 +1785,28 @@ document.addEventListener("DOMContentLoaded", () => {
     if (s <= 0) return;
     index = Math.round(viewport.scrollLeft / s);
     updateArrows();
+    updateDots();
+  }
+
+  function rebuildDots(){
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = '';
+    dots = [];
+    const count = maxIndex() + 1;
+    if (count <= 1){
+      dotsWrap.style.display = 'none';
+      return;
+    }
+    dotsWrap.style.display = 'flex';
+    for (let i = 0; i < count; i++){
+      const b = document.createElement('button');
+      b.className = 'cc-dot';
+      b.setAttribute('aria-label', `Go to position ${i+1}`);
+      b.addEventListener('click', () => goToIndex(i, true));
+      dotsWrap.appendChild(b);
+      dots.push(b);
+    }
+    updateDots();
   }
 
   function enableDesktopCarousel(){
@@ -1751,7 +1819,7 @@ document.addEventListener("DOMContentLoaded", () => {
     shell = document.createElement('div');
     shell.className = 'collections-carousel';
 
-    // viewport (the scroller)
+    // viewport (scroller)
     viewport = document.createElement('div');
     viewport.className = 'cc-viewport';
 
@@ -1776,16 +1844,22 @@ document.addEventListener("DOMContentLoaded", () => {
     controls.appendChild(prevBtn);
     controls.appendChild(nextBtn);
 
+    // dots
+    dotsWrap = document.createElement('div');
+    dotsWrap.className = 'cc-dots';
+
+    // assemble
     viewport.appendChild(track);
     shell.appendChild(viewport);
     shell.appendChild(controls);
+    shell.appendChild(dotsWrap);
 
-    // insert right after the H2
+    // insert after heading
     const heading = collections.querySelector('h2');
     if (heading) collections.insertBefore(shell, heading.nextSibling);
     else collections.appendChild(shell);
 
-    // move REAL cards into the track (no clones)
+    // move real cards (no clones)
     cardsCache.forEach(card => track.appendChild(card));
 
     // events
@@ -1802,12 +1876,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener('resize', () => {
-      // re-clamp and snap on layout changes
+      // layout may change visibleCount; re-clamp and rebuild dots
       goToIndex(index, false);
+      rebuildDots();
     });
 
-    // start at the first real slide
-    requestAnimationFrame(() => goToIndex(0, false));
+    // initial
+    requestAnimationFrame(() => {
+      goToIndex(0, false);
+      rebuildDots();
+    });
   }
 
   function disableDesktopCarousel(){
@@ -1815,7 +1893,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const anchor = shell;
     cardsCache.forEach(card => collections.insertBefore(card, anchor));
     shell.remove();
-    shell = viewport = track = prevBtn = nextBtn = null;
+    shell = viewport = track = prevBtn = nextBtn = dotsWrap = null;
+    dots = [];
     cardsCache = [];
     index = 0;
   }
@@ -1828,6 +1907,7 @@ document.addEventListener("DOMContentLoaded", () => {
   handleChange();
   mq.addEventListener('change', handleChange);
 })();
+
 </script>
 
 </body>
