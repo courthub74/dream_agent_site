@@ -1664,103 +1664,83 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // let leftCloneCount = 0;
 // let rightCloneCount = 0;
-requestAnimationFrame(() => goToIndex(leftCloneCount, false));
+// requestAnimationFrame(() => goToIndex(leftCloneCount, false));
 
 
 // ==============================
 // Desktop carousel (infinite loop)
+// ==============================
+// ==============================
+// Desktop carousel (finite, no loop)
 // ==============================
 (function(){
   const mq = window.matchMedia('(min-width: 1025px)');
   const collections = document.querySelector('#collections');
   if (!collections) return;
 
-  // CONFIG
-  const USE_AUTOPLAY = false;      // set true to enable autoplay
-  const CARD_INTERVAL_MS = 3000;   // autoplay interval (ms)
-
   const cardSelector = ':scope > a.group';
   let shell = null, viewport = null, track = null, prevBtn = null, nextBtn = null;
   let cardsCache = [];
-  let autoplayTimer = null;
-  let autoplayPaused = false;
+  let index = 0; // current left-most visible card index
 
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isDesktop = () => mq.matches;
-
-  function stripIds(root){
-    root.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
-  }
-
-  // ---- scrolling helpers (viewport is the scroller) ----
-  function scrollEl(){ return viewport; }
-
-  function getStep(){
+  function getGap(){
     if (!track) return 0;
-    const style = getComputedStyle(track);
-    const gap = parseFloat(style.columnGap || style.gap || 0);
-    // first REAL card is the first <a.group> after the left clone
-    const realCard = track.querySelector('a.group'); 
-    if (!realCard) return 0;
-    const w = realCard.getBoundingClientRect().width;
-    return w + gap;
+    const cs = getComputedStyle(track);
+    const g = parseFloat(cs.columnGap || cs.gap || 0);
+    return isNaN(g) ? 0 : g;
+  }
+  function getCardWidth(){
+    const card = track?.querySelector('a.group');
+    return card ? card.getBoundingClientRect().width : 0;
+  }
+  function step(){ return getCardWidth() + getGap(); }
+
+  function visibleCount(){
+    if (!viewport) return 1;
+    const s = step();
+    if (s <= 0) return 1;
+    // +gap avoids off-by-one when a final gap exists
+    return Math.max(1, Math.floor((viewport.clientWidth + getGap()) / s));
+  }
+  function maxIndex(){
+    return Math.max(0, cardsCache.length - visibleCount());
+  }
+  function clampIndex(i){
+    const mi = maxIndex();
+    return Math.max(0, Math.min(i, mi));
   }
 
-  function getIndex(){
-    return Math.round(scrollEl().scrollLeft / getStep());
+  function updateArrows(){
+    if (!prevBtn || !nextBtn) return;
+    const mi = maxIndex();
+
+    // hide controls if everything fits
+    const hide = mi === 0;
+    prevBtn.style.display = hide ? 'none' : '';
+    nextBtn.style.display = hide ? 'none' : '';
+
+    prevBtn.disabled = index <= 0;
+    nextBtn.disabled = index >= mi;
   }
 
-  function goToIndex(idx, smooth = true){
-    const left = idx * getStep();
-    if (smooth && 'scrollTo' in scrollEl()){
-      scrollEl().scrollTo({ left, behavior: 'smooth' });
+  function goToIndex(i, smooth = true){
+    index = clampIndex(i);
+    const left = index * step();
+    if (smooth && 'scrollTo' in viewport){
+      viewport.scrollTo({ left, behavior: 'smooth' });
     } else {
-      scrollEl().scrollLeft = left;
+      viewport.scrollLeft = left;
     }
+    updateArrows();
   }
 
-  // keep it seamless: when on a clone, jump instantly to the matching real slide
-  function normalizeIndex(){
-  const n   = cardsCache.length;         // real count
-  const idx = getIndex();
-
-  if (idx < leftCloneCount) {
-    // in left clones -> jump forward by one full set
-    goToIndex(idx + n, false);
-  } else if (idx >= leftCloneCount + n) {
-    // in right clones -> jump back by one full set
-    goToIndex(idx - n, false);
-  }
-}
-  // function normalizeIndex(){
-  //   const n = cardsCache.length;  
-  //   const idx = getIndex();
-  //   if (idx <= 0){              
-  //     goToIndex(n, false);
-  //   } else if (idx >= n + 1){     
-  //     goToIndex(1, false);
-  //   }
-  // }
-
-  function scrollByCards(dir = 1, count = 1){
-    goToIndex(getIndex() + dir * count, true);
+  function onScroll(){
+    const s = step();
+    if (s <= 0) return;
+    index = Math.round(viewport.scrollLeft / s);
+    updateArrows();
   }
 
-  // ---- autoplay (optional) ----
-  function startAutoplay(){
-    if (!USE_AUTOPLAY || prefersReduced) return;
-    stopAutoplay();
-    autoplayTimer = setInterval(() => {
-      if (!shell || autoplayPaused) return;
-      scrollByCards(1, 1);
-    }, CARD_INTERVAL_MS);
-  }
-  function stopAutoplay(){
-    if (autoplayTimer) clearInterval(autoplayTimer);
-    autoplayTimer = null;
-  }
-
-  // ---- build/tear down ----
   function enableDesktopCarousel(){
     if (shell) return;
 
@@ -1805,81 +1785,49 @@ requestAnimationFrame(() => goToIndex(leftCloneCount, false));
     if (heading) collections.insertBefore(shell, heading.nextSibling);
     else collections.appendChild(shell);
 
-    // SENTINEL CLONES (prevent blank gaps at ends)
-    // --- move REAL cards into the track first ---
+    // move REAL cards into the track (no clones)
     cardsCache.forEach(card => track.appendChild(card));
 
-    // --- CLONE THE ENTIRE SET to both ends (bullet-proof infinite loop) ---
-    leftCloneCount  = cardsCache.length;
-    rightCloneCount = cardsCache.length;
-
-    // Left clones in ORIGINAL order (insert before first, iterating backwards)
-    for (let i = cardsCache.length - 1; i >= 0; i--) {
-      const clone = cardsCache[i].cloneNode(true);
-      stripIds(clone); // avoid duplicate IDs
-      track.insertBefore(clone, track.firstChild);
-    }
-
-    // Right clones in ORIGINAL order (append)
-    for (let i = 0; i < cardsCache.length; i++) {
-      const clone = cardsCache[i].cloneNode(true);
-      stripIds(clone);
-      track.appendChild(clone);
-    }
-
-
     // events
-    prevBtn.addEventListener('click', () => scrollByCards(-1, 1));
-    nextBtn.addEventListener('click', () => scrollByCards( 1, 1));
-
-    viewport.addEventListener('scroll', normalizeIndex, { passive: true });
-
-    shell.addEventListener('mouseenter', () => { autoplayPaused = true; });
-    shell.addEventListener('mouseleave', () => { autoplayPaused = false; });
-    shell.addEventListener('focusin',   () => { autoplayPaused = true; });
-    shell.addEventListener('focusout',  () => { autoplayPaused = false; });
+    prevBtn.addEventListener('click', () => goToIndex(index - 1, true));
+    nextBtn.addEventListener('click', () => goToIndex(index + 1, true));
+    viewport.addEventListener('scroll', onScroll, { passive: true });
 
     document.addEventListener('keydown', (e) => {
-      if (!shell || !isDesktop()) return;
+      if (!shell || !mq.matches) return;
       const within = document.activeElement.closest?.('#collections') || document.querySelector('#collections:hover');
       if (!within) return;
-      if (e.key === 'ArrowRight') { e.preventDefault(); scrollByCards(1, 1); }
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollByCards(-1, 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); goToIndex(index + 1, true); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); goToIndex(index - 1, true); }
     });
 
     window.addEventListener('resize', () => {
-      if (!viewport) return;
-      goToIndex(getIndex(), false);
+      // re-clamp and snap on layout changes
+      goToIndex(index, false);
     });
 
-    // Start on first REAL slide (index 1)
-    requestAnimationFrame(() => goToIndex(1, false));
-
-    startAutoplay();
+    // start at the first real slide
+    requestAnimationFrame(() => goToIndex(0, false));
   }
 
   function disableDesktopCarousel(){
     if (!shell) return;
-
-    // return real cards to #collections (before the shell)
     const anchor = shell;
     cardsCache.forEach(card => collections.insertBefore(card, anchor));
-
-    stopAutoplay();
     shell.remove();
     shell = viewport = track = prevBtn = nextBtn = null;
+    cardsCache = [];
+    index = 0;
   }
 
   function handleChange(){
-    if (isDesktop()) enableDesktopCarousel();
+    if (mq.matches) enableDesktopCarousel();
     else disableDesktopCarousel();
   }
 
   handleChange();
   mq.addEventListener('change', handleChange);
 })();
-
-
 </script>
 
 </body>
