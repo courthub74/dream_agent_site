@@ -721,7 +721,7 @@ footer {
 /* Landscape */
 @media (min-width: 600px) and (max-width: 1024px) {
   body {
-    min-height: 500vh;
+    min-height: 550vh;
     background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -753,6 +753,19 @@ footer {
     font-family: 'Playfair Display', serif;
     text-align: center;
     margin-top: -5px;
+  }
+
+  /* ABOUT LANDSCAPE SECTION  */
+  .mobile_about_container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 5rem; /* Add some horizontal padding */
+  }
+
+  /* Move the header closer to glow line */
+  .collections-title {
+    margin-top: -2em;
+    font-size: 1.2rem;
   }
 
   /* MAKE THE COLLECTIONS GALLERY SMALLER */
@@ -1290,7 +1303,7 @@ footer {
       <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Dominion Archive</h3>
       <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Power recorded, repackaged, ritualized.</p>
       <!-- Divider -->
-      <div class="card-divider"></div>
+      <!-- <div class="card-divider"></div> -->
       <!-- Painting list -->
       <ul class="mt-2 space-y-1 text-sm text-neutral-300">
         <li class="font-semibold works-include">Works include:</li>
