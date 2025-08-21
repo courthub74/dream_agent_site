@@ -782,7 +782,7 @@ footer {
 /* DESKTOP */
 @media screen and (min-width: 1025px) {
     body {
-      min-height: 230vh;
+      min-height: 240vh;
       background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
       background-position: center;
       background-repeat: no-repeat;
@@ -1730,8 +1730,10 @@ const SCROLL_IDLE_MS = 140;  // wait time after last scroll event
 let pendingIndex = 0;
 
 
+// Replace the entire desktop carousel section in your existing script with this:
+
 // ==============================
-// Desktop carousel (finite + 1 dot per card, stable)
+// Desktop carousel (finite + 1 dot per card, stable) - FIXED VERSION
 // ==============================
 (function(){
   const mq = window.matchMedia('(min-width: 1025px)');
@@ -1742,11 +1744,11 @@ let pendingIndex = 0;
   let shell = null, viewport = null, track = null, prevBtn = null, nextBtn = null;
   let dotsWrap = null, dots = [];
   let cardsCache = [];
-  let index = 0;                // left-most visible card index
-  let stepPx = 0;               // width of one move (card + gap)
-  let slotsPerView = 1;         // how many cards fit at once
-  let pages = 1;                // max positions = cards - slots + 1
-  let ro = null;                // ResizeObserver
+  let index = 0;
+  let stepPx = 0;
+  let slotsPerView = 1;
+  let pages = 1;
+  let ro = null;
   let rafId = 0, scrollIdleTimer = 0;
   const SCROLL_IDLE_MS = 140;
 
@@ -1757,16 +1759,17 @@ let pendingIndex = 0;
     const g = parseFloat(cs.columnGap || cs.gap || 0);
     return isNaN(g) ? 0 : g;
   }
+  
   function getCardWidth(){
     const card = track?.querySelector('a.group');
     return card ? card.getBoundingClientRect().width : 0;
   }
+  
   function measure(){
     const cardW = getCardWidth();
     const gap = getGap();
     stepPx = cardW + gap;
 
-    // Epsilon guards subpixel rounding flips
     const EPS = 0.01;
     const vw = viewport.clientWidth;
     slotsPerView = Math.max(1, Math.floor((vw + gap - EPS) / Math.max(stepPx, 1)));
@@ -1775,6 +1778,7 @@ let pendingIndex = 0;
 
   // ---------- helpers ----------
   function clampIndex(i){ return Math.max(0, Math.min(i, pages - 1)); }
+  
   function updateArrows(){
     if (!prevBtn || !nextBtn) return;
     const hide = pages <= 1;
@@ -1784,37 +1788,53 @@ let pendingIndex = 0;
     nextBtn.disabled = index >= (pages - 1);
   }
 
-  // One dot per CARD. Active dot = rightmost visible card.
   function activeDotIndex(){
     const rightMost = Math.min(index + slotsPerView - 1, cardsCache.length - 1);
     return rightMost;
   }
 
   function updateDots(){
-    if (!dotsWrap) return;
-    dots.forEach((d, i) => d.classList.toggle('is-active', i === activeDotIndex()));
+    if (!dotsWrap || dots.length === 0) return;
+    const activeIdx = activeDotIndex();
+    dots.forEach((d, i) => {
+      d.classList.toggle('is-active', i === activeIdx);
+    });
   }
 
+  // FIXED: Clean dot building with proper validation
   function buildDots(){
     if (!dotsWrap) return;
+    
+    // Complete reset to prevent phantom dots
     dotsWrap.innerHTML = '';
     dots = [];
-    const count = cardsCache.length;           // one dot per item
-    if (count <= 1){ dotsWrap.style.display = 'none'; return; }
+
+    const count = cardsCache.length;
+    
+    // Hide dots if only one card or no cards
+    if (count <= 1) { 
+      dotsWrap.style.display = 'none'; 
+      return; 
+    }
+    
     dotsWrap.style.display = 'flex';
 
+    // Create exactly `count` dots (one per card)
     for (let i = 0; i < count; i++){
-      const b = document.createElement('button');
-      b.className = 'cc-dot';
-      b.setAttribute('aria-label', `Go to item ${i+1}`);
-      // Clicking a dot scrolls so that this item becomes the rightmost visible
-      b.addEventListener('click', () => {
+      const button = document.createElement('button');
+      button.className = 'cc-dot';
+      button.setAttribute('aria-label', `Go to item ${i+1}`);
+      button.type = 'button'; // Prevent form submission
+      
+      button.addEventListener('click', () => {
         const firstIdx = clampIndex(i - (slotsPerView - 1));
         goToIndex(firstIdx, true);
       });
-      dotsWrap.appendChild(b);
-      dots.push(b);
+      
+      dotsWrap.appendChild(button);
+      dots.push(button);
     }
+    
     updateDots();
   }
 
@@ -1830,13 +1850,12 @@ let pendingIndex = 0;
     updateDots();
   }
 
-  // Debounced scroll: commit active dot only when motion settles
   function onScroll(){
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(() => {
       if (stepPx <= 0) return;
       const pending = clampIndex(Math.round(viewport.scrollLeft / stepPx));
-      updateArrows(); // safe to update continuously
+      updateArrows();
       clearTimeout(scrollIdleTimer);
       scrollIdleTimer = setTimeout(() => {
         if (index !== pending) index = pending;
@@ -1849,8 +1868,21 @@ let pendingIndex = 0;
   function enableDesktopCarousel(){
     if (shell) return;
 
-    cardsCache = Array.from(collections.querySelectorAll(cardSelector));
-    if (!cardsCache.length) return;
+    // Get all cards and deduplicate
+    const allCards = Array.from(collections.querySelectorAll(cardSelector));
+    const nonClones = allCards.filter(a => a.dataset.clone !== '1');
+    
+    // Deduplicate by href
+    const seen = new Set();
+    cardsCache = nonClones.filter(a => {
+      const key = a.getAttribute('href') || a.id || a.textContent.trim();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
+    // Don't create carousel if no cards
+    if (cardsCache.length === 0) return;
 
     shell = document.createElement('div');
     shell.className = 'collections-carousel';
@@ -1866,11 +1898,13 @@ let pendingIndex = 0;
 
     prevBtn = document.createElement('button');
     prevBtn.className = 'cc-arrow cc-prev';
+    prevBtn.type = 'button';
     prevBtn.setAttribute('aria-label', 'Previous');
     prevBtn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 L8 12 L15 19"/></svg>`;
 
     nextBtn = document.createElement('button');
     nextBtn.className = 'cc-arrow cc-next';
+    nextBtn.type = 'button';
     nextBtn.setAttribute('aria-label', 'Next');
     nextBtn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 L16 12 L9 19"/></svg>`;
 
@@ -1889,19 +1923,18 @@ let pendingIndex = 0;
     if (heading) collections.insertBefore(shell, heading.nextSibling);
     else collections.appendChild(shell);
 
-    // move real cards (no clones)
+    // Move cards to track
     cardsCache.forEach(card => track.appendChild(card));
 
     prevBtn.addEventListener('click', () => goToIndex(index - 1, true));
     nextBtn.addEventListener('click', () => goToIndex(index + 1, true));
     viewport.addEventListener('scroll', onScroll, { passive: true });
 
-    // Re-measure on any size/layout change
     ro = new ResizeObserver(() => {
       const oldPages = pages, oldSlots = slotsPerView, oldIndex = index;
       measure();
       if (pages !== oldPages || slotsPerView !== oldSlots){
-        buildDots();                         // keep 1-per-item; just refresh active mapping
+        buildDots();
         goToIndex(Math.min(oldIndex, pages - 1), false);
       } else {
         updateDots();
@@ -1910,7 +1943,7 @@ let pendingIndex = 0;
     });
     ro.observe(viewport);
 
-    // initial layout
+    // Initial setup
     requestAnimationFrame(() => {
       measure();
       buildDots();
@@ -1938,6 +1971,34 @@ let pendingIndex = 0;
   handleChange();
   mq.addEventListener('change', handleChange);
 })();
+
+// Remove the duplicate buildDots function at the bottom of your script
+
+  //Solidify no phantom dots
+  function buildDots(){
+    if (!dotsWrap) return;
+    // Hard reset
+    dotsWrap.replaceChildren();
+    dots = [];
+
+    const count = Math.max(0, cardsCache.length);
+    if (count <= 1){ dotsWrap.style.display = 'none'; return; }
+    dotsWrap.style.display = 'flex';
+
+    for (let i = 0; i < count; i++){
+      const b = document.createElement('button');
+      b.className = 'cc-dot';
+      b.setAttribute('aria-label', `Go to item ${i+1}`);
+      b.addEventListener('click', () => {
+        const firstIdx = clampIndex(i - (slotsPerView - 1));
+        goToIndex(firstIdx, true);
+      });
+      dotsWrap.appendChild(b);
+      dots.push(b);
+    }
+    updateDots();
+  }
+
 
 
 </script>
