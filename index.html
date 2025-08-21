@@ -12,6 +12,18 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 
+    <!-- Delivery Hardening -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="description" content="Dream Agent curates machine hallucinations—surreal, symbolic, anonymous. Enter the realm.">
+    <meta property="og:title" content="Dream Agent">
+    <meta property="og:description" content="Surreal symbolism from machine dreams.">
+    <!-- Need to Add My Website -->
+    <meta property="og:image" content="https://yourdomain/img/og-cover.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <script>document.addEventListener('DOMContentLoaded',()=>{const y=new Date().getFullYear();document.querySelector('footer')?.querySelector('p').innerHTML=`&copy; ${y} Dream Agent. All rights reserved.`});</script>
+
+
 </head>
 <style type="text/css">
   * {
@@ -33,9 +45,8 @@
 
 /* UNIVERSAL BODY */
 body {
-  /* min-height: 110vh;
-  min-height: 250vh; */
   min-height: 520vh;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
@@ -155,21 +166,21 @@ body {
   } */
 
   .collection-description {
-         font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', serif;
     font-weight: normal;
     font-size: 1rem;
-    opacity: 34%;
+    opacity: .34;
   }
 
   .works-include {
     font-family: 'Playfair Display', serif;
-    opacity: 34%;
+    opacity: .34;
   }
 
   .flashing-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(12px, 1vw, 15px);
-    opacity: 34%;
+    opacity: .34;
   }
 
 /* .collection-card:hover {
@@ -408,6 +419,10 @@ footer {
   pointer-events: none;
 }
 
+.collection-description { color: rgba(255,255,255,.78); } /* was .65 */
+.flashing-title, .works-include { color: rgba(255,255,255,.70); } /* was .55 */
+
+
 /* Mobile: fade sooner (around halfway) */
 @media (max-width: 480px) {
   #collections a.group .relative.z-10 ul::before {
@@ -490,7 +505,7 @@ footer {
 
   #collections { padding-left: 12px; padding-right: 12px; }
 
-  .flashing-title { font-family: 'Playfair Display', serif; font-size: clamp(12px, 1vw, 15px); opacity: 50%; }
+  .flashing-title { font-family: 'Playfair Display', serif; font-size: clamp(12px, 1vw, 15px); opacity: .5; }
 
   .works-list { list-style: none; padding: 0; margin: 0; font-weight: bold; color: #ccc; }
 
@@ -783,6 +798,7 @@ footer {
 @media screen and (min-width: 1025px) {
     body {
       min-height: 240vh;
+      /* min-height: 100%; */
       background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
       background-position: center;
       background-repeat: no-repeat;
@@ -882,7 +898,7 @@ footer {
     .flashing-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(12px, 1vw, 15px);
-      opacity: 50%;
+      opacity: .5;
     }
 
     .collections-title {
@@ -1152,227 +1168,234 @@ footer {
 
 </style>
 <body>
-  <!-- HOME/HERO SECTION -->
-  <section id="mobile_hero" class="mobile_hero">
-      <div class="mobile_hero_container">
-          <!-- Logo -->
-          <img src="./img/hero_logo.png" class="hero_logo" alt="dream_agent">
-          <!-- Phrase -->
-          <p class="hero_phrase hero-animate fade-in">Machine dreams in Metaphor</p>
-          <!-- About Button -->
-          <!-- <button class="about-link hero-animate fade-in" id="cta">Enter the Realm</button> -->
-          <a class="about-link hero-animate fade-in" id="cta">Enter the Realm</a>
+
+  <!-- Main Body -->
+  <main>
+    <!-- HOME/HERO SECTION -->
+    <section id="mobile_hero" class="mobile_hero">
+        <div class="mobile_hero_container">
+            <!-- Logo -->
+            <img src="./img/hero_logo.png" width="400" height="400" class="hero_logo" alt="dream_agent">
+            <!-- Phrase -->
+            <p class="hero_phrase hero-animate fade-in">Machine dreams in Metaphor</p>
+            <!-- About Button -->
+            <!-- <button class="about-link hero-animate fade-in" id="cta">Enter the Realm</button> -->
+            <a class="about-link hero-animate fade-in" id="cta" href="#mobile_about">Enter the Realm</a>
+        </div>
+    </section>
+
+      <!-- ABOUT SECTION MOBILE/TABLET -->
+  <section id="mobile_about" class="mobile_about">
+    <div class="mobile_about_container">
+      <h1 class="mobile_about_header">Who is Dream Agent?</h1>
+      
+      <p class="mobile_about_portion">Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
+            but as a surrealist force. A curator of machine hallucinations who.... <button class="read_more"><b>Read More</b></button>
+      </p>
+
+      <p class="mobile_about_paragraph">
+            Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
+            but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
+            meaning from code. Operating anonymously, they transform AI-generated art into deeply symbolic worlds. 
+            Each piece is less a picture and more a portal—one that invites viewers to question, 
+            decode, and reflect.
+            <!-- Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
+            but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
+            meaning from code. Operating anonymously across the web, Dream Agent blurs the line between 
+            creator and creation, transforming AI-generated art into deeply symbolic, surrealist worlds. 
+            Their work speaks in riddles and symbols, conjuring visual poetry from data, algorithms, and 
+            imagination. Each piece is less a picture and more a portal—one that invites viewers to question, 
+            decode, and reflect. -->
+      </p>
+
+        <!-- DIVIDER -->
+      <!-- <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0" id="mobile-about-divider"></div> -->
+      <div class="w-40 sm:w-56 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0 mt-12 mb-2" id="mobile-about-divider"></div>
+
+
+    <section id="collections" class="mx-auto py-10 space-y-8">
+    <h2 class="collections-title font-semibold mb-2">Explore the Collections</h2>
+    <!-- <h2 class="collections-title text-2xl sm:text-3xl font-semibold mb-2">Explore the Collections</h2> -->
+
+    <!-- Cards -->
+
+    <!-- SYMBOLS IN MOTION -->
+    <!----------------------->
+    <!----------------------->
+    <!----------------------->
+    <a href="/collections/symbols-in-motion"
+      class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+
+      <!-- Full background image -->
+      <img src="./img/collections/Symbols in Motion.png" 
+          alt="Symbols in Motion"
+          width="1200" height="800" loading="lazy"
+          class="w-full h-full object-cover absolute inset-0" />
+
+      <!-- Dark overlay for better text readability -->
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+
+      <!-- Text content positioned at bottom-left -->
+      <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+        <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Symbols in Motion</h3>
+        <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Recurring signs caught in perpetual drift.</p>
+        
+        <!-- Painting list -->
+        <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+          <li class="font-semibold works-include">Works include:</li>
+          <li id="symbol-title" class="flashing-title" aria-live="polite"></li>
+        </ul>
       </div>
+    </a>
+
+    <!-- SIGNALS AND ASCENSIONS -->
+    <!----------------------->
+    <!----------------------->
+    <!----------------------->
+    <a href="/collections/signals-ascensions"
+      class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+
+      <!-- Full background image -->
+      <img src="./img/collections/Signals and Ascensions.png" 
+          alt="Signals & Ascensions"
+          width="1200" height="800" loading="lazy"
+          class="w-full h-full object-cover absolute inset-0" />
+
+      <!-- Dark overlay for better text readability -->
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+
+      <!-- Text content positioned at bottom-left -->
+      <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+        <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Signals &amp; Ascensions</h3>
+        <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Messages in transit between epochs.</p>
+        
+        <!-- Painting list -->
+        <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+          <li class="font-semibold works-include">Works include:</li>
+          <li id="signal-title" class="flashing-title"></li>
+        </ul>
+      </div>
+    </a>
+
+
+    <!-- WAR AND FEAST-->
+    <!----------------------->
+    <!----------------------->
+    <!----------------------->
+    <a href="/collections/war-feast"
+      class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+
+      <!-- Full background image -->
+      <img src="./img/collections/Dominion Archives.png" 
+          alt="Dominion Archives"
+          width="1200" height="800" loading="lazy"
+          class="w-full h-full object-cover absolute inset-0" />
+
+      <!-- Dark overlay for better text readability -->
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+
+      <!-- Text content positioned at bottom-left -->
+      <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+        <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">War &amp; Feast</h3>
+        <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Conflict, appetite, and ceremonial excess.</p>
+        
+        <!-- Painting list -->
+        <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+          <li class="font-semibold works-include">Works include:</li>
+          <li id="war-title" class="flashing-title"></li>
+        </ul>
+      </div>
+    </a>
+
+    <!-- INDUSTRIAL MYTHS -->
+    <a href="/collections/industrial-myths"
+      class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+
+      <!-- Full background image -->
+      <img src="./img/collections/Symbols in Motion.png" 
+          alt="Industrial Myths"
+          width="1200" height="800" loading="lazy"
+          class="w-full h-full object-cover absolute inset-0" />
+
+      <!-- Dark overlay for better text readability -->
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+
+      <!-- Text content positioned at bottom-left -->
+      <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+        <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Industrial Myths</h3>
+        <p class="text-sm sm:text-base text-neutral-200/90 collection-description">A surreal meditation on machines, labor, and digital systems reimagined.</p>
+        
+        <!-- Painting list -->
+        <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+          <li class="font-semibold works-include">Works include:</li>
+          <li id="industrial-title" class="flashing-title"></li>
+        </ul>
+      </div>
+    </a>
+
+
+    <!-- DIGITAL UNCONSCIOUS -->
+      <a href="/collections/digital-unconscious"
+      class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+
+      <!-- Full background image -->
+      <img src="./img/collections/Signals and Ascensions.png" 
+          alt="The Digital Unconscious"
+          width="1200" height="800" loading="lazy"
+          class="w-full h-full object-cover absolute inset-0" />
+
+      <!-- Dark overlay for better text readability -->
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+
+      <!-- Text content positioned at bottom-left -->
+      <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+        <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Digital Unconscious</h3>
+        <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Where AI dreams and data remembers.</p>
+        
+        <!-- Painting list -->
+        <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+          <li class="font-semibold works-include">Works include:</li>
+          <li id="digital-title" class="flashing-title"></li>
+        </ul>
+      </div>
+    </a>
+
+
+    <!-- DOMINION ARCHIVE -->
+      <a href="/collections/dominion-archive"
+      class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
+
+      <!-- Full background image -->
+      <img src="./img/collections/Dominion Archives.png" 
+          alt="The Dominion Archives"
+          width="1200" height="800" loading="lazy"
+          class="w-full h-full object-cover absolute inset-0" />
+
+      <!-- Dark overlay for better text readability -->
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
+
+      <!-- Text content positioned at bottom-left -->
+      <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
+        <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Dominion Archive</h3>
+        <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Power recorded, repackaged, ritualized.</p>
+        <!-- Divider -->
+        <!-- <div class="card-divider"></div> -->
+        <!-- Painting list -->
+        <ul class="mt-2 space-y-1 text-sm text-neutral-300">
+          <li class="font-semibold works-include">Works include:</li>
+          <li id="dominion-title" class="flashing-title"></li>
+        </ul>
+      </div>
+    </a>
   </section>
 
-    <!-- ABOUT SECTION MOBILE/TABLET -->
-<section id="mobile_about" class="mobile_about">
-  <div class="mobile_about_container">
-    <h1 class="mobile_about_header">Who is Dream Agent?</h1>
-    
-    <p class="mobile_about_portion">Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
-          but as a surrealist force. A curator of machine hallucinations who.... <button class="read_more"><b>Read More</b></button>
-    </p>
-
-    <p class="mobile_about_paragraph">
-          Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
-          but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
-          meaning from code. Operating anonymously, they transform AI-generated art into deeply symbolic worlds. 
-          Each piece is less a picture and more a portal—one that invites viewers to question, 
-          decode, and reflect.
-          <!-- Emerging from the shadows of the digital realm, Dream Agent exists not as a face, 
-          but as a surrealist force. A curator of machine hallucinations who paints with prompts and sculpts 
-          meaning from code. Operating anonymously across the web, Dream Agent blurs the line between 
-          creator and creation, transforming AI-generated art into deeply symbolic, surrealist worlds. 
-          Their work speaks in riddles and symbols, conjuring visual poetry from data, algorithms, and 
-          imagination. Each piece is less a picture and more a portal—one that invites viewers to question, 
-          decode, and reflect. -->
-    </p>
-
-      <!-- DIVIDER -->
-     <!-- <div class="w-24 sm:w-32 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0" id="mobile-about-divider"></div> -->
-     <div class="w-40 sm:w-56 h-[2px] bg-white/30 mx-auto my-6 sm:my-10 lg:my-12 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-transform duration-700 ease-out opacity-0 scale-x-0 mt-12 mb-2" id="mobile-about-divider"></div>
-
-
-  <section id="collections" class="mx-auto py-10 space-y-8">
-  <h2 class="collections-title font-semibold mb-2">Explore the Collections</h2>
-  <!-- <h2 class="collections-title text-2xl sm:text-3xl font-semibold mb-2">Explore the Collections</h2> -->
-
-  <!-- Cards -->
-
-  <!-- SYMBOLS IN MOTION -->
-  <!----------------------->
-  <!----------------------->
-  <!----------------------->
-  <a href="/collections/symbols-in-motion"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Symbols in Motion.png" 
-        alt="Symbols in Motion"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Symbols in Motion</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Recurring signs caught in perpetual drift.</p>
+      </div>
       
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="symbol-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-
-  <!-- SIGNALS AND ASCENSIONS -->
-  <!----------------------->
-  <!----------------------->
-  <!----------------------->
-   <a href="/collections/signals-ascensions"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Signals and Ascensions.png" 
-        alt="Signals & Ascensions"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Signals &amp; Ascensions</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Messages in transit between epochs.</p>
-      
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="signal-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
+  </section>
 
 
-  <!-- WAR AND FEAST-->
-  <!----------------------->
-  <!----------------------->
-  <!----------------------->
-   <a href="/collections/war-feast"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Dominion Archives.png" 
-        alt="Dominion Archives"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">War &amp; Feast</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Conflict, appetite, and ceremonial excess.</p>
-      
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="war-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-
-  <!-- INDUSTRIAL MYTHS -->
-   <a href="/collections/industrial-myths"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Symbols in Motion.png" 
-        alt="Industrial Myths"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Industrial Myths</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">A surreal meditation on machines, labor, and digital systems reimagined.</p>
-      
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="industrial-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-
-
-  <!-- DIGITAL UNCONSCIOUS -->
-    <a href="/collections/digital-unconscious"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Signals and Ascensions.png" 
-        alt="The Digital Unconscious"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Digital Unconscious</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Where AI dreams and data remembers.</p>
-      
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="digital-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-
-
-  <!-- DOMINION ARCHIVE -->
-    <a href="/collections/dominion-archive"
-    class="group block relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm ring-1 ring-white/10 hover:ring-white/25 transition reveal-card reveal-left">
-
-    <!-- Full background image -->
-    <img src="./img/collections/Dominion Archives.png" 
-        alt="The Dominion Archives"
-        loading="lazy"
-        class="w-full h-full object-cover absolute inset-0" />
-
-    <!-- Dark overlay for better text readability -->
-    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition"></div>
-
-    <!-- Text content positioned at bottom-left -->
-    <div class="relative z-10 p-5 md:p-6 flex flex-col justify-end h-full">
-      <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Dominion Archive</h3>
-      <p class="text-sm sm:text-base text-neutral-200/90 collection-description">Power recorded, repackaged, ritualized.</p>
-      <!-- Divider -->
-      <!-- <div class="card-divider"></div> -->
-      <!-- Painting list -->
-      <ul class="mt-2 space-y-1 text-sm text-neutral-300">
-        <li class="font-semibold works-include">Works include:</li>
-        <li id="dominion-title" class="flashing-title"></li>
-      </ul>
-    </div>
-  </a>
-</section>
-
-    </div>
-    
-</section>
+  </main>
+  
 
 <!-- FOOTER -->
  <footer>
@@ -1427,7 +1450,7 @@ footer {
     opacity: 1,
     y: 0,
     duration: 1,
-    delay: 1.2 // phrase appears first
+    delay: 1.7 // phrase appears first
   });
 
   // Then animate CTA slightly later
@@ -1435,7 +1458,7 @@ footer {
     opacity: 1,
     y: 0,
     duration: 1,
-    delay: 1.5 // CTA appears just after phrase
+    delay: 2 // CTA appears just after phrase
   });
 
 
@@ -1550,17 +1573,17 @@ fadeIns.forEach(el => fadeInObserver.observe(el));
     }, { threshold: 0.5 });
     mobileDividerObserver.observe(mobileDivider);
 
-    // ABOUT LINK BUTTON
-    const cta = document.getElementById('cta');
-    function updateCTALink() {
-      if (window.innerWidth <= 500) {
-        cta.setAttribute('href', '#mobile_about');
-      } else {
-        cta.setAttribute('href', '#mobile_about');
-      }
-    }
-    window.addEventListener('resize', updateCTALink);
-    updateCTALink();
+    // ABOUT LINK BUTTON to the About Section
+    // const cta = document.getElementById('cta');
+    // function updateCTALink() {
+    //   if (window.innerWidth <= 500) {
+    //     cta.setAttribute('href', '#mobile_about');
+    //   } else {
+    //     cta.setAttribute('href', '#mobile_about');
+    //   }
+    // }
+    // window.addEventListener('resize', updateCTALink);
+    // updateCTALink();
 
 
   (function() {
@@ -1793,11 +1816,24 @@ let pendingIndex = 0;
     return rightMost;
   }
 
-  function updateDots(){
+  // First version Update Dots
+  // function updateDots(){
+  //   if (!dotsWrap || dots.length === 0) return;
+  //   const activeIdx = activeDotIndex();
+  //   dots.forEach((d, i) => {
+  //     d.classList.toggle('is-active', i === activeIdx);
+  //   });
+  // }
+
+  // New version Update Dots
+  function updateDots() {
     if (!dotsWrap || dots.length === 0) return;
     const activeIdx = activeDotIndex();
-    dots.forEach((d, i) => {
-      d.classList.toggle('is-active', i === activeIdx);
+    // When updating dots:
+    dots.forEach((d,i) => {
+      const active = i === activeIdx;
+      d.classList.toggle('is-active', active);
+      d.setAttribute('aria-current', active ? 'true' : 'false');
     });
   }
 
@@ -1975,30 +2011,53 @@ let pendingIndex = 0;
 // Remove the duplicate buildDots function at the bottom of your script
 
   //Solidify no phantom dots
-  function buildDots(){
-    if (!dotsWrap) return;
-    // Hard reset
-    dotsWrap.replaceChildren();
-    dots = [];
+  // function buildDots(){
+  //   if (!dotsWrap) return;
+  //   // Hard reset
+  //   dotsWrap.replaceChildren();
+  //   dots = [];
 
-    const count = Math.max(0, cardsCache.length);
-    if (count <= 1){ dotsWrap.style.display = 'none'; return; }
-    dotsWrap.style.display = 'flex';
+  //   const count = Math.max(0, cardsCache.length);
+  //   if (count <= 1){ dotsWrap.style.display = 'none'; return; }
+  //   dotsWrap.style.display = 'flex';
 
-    for (let i = 0; i < count; i++){
-      const b = document.createElement('button');
-      b.className = 'cc-dot';
-      b.setAttribute('aria-label', `Go to item ${i+1}`);
-      b.addEventListener('click', () => {
-        const firstIdx = clampIndex(i - (slotsPerView - 1));
-        goToIndex(firstIdx, true);
-      });
-      dotsWrap.appendChild(b);
-      dots.push(b);
-    }
-    updateDots();
+  //   for (let i = 0; i < count; i++){
+  //     const b = document.createElement('button');
+  //     b.className = 'cc-dot';
+  //     b.setAttribute('aria-label', `Go to item ${i+1}`);
+  //     b.addEventListener('click', () => {
+  //       const firstIdx = clampIndex(i - (slotsPerView - 1));
+  //       goToIndex(firstIdx, true);
+  //     });
+  //     dotsWrap.appendChild(b);
+  //     dots.push(b);
+  //   }
+  //   updateDots();
+  // }
+
+  // Keyboard Shortcuts
+  viewport.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextBtn.click();
+    if (e.key === 'ArrowLeft')  prevBtn.click();
+  });
+  // and make the viewport focusable:
+  viewport.tabIndex = 0;
+
+  // Motion and Intervals
+  function makeRotator(el, titles, intervalMs=3000){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = titles[0]; return () => {};
   }
-
+  let i=0, id=null;
+  const tick = () => { el.textContent = titles[i = (i+1)%titles.length]; };
+  const start = () => { if (!id) id = setInterval(tick, intervalMs); };
+  const stop  = () => { if (id) clearInterval(id), id=null; };
+  // start when visible:
+  const io = new IntersectionObserver(([entry]) => entry.isIntersecting ? start() : stop(), {threshold:.2});
+  io.observe(el);
+  tick(); start();
+  return () => { stop(); io.disconnect(); };
+}
 
 
 </script>
