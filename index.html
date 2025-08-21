@@ -878,6 +878,7 @@ footer {
       width: 100%;
     }
 
+
     .flashing-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(12px, 1vw, 15px);
@@ -1143,9 +1144,9 @@ footer {
   }
   #collections .cc-dot.is-active::after{ opacity:1; }
 
-
-
-
+  #collections .cc-dot{
+    transition: none;  /* was opacity/background/border */
+  }
 }
 
 
@@ -1395,7 +1396,7 @@ footer {
           <!-- NFTs (hidden on mobile, visible ≥sm) -->
            <!-- RIGHT column -->
 <div class="hidden sm:flex sm:flex-col sm:items-center sm:gap-4">
-  <p class="text-sm text-center">Buy the NFTs:</p>
+  <p class="text-sm text-center">For NFTs:</p>
   <div class="nft_icons flex items-center justify-center gap-5 p-1">
     <img src="./img/round_logos/xrpcafe_circle.png" alt="xrp_cafe" class="w-[42px] h-[42px] cursor-pointer" />
     <img src="./img/round_logos/opensea_circle.png" alt="opensea" class="w-[42px] h-[42px] cursor-pointer" />
@@ -1728,11 +1729,9 @@ let scrollIdleTimer = 0;
 const SCROLL_IDLE_MS = 140;  // wait time after last scroll event
 let pendingIndex = 0;
 
+
 // ==============================
-// Desktop carousel (finite, no loop)
-// ==============================
-// ==============================
-// Desktop carousel (finite + dots)
+// Desktop carousel (finite + 1 dot per card, stable)
 // ==============================
 (function(){
   const mq = window.matchMedia('(min-width: 1025px)');
@@ -1743,8 +1742,15 @@ let pendingIndex = 0;
   let shell = null, viewport = null, track = null, prevBtn = null, nextBtn = null;
   let dotsWrap = null, dots = [];
   let cardsCache = [];
-  let index = 0; // left-most visible card index
+  let index = 0;                // left-most visible card index
+  let stepPx = 0;               // width of one move (card + gap)
+  let slotsPerView = 1;         // how many cards fit at once
+  let pages = 1;                // max positions = cards - slots + 1
+  let ro = null;                // ResizeObserver
+  let rafId = 0, scrollIdleTimer = 0;
+  const SCROLL_IDLE_MS = 140;
 
+  // ---------- measurements ----------
   function getGap(){
     if (!track) return 0;
     const cs = getComputedStyle(track);
@@ -1755,47 +1761,66 @@ let pendingIndex = 0;
     const card = track?.querySelector('a.group');
     return card ? card.getBoundingClientRect().width : 0;
   }
-  function step(){ return getCardWidth() + getGap(); }
+  function measure(){
+    const cardW = getCardWidth();
+    const gap = getGap();
+    stepPx = cardW + gap;
 
-  function visibleCount(){
-    if (!viewport) return 1;
-    const s = step();
-    if (s <= 0) return 1;
-    // add gap to avoid off-by-one at the tail
-    return Math.max(1, Math.floor((viewport.clientWidth + getGap()) / s));
-  }
-  function maxIndex(){                 // last left-most position
-    return Math.max(0, cardsCache.length - visibleCount());
-  }
-  function clampIndex(i){
-    const mi = maxIndex();
-    return Math.max(0, Math.min(i, mi));
+    // Epsilon guards subpixel rounding flips
+    const EPS = 0.01;
+    const vw = viewport.clientWidth;
+    slotsPerView = Math.max(1, Math.floor((vw + gap - EPS) / Math.max(stepPx, 1)));
+    pages = Math.max(1, cardsCache.length - slotsPerView + 1);
   }
 
+  // ---------- helpers ----------
+  function clampIndex(i){ return Math.max(0, Math.min(i, pages - 1)); }
   function updateArrows(){
     if (!prevBtn || !nextBtn) return;
-    const mi = maxIndex();
-    const hide = mi === 0;            // everything fits, hide arrows
+    const hide = pages <= 1;
     prevBtn.style.display = hide ? 'none' : '';
     nextBtn.style.display = hide ? 'none' : '';
     prevBtn.disabled = index <= 0;
-    nextBtn.disabled = index >= mi;
+    nextBtn.disabled = index >= (pages - 1);
+  }
+
+  // One dot per CARD. Active dot = rightmost visible card.
+  function activeDotIndex(){
+    const rightMost = Math.min(index + slotsPerView - 1, cardsCache.length - 1);
+    return rightMost;
   }
 
   function updateDots(){
     if (!dotsWrap) return;
-    const needed = maxIndex() + 1;    // number of positions (1 card step)
-    // rebuild if count changed
-    if (dots.length !== needed){
-      rebuildDots();
-      return;
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === activeDotIndex()));
+  }
+
+  function buildDots(){
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = '';
+    dots = [];
+    const count = cardsCache.length;           // one dot per item
+    if (count <= 1){ dotsWrap.style.display = 'none'; return; }
+    dotsWrap.style.display = 'flex';
+
+    for (let i = 0; i < count; i++){
+      const b = document.createElement('button');
+      b.className = 'cc-dot';
+      b.setAttribute('aria-label', `Go to item ${i+1}`);
+      // Clicking a dot scrolls so that this item becomes the rightmost visible
+      b.addEventListener('click', () => {
+        const firstIdx = clampIndex(i - (slotsPerView - 1));
+        goToIndex(firstIdx, true);
+      });
+      dotsWrap.appendChild(b);
+      dots.push(b);
     }
-    dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
+    updateDots();
   }
 
   function goToIndex(i, smooth = true){
     index = clampIndex(i);
-    const left = index * step();
+    const left = index * stepPx;
     if (smooth && 'scrollTo' in viewport){
       viewport.scrollTo({ left, behavior: 'smooth' });
     } else {
@@ -1805,71 +1830,37 @@ let pendingIndex = 0;
     updateDots();
   }
 
+  // Debounced scroll: commit active dot only when motion settles
   function onScroll(){
-  // throttle to animation frames
-  if (rafId) cancelAnimationFrame(rafId);
-  rafId = requestAnimationFrame(() => {
-    const s = step();
-    if (s <= 0) return;
-
-    // compute where we're heading but don't flip dots yet
-    pendingIndex = clampIndex(Math.round(viewport.scrollLeft / s));
-
-    // arrows can update continuously; they won't "glitch"
-    updateArrows();
-
-    // only commit the dot change once scrolling goes idle
-    clearTimeout(scrollIdleTimer);
-    scrollIdleTimer = setTimeout(() => {
-      if (index !== pendingIndex) {
-        index = pendingIndex;
-      }
-      updateDots();
-    }, SCROLL_IDLE_MS);
-  });
-}
-
-
-  function rebuildDots(){
-    if (!dotsWrap) return;
-    dotsWrap.innerHTML = '';
-    dots = [];
-    const count = maxIndex() + 1;
-    if (count <= 1){
-      dotsWrap.style.display = 'none';
-      return;
-    }
-    dotsWrap.style.display = 'flex';
-    for (let i = 0; i < count; i++){
-      const b = document.createElement('button');
-      b.className = 'cc-dot';
-      b.setAttribute('aria-label', `Go to position ${i+1}`);
-      b.addEventListener('click', () => goToIndex(i, true));
-      dotsWrap.appendChild(b);
-      dots.push(b);
-    }
-    updateDots();
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      if (stepPx <= 0) return;
+      const pending = clampIndex(Math.round(viewport.scrollLeft / stepPx));
+      updateArrows(); // safe to update continuously
+      clearTimeout(scrollIdleTimer);
+      scrollIdleTimer = setTimeout(() => {
+        if (index !== pending) index = pending;
+        updateDots();
+      }, SCROLL_IDLE_MS);
+    });
   }
 
+  // ---------- build / teardown ----------
   function enableDesktopCarousel(){
     if (shell) return;
 
     cardsCache = Array.from(collections.querySelectorAll(cardSelector));
     if (!cardsCache.length) return;
 
-    // shell
     shell = document.createElement('div');
     shell.className = 'collections-carousel';
 
-    // viewport (scroller)
     viewport = document.createElement('div');
     viewport.className = 'cc-viewport';
 
-    // track (flex row)
     track = document.createElement('div');
     track.className = 'cc-track';
 
-    // controls
     const controls = document.createElement('div');
     controls.className = 'cc-controls';
 
@@ -1886,17 +1877,14 @@ let pendingIndex = 0;
     controls.appendChild(prevBtn);
     controls.appendChild(nextBtn);
 
-    // dots
     dotsWrap = document.createElement('div');
     dotsWrap.className = 'cc-dots';
 
-    // assemble
     viewport.appendChild(track);
     shell.appendChild(viewport);
     shell.appendChild(controls);
     shell.appendChild(dotsWrap);
 
-    // insert after heading
     const heading = collections.querySelector('h2');
     if (heading) collections.insertBefore(shell, heading.nextSibling);
     else collections.appendChild(shell);
@@ -1904,29 +1892,29 @@ let pendingIndex = 0;
     // move real cards (no clones)
     cardsCache.forEach(card => track.appendChild(card));
 
-    // events
     prevBtn.addEventListener('click', () => goToIndex(index - 1, true));
     nextBtn.addEventListener('click', () => goToIndex(index + 1, true));
     viewport.addEventListener('scroll', onScroll, { passive: true });
 
-    document.addEventListener('keydown', (e) => {
-      if (!shell || !mq.matches) return;
-      const within = document.activeElement.closest?.('#collections') || document.querySelector('#collections:hover');
-      if (!within) return;
-      if (e.key === 'ArrowRight') { e.preventDefault(); goToIndex(index + 1, true); }
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); goToIndex(index - 1, true); }
+    // Re-measure on any size/layout change
+    ro = new ResizeObserver(() => {
+      const oldPages = pages, oldSlots = slotsPerView, oldIndex = index;
+      measure();
+      if (pages !== oldPages || slotsPerView !== oldSlots){
+        buildDots();                         // keep 1-per-item; just refresh active mapping
+        goToIndex(Math.min(oldIndex, pages - 1), false);
+      } else {
+        updateDots();
+      }
+      updateArrows();
     });
+    ro.observe(viewport);
 
-    window.addEventListener('resize', () => {
-      // layout may change visibleCount; re-clamp and rebuild dots
-      goToIndex(index, false);
-      rebuildDots();
-    });
-
-    // initial
+    // initial layout
     requestAnimationFrame(() => {
+      measure();
+      buildDots();
       goToIndex(0, false);
-      rebuildDots();
     });
   }
 
@@ -1934,11 +1922,12 @@ let pendingIndex = 0;
     if (!shell) return;
     const anchor = shell;
     cardsCache.forEach(card => collections.insertBefore(card, anchor));
+    ro?.disconnect();
     shell.remove();
     shell = viewport = track = prevBtn = nextBtn = dotsWrap = null;
     dots = [];
     cardsCache = [];
-    index = 0;
+    index = 0; stepPx = 0; slotsPerView = 1; pages = 1;
   }
 
   function handleChange(){
@@ -1949,6 +1938,7 @@ let pendingIndex = 0;
   handleChange();
   mq.addEventListener('change', handleChange);
 })();
+
 
 </script>
 
