@@ -265,6 +265,25 @@
       #mobile_about #collections { margin-top: -32px; }
     }
 
+    /* Lighter default opacity for carousel dots (additive) */
+    :root {
+      --cc-dot-opacity-base: .45;   /* was ~.6; lower = lighter */
+      --cc-dot-opacity-hover: .8;   /* keep hover readable */
+    }
+
+    #collections .cc-dots--glow .cc-dot {
+      opacity: var(--cc-dot-opacity-base);
+    }
+
+    #collections .cc-dots--glow .cc-dot:hover {
+      opacity: var(--cc-dot-opacity-hover);
+    }
+
+    /* Active state remains solid; no change needed */
+    #collections .cc-dots--glow .cc-dot {
+  box-shadow: 0 0 7px var(--cc-dot-glow);
+}
+
     
   </style>
 </head>
