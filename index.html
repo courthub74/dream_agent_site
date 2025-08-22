@@ -209,6 +209,62 @@
   .about-link:hover::after { opacity: 1; }
   .about-link:active { transform: translateY(0); }
   .about-link:focus-visible { outline: 2px solid rgba(255,255,255,.65); outline-offset: 3px; }
+
+  /* Dots Opacity */
+  /* Carousel dots: 60% opacity + white glow */
+  :root {
+    --cc-dot-opacity: .6;
+    --cc-dot-glow: rgba(255,255,255,.55);
+    --cc-dot-glow-strong: rgba(255,255,255,.9);
+  }
+
+    #collections .cc-dot {
+      opacity: var(--cc-dot-opacity);
+      box-shadow: 0 0 8px var(--cc-dot-glow);
+      transition: opacity .15s linear,
+                  background-color .15s linear,
+                  border-color .15s linear,
+                  box-shadow .2s ease;   /* no transforms → no jiggle */
+    }
+
+    /* Hover: slightly brighter glow */
+    #collections .cc-dot:hover {
+      opacity: .9;
+      box-shadow: 0 0 10px var(--cc-dot-glow-strong),
+                  0 0 22px rgba(255,255,255,.35);
+    }
+
+    /* Active: solid white + stronger glow */
+    #collections .cc-dot.is-active {
+      background: var(--ink-100);
+      border-color: var(--ink-100);
+      opacity: 1;
+      box-shadow: 0 0 12px var(--cc-dot-glow-strong),
+                  0 0 28px rgba(255,255,255,.45);
+    }
+
+    /* Optional: soften the existing halo ring */
+    #collections .cc-dot::after {
+      box-shadow: 0 0 0 6px rgba(255,255,255,.12);
+    }
+
+
+    /* Pull collections section up ~50px & align width with About */
+    :root {
+      --collections-up-nudge: -50px;  /* adjust to taste */
+    }
+
+    #mobile_about #collections {
+      margin-top: var(--collections-up-nudge);
+      padding-inline: 0;              /* remove inner padding so widths match */
+      max-width: var(--content-max);  /* same container width */
+    }
+
+    /* Optional: soften the nudge on very small screens */
+    @media (max-width: 480px) {
+      #mobile_about #collections { margin-top: -32px; }
+    }
+
     
   </style>
 </head>
