@@ -610,18 +610,59 @@
       function updateArrows(){ if (!prevBtn || !nextBtn) return; const hide = pages <= 1; prevBtn.style.display = hide ? 'none' : ''; nextBtn.style.display = hide ? 'none' : ''; prevBtn.disabled = index <= 0; nextBtn.disabled = index >= (pages - 1); }
       function activeDotIndex(){ const rightMost = Math.min(index + slotsPerView - 1, cardsCache.length - 1); return rightMost; }
 
-      function updateDots(){ if (!dotsWrap || !dots.length) return; const a = activeDotIndex(); dots.forEach((d,i)=>{ const on = i === a; d.classList.toggle('is-active', on); d.setAttribute('aria-current', on ? 'true' : 'false'); }); }
-
       function buildDots(){
-        if (!dotsWrap) return; dotsWrap.innerHTML = ''; dots = []; const count = cardsCache.length;
-        if (count <= 1) { dotsWrap.style.display = 'none'; return; } dotsWrap.style.display = 'flex';
-        for (let i=0; i<count; i++){
-          const b = document.createElement('button'); b.type='button'; b.className='cc-dot'; b.setAttribute('aria-label',`Go to item ${i+1}`);
-          b.addEventListener('click',()=>{ const firstIdx = clamp(i - (slotsPerView - 1)); goToIndex(firstIdx, true); });
-          dotsWrap.appendChild(b); dots.push(b);
-        }
-        updateDots();
-      }
+  if (!dotsWrap) return;
+  dotsWrap.innerHTML = '';
+  dots = [];
+
+  // Use up to 4 evenly-spaced dots across the whole range of pages.
+  const count = Math.min(Math.max(pages, 1), 4);
+  if (count <= 1) { dotsWrap.style.display = 'none'; return; }
+  dotsWrap.style.display = 'flex';
+
+  for (let i = 0; i < count; i++) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'cc-dot';
+    b.setAttribute('aria-label', `Go to position ${i+1} of ${count}`);
+
+    // Target page: proportional position from 0 → pages-1.
+    // When count === 1 (not possible here), denom would be 0; safe because count>1.
+    const denom = (count - 1);
+    const t = denom > 0 ? i / denom : 0;              // 0, ~.33, ~.66, 1 for 4 dots
+    const targetPage = Math.round(t * (pages - 1));   // map to 0..pages-1
+
+    b.addEventListener('click', () => {
+      goToIndex(targetPage, true);
+    });
+
+    dotsWrap.appendChild(b);
+    dots.push(b);
+  }
+  updateDots();
+}
+
+function updateDots(){
+  if (!dotsWrap || !dots.length) return;
+
+  // Determine which proportional bucket the current index falls into.
+  const count = dots.length;
+  if (pages <= 1) { dots.forEach(d => d.classList.remove('is-active')); return; }
+
+  // Current position ratio across all pages 0..1
+  const ratio = pages > 1 ? (index / (pages - 1)) : 0;
+  const activeIdx = Math.min(
+    count - 1,
+    Math.max(0, Math.round(ratio * (count - 1)))
+  );
+
+  dots.forEach((d, i) => {
+    const on = i === activeIdx;
+    d.classList.toggle('is-active', on);
+    d.setAttribute('aria-current', on ? 'true' : 'false');
+  });
+}
+
 
       function goToIndex(i, smooth=true){ index = clamp(i); const left = index * stepPx; if (smooth && 'scrollTo' in viewport) viewport.scrollTo({left, behavior:'smooth'}); else viewport.scrollLeft = left; updateArrows(); updateDots(); }
 
