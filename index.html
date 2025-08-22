@@ -151,6 +151,31 @@
       .mobile_about_paragraph { display: block !important; }
     }
 
+    /* Landscape phones & tablets: smaller/shorter collection cards */
+    @media (orientation: landscape) and (max-width: 1024px) {
+      :root {
+        --card-gap: .55rem;           /* tighten spacing a bit */
+      }
+
+      #collections a.group {
+        /* shorter cards; scales with viewport height but capped */
+        height: clamp(180px, 38vh, 260px);
+      }
+
+      /* slightly tighter padding + type so more fits on screen */
+      #collections a.group .copy { padding: 0.9rem; }
+      .collection-title        { font-size: clamp(14px, .95vw, 16px); }
+      .collection-description  { font-size: clamp(11px, .85vw, 13px); }
+      .works-include           { font-size: clamp(10px, .75vw, 12px); }
+      .flashing-title          { font-size: clamp(11px, .9vw, 13px); }
+    }
+
+    /* Ultra-short landscapes (e.g., 360–420px tall): make them even shorter */
+    @media (orientation: landscape) and (max-height: 420px) {
+      #collections a.group { height: clamp(160px, 34vh, 220px); }
+    }
+
+
     /* generic fade-in used by hero and anywhere with .fade-in */
     .fade-in { opacity: 0; transform: translateY(10px); transition: opacity .8s ease, transform .8s ease; }
     .fade-in.visible { opacity: 1; transform: none; }
