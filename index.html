@@ -34,6 +34,8 @@
       --card-gap: .75rem; /* desktop gap */
       --content-max: 72rem; /* desktop container */
       --content-pad: 1rem;
+      /* For the Arrows */
+      --cc-offset: -1.9rem;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -100,7 +102,17 @@
     #collections .collections-carousel { position: relative; }
     #collections .cc-viewport { position: relative; overflow: hidden; width: 100%; outline: none; }
     #collections .cc-track { display: flex; flex-wrap: nowrap; gap: var(--card-gap); will-change: transform; }
-    #collections .cc-controls { position: absolute; top: -2.5rem; right: 0; transform: translateY(-100%); display: flex; gap: .75rem; z-index: 10; pointer-events: none; }
+    #collections .cc-controls {
+      position: absolute;
+      top: var(--cc-offset);   /* was -2.5rem */
+      right: 0;
+      transform: translateY(-100%);
+      display: flex;
+      gap: .75rem;
+      z-index: 10;
+      pointer-events: none;
+    }
+    /* #collections .cc-controls { position: absolute; top: -2.5rem; right: 0; transform: translateY(-100%); display: flex; gap: .75rem; z-index: 10; pointer-events: none; } */
     #collections .cc-arrow { pointer-events: auto; width: 48px; height: 48px; border-radius: 999px; display: grid; place-items: center; cursor: pointer; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28); backdrop-filter: blur(8px); box-shadow: 0 10px 28px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.08); transition: transform .15s ease, background-color .15s ease, box-shadow .2s ease, opacity .2s ease; opacity: .95; }
     #collections .cc-arrow:hover { background: rgba(255,255,255,.20); transform: translateY(-1px); box-shadow: 0 14px 32px rgba(0,0,0,.32), inset 0 0 0 1px rgba(255,255,255,.12); }
     #collections .cc-arrow:active { transform: translateY(0) scale(.98); }
@@ -138,6 +150,11 @@
       .mobile_about_portion { display: none !important; }
       .mobile_about_paragraph { display: block !important; }
     }
+
+    /* generic fade-in used by hero and anywhere with .fade-in */
+    .fade-in { opacity: 0; transform: translateY(10px); transition: opacity .8s ease, transform .8s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
     
   </style>
 </head>
@@ -288,8 +305,30 @@
 
   <script>
     // Fade-ins on hero
-    gsap.to(".hero_phrase", { opacity: 1, y: 0, duration: 1, delay: 1.2 });
-    gsap.to("#cta", { opacity: 1, y: 0, duration: 1, delay: 1.5 });
+    // gsap.to(".hero_phrase", { opacity: 1, y: 0, duration: 1, delay: 1.2 });
+    // gsap.to("#cta", { opacity: 1, y: 0, duration: 1, delay: 1.5 });
+
+    // CSS-driven fade-ins for hero + anything with .fade-in
+    const fadeIns = document.querySelectorAll('.fade-in');
+    const fadeInObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        // stagger hero a touch, CTA a bit more
+        let delay = 0;
+        if (entry.target.classList.contains('hero_phrase')) delay = 700;   // ~0.7s
+        if (entry.target.id === 'cta') delay = 1000;                       // ~1.0s
+
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, delay);
+
+        fadeInObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    fadeIns.forEach(el => fadeInObserver.observe(el));
+
 
     // Parallax (optional)
     document.addEventListener('scroll', () => {
