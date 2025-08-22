@@ -75,7 +75,12 @@
 
     /* Card base */
     #collections a.group { position: relative; display: block; border-radius: 16px; overflow: hidden; background: rgba(255,255,255,.05); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,.10); transition: transform .15s ease, box-shadow .2s ease; height: 360px; }
-    #collections a.group:hover { transform: translateY(-2px); }
+    /* #collections a.group:hover { transform: translateY(-2px); } */
+    #collections a.group:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 
+                  0 0 22px rgba(255, 255, 255, 0.25);
+    }
     #collections a.group img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     #collections a.group .shade { position: absolute; inset: 0; background: rgba(0,0,0,.4); transition: background .2s ease; }
     #collections a.group:hover .shade { background: rgba(0,0,0,.3); }
@@ -281,8 +286,46 @@
 
     /* Active state remains solid; no change needed */
     #collections .cc-dots--glow .cc-dot {
-  box-shadow: 0 0 7px var(--cc-dot-glow);
+    box-shadow: 0 0 7px var(--cc-dot-glow);
+  }
+
+  /* Tight white glow on hover (smooth, minimal spill) */
+#collections a.group {
+  /* ensure smooth glow fade */
+  transition: transform .15s ease, box-shadow .25s ease;
+  position: relative; /* needed for the pseudo-element */
+  isolation: isolate; /* keep glow behind the content */
 }
+
+/* Inner-edge glow layer */
+#collections a.group::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  /* subtle inner glow + a hairline edge to sharpen */
+  box-shadow:
+    inset 0 0 18px rgba(255,255,255,.16),
+    0 0 0 1px rgba(255,255,255,.10);
+  transition: opacity .25s ease;
+  z-index: 0;
+}
+
+/* Hover state: lift + glow */
+#collections a.group:hover {
+  transform: translateY(-2px);
+  /* tiny outer halo, much tighter than before */
+  box-shadow:
+    0 0 6px rgba(255,255,255,.16),
+    0 4px 18px rgba(0,0,0,.28); /* keep depth */
+}
+
+#collections a.group:hover::before {
+  opacity: 1;
+}
+
 
     
   </style>
