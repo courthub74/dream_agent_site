@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dream Agent</title>
+  <link rel="stylesheet" href="favicon.ico">
   <meta name="description" content="Dream Agent curates machine hallucinations—surreal, symbolic, anonymous. Enter the realm." />
   <meta property="og:title" content="Dream Agent" />
   <meta property="og:description" content="Surreal symbolism from machine dreams." />
@@ -642,26 +643,26 @@
   updateDots();
 }
 
-function updateDots(){
-  if (!dotsWrap || !dots.length) return;
+  function updateDots(){
+    if (!dotsWrap || !dots.length) return;
 
-  // Determine which proportional bucket the current index falls into.
-  const count = dots.length;
-  if (pages <= 1) { dots.forEach(d => d.classList.remove('is-active')); return; }
+    // Determine which proportional bucket the current index falls into.
+    const count = dots.length;
+    if (pages <= 1) { dots.forEach(d => d.classList.remove('is-active')); return; }
 
-  // Current position ratio across all pages 0..1
-  const ratio = pages > 1 ? (index / (pages - 1)) : 0;
-  const activeIdx = Math.min(
-    count - 1,
-    Math.max(0, Math.round(ratio * (count - 1)))
-  );
+    // Current position ratio across all pages 0..1
+    const ratio = pages > 1 ? (index / (pages - 1)) : 0;
+    const activeIdx = Math.min(
+      count - 1,
+      Math.max(0, Math.round(ratio * (count - 1)))
+    );
 
-  dots.forEach((d, i) => {
-    const on = i === activeIdx;
-    d.classList.toggle('is-active', on);
-    d.setAttribute('aria-current', on ? 'true' : 'false');
-  });
-}
+    dots.forEach((d, i) => {
+      const on = i === activeIdx;
+      d.classList.toggle('is-active', on);
+      d.setAttribute('aria-current', on ? 'true' : 'false');
+    });
+  }
 
 
       function goToIndex(i, smooth=true){ index = clamp(i); const left = index * stepPx; if (smooth && 'scrollTo' in viewport) viewport.scrollTo({left, behavior:'smooth'}); else viewport.scrollLeft = left; updateArrows(); updateDots(); }
