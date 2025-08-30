@@ -41,6 +41,15 @@
       --cc-offset: -1.9rem;
     }
 
+    /* Slide In Menu */
+    /* Drawer open state is handled by toggling this class in JS */
+    .drawer-open #siteDrawer { transform: translateX(0); }
+    .drawer-open #drawerOverlay { opacity: 1; pointer-events: auto; }
+
+    /* Prevent background scroll while menu is open */
+    html.has-drawer { overflow: hidden; }
+
+
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     html, body { height: 100%; color: beige; scroll-behavior: smooth; }
 
@@ -388,6 +397,54 @@
   </style>
 </head>
 <body>
+  <!-- SLIDE IN MENU -->
+  <!-- TOP BAR / HAMBURGER -->
+<button
+  id="menuBtn"
+  class="fixed top-4 left-4 z-[60] inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/15 border border-white/25 backdrop-blur hover:bg-white/25 transition"
+  aria-label="Open menu"
+  aria-controls="siteDrawer"
+  aria-expanded="false">
+  <!-- Hamburger icon -->
+  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 6h18M3 12h18M3 18h18" stroke="#EAF2FF" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</button>
+
+<!-- OVERLAY -->
+<div id="drawerOverlay"
+     class="fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity z-[50]"></div>
+
+  <!-- SLIDE-IN DRAWER -->
+  <aside id="siteDrawer"
+        class="fixed top-0 left-0 h-full w-[78%] max-w-[320px] bg-gradient-to-b from-[#0C2C55] to-[#031B36] border-r border-white/15 shadow-2xl translate-x-[-100%] transition-transform z-[70] focus:outline-none"
+        tabindex="-1"
+        aria-hidden="true">
+    <div class="flex items-center justify-between px-4 py-4 border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <img src="./img/logos/DreamAgent Logo 11.png" alt="" class="w-9 h-9 rounded-full border border-white/10"/>
+        <span class="text-white/90 font-medium">Dream Agent</span>
+      </div>
+      <button id="closeDrawer"
+              class="w-10 h-10 grid place-items-center rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition"
+              aria-label="Close menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="#EAF2FF" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="px-2 py-2">
+      <ul class="flex flex-col">
+        <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition" href="#mobile_hero">Home</a></li>
+        <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition" href="#mobile_about">About</a></li>
+        <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition" href="https://xrpcafe.market/" target="_blank" rel="noopener">XRP Cafe</a></li>
+        <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition" href="https://opensea.io/" target="_blank" rel="noopener">OpenSea</a></li>
+        <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition" href="https://superrare.com/" target="_blank" rel="noopener">Superrare</a></li>
+      </ul>
+    </nav>
+  </aside>
+
   <main>
     <!-- HERO -->
     <section id="mobile_hero" class="mobile_hero">
@@ -768,6 +825,82 @@
       const y = new Date().getFullYear();
       if (p) p.innerHTML = `&copy; ${y} Dream Agent. All rights reserved.`;
     });
+
+    // Slide-in menu
+    (function(){
+      const html = document.documentElement;
+      const menuBtn = document.getElementById('menuBtn');
+      const drawer  = document.getElementById('siteDrawer');
+      const overlay = document.getElementById('drawerOverlay');
+      const closeBtn= document.getElementById('closeDrawer');
+
+      if (!menuBtn || !drawer || !overlay) return;
+
+      let lastFocus = null;
+
+      const focusableSel = [
+        'a[href]', 'button:not([disabled])', 'input:not([disabled])',
+        'select:not([disabled])', 'textarea:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])'
+      ].join(',');
+
+      function trapFocus(e){
+        if (e.key !== 'Tab') return;
+        const focusables = drawer.querySelectorAll(focusableSel);
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        }
+      }
+
+      function openDrawer(){
+        lastFocus = document.activeElement;
+        html.classList.add('has-drawer');
+        document.body.classList.add('drawer-open');
+        drawer.setAttribute('aria-hidden', 'false');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        // move focus into drawer
+        setTimeout(() => {
+          const first = drawer.querySelector(focusableSel);
+          (first || drawer).focus();
+        }, 10);
+
+        document.addEventListener('keydown', onKeydown);
+        drawer.addEventListener('keydown', trapFocus);
+      }
+
+      function closeDrawer(){
+        html.classList.remove('has-drawer');
+        document.body.classList.remove('drawer-open');
+        drawer.setAttribute('aria-hidden', 'true');
+        menuBtn.setAttribute('aria-expanded', 'false');
+
+        document.removeEventListener('keydown', onKeydown);
+        drawer.removeEventListener('keydown', trapFocus);
+
+        if (lastFocus) lastFocus.focus();
+      }
+
+      function onKeydown(e){
+        if (e.key === 'Escape') closeDrawer();
+      }
+
+      // Toggle handlers
+      menuBtn.addEventListener('click', openDrawer);
+      overlay.addEventListener('click', closeDrawer);
+      closeBtn?.addEventListener('click', closeDrawer);
+
+      // Close after clicking any nav link
+      drawer.querySelectorAll('a[href]').forEach(a => {
+        a.addEventListener('click', closeDrawer);
+      });
+    })();
+
+
   </script>
 </body>
 </html>
