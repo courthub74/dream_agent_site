@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream Agent — Symbols in Motion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Helvetica Neue', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+    /* Masonry using CSS columns */
+    .masonry { column-gap: 1rem; }
+    .masonry > article { break-inside: avoid; margin-bottom: 1rem; }
+  </style>
+</head>
+<body class="bg-[#0a2c56] text-white/90">
+  <!-- Header / Breadcrumb -->
+  <header class="max-w-6xl mx-auto px-4 py-6 flex items-center gap-4">
+    <a href="/index.html#about_mobile" class="rounded-full border border-white/20 px-3 py-1 hover:bg-white/10">← Back</a>
+    <nav class="text-white/60 text-sm">Collections <span class="mx-2">/</span> <span class="text-white">Symbols in Motion</span></nav>
+  </header>
+
+  <!-- Collection Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('/img/collections/symbols-hero.jpg')] bg-cover bg-center opacity-40"></div>
+    <div class="relative max-w-6xl mx-auto px-4 py-10 md:py-16">
+      <h1 class="font-serif text-3xl md:text-5xl">Symbols in Motion</h1>
+      <p class="mt-3 text-white/80 max-w-2xl">Recurring signs caught in perpetual drift.</p>
+      <div class="mt-4 text-sm text-white/60">17 works · 2019–2025 · Motifs: ↑ ● 🕊 🌹</div>
+      <!-- <div class="mt-4 text-sm text-white/60">17 works · 2019–2025</div> -->
+    </div>
+  </section>
+
+  <!-- Body: Sidebar + Gallery -->
+  <main class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Sticky Sidebar -->
+    <aside class="lg:col-span-4">
+      <div class="lg:sticky lg:top-8 space-y-6">
+        <div class="bg-white/5 backdrop-blur rounded-xl p-5">
+          <h2 class="font-serif text-xl">Lore</h2>
+          <p class="mt-2 text-white/70">The archive speaks in loops. Symbols migrate between canvases, never landing—only signaling.</p>
+          <button class="mt-4 w-full rounded-lg bg-white/10 hover:bg-white/20 px-4 py-2">▶ Play audio commentary</button>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur rounded-xl p-5">
+          <h3 class="font-serif">Filter</h3>
+          <!-- Chips -->
+          <div class="mt-3 text-sm">
+            <!-- <p class="text-white/60 mb-1">Motif</p>
+            <div class="flex flex-wrap gap-2">
+              <button data-filter="motif:arrow" class="chip px-3 py-1 rounded-full border border-white/20 hover:bg-white/10">Arrow</button>
+              <button data-filter="motif:rose"  class="chip px-3 py-1 rounded-full border border-white/20 hover:bg-white/10">Rose</button>
+              <button data-filter="motif:bird"  class="chip px-3 py-1 rounded-full border border-white/20 hover:bg-white/10">Bird</button>
+              <button data-filter="motif:sphere"class="chip px-3 py-1 rounded-full border border-white/20 hover:bg-white/10">Sphere</button>
+            </div> -->
+
+            <p class="text-white/60 mt-4 mb-1">Year</p>
+            <div class="flex flex-wrap gap-2">
+              <button data-filter="year:2025" class="chip px-3 py-1 rounded-full border border-white/20 hover:bg-white/10">2025</button>
+              <button data-filter="year:2024" class="chip px-3 py-1 rounded-full border border-white/20 hover:bg-white/10">2024</button>
+              <button data-filter="year:2023" class="chip px-3 py-1 rounded-full border border-white/20 hover:bg-white/10">2023</button>
+            </div>
+
+            <label class="block mt-5 text-white/60 mb-1">Sort</label>
+            <select id="sort" class="w-full bg-transparent border border-white/20 rounded-lg p-2">
+              <option value="new">Newest first</option>
+              <option value="old">Oldest first</option>
+              <option value="alpha">Title A–Z</option>
+            </select>
+          </div>
+          <button id="clear" class="mt-4 text-sm text-white/70 underline">Clear filters</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Gallery -->
+    <section class="lg:col-span-8">
+      <div id="gallery" class="masonry [column-count:1] sm:[column-count:2] xl:[column-count:3]">
+        <!-- Artwork Card -->
+        <article class="group" data-year="2025" data-motif="arrow sphere">
+          <button class="w-full text-left">
+            <figure class="overflow-hidden rounded-2xl bg-black/40">
+              <img src="./img/pictures/crypto_fish_tank.png" alt="Crypto Fish Tank" class="w-full hover:scale-[1.02] transition-transform duration-300">
+            </figure>
+            <div class="px-1 pt-2">
+              <h4 class="font-serif text-lg">Crypto Fish Tank</h4>
+              <p class="text-sm text-white/60">2024 · oil-style · fish • crypto</p>
+              <div class="mt-2 flex gap-3 text-xs text-white/70">
+                <a href="#" class="hover:underline">View</a>
+                <a href="#" class="hover:underline">Collect on XRP Café</a>
+              </div>
+            </div>
+          </button>
+        </article>
+
+        <article class="group" data-year="2024" data-motif="rose bird">
+          <button class="w-full text-left">
+            <figure class="overflow-hidden rounded-2xl bg-black/40">
+              <img src="./img/pictures/the_great_divide.png" alt="The Great Divide" class="w-full hover:scale-[1.02] transition-transform duration-300">
+            </figure>
+            <div class="px-1 pt-2">
+              <h4 class="font-serif text-lg">The Great Divide</h4>
+              <p class="text-sm text-white/60">2018 · oil-style · statue • bitcoin</p>
+              <div class="mt-2 flex gap-3 text-xs text-white/70">
+                <a href="#" class="hover:underline">View</a>
+                <a href="#" class="hover:underline">Collect on XRP Café</a>
+              </div>
+            </div>
+          </button>
+        </article>
+
+        <!-- Duplicate <article> blocks for remaining works -->
+      </div>
+
+      <!-- Load more -->
+      <div class="mt-6 flex justify-center">
+        <button class="rounded-lg border border-white/20 px-5 py-2 hover:bg-white/10">Load more</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 hidden items-center justify-center bg-black/80 p-4">
+    <div class="max-w-4xl w-full bg-white/5 backdrop-blur rounded-2xl overflow-hidden">
+      <div class="flex justify-between items-center p-4">
+        <h3 class="font-serif text-xl" id="lb-title">Title</h3>
+        <button id="lb-close" class="text-white/70 hover:text-white">✕</button>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4 p-4">
+        <img id="lb-img" class="w-full rounded-lg" alt="">
+        <div>
+          <p id="lb-meta" class="text-white/70 text-sm"></p>
+          <div class="mt-4 flex gap-3">
+            <a id="lb-collect" href="#" class="rounded-lg bg-white/10 hover:bg-white/20 px-4 py-2">Collect on XRP Café</a>
+            <a id="lb-unlock"  href="#" class="rounded-lg border border-white/20 px-4 py-2 hover:bg-white/10">Unlockable / Hi-res</a>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-between items-center p-4 text-white/70 text-sm">
+        <button id="lb-prev">← Prev</button>
+        <button id="lb-next">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Minimal filter logic
+    const chips = [...document.querySelectorAll('.chip')];
+    const clear = document.getElementById('clear');
+    const sortSel = document.getElementById('sort');
+    const cards = [...document.querySelectorAll('#gallery article')];
+
+    let active = new Set(); // e.g., "motif:arrow", "year:2025"
+
+    function apply() {
+      // filter
+      cards.forEach(c => {
+        const y = c.dataset.year;
+        const m = c.dataset.motif || '';
+        const ok = [...active].every(f => {
+          const [k,v] = f.split(':');
+          if (k==='year') return y===v;
+          if (k==='motif') return m.includes(v);
+          return true;
+        });
+        c.style.display = ok ? '' : 'none';
+      });
+      // sort
+      const g = document.getElementById('gallery');
+      const visible = cards.filter(c => c.style.display !== 'none');
+      visible.sort((a,b)=>{
+        if (sortSel.value==='alpha') return a.innerText.localeCompare(b.innerText);
+        if (sortSel.value==='old')   return a.dataset.year.localeCompare(b.dataset.year);
+        return b.dataset.year.localeCompare(a.dataset.year);
+      });
+      visible.forEach(c=>g.appendChild(c));
+    }
+
+    chips.forEach(ch=>{
+      ch.addEventListener('click', ()=>{
+        const f = ch.dataset.filter;
+        if (active.has(f)) { active.delete(f); ch.classList.remove('bg-white/10'); }
+        else { active.add(f); ch.classList.add('bg-white/10'); }
+        apply();
+      });
+    });
+    sortSel.addEventListener('change', apply);
+    clear.addEventListener('click', ()=>{
+      active.clear(); chips.forEach(c=>c.classList.remove('bg-white/10')); apply();
+    });
+
+    // Lightbox (wire "View" links)
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbTitle = document.getElementById('lb-title');
+    const lbMeta = document.getElementById('lb-meta');
+    const lbClose = document.getElementById('lb-close');
+    let idx = 0;
+
+    function openAt(i){
+      const arts = cards.filter(c=>c.style.display!=='none');
+      idx = (i+arts.length)%arts.length;
+      const a = arts[idx];
+      lbImg.src = a.querySelector('img').src;
+      lbTitle.textContent = a.querySelector('h4').textContent;
+      lbMeta.textContent  = a.querySelector('p').textContent;
+      lb.classList.remove('hidden'); lb.classList.add('flex');
+    }
+    document.querySelectorAll('#gallery a[href="#"]').forEach((lnk)=>{
+      if(lnk.textContent.trim()==='View'){
+        lnk.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const parent = e.target.closest('article');
+          openAt(cards.indexOf(parent));
+        });
+      }
+    });
+    document.getElementById('lb-prev').onclick = ()=>openAt(idx-1);
+    document.getElementById('lb-next').onclick = ()=>openAt(idx+1);
+    lbClose.onclick = ()=>{ lb.classList.add('hidden'); lb.classList.remove('flex'); };
+    lb.addEventListener('click',(e)=>{ if(e.target===lb) lbClose.click(); });
+  </script>
+</body>
+</html>
+
+
+<!--
+  Notes:
+  - Replace placeholder images and links with actual content.
+  - Add remaining artwork <article> blocks in the gallery section.
+  - Enhance filter logic as needed (e.g., multi-select, more attributes).
+  - Improve accessibility (ARIA roles, keyboard navigation).
+  - Optimize for performance (lazy loading images, etc.).
+  -->
