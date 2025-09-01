@@ -428,7 +428,7 @@
     <div class="flex items-center justify-between px-4 py-4 border-b border-white/10">
       <div class="flex items-center gap-3">
         <img src="./img/logos/DreamAgent Logo 11.png" alt="" class="w-9 h-9 rounded-full border border-white/10"/>
-        <span class="text-white/90 font-bold">Dream Agent</span>
+        <span class="text-white/90 font-bold" style="font-family: 'Playfair Display', serif;">Dream Agent</span>
       </div>
       <button id="closeDrawer"
               class="w-10 h-10 grid place-items-center rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition"
@@ -441,11 +441,53 @@
 
     <nav class="px-2 py-2">
       <ul class="flex flex-col">
-  <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition playfair-nav" href="#mobile_hero">Home</a></li>
-  <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition playfair-nav" href="#mobile_about">About</a></li>
-  <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition playfair-nav" href="https://xrpcafe.market/" target="_blank" rel="noopener">XRP Cafe</a></li>
-  <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition playfair-nav" href="https://opensea.io/" target="_blank" rel="noopener">OpenSea</a></li>
-  <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition playfair-nav" href="https://superrare.com/" target="_blank" rel="noopener">Superrare</a></li>
+      <!-- <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition" href="#mobile_hero">Home</a></li>
+      <li><a class="block px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition" href="#mobile_about">About</a></li> -->
+      <li>
+  <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition"
+     href="#mobile_hero">
+    <!-- Home icon (SVG) -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h4a1 1 0 001-1V14h4v6a1 1 0 001 1h4a1 1 0 001-1V10" />
+    </svg>
+    <span>Home</span>
+  </a>
+</li>
+
+<li>
+  <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition"
+     href="#mobile_about">
+    <!-- About icon (SVG) -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
+    </svg>
+    <span>About</span>
+  </a>
+</li>
+      <li>
+  <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition"
+     href="https://xrpcafe.market/" target="_blank" rel="noopener">
+    <img src="./img/round_logos/xrpcafe_circle.png" alt="XRP Cafe" class="w-6 h-6" />
+    <span>XRP Cafe</span>
+  </a>
+</li>
+
+<li>
+  <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition"
+     href="https://opensea.io/" target="_blank" rel="noopener">
+    <img src="./img/round_logos/opensea_circle.png" alt="OpenSea" class="w-6 h-6" />
+    <span>OpenSea</span>
+  </a>
+</li>
+
+<li>
+  <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-white/90 hover:bg-white/10 hover:text-white transition"
+     href="https://superrare.com/" target="_blank" rel="noopener">
+    <img src="./img/round_logos/superrare_circle.png" alt="Superrare" class="w-6 h-6" />
+    <span>Superrare</span>
+  </a>
+</li>
+
     <style>
       .playfair-nav {
         font-family: 'Playfair Display', serif !important;
