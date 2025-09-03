@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream Agent — Symbols in Motion (Mobile)</title>
+  <meta name="description" content="Dream Agent collections — mobile layout." />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --da-blue-1: #0b3a77; --da-blue-2: #0e5aa6; }
+    html, body { height: 100%; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: white;
+      background: linear-gradient(180deg, var(--da-blue-1), var(--da-blue-2));
+      background-attachment: fixed;
+    }
+    .playfair { font-family: 'Playfair Display', serif; }
+    .bg-band { position: relative; }
+    .bg-band::before { content: ""; position: absolute; inset: 0; background: radial-gradient(150% 60% at 50% -10%, rgba(255,255,255,0.08), transparent 55%); pointer-events: none; }
+  </style>
+</head>
+<body>
+  <main class="max-w-md mx-auto px-4 pt-6 pb-24 bg-band">
+    <!-- Top Row: Back + Breadcrumb -->
+    <div class="flex items-center gap-3">
+      <button id="backBtn" class="shrink-0 inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-white/90 ring-1 ring-white/50 bg-white/10 hover:bg-white/15 active:translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70" aria-label="Go back">
+        <span aria-hidden="true" class="text-lg">←</span>
+        <span class="font-semibold">Back</span>
+      </button>
+      <nav class="text-sm text-white/80" aria-label="Breadcrumb">
+        <ol class="list-none p-0 inline-flex items-center gap-1">
+          <li>Collections</li>
+          <li aria-hidden="true" class="opacity-70">/</li>
+          <li class="font-medium">Symbols in Motion</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Header: Icon + Title + Tagline + Meta -->
+    <header class="mt-6 flex items-start gap-3">
+      <div class="w-14 h-14 rounded-full ring-1 ring-white/40 overflow-hidden bg-white/10">
+        <img src="./img/icons/dream_agent_icon.png" alt="Symbols in Motion icon" class="w-full h-full object-cover" />
+      </div>
+      <div class="flex-1">
+        <h1 class="playfair text-3xl leading-tight font-bold">Symbols in Motion</h1>
+        <p class="mt-1 text-white/85">Recurring signs caught in perpetual drift.</p>
+        <p class="mt-1 text-sm text-white/65">17 works · 2019–2025</p>
+      </div>
+    </header>
+
+    <!-- Artwork List (dynamic) -->
+    <section id="artworkList" class="mt-6 space-y-6" aria-live="polite"></section>
+  </main>
+
+  <script>
+    // Replace this data with your real collection entries
+    const artworks = [
+      {
+        title: "Them guys and the Older Guys",
+        year: 2024,
+        style: "oil-style",
+        motifs: ["cowboys", "stetsons"],
+        img: "./img/pictures/them_guys_and_the_older_guys.png",
+        viewUrl: "#",
+        collectUrl: "#"
+      },
+      {
+        title: "The Great Divide",
+        year: 2024,
+        style: "oil-style",
+        motifs: ["statue", "bitcoin"],
+        img: "./img/pictures/the_great_divide.png",
+        viewUrl: "#",
+        collectUrl: "#"
+      },
+      {
+        title: "The Fear Room",
+        year: 2024,
+        style: "oil-style",
+        motifs: ["room", "fear"],
+        img: "./img/pictures/the_fear_room.png",
+        viewUrl: "#",
+        collectUrl: "#"
+      }
+    ];
+
+    const listEl = document.getElementById('artworkList');
+
+    function cardTemplate(a) {
+      const motifs = [a.style, ...(a.motifs||[])].join(' · ');
+      return `
+        <article class="rounded-3xl bg-black/25 ring-1 ring-black/40 shadow-xl overflow-hidden">
+          <figure class="p-4">
+            <div class="relative overflow-hidden rounded-2xl bg-black/20 ring-1 ring-black/40">
+              <img src="${a.img}" alt="${a.title}" loading="lazy" class="w-full h-auto object-cover" />
+            </div>
+          </figure>
+          <div class="px-5 pb-5">
+            <h2 class="playfair text-2xl font-bold">${a.title}</h2>
+            <p class="mt-1 text-white/75">${a.year} · ${motifs}</p>
+            <div class="mt-4 flex items-center gap-4">
+              <a href="${a.collectUrl}" class="inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold text-white bg-amber-500 ring-1 ring-amber-400 shadow hover:bg-amber-500/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 active:translate-y-[1px]" target="_blank" rel="noopener">Collect on XRP Café</a>
+              <a href="${a.viewUrl}" class="text-white/90 hover:underline" target="_blank" rel="noopener">View</a>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    function render() {
+      listEl.innerHTML = artworks.map(cardTemplate).join('');
+    }
+
+    document.getElementById('backBtn').addEventListener('click', () => {
+      if (window.history.length > 1) window.history.back();
+    });
+
+    // Fade-in on scroll
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.remove('opacity-0', 'translate-y-3');
+          e.target.classList.add('opacity-100', 'translate-y-0');
+          ro.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    // Initial render
+    render();
+
+    // Apply reveal effect after render
+    requestAnimationFrame(() => {
+      document.querySelectorAll('#artworkList > article').forEach(el => {
+        el.classList.add('transition', 'duration-500', 'opacity-0', 'translate-y-3');
+        ro.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>
