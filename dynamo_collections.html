@@ -106,12 +106,14 @@
           </a>
         </div>
 
-        <!-- Prev / Next -->
-        <div class="mt-8 flex items-center justify-between text-white/80">
-          <button id="prevBtn" class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60">‹ Previous</button>
-          <div id="dotRow" class="flex gap-2"></div>
-          <button id="nextBtn" class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60">Next ›</button>
+       <!-- Prev / Next (desktop only) -->
+        <div class="mt-8 hidden sm:flex items-center justify-between text-white/80">
+            <button id="prevBtn" class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60">‹ Previous</button>
+            <div id="dotRow" class="hidden sm:flex gap-2"></div>
+            <button id="nextBtn" class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60">Next ›</button>
         </div>
+
+
       </article>
     </section>
   </main>
