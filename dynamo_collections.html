@@ -79,13 +79,13 @@
         </div>
 
         <!-- Image -->
-        <figure class="art-figure relative overflow-hidden rounded-2xl bg-black/30 mt-4">
-          <img id="artImg" src="img/pictures/them_guys_and_the_older_guys.png" alt="Them Guys" class="w-full block">
-          <!-- Hover overlay title (desktop) -->
-          <figcaption class="overlay-title pointer-events-none absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/40 to-transparent">
+        <figure id="swipeArea" class="art-figure relative overflow-hidden rounded-2xl bg-black/30 mt-4 touch-pan-y select-none">
+            <img id="artImg" src="" alt="" class="w-full block">
+            <figcaption class="overlay-title pointer-events-none absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/40 to-transparent">
             <span class="serif text-lg font-semibold" id="overlayTitle"></span>
-          </figcaption>
+            </figcaption>
         </figure>
+
 
         <!-- Description -->
         <div class="mt-4">
@@ -278,6 +278,52 @@
     });
 
     render();
+
+    // Swipe support for image (mobile)
+  
+    // --- Mobile swipe gesture for #swipeArea ---
+    const swipeArea = document.getElementById('swipeArea');
+
+    let startX = 0, startY = 0, tracking = false;
+
+    swipeArea.addEventListener('touchstart', (e) => {
+        const t = e.changedTouches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+        tracking = true;
+    }, { passive: true });
+
+    // (Optional hook) touchmove kept passive for performance
+    swipeArea.addEventListener('touchmove', () => {}, { passive: true });
+
+    swipeArea.addEventListener('touchend', (e) => {
+        if (!tracking) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+
+        const absX = Math.abs(dx);
+        const absY = Math.abs(dy);
+
+        const THRESHOLD = 40;         // min horizontal distance (px)
+        const ORTHOGONAL_RATIO = 1.5; // require swipe to be ~1.5x more horizontal than vertical
+
+        // Only handle mostly-horizontal, sufficiently-long swipes
+        if (absX > THRESHOLD && absX > absY * ORTHOGONAL_RATIO) {
+        if (dx < 0) {
+            // swipe left -> next
+            idx = (idx + 1) % artworks.length;
+        } else {
+            // swipe right -> prev
+            idx = (idx - 1 + artworks.length) % artworks.length;
+        }
+        render();
+        }
+
+        tracking = false;
+    }, { passive: true });
+
+
   </script>
 </body>
 </html>
