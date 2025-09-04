@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Symbols in Motion — Dream Agent</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --da-blue: #0a4f9a; }
+    html, body { background: #0b3f7a; color: #fff; }
+    .serif { font-family: 'Playfair Display', serif; }
+    /* Subtle image hover (desktop) */
+    @media (hover:hover) {
+      .art-figure img { transition: transform .35s ease, filter .35s ease; }
+      .art-figure:hover img { transform: scale(1.015); filter: saturate(1.05); }
+      .overlay-title { opacity: 0; transition: opacity .25s ease; }
+      .art-figure:hover .overlay-title { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-white/20">
+
+  <!-- Scroll progress -->
+  <div id="scrollProgress" class="fixed top-0 left-0 h-1 bg-white/70 w-0 z-50"></div>
+
+  <!-- Page header -->
+  <header class="bg-[var(--da-blue)]/85 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 py-6">
+      <!-- Breadcrumb + Back -->
+      <nav class="flex items-center gap-3 text-white/70 text-sm">
+        <a href="/collections" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/15 focus-visible:outline outline-2 outline-white/60">
+          <span aria-hidden="true">←</span> Back
+        </a>
+        <span class="hidden sm:block">Collections</span>
+        <span class="hidden sm:block">/</span>
+        <span class="hidden sm:block">Symbols in Motion</span>
+      </nav>
+
+      <!-- Title block -->
+      <div class="mt-5">
+        <h1 class="serif text-3xl sm:text-4xl md:text-5xl font-bold">Symbols in Motion</h1>
+        <p class="mt-3 max-w-2xl text-white/85">
+          Recurring signs caught in perpetual drift.
+        </p>
+        <p class="mt-2 text-white/70">17 works · 2019–2025</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- Sidebar: jump list (desktop only) -->
+    <aside class="hidden lg:block lg:col-span-4">
+      <div class="lg:sticky lg:top-8 space-y-4">
+        <h2 class="serif text-xl">Collection Highlights</h2>
+        <ul id="thumbList" class="space-y-3" aria-label="Jump to artwork"></ul>
+      </div>
+    </aside>
+
+    <!-- Artwork column -->
+    <section class="lg:col-span-8">
+      <!-- Artwork card -->
+      <article id="artCard" class="bg-white/5 rounded-2xl p-5 md:p-6 backdrop-blur shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+        <!-- Title above image -->
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h3 id="artTitle" class="serif text-2xl md:text-3xl font-semibold"></h3>
+            <p id="artMeta" class="mt-1 text-white/70 text-sm"></p>
+          </div>
+          <span id="artIndex" class="text-white/60 text-sm shrink-0"></span>
+        </div>
+
+        <!-- Image -->
+        <figure class="art-figure relative overflow-hidden rounded-2xl bg-black/30 mt-4">
+          <img id="artImg" src="img/pictures/them_guys_and_the_older_guys.png" alt="Them Guys" class="w-full block">
+          <!-- Hover overlay title (desktop) -->
+          <figcaption class="overlay-title pointer-events-none absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/40 to-transparent">
+            <span class="serif text-lg font-semibold" id="overlayTitle"></span>
+          </figcaption>
+        </figure>
+
+        <!-- Description -->
+        <div class="mt-4">
+          <p id="artDesc" class="text-white/80"></p>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <!-- No borders / rings per your preference -->
+          <button id="viewBtn"
+            class="inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold text-black bg-white hover:bg-white/90 active:translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70">
+            View details
+          </button>
+
+          <a id="collectBtn" href="#" target="_blank" rel="noopener"
+            class="inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold text-white bg-blue-500 shadow hover:bg-blue-500/90 active:translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">
+            Collect on XRP Café
+          </a>
+        </div>
+
+        <!-- Prev / Next -->
+        <div class="mt-8 flex items-center justify-between text-white/80">
+          <button id="prevBtn" class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60">‹ Previous</button>
+          <div id="dotRow" class="flex gap-2"></div>
+          <button id="nextBtn" class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60">Next ›</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Sticky footer nav (mobile only) -->
+  <div id="mobileNav" class="sm:hidden fixed bottom-3 inset-x-3 z-40 hidden">
+    <div class="bg-white/10 backdrop-blur rounded-full px-3 py-2 flex items-center justify-between">
+      <button id="mPrev" class="px-3 py-2 rounded-full hover:bg-white/10">‹</button>
+      <span id="mIndex" class="text-sm text-white/85"></span>
+      <button id="mNext" class="px-3 py-2 rounded-full hover:bg-white/10">›</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/70" aria-hidden="true"></div>
+    <div class="relative h-full w-full flex items-center justify-center p-4">
+      <div class="max-w-3xl w-full bg-[#0a3569] rounded-2xl shadow-lg overflow-hidden">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
+          <h4 id="modalTitle" class="serif text-xl font-semibold"></h4>
+          <button id="closeModal" class="p-2 rounded-lg hover:bg-white/10" aria-label="Close">✕</button>
+        </div>
+        <div class="p-5 grid gap-4">
+          <img id="modalImg" src="" alt="" class="w-full rounded-xl bg-black/30">
+          <p id="modalDesc" class="text-white/85"></p>
+          <div>
+            <a id="modalCollect" href="#" target="_blank" rel="noopener"
+               class="inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold text-white bg-blue-500 hover:bg-blue-500/90">
+               Collect on XRP Café
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo data + logic -->
+  <script>
+    // Replace with your real artwork data
+    const artworks = [
+      {
+        title: "Them guys and the Older Guys",
+        year: 2025,
+  src: "img/pictures/them_guys_and_the_older_guys.png", // swap to your path
+        blurb: "An overheard strategy session—smoke, crystal, and chalk carving the ‘Strategy Wood’.",
+        collectUrl: "https://xrpcafe.market/"
+      },
+      {
+        title: "Cursor of Fate",
+        year: 2024,
+  src: "img/pictures/cursor_of_fate.png",
+        blurb: "A blinking prompt becomes an oracle. The choice is a keystroke away.",
+        collectUrl: "https://xrpcafe.market/"
+      },
+      {
+        title: "Crypto Fish Tank",
+        year: 2024,
+  src: "img/pictures/crypto_fish_tank.png",
+        blurb: "Glass economies where coins swim like koi—beautiful, anxious, inevitable.",
+        collectUrl: "https://xrpcafe.market/"
+      }
+    ];
+
+    let idx = 0;
+
+    const artTitle = document.getElementById('artTitle');
+    const artMeta  = document.getElementById('artMeta');
+    const artImg   = document.getElementById('artImg');
+    const overlayTitle = document.getElementById('overlayTitle');
+    const artDesc  = document.getElementById('artDesc');
+    const collectBtn = document.getElementById('collectBtn');
+    const artIndex = document.getElementById('artIndex');
+    const mIndex   = document.getElementById('mIndex');
+    const dotRow   = document.getElementById('dotRow');
+    const thumbList= document.getElementById('thumbList');
+
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalImg = document.getElementById('modalImg');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalCollect = document.getElementById('modalCollect');
+
+    function renderDots() {
+      dotRow.innerHTML = '';
+      artworks.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.className = `h-2.5 w-2.5 rounded-full ${i===idx ? 'bg-white' : 'bg-white/40'} hover:bg-white/70`;
+        b.ariaLabel = `Go to artwork ${i+1}`;
+        b.addEventListener('click', () => { idx = i; render(); });
+        dotRow.appendChild(b);
+      });
+    }
+
+    function renderThumbs() {
+      thumbList.innerHTML = '';
+      artworks.forEach((a, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <button class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 ${i===idx?'bg-white/10':''}">
+            <img src="${a.src}" alt="" class="h-14 w-14 rounded-lg object-cover bg-black/30">
+            <div class="text-left">
+              <div class="serif font-semibold">${a.title}</div>
+              <div class="text-xs text-white/70">${a.year}</div>
+            </div>
+          </button>`;
+        li.querySelector('button').addEventListener('click', () => { idx = i; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        thumbList.appendChild(li);
+      });
+    }
+
+    function render() {
+      const a = artworks[idx];
+      artTitle.textContent = a.title;
+      artMeta.textContent  = a.year;
+      artImg.src = a.src;
+      artImg.alt = a.title;
+      overlayTitle.textContent = `${a.title} • ${a.year}`;
+      artDesc.textContent = a.blurb;
+      collectBtn.href = a.collectUrl;
+      artIndex.textContent = `${idx+1} of ${artworks.length}`;
+      mIndex.textContent = artIndex.textContent;
+      renderDots();
+      renderThumbs();
+    }
+
+    // Buttons
+    document.getElementById('prevBtn').onclick = () => { idx = (idx-1+artworks.length)%artworks.length; render(); };
+    document.getElementById('nextBtn').onclick = () => { idx = (idx+1)%artworks.length; render(); };
+    document.getElementById('mPrev').onclick   = () => { idx = (idx-1+artworks.length)%artworks.length; render(); };
+    document.getElementById('mNext').onclick   = () => { idx = (idx+1)%artworks.length; render(); };
+
+    // Modal handlers
+    document.getElementById('viewBtn').onclick = () => {
+      const a = artworks[idx];
+      modalTitle.textContent = `${a.title} (${a.year})`;
+      modalImg.src = a.src;
+      modalImg.alt = a.title;
+      modalDesc.textContent = a.blurb;
+      modalCollect.href = a.collectUrl;
+      modal.classList.remove('hidden');
+    };
+    document.getElementById('closeModal').onclick = () => modal.classList.add('hidden');
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
+
+    // Sticky mobile nav reveal when past header
+    const mobileNav = document.getElementById('mobileNav');
+    const headerEl = document.querySelector('header');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { mobileNav.classList.add('hidden'); }
+        else { mobileNav.classList.remove('hidden'); }
+      });
+    }, { threshold: 0 });
+    io.observe(headerEl);
+
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const percent = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      prog.style.width = percent + '%';
+    });
+
+    render();
+  </script>
+</body>
+</html>
