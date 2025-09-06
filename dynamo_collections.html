@@ -293,15 +293,15 @@
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
 
     // Sticky mobile nav reveal when past header
-    const mobileNav = document.getElementById('mobileNav');
-    const headerEl = document.querySelector('header');
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) { mobileNav.classList.add('hidden'); }
-        else { mobileNav.classList.remove('hidden'); }
-      });
-    }, { threshold: 0 });
-    io.observe(headerEl);
+    // const mobileNav = document.getElementById('mobileNav');
+    // const headerEl = document.querySelector('header');
+    // const io = new IntersectionObserver(entries => {
+    //   entries.forEach(entry => {
+    //     if (entry.isIntersecting) { mobileNav.classList.add('hidden'); }
+    //     else { mobileNav.classList.remove('hidden'); }
+    //   });
+    // }, { threshold: 0 });
+    // io.observe(headerEl);
 
     // Scroll progress
     const prog = document.getElementById('scrollProgress');
