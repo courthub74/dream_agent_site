@@ -142,7 +142,7 @@
         </div>
 
         <!-- Permanent arrows row -->
-        <div class="mt-6 flex items-center justify-between text-white/80">
+        <!-- <div class="mt-6 flex items-center justify-between text-white/80">
         <button id="prevBtnCard"
             class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60">
             ‹ Previous
@@ -154,7 +154,7 @@
             class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60">
             Next ›
         </button>
-        </div>
+        </div> -->
 
        <!-- Prev / Next (desktop only) -->
         <div class="mt-8 hidden sm:flex items-center justify-between text-white/80">
@@ -246,6 +246,7 @@
     const modalDesc = document.getElementById('modalDesc');
     const modalCollect = document.getElementById('modalCollect');
 
+
     function renderDots() {
       dotRow.innerHTML = '';
       artworks.forEach((_, i) => {
@@ -288,6 +289,7 @@
       artDesc.textContent = a.blurb;
       collectBtn.href = a.collectUrl;
       artIndex.textContent = `${idx+1} of ${artworks.length}`;
+      document.getElementById('artIndexUnderImg').textContent = `${idx + 1} of ${artworks.length}`;
     //   mIndex.textContent = artIndex.textContent;
       renderDots();
       renderThumbs();
