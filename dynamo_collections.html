@@ -153,13 +153,13 @@
   </main>
 
   <!-- Sticky footer nav (mobile only) -->
-  <div id="mobileNav" class="sm:hidden fixed bottom-3 inset-x-3 z-40 hidden">
+  <!-- <div id="mobileNav" class="sm:hidden fixed bottom-3 inset-x-3 z-40 hidden">
     <div class="bg-white/10 backdrop-blur rounded-full px-3 py-2 flex items-center justify-between">
       <button id="mPrev" class="px-3 py-2 rounded-full hover:bg-white/10">‹</button>
       <span id="mIndex" class="text-sm text-white/85"></span>
       <button id="mNext" class="px-3 py-2 rounded-full hover:bg-white/10">›</button>
     </div>
-  </div>
+  </div> -->
 
   <!-- Modal -->
   <div id="modal" class="fixed inset-0 z-50 hidden">
@@ -220,7 +220,7 @@
     const artDesc  = document.getElementById('artDesc');
     const collectBtn = document.getElementById('collectBtn');
     const artIndex = document.getElementById('artIndex');
-    const mIndex   = document.getElementById('mIndex');
+    // const mIndex   = document.getElementById('mIndex');
     const dotRow   = document.getElementById('dotRow');
     const thumbList= document.getElementById('thumbList');
 
@@ -268,7 +268,7 @@
       artDesc.textContent = a.blurb;
       collectBtn.href = a.collectUrl;
       artIndex.textContent = `${idx+1} of ${artworks.length}`;
-      mIndex.textContent = artIndex.textContent;
+    //   mIndex.textContent = artIndex.textContent;
       renderDots();
       renderThumbs();
     }
@@ -276,8 +276,8 @@
     // Buttons
     document.getElementById('prevBtn').onclick = () => { idx = (idx-1+artworks.length)%artworks.length; render(); };
     document.getElementById('nextBtn').onclick = () => { idx = (idx+1)%artworks.length; render(); };
-    document.getElementById('mPrev').onclick   = () => { idx = (idx-1+artworks.length)%artworks.length; render(); };
-    document.getElementById('mNext').onclick   = () => { idx = (idx+1)%artworks.length; render(); };
+    // document.getElementById('mPrev').onclick   = () => { idx = (idx-1+artworks.length)%artworks.length; render(); };
+    // document.getElementById('mNext').onclick   = () => { idx = (idx+1)%artworks.length; render(); };
 
     // Modal handlers
     document.getElementById('viewBtn').onclick = () => {
