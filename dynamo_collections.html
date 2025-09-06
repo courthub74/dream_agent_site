@@ -98,6 +98,22 @@
             </figcaption>
         </figure>
 
+        <!-- Centered navigator under the image -->
+        <div class="mt-4 flex items-center justify-center gap-6">
+          <button id="prevBtnUnderImg"
+                  class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60"
+                  aria-label="Previous artwork">‹</button>
+
+          <div id="artIndexUnderImg" class="min-w-[84px] text-center text-sm text-white/85">
+            <!-- filled by JS e.g., '1 of 17' -->
+          </div>
+
+          <button id="nextBtnUnderImg"
+                  class="px-3 py-2 rounded-lg hover:bg-white/10 focus-visible:outline outline-2 outline-white/60"
+                  aria-label="Next artwork">›</button>
+        </div>
+
+
             <!-- Arrow Hints -->
           <!-- <div id="swipeHint" class="absolute inset-0 flex items-center justify-between px-4 text-white/70 text-lg pointer-events-none">
                 <span>◀</span>
@@ -258,6 +274,10 @@
       });
     }
 
+    const artIndexUnderImg = document.getElementById('artIndexUnderImg');
+    const prevBtnUnderImg  = document.getElementById('prevBtnUnderImg');
+    const nextBtnUnderImg  = document.getElementById('nextBtnUnderImg');
+
     function render() {
       const a = artworks[idx];
       artTitle.textContent = a.title;
@@ -272,6 +292,16 @@
       renderDots();
       renderThumbs();
     }
+
+    // Arrow handlers
+    prevBtnUnderImg.onclick = () => {
+      idx = (idx - 1 + artworks.length) % artworks.length;
+      render();
+    };
+    nextBtnUnderImg.onclick = () => {
+      idx = (idx + 1) % artworks.length;
+      render();
+    };
 
     // Buttons
     document.getElementById('prevBtn').onclick = () => { idx = (idx-1+artworks.length)%artworks.length; render(); };
