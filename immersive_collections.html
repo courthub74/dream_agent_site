@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream Agent — Collections</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: 0, 87, 184; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+    .serif { font-family: 'Playfair Display', serif; }
+    .soft-card { box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.06); }
+    .glass { background: rgba(255,255,255,.06); backdrop-filter: blur(8px); }
+    .glyph { mask-image: radial-gradient(ellipse at center, black, transparent 70%); opacity:.08 }
+  </style>
+</head>
+<body class="min-h-screen text-white bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,.06),transparent_40%),linear-gradient(rgba(0,87,184,.55),rgba(0,87,184,.55)),url('./img/even_larger_about_background.png')] bg-cover bg-fixed">
+  <!-- Header -->
+  <header class="max-w-6xl mx-auto px-4 pt-6 pb-2">
+    <h1 class="serif text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">Collections</h1>
+    <p class="mt-2 text-white/80 max-w-prose">Choose a collection, then browse its paintings. Subtle transitions, clear hierarchy, and lore-driven captions keep the immersion.</p>
+  </header>
+
+  <!-- Active Collection Banner -->
+  <section id="activeCollection" class="max-w-6xl mx-auto px-4 mt-6">
+    <div class="relative overflow-hidden rounded-2xl soft-card glass">
+      <div class="absolute inset-0 glyph bg-[url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\"><g fill=\"white\" opacity=\"0.7\"><circle cx=\"100\" cy=\"100\" r=\"20\"/><path d=\"M100 20 l10 20 h-20z\"/></g></svg>')] bg-no-repeat bg-center"></div>
+      <div class="relative grid md:grid-cols-[1.1fr_.9fr] gap-6 p-5 sm:p-7">
+        <figure class="aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-xl bg-black/30">
+          <img id="activeCollectionImg" src="./img/new_collections/symbols-in-motion.jpg" alt="Collection cover" class="w-full h-full object-cover">
+        </figure>
+        <div class="flex flex-col justify-center">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center rounded-full px-3 py-1 text-xs uppercase tracking-wide bg-white/10 ring-1 ring-white/15">Active Collection</span>
+          </div>
+          <h2 id="activeCollectionTitle" class="serif mt-3 text-2xl sm:text-3xl md:text-4xl font-semibold"></h2>
+          <p id="activeCollectionSubtitle" class="mt-2 text-white/80"></p>
+          <div class="mt-4 flex items-center gap-2 text-sm">
+            <button id="prevCollection" class="group inline-flex items-center gap-2 rounded-lg px-4 py-2 ring-1 ring-white/20 hover:ring-white/40 active:translate-y-px transition">
+              <span class="i">◀</span><span class="hidden sm:inline">Prev Collection</span>
+            </button>
+            <button id="nextCollection" class="group inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/20 active:translate-y-px transition">
+              <span class="hidden sm:inline">Next Collection</span><span class="i">▶</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collection Selector (horizontal scroll on mobile) -->
+  <section class="max-w-6xl mx-auto px-4 mt-6">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="serif text-xl sm:text-2xl">Select a collection</h3>
+      <div class="hidden sm:flex gap-2 text-sm text-white/70"><span>Tip:</span><span>Use ← → to switch</span></div>
+    </div>
+    <div id="collectionStrip" class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
+      <!-- Cards injected by JS -->
+    </div>
+  </section>
+
+  <!-- Artwork Viewer -->
+  <section class="max-w-6xl mx-auto px-4 mt-10 mb-16">
+    <div class="grid lg:grid-cols-2 gap-6 items-stretch">
+      <!-- Artwork image -->
+      <figure class="relative overflow-hidden rounded-2xl soft-card bg-black/40 aspect-[3/4] md:aspect-[4/3]">
+        <img id="artImg" src="" alt="Artwork" class="w-full h-full object-cover">
+        <div class="absolute bottom-3 left-3 flex gap-2">
+          <button id="prevArt" class="rounded-full px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/25 active:translate-y-px transition" aria-label="Previous painting">◀</button>
+          <button id="nextArt" class="rounded-full px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/25 active:translate-y-px transition" aria-label="Next painting">▶</button>
+        </div>
+      </figure>
+
+      <!-- Artwork meta -->
+      <article class="rounded-2xl p-6 soft-card glass flex flex-col">
+        <div class="flex items-center gap-2 text-xs text-white/70">
+          <span id="artIndexBadge" class="inline-flex items-center rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">1 / 1</span>
+          <span id="artYear" class="hidden sm:inline"></span>
+        </div>
+        <h3 id="artTitle" class="serif mt-2 text-2xl sm:text-3xl font-semibold"></h3>
+        <p id="artMeta" class="mt-1 text-white/70 text-sm"></p>
+        <p id="artDesc" class="mt-4 text-white/85 leading-relaxed max-h-56 overflow-auto pr-2"></p>
+
+        <div class="mt-5 grid grid-cols-2 sm:inline-grid sm:grid-flow-col gap-3">
+          <a id="viewBtn" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white bg-blue-500 ring-1 ring-blue-400 shadow hover:bg-blue-500/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 active:translate-y-[1px]">View</a>
+          <a id="collectBtn" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/25 hover:bg-white/10 active:translate-y-[1px]">Collect on XRP Café</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer class="max-w-6xl mx-auto px-4 pb-14">
+    <a href="#top" class="mx-auto block w-full sm:w-auto text-center rounded-xl px-6 py-3 ring-1 ring-white/20 hover:bg-white/10 active:translate-y-px">Back to Home</a>
+  </footer>
+
+  <script>
+    // ---- Demo Data (swap with your real data) ----
+    const DATA = [
+      {
+        id: 'symbols',
+        title: 'Symbols in Motion',
+        subtitle: 'Recurring signs caught in perpetual drift.',
+        cover: './img/new_collections/Symbols in Motion.png',
+        artworks: [
+          {
+            title: 'Picture One',
+            year: '2024',
+            meta: 'oil-style · mythic symbols',
+            desc: `I do not paint men. I paint covenants. This one wears a star and carries an axe, but it is not for conquest...`,
+            img: './img/pictures/the-tech-era.png',
+            viewUrl: '#',
+            collectUrl: 'https://xrpcafe.market/'
+          },
+          {
+            title: 'Liquidity Spectators',
+            year: '2025',
+            meta: 'oil-style · finance lore',
+            desc: `Eyes at the rail, watching the tides of value lap against the docks of memory.`,
+            img: './img/pictures/crypto_fish_tank.png',
+            viewUrl: '#',
+            collectUrl: 'https://xrpcafe.market/'
+          }
+        ]
+      },
+      {
+        id: 'industrial',
+        title: 'Industrial Scriptures',
+        subtitle: 'Machines that pray in factories of light.',
+        cover: './img/new_collections/Industrial Scriptures.png',
+        artworks: [
+          {
+            title: 'Bottling the Republic',
+            year: '2024',
+            meta: 'oil-style · industry · myth',
+            desc: 'The assembly line does not move—history does.',
+            img: './img/pictures/internet_of_the_old_world.png',
+            viewUrl: '#',
+            collectUrl: 'https://xrpcafe.market/'
+          }
+        ]
+      }
+    ];
+
+    // ---- State ----
+    let cIndex = 0;   // active collection index
+    let aIndex = 0;   // active artwork index within collection
+
+    const els = {
+      activeCollectionImg: document.getElementById('activeCollectionImg'),
+      activeCollectionTitle: document.getElementById('activeCollectionTitle'),
+      activeCollectionSubtitle: document.getElementById('activeCollectionSubtitle'),
+      collectionStrip: document.getElementById('collectionStrip'),
+      prevCollection: document.getElementById('prevCollection'),
+      nextCollection: document.getElementById('nextCollection'),
+      artImg: document.getElementById('artImg'),
+      artTitle: document.getElementById('artTitle'),
+      artMeta: document.getElementById('artMeta'),
+      artDesc: document.getElementById('artDesc'),
+      artYear: document.getElementById('artYear'),
+      artIndexBadge: document.getElementById('artIndexBadge'),
+      prevArt: document.getElementById('prevArt'),
+      nextArt: document.getElementById('nextArt'),
+      viewBtn: document.getElementById('viewBtn'),
+      collectBtn: document.getElementById('collectBtn')
+    };
+
+    function renderCollectionBanner() {
+      const c = DATA[cIndex];
+      els.activeCollectionImg.src = c.cover;
+      els.activeCollectionTitle.textContent = c.title;
+      els.activeCollectionSubtitle.textContent = c.subtitle;
+    }
+
+    function renderArtwork() {
+      const c = DATA[cIndex];
+      const a = c.artworks[aIndex];
+      els.artImg.src = a.img;
+      els.artTitle.textContent = a.title;
+      els.artMeta.textContent = a.meta;
+      els.artDesc.textContent = a.desc;
+      els.artYear.textContent = a.year;
+      els.viewBtn.href = a.viewUrl;
+      els.collectBtn.href = a.collectUrl;
+      els.artIndexBadge.textContent = `${aIndex + 1} / ${c.artworks.length}`;
+    }
+
+    function renderCollectionStrip() {
+      els.collectionStrip.innerHTML = '';
+      DATA.forEach((c, i) => {
+        const card = document.createElement('button');
+        card.className = `snap-start shrink-0 w-[220px] text-left group rounded-2xl overflow-hidden soft-card ${i===cIndex ? 'ring-2 ring-white/50' : 'ring-1 ring-white/15'} hover:ring-white/40 transition`;
+        card.innerHTML = `
+          <figure class="aspect-[16/11] bg-black/30 overflow-hidden">
+            <img src="${c.cover}" alt="${c.title}" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform"/>
+          </figure>
+          <div class="p-3">
+            <h4 class="serif text-lg font-medium leading-tight">${c.title}</h4>
+            <p class="mt-1 text-xs text-white/70 line-clamp-2">${c.subtitle}</p>
+          </div>`;
+        card.addEventListener('click', () => { cIndex = i; aIndex = 0; update(); });
+        els.collectionStrip.appendChild(card);
+      });
+    }
+
+    function nextCollection() { cIndex = (cIndex + 1) % DATA.length; aIndex = 0; update(); }
+    function prevCollection() { cIndex = (cIndex - 1 + DATA.length) % DATA.length; aIndex = 0; update(); }
+    function nextArt() {
+      const len = DATA[cIndex].artworks.length; aIndex = (aIndex + 1) % len; update();
+    }
+    function prevArt() {
+      const len = DATA[cIndex].artworks.length; aIndex = (aIndex - 1 + len) % len; update();
+    }
+
+    function update() {
+      renderCollectionBanner();
+      renderCollectionStrip();
+      renderArtwork();
+    }
+
+    // Keyboard shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (['INPUT','TEXTAREA'].includes(e.target.tagName)) return;
+      if (e.key === 'ArrowRight') nextCollection();
+      if (e.key === 'ArrowLeft') prevCollection();
+      if (e.key === 'ArrowDown') nextArt();
+      if (e.key === 'ArrowUp') prevArt();
+    });
+
+    els.nextCollection.addEventListener('click', nextCollection);
+    els.prevCollection.addEventListener('click', prevCollection);
+    els.nextArt.addEventListener('click', nextArt);
+    els.prevArt.addEventListener('click', prevArt);
+
+    // init
+    update();
+  </script>
+</body>
+</html>
