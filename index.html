@@ -57,7 +57,7 @@
       min-height: 100%;
       display: flex;
       flex-direction: column;
-      /* background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png'); */
+      background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
       /* background-color: #0057B8; */
       background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;
     }
@@ -122,7 +122,22 @@
     /* Desktop carousel shell */
     #collections .collections-carousel { position: relative; }
     #collections .cc-viewport { position: relative; overflow: hidden; width: 100%; outline: none; }
-    #collections .cc-track { display: flex; flex-wrap: nowrap; gap: var(--card-gap); will-change: transform; }
+    /* #collections .cc-track { display: flex; flex-wrap: nowrap; gap: var(--card-gap); will-change: transform; } */
+    /* Mobile/default: stack naturally (no overflow) */
+    #collections > .cc-track {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--card-gap);
+    }
+
+    /* Desktop carousel only: when JS has wrapped things in .collections-carousel */
+    #collections .collections-carousel .cc-track {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: var(--card-gap);
+      will-change: transform;
+    }
+
     #collections .cc-controls {
       position: absolute;
       top: var(--cc-offset);   /* was -2.5rem */
@@ -157,7 +172,7 @@
     }
 
     /* Tablet landscape section height tweaks */
-    @media (min-width: 600px) and (max-width: 1024px) {
+    @media (min-width: 600px) and (max-width: 1023px) {
       body { background-attachment: fixed; }
       .mobile_hero { height: 140vh; }
       .mobile_hero_container { margin-top: -60px; gap: 3rem; }
@@ -165,6 +180,15 @@
     }
 
     /* Desktop layout */
+
+    /* Desktop: make sure the track is flex when the shell exists */
+    @media (min-width: 1024px) {
+      #collections .collections-carousel .cc-track {
+        display: flex !important;
+        flex-wrap: nowrap;
+        gap: var(--card-gap);
+      }
+    }
 
     /* SMALLER DESKTOP */
     @media (min-width: 1025px) and (max-width: 1280px) {
@@ -523,90 +547,92 @@
         <!-- COLLECTIONS -->
         <section id="collections" class="mx-auto py-10 space-y-8">
           <h2 class="collections-title font-semibold mb-2">Explore the Collections</h2>
+          <div class="cc-track">
 
-          <!-- SYMBOLS IN MOTION -->
-          <a href="dynamo_collections.html" class="group reveal-card reveal-left">
-            <img src="./img/new_collections/Symbols in Motion.png" alt="Symbols in Motion" width="1200" height="800" />
-            <div class="shade"></div>
-            <div class="copy">
-              <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Symbols in Motion</h3>
-              <p class="text-sm sm:text-base collection-description">Recurring signs caught in perpetual drift.</p>
-              <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
-                <li class="font-semibold works-include">Works include:</li>
-                <li id="symbol-title" class="flashing-title" aria-live="polite"></li>
-              </ul>
-            </div>
-          </a>
+             <!-- SYMBOLS IN MOTION -->
+            <a href="dynamo_collections.html" class="group reveal-card reveal-left">
+              <img src="./img/new_collections/Symbols in Motion.png" alt="Symbols in Motion" width="1200" height="800" />
+              <div class="shade"></div>
+              <div class="copy">
+                <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Symbols in Motion</h3>
+                <p class="text-sm sm:text-base collection-description">Recurring signs caught in perpetual drift.</p>
+                <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
+                  <li class="font-semibold works-include">Works include:</li>
+                  <li id="symbol-title" class="flashing-title" aria-live="polite"></li>
+                </ul>
+              </div>
+            </a>
 
-          <!-- SIGNALS & ASCENSIONS -->
-          <a href="immersive_collections.html" class="group reveal-card reveal-left">
-            <img src="./img/new_collections/Signals and Ascensions.png" alt="Signals &amp; Ascensions" width="1200" height="800" />
-            <div class="shade"></div>
-            <div class="copy">
-              <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Signals &amp; Ascensions</h3>
-              <p class="text-sm sm:text-base collection-description">Messages in transit between epochs.</p>
-              <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
-                <li class="font-semibold works-include">Works include:</li>
-                <li id="signal-title" class="flashing-title" aria-live="polite"></li>
-              </ul>
-            </div>
-          </a>
+            <!-- SIGNALS & ASCENSIONS -->
+            <a href="immersive_collections.html" class="group reveal-card reveal-left">
+              <img src="./img/new_collections/Signals and Ascensions.png" alt="Signals &amp; Ascensions" width="1200" height="800" />
+              <div class="shade"></div>
+              <div class="copy">
+                <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Signals &amp; Ascensions</h3>
+                <p class="text-sm sm:text-base collection-description">Messages in transit between epochs.</p>
+                <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
+                  <li class="font-semibold works-include">Works include:</li>
+                  <li id="signal-title" class="flashing-title" aria-live="polite"></li>
+                </ul>
+              </div>
+            </a>
 
-          <!-- WAR & FEAST -->
-          <a href="dynamo_collections.html" class="group reveal-card reveal-left">
-            <img src="./img//new_collections/War and Feast.png" alt="War &amp; Feast" width="1200" height="800" />
-            <div class="shade"></div>
-            <div class="copy">
-              <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">War &amp; Feast</h3>
-              <p class="text-sm sm:text-base collection-description">Conflict, appetite, and ceremonial excess.</p>
-              <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
-                <li class="font-semibold works-include">Works include:</li>
-                <li id="war-title" class="flashing-title" aria-live="polite"></li>
-              </ul>
-            </div>
-          </a>
+            <!-- WAR & FEAST -->
+            <a href="dynamo_collections.html" class="group reveal-card reveal-left">
+              <img src="./img/new_collections/War and Feast.png" alt="War &amp; Feast" width="1200" height="800" />
+              <div class="shade"></div>
+              <div class="copy">
+                <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">War &amp; Feast</h3>
+                <p class="text-sm sm:text-base collection-description">Conflict, appetite, and ceremonial excess.</p>
+                <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
+                  <li class="font-semibold works-include">Works include:</li>
+                  <li id="war-title" class="flashing-title" aria-live="polite"></li>
+                </ul>
+              </div>
+            </a>
 
-          <!-- INDUSTRIAL MYTHS -->
-          <a href="/collections/industrial-myths" class="group reveal-card reveal-left">
-            <img src="./img/new_collections/Industrial Myths.png" alt="Industrial Myths" width="1200" height="800" />
-            <div class="shade"></div>
-            <div class="copy">
-              <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Industrial Myths</h3>
-              <p class="text-sm sm:text-base collection-description">A surreal meditation on machines, labor, and digital systems reimagined.</p>
-              <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
-                <li class="font-semibold works-include">Works include:</li>
-                <li id="industrial-title" class="flashing-title" aria-live="polite"></li>
-              </ul>
-            </div>
-          </a>
+            <!-- INDUSTRIAL MYTHS -->
+            <a href="/collections/industrial-myths" class="group reveal-card reveal-left">
+              <img src="./img/new_collections/Industrial Myths.png" alt="Industrial Myths" width="1200" height="800" />
+              <div class="shade"></div>
+              <div class="copy">
+                <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">Industrial Myths</h3>
+                <p class="text-sm sm:text-base collection-description">A surreal meditation on machines, labor, and digital systems reimagined.</p>
+                <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
+                  <li class="font-semibold works-include">Works include:</li>
+                  <li id="industrial-title" class="flashing-title" aria-live="polite"></li>
+                </ul>
+              </div>
+            </a>
 
-          <!-- THE DIGITAL UNCONSCIOUS -->
-          <a href="/collections/digital-unconscious" class="group reveal-card reveal-left">
-            <img src="./img/new_collections/Digital Unconscious.png" alt="The Digital Unconscious" width="1200" height="800" />
-            <div class="shade"></div>
-            <div class="copy">
-              <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Digital Unconscious</h3>
-              <p class="text-sm sm:text-base collection-description">Where AI dreams and data remembers.</p>
-              <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
-                <li class="font-semibold works-include">Works include:</li>
-                <li id="digital-title" class="flashing-title" aria-live="polite"></li>
-              </ul>
-            </div>
-          </a>
+            <!-- THE DIGITAL UNCONSCIOUS -->
+            <a href="/collections/digital-unconscious" class="group reveal-card reveal-left">
+              <img src="./img/new_collections/Digital Unconscious.png" alt="The Digital Unconscious" width="1200" height="800" />
+              <div class="shade"></div>
+              <div class="copy">
+                <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Digital Unconscious</h3>
+                <p class="text-sm sm:text-base collection-description">Where AI dreams and data remembers.</p>
+                <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
+                  <li class="font-semibold works-include">Works include:</li>
+                  <li id="digital-title" class="flashing-title" aria-live="polite"></li>
+                </ul>
+              </div>
+            </a>
 
-          <!-- THE DOMINION ARCHIVE -->
-          <a href="/collections/dominion-archive" class="group reveal-card reveal-left">
-            <img src="./img/new_collections/Dominion Archives.png" alt="The Dominion Archive" width="1200" height="800" />
-            <div class="shade"></div>
-            <div class="copy">
-              <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Dominion Archive</h3>
-              <p class="text-sm sm:text-base collection-description">Power recorded, repackaged, ritualized.</p>
-              <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
-                <li class="font-semibold works-include">Works include:</li>
-                <li id="dominion-title" class="flashing-title" aria-live="polite"></li>
-              </ul>
-            </div>
-          </a>
+            <!-- THE DOMINION ARCHIVE -->
+            <a href="/collections/dominion-archive" class="group reveal-card reveal-left">
+              <img src="./img/new_collections/Dominion Archives.png" alt="The Dominion Archive" width="1200" height="800" />
+              <div class="shade"></div>
+              <div class="copy">
+                <h3 class="text-lg sm:text-xl font-normal mb-1 collection-title">The Dominion Archive</h3>
+                <p class="text-sm sm:text-base collection-description">Power recorded, repackaged, ritualized.</p>
+                <ul class="worklist mt-2 space-y-1 text-sm text-neutral-300">
+                  <li class="font-semibold works-include">Works include:</li>
+                  <li id="dominion-title" class="flashing-title" aria-live="polite"></li>
+                </ul>
+              </div>
+            </a>
+          </div>
         </section>
       </div>
     </section>
@@ -746,11 +772,18 @@
     document.addEventListener('DOMContentLoaded', () => {
       makeRotator(document.getElementById('symbol-title'),    ["Hollywood Moderne","Sephardic Tango","Crypto Fish Tank","The Rusher, The Incrementer and..","Rinse and Repeat"], 3000);
       makeRotator(document.getElementById('signal-title'),    ["Revolutionary Balloon","The Magic of ’86","Bitcoin 2017","Hip Hop 1978","The Biblicals"], 3000);
-      makeRotator(document.getElementById('war-title'),       ["Coeur of the Grapes","The Wine Wars","Some Things Were Meant to..."], 3000);
+      makeRotator(document.getElementById('war-title'),       ["Coeur of the Grapes","The Wine Wars","Some Things Were Meant to...", "The Asymmetrical Jayse"], 3000);
       makeRotator(document.getElementById('industrial-title'),["The Cursor of Fate","The Future of Industry","The Fear Room"], 3000);
       makeRotator(document.getElementById('digital-title'),   ["Internet of the Old World","Internet of the Middle World","Internet of the New World","Prince Carl laying in front of the TV....","The Great Divide"], 3000);
       makeRotator(document.getElementById('dominion-title'),  ["Bottling the Republic","Discovery of the Indigenous","The Refactoring Ritual","The Census Ritual","Etch the Empire"], 3000);
     });
+
+    // Align breakpoint with your CSS
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const collections = document.querySelector('#collections');
+    const origTrack   = collections.querySelector(':scope > .cc-track'); // original track
+    const cardSelector = ':scope > a.group'; // anchors are direct children of the track
+
 
     // Desktop carousel (finite, rightmost dot active)
     (function(){
@@ -758,7 +791,9 @@
       const collections = document.querySelector('#collections');
       if (!collections) return;
 
-      const cardSelector = ':scope > a.group';
+      // const cardSelector = ':scope > a.group';
+      // changing card 
+      const cardSelector = '.cc-track > a.group';
       let shell = null, viewport = null, track = null, prevBtn = null, nextBtn = null, dotsWrap = null, dots = [];
       let cardsCache = []; let index = 0; let stepPx = 0; let slotsPerView = 1; let pages = 1; let ro = null;
       let rafId = 0, scrollIdleTimer = 0; const SCROLL_IDLE_MS = 140;
@@ -834,38 +869,80 @@
 
       function onScroll(){ if (rafId) cancelAnimationFrame(rafId); rafId = requestAnimationFrame(()=>{ if (stepPx <= 0) return; const pending = clamp(Math.round(viewport.scrollLeft / stepPx)); updateArrows(); clearTimeout(scrollIdleTimer); scrollIdleTimer = setTimeout(()=>{ if (index !== pending) index = pending; updateDots(); }, SCROLL_IDLE_MS); }); }
 
-      function enable(){ if (shell) return;
-        const allCards = Array.from(collections.querySelectorAll(cardSelector));
-        const seen = new Set();
-        cardsCache = allCards.filter(a=>{ const key = a.getAttribute('href') || a.id || a.textContent.trim(); if (seen.has(key)) return false; seen.add(key); return true; });
-        if (!cardsCache.length) return;
+      function enable() {
+  if (shell) return;
 
-        shell = document.createElement('div'); shell.className='collections-carousel';
-        viewport = document.createElement('div'); viewport.className='cc-viewport'; viewport.tabIndex = 0; // keyboard focus
-        track = document.createElement('div'); track.className='cc-track';
-        const controls = document.createElement('div'); controls.className='cc-controls';
-        const mk = (cls, label, path) => { const b = document.createElement('button'); b.type='button'; b.className=`cc-arrow ${cls}`; b.setAttribute('aria-label', label); b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg>`; return b; };
-        prevBtn = mk('cc-prev','Previous','M15 5 L8 12 L15 19');
-        nextBtn = mk('cc-next','Next','M9 5 L16 12 L9 19');
-        controls.append(prevBtn, nextBtn);
-        dotsWrap = document.createElement('div'); dotsWrap.className='cc-dots';
+  // Get the cards from the ORIGINAL track
+  const allCards = Array.from(origTrack.querySelectorAll(cardSelector));
+  if (!allCards.length) return;
 
-        viewport.appendChild(track); shell.append(viewport, controls, dotsWrap);
-        const heading = collections.querySelector('h2'); heading ? collections.insertBefore(shell, heading.nextSibling) : collections.appendChild(shell);
-        cardsCache.forEach(card => track.appendChild(card));
+  cardsCache = allCards; // no de-dupe — move exactly what's there
 
-        prevBtn.addEventListener('click', ()=> goToIndex(index - 1, true));
-        nextBtn.addEventListener('click', ()=> goToIndex(index + 1, true));
-        viewport.addEventListener('scroll', onScroll, { passive: true });
-        viewport.addEventListener('keydown', (e)=>{ if (e.key === 'ArrowRight') nextBtn.click(); if (e.key === 'ArrowLeft') prevBtn.click(); });
+  shell    = document.createElement('div'); shell.className = 'collections-carousel';
+  viewport = document.createElement('div'); viewport.className = 'cc-viewport'; viewport.tabIndex = 0;
+  track    = document.createElement('div'); track.className = 'cc-track';
 
-        ro = new ResizeObserver(()=>{ const oldPages = pages, oldSlots = slotsPerView, oldIndex = index; measure(); if (pages !== oldPages || slotsPerView !== oldSlots){ buildDots(); goToIndex(Math.min(oldIndex, pages - 1), false); } else { updateDots(); } updateArrows(); });
-        ro.observe(viewport);
+  const controls = document.createElement('div'); controls.className = 'cc-controls';
+  const mk = (cls, label, path) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = `cc-arrow ${cls}`;
+    b.setAttribute('aria-label', label);
+    b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg>`;
+    return b;
+  };
+  prevBtn = mk('cc-prev','Previous','M15 5 L8 12 L15 19');
+  nextBtn = mk('cc-next','Next','M9 5 L16 12 L9 19');
+  controls.append(prevBtn, nextBtn);
 
-        requestAnimationFrame(()=>{ measure(); buildDots(); goToIndex(0, false); });
-      }
+  dotsWrap = document.createElement('div'); dotsWrap.className = 'cc-dots';
 
-      function disable(){ if (!shell) return; const anchor = shell; cardsCache.forEach(card=> collections.insertBefore(card, anchor)); ro?.disconnect(); shell.remove(); shell = viewport = track = prevBtn = nextBtn = dotsWrap = null; dots = []; cardsCache = []; index = 0; stepPx = 0; slotsPerView = 1; pages = 1; }
+  viewport.appendChild(track);
+  const heading = collections.querySelector('h2');
+  (heading ? collections.insertBefore(shell, heading.nextSibling) : collections.appendChild(shell));
+  shell.append(viewport, controls, dotsWrap);
+
+  // Move ALL cards into the new track
+  cardsCache.forEach(card => track.appendChild(card));
+
+  prevBtn.addEventListener('click', () => goToIndex(index - 1, true));
+  nextBtn.addEventListener('click', () => goToIndex(index + 1, true));
+  viewport.addEventListener('scroll', onScroll, { passive: true });
+  viewport.addEventListener('keydown', (e)=>{ if (e.key === 'ArrowRight') nextBtn.click(); if (e.key === 'ArrowLeft') prevBtn.click(); });
+
+  ro = new ResizeObserver(() => {
+    const oldPages = pages, oldSlots = slotsPerView, oldIndex = index;
+    measure();
+    if (pages !== oldPages || slotsPerView !== oldSlots) {
+      buildDots();
+      goToIndex(Math.min(oldIndex, pages - 1), false);
+    } else {
+      updateDots();
+    }
+    updateArrows();
+  });
+  ro.observe(viewport);
+
+  // initial and safety re-measures
+  requestAnimationFrame(() => {
+    measure(); buildDots(); goToIndex(index, false); updateArrows(); updateDots();
+  });
+  setTimeout(() => { measure(); buildDots(); updateArrows(); updateDots(); }, 300);
+}
+
+    function disable() {
+      if (!shell) return;
+      // Restore cards to the ORIGINAL track
+      cardsCache.forEach(card => origTrack.appendChild(card));
+      ro?.disconnect();
+      shell.remove();
+      shell = viewport = track = prevBtn = nextBtn = dotsWrap = null;
+      dots = [];
+      cardsCache = [];
+      index = 0; stepPx = 0; slotsPerView = 1; pages = 1;
+    }
+
+      // function disable(){ if (!shell) return; const anchor = shell; cardsCache.forEach(card=> collections.insertBefore(card, anchor)); ro?.disconnect(); shell.remove(); shell = viewport = track = prevBtn = nextBtn = dotsWrap = null; dots = []; cardsCache = []; index = 0; stepPx = 0; slotsPerView = 1; pages = 1; }
 
       function handle(){ mq.matches ? enable() : disable(); }
       handle(); mq.addEventListener('change', handle);

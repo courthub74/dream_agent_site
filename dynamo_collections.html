@@ -89,7 +89,7 @@
       <div class="flex items-start justify-between gap-3">
         <div>
           <h3 id="artTitle"
-              class="font-normal text-md sm:text-xl">
+              class="serif font-normal text-md sm:text-xl">
           </h3>
           <p id="artMeta" class="mt-1 text-white/70 text-sm"></p>
         </div>
@@ -105,18 +105,18 @@
             </figcaption>
         </figure> -->
         <figure id="swipeArea"
-            class="art-figure relative overflow-hidden rounded-2xl bg-black/30 mt-4 
-            aspect-[3/4] sm:aspect-[16/9] w-full max-w-4xl mx-auto max-h-[30vh]">
-            <img id="artImg"
-                src=""
-                alt=""
-                class="w-full h-full object-cover">
-        
-        <!-- Overlay title (desktop hover) -->
-        <figcaption class="hidden overlay-title pointer-events-none absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/40 to-transparent">
-          <span class="text-sm font-normal" id="overlayTitle"></span>
-        </figcaption>
-      </figure>
+          class="art-figure relative overflow-hidden rounded-2xl mt-4 mx-auto flex justify-center">
+          <img id="artImg"
+              src=""
+              alt=""
+              class="h-auto w-auto max-w-2xl max-h-[30vh] object-contain rounded-xl">
+              
+          <!-- Overlay title (desktop hover) -->
+          <figcaption class="hidden overlay-title pointer-events-none absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/40 to-transparent">
+            <span class="text-sm font-normal" id="overlayTitle"></span>
+          </figcaption>
+        </figure>
+
 
 
         <!-- Centered navigator under the image -->
@@ -181,16 +181,21 @@
     <div class="relative h-full w-full flex items-center justify-center p-4">
       <div class="max-w-3xl w-full bg-[#0a3569] rounded-2xl shadow-lg overflow-hidden">
         <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
-          <h4 id="modalTitle" class="serif text-xl font-semibold"></h4>
+          <!-- <h4 id="modalTitle" class="serif text-md font-normal"></h4> -->
+           <div>
+            <h4 id="modalTitle" class="serif font-normal text-md sm:text-xl"></h4>
+            <p id="modalMeta" class="mt-1 text-white/70 text-sm"></p>
+          </div>
           <button id="closeModal" class="p-2 rounded-lg hover:bg-white/10" aria-label="Close">✕</button>
         </div>
         <div class="p-5 grid gap-4">
-            <div class="aspect-[3/4] sm:aspect-[16/9] w-full max-w-4xl mx-auto rounded-xl overflow-hidden bg-black/30">
+            <div class="w-full max-w-4xl mx-auto rounded-xl overflow-hidden bg-black/30">
               <img id="modalImg"
                   src=""
                   alt=""
-                  class="w-full h-full object-cover">
+                  class="w-full h-auto max-h-[60vh] object-contain mx-auto">
             </div>
+
 
 
           <!-- <div class="aspect-[3/4] sm:aspect-[16/9] w-full rounded-xl overflow-hidden bg-black/30">
@@ -216,21 +221,21 @@
       {
         title: "Them guys and the Older Guys",
         year: 2025,
-  src: "img/pictures/them_guys_and_the_older_guys.png", // swap to your path
+        src: "img/pictures/them_guys_and_the_older_guys.png", // swap to your path
         blurb: "An overheard strategy session—smoke, crystal, and chalk carving the ‘Strategy Wood’.",
         collectUrl: "https://xrpcafe.market/"
       },
       {
         title: "Cursor of Fate",
         year: 2024,
-  src: "img/pictures/cursor_of_fate.png",
+        src: "img/pictures/cursor_of_fate.png",
         blurb: "A blinking prompt becomes an oracle. The choice is a keystroke away.",
         collectUrl: "https://xrpcafe.market/"
       },
       {
         title: "Liquidity Spectators",
         year: 2024,
-  src: "img/pictures/crypto_fish_tank.png",
+        src: "img/pictures/crypto_fish_tank.png",
         blurb: "Glass economies where coins swim like koi—beautiful, anxious, inevitable.",
         collectUrl: "https://xrpcafe.market/"
       }
@@ -328,7 +333,8 @@
     // Modal handlers
     document.getElementById('viewBtn').onclick = () => {
       const a = artworks[idx];
-      modalTitle.textContent = `${a.title} (${a.year})`;
+      modalTitle.textContent = a.title;
+      document.getElementById('modalMeta').textContent = a.year; // add this line
       modalImg.src = a.src;
       modalImg.alt = a.title;
       modalDesc.textContent = a.blurb;
@@ -338,16 +344,19 @@
     document.getElementById('closeModal').onclick = () => modal.classList.add('hidden');
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
 
-    // Sticky mobile nav reveal when past header
-    // const mobileNav = document.getElementById('mobileNav');
-    // const headerEl = document.querySelector('header');
-    // const io = new IntersectionObserver(entries => {
-    //   entries.forEach(entry => {
-    //     if (entry.isIntersecting) { mobileNav.classList.add('hidden'); }
-    //     else { mobileNav.classList.remove('hidden'); }
-    //   });
-    // }, { threshold: 0 });
-    // io.observe(headerEl);
+
+    // document.getElementById('viewBtn').onclick = () => {
+    //   const a = artworks[idx];
+    //   modalTitle.textContent = `${a.title} (${a.year})`;
+    //   modalImg.src = a.src;
+    //   modalImg.alt = a.title;
+    //   modalDesc.textContent = a.blurb;
+    //   modalCollect.href = a.collectUrl;
+    //   modal.classList.remove('hidden');
+    // };
+
+    // document.getElementById('closeModal').onclick = () => modal.classList.add('hidden');
+    // modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
 
     // Scroll progress
     const prog = document.getElementById('scrollProgress');
