@@ -71,7 +71,7 @@
         collectUrl: "#"
       },
       {
-        title: "Crypto Fish Tank",
+        title: "Liquidity Spectators",
         year: 2024,
         style: "oil-style",
         motifs: ["fish", "crypto"],
@@ -116,6 +116,7 @@
       listEl.innerHTML = artworks.map(cardTemplate).join('');
     }
 
+    // Back Button
     document.getElementById('backBtn').addEventListener('click', () => {
       if (window.history.length > 1) window.history.back();
     });
