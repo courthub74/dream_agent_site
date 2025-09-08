@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream Agent — Collection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#0e3b73; --ink-2:#0b2f5a; }
+    body { background: radial-gradient(1200px 800px at 20% -10%, rgba(255,255,255,0.06), transparent 60%), #0f3f7e; }
+    .serif { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="text-white/95 antialiased">
+
+  <!-- PAGE WRAPPER -->
+  <main class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
+
+    <!-- HEADER / HERO -->
+    <header class="grid grid-cols-1 md:grid-cols-[120px,1fr] items-center gap-5">
+      <!-- avatar -->
+      <img src="./img/new_collections/Symbols in Motion.png" alt="Collection avatar"
+           class="w-20 h-20 md:w-28 md:h-28 rounded-full object-cover ring-1 ring-white/10 shadow-xl">
+
+      <!-- title + meta -->
+      <div>
+        <h1 class="serif text-3xl md:text-4xl lg:text-5xl font-normal leading-tight">Symbols in Motion</h1>
+        <p class="mt-2 text-white/80 max-w-2xl">Recurring signs caught in perpetual drift.</p>
+        <p class="mt-1 text-white/60 text-sm">17 works · 2019–2025</p>
+      </div>
+    </header>
+
+    <!-- SPLIT LAYOUT -->
+    <section class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+
+      <!-- LEFT: ARTWORK (dominant) -->
+      <div class="lg:col-span-7">
+        <figure id="artFigure"
+                class="relative overflow-hidden rounded-2xl bg-black/30 ring-1 ring-white/10">
+          <!-- image -->
+          <img id="artImg" src="" alt=""
+               class="block w-full h-auto max-h-[70vh] object-contain mx-auto select-none">
+
+          <!-- hover arrows for desktop -->
+          <button id="prevBtn"
+                  class="hidden lg:flex items-center justify-center absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/55 ring-1 ring-white/15 backdrop-blur text-white"
+                  aria-label="Previous">‹</button>
+          <button id="nextBtn"
+                  class="hidden lg:flex items-center justify-center absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/55 ring-1 ring-white/15 backdrop-blur text-white"
+                  aria-label="Next">›</button>
+        </figure>
+
+        <!-- progress dots -->
+        <div id="dots" class="mt-4 flex items-center justify-center gap-2"></div>
+
+        <!-- thumbnail strip -->
+        <div id="thumbs" class="mt-5 flex gap-3 overflow-x-auto pb-1">
+          <!-- thumbnails injected here -->
+        </div>
+      </div>
+
+      <!-- RIGHT: DETAILS PANEL -->
+      <aside class="lg:col-span-5">
+        <article class="bg-white/5 backdrop-blur rounded-2xl p-5 md:p-6 ring-1 ring-white/10">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h2 id="artTitle" class="serif text-2xl md:text-3xl font-normal"></h2>
+              <p id="artMeta" class="mt-1 text-white/70"></p>
+            </div>
+            <span id="artIndex" class="text-white/60 text-sm shrink-0"></span>
+          </div>
+
+          <p id="artCaption" class="mt-4 text-white/85 leading-relaxed max-w-prose"></p>
+
+          <!-- CTAs -->
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a id="viewBtn" href="#" target="_blank" rel="noopener"
+               class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white bg-white/10 hover:bg-white/20 ring-1 ring-white/15">
+              View full size
+            </a>
+            <a id="collectBtn" href="#" target="_blank" rel="noopener"
+               class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-600/90">
+              Collect on XRP Café
+            </a>
+          </div>
+
+          <!-- mobile nav buttons -->
+          <div class="mt-6 flex items-center gap-3 lg:hidden">
+            <button class="flex-1 rounded-xl bg-white/10 hover:bg-white/20 px-4 py-3" id="prevBtnMobile">Previous</button>
+            <button class="flex-1 rounded-xl bg-white/10 hover:bg-white/20 px-4 py-3" id="nextBtnMobile">Next</button>
+          </div>
+        </article>
+
+        <!-- OPTIONAL: lore / glossary -->
+        <div class="mt-6 bg-white/5 backdrop-blur rounded-2xl p-5 ring-1 ring-white/10">
+          <h3 class="serif text-xl font-medium">Lore</h3>
+          <p class="mt-2 text-white/75 text-sm">Signals migrate between canvases—Strategy Wood, the crystal, the floating pipe—each a waypoint in the wider drift.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <!-- DATA + LOGIC -->
+  <script>
+    // —— Replace with your real artworks for the collection ——
+    const artworks = [
+      {
+        title: "Them guys and the Older Guys",
+        year: 2025,
+        image: "./img/pictures/them_guys_and_the_older_guys.png",
+        caption: "An overheard strategy session—smoke, crystal, and chalk carving the ‘Strategy Wood’.",
+        collectUrl: "https://xrpcafe.market/",
+        viewUrl: "./img/pictures/them_guys_and_the_older_guys.png"
+      },
+      {
+        title: "The Fear Room",
+        year: 2024,
+        image: "./img/pictures/the_fear_room.png",
+        caption: "Migrating signs rising like radio towers in fog.",
+        collectUrl: "https://xrpcafe.market/",
+        viewUrl: "./img/pictures/the_fear_room.png"
+      },
+      {
+        title: "The Great Divide",
+        year: 2023,
+        image: "./img/pictures/the_great_divide.png",
+        caption: "Chalk, smoke, and ledger lines of a humming factory gospel.",
+        collectUrl: "https://xrpcafe.market/",
+        viewUrl: "./img/pictures/the_great_divide.png"
+      }
+    ];
+
+    // —— DOM refs ——
+    const img = document.getElementById('artImg');
+    const title = document.getElementById('artTitle');
+    const meta = document.getElementById('artMeta');
+    const caption = document.getElementById('artCaption');
+    const indexEl = document.getElementById('artIndex');
+    const viewBtn = document.getElementById('viewBtn');
+    const collectBtn = document.getElementById('collectBtn');
+    const thumbs = document.getElementById('thumbs');
+    const dots = document.getElementById('dots');
+    const prev = document.getElementById('prevBtn');
+    const next = document.getElementById('nextBtn');
+    const prevM = document.getElementById('prevBtnMobile');
+    const nextM = document.getElementById('nextBtnMobile');
+    const fig = document.getElementById('artFigure');
+
+    let i = 0;
+
+    function renderDots() {
+      dots.innerHTML = '';
+      artworks.forEach((_, idx) => {
+        const b = document.createElement('button');
+        b.className = 'w-2.5 h-2.5 rounded-full ring-1 ring-white/20 ' + (idx === i ? 'bg-white' : 'bg-white/30');
+        b.ariaLabel = `Go to item ${idx+1}`;
+        b.addEventListener('click', () => { i = idx; render(); });
+        dots.appendChild(b);
+      });
+    }
+
+    function renderThumbs() {
+      thumbs.innerHTML = '';
+      artworks.forEach((art, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'group shrink-0';
+        btn.addEventListener('click', () => { i = idx; render(); });
+
+        btn.innerHTML = `
+          <figure class="w-28 h-20 rounded-xl overflow-hidden ring-1 ${idx===i?'ring-white/60':'ring-white/10'} bg-black/30">
+            <img src="${art.image}" alt="${art.title}"
+                 class="w-full h-full object-cover group-hover:scale-[1.03] transition">
+          </figure>
+          <p class="mt-1 text-xs text-white/70 line-clamp-1">${art.title}</p>
+        `;
+        thumbs.appendChild(btn);
+      });
+    }
+
+    function render() {
+      const a = artworks[i];
+      img.src = a.image;
+      img.alt = a.title;
+      title.textContent = a.title;
+      meta.textContent = `${a.year}`;
+      caption.textContent = a.caption;
+      viewBtn.href = a.viewUrl;
+      collectBtn.href = a.collectUrl;
+      indexEl.textContent = `${i+1} of ${artworks.length}`;
+      renderDots();
+      renderThumbs();
+    }
+
+    function nextItem() { i = (i + 1) % artworks.length; render(); }
+    function prevItem() { i = (i - 1 + artworks.length) % artworks.length; render(); }
+
+    // keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextItem();
+      if (e.key === 'ArrowLeft')  prevItem();
+    });
+
+    // click navigation
+    next?.addEventListener('click', nextItem);
+    prev?.addEventListener('click', prevItem);
+    nextM?.addEventListener('click', nextItem);
+    prevM?.addEventListener('click', prevItem);
+
+    // swipe (simple)
+    let startX = null;
+    fig.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, {passive:true});
+    fig.addEventListener('touchend', (e) => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) { dx < 0 ? nextItem() : prevItem(); }
+      startX = null;
+    }, {passive:true});
+
+    // init
+    render();
+  </script>
+</body>
+</html>
