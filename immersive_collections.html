@@ -194,14 +194,18 @@
         <!-- Artwork viewer -->
         <h2 id="workTitle" class="serif text-xl sm:text-2xl text-white/95 text-center">—</h2>
 
-        <figure class="mt-4">
-          <div class="relative mx-auto max-w-xl overflow-hidden rounded-2xl bg-black/20 ring-1 ring-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
-            <img id="workImage" src="" alt="Artwork" class="w-full h-auto object-cover">
-            <button id="btnPrev" class="absolute inset-y-0 left-0 px-3 text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/60" aria-label="Previous artwork">‹</button>
-            <button id="btnNext" class="absolute inset-y-0 right-0 px-3 text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/60" aria-label="Next artwork">›</button>
-          </div>
-          <figcaption id="workMeta" class="text-center text-white/70 text-sm mt-3">—</figcaption>
-        </figure>
+       <figure class="mt-4">
+        <div class="relative mx-auto max-w-xl overflow-hidden rounded-2xl bg-black/20 ring-1 ring-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
+          <img id="workImage"
+              src=""
+              alt="Artwork"
+              class="w-full max-h-[50vh] object-contain mx-auto"
+              style="display: block;" />
+          <button id="btnPrev" class="absolute inset-y-0 left-0 px-3 text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/60" aria-label="Previous artwork">‹</button>
+          <button id="btnNext" class="absolute inset-y-0 right-0 px-3 text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/60" aria-label="Next artwork">›</button>
+        </div>
+        <figcaption id="workMeta" class="text-center text-white/70 text-sm mt-3">—</figcaption>
+      </figure>
 
         <div id="workDescription" class="mt-6 leading-relaxed text-[15px] text-white/90 space-y-4"></div>
 
@@ -221,25 +225,25 @@
           </div>
         </div> -->
         <div class="mt-6">
-  <p class="text-white/80 mb-3">Collect</p>
-  <div class="flex items-center gap-4">
-    <a id="linkCafe" target="_blank" rel="noopener"
-      class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
-      aria-label="Collect on XRP Café">
-      <img src="./img/round_logos/xrpcafe_circle.png" alt="XRP Café" class="w-full h-full object-cover rounded-full" />
-    </a>
-    <a id="linkOpenSea" target="_blank" rel="noopener"
-      class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
-      aria-label="Collect on OpenSea">
-      <img src="./img/round_logos/opensea_circle.png" alt="OpenSea" class="w-full h-full object-cover rounded-full" />
-    </a>
-    <a id="linkSuperRare" target="_blank" rel="noopener"
-      class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
-      aria-label="Collect on SuperRare">
-      <img src="./img/round_logos/superrare_circle.png" alt="SuperRare" class="w-full h-full object-cover rounded-full" />
-    </a>
-  </div>
-</div>
+          <p class="text-white/80 mb-3">Collect</p>
+          <div class="flex items-center gap-4">
+            <a id="linkCafe" target="_blank" rel="noopener"
+              class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
+              aria-label="Collect on XRP Café">
+              <img src="./img/round_logos/xrpcafe_circle.png" alt="XRP Café" class="w-full h-full object-cover rounded-full" />
+            </a>
+            <a id="linkOpenSea" target="_blank" rel="noopener"
+              class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
+              aria-label="Collect on OpenSea">
+              <img src="./img/round_logos/opensea_circle.png" alt="OpenSea" class="w-full h-full object-cover rounded-full" />
+            </a>
+            <a id="linkSuperRare" target="_blank" rel="noopener"
+              class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
+              aria-label="Collect on SuperRare">
+              <img src="./img/round_logos/superrare_circle.png" alt="SuperRare" class="w-full h-full object-cover rounded-full" />
+            </a>
+          </div>
+        </div>
 
         <!-- Back (desktop) -->
         <div class="hidden lg:flex mt-5">
