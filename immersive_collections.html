@@ -5,235 +5,402 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dream Agent — Collections</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root { --bg: 0, 87, 184; }
-    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
-    .serif { font-family: 'Playfair Display', serif; }
-    .soft-card { box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.06); }
-    .glass { background: rgba(255,255,255,.06); backdrop-filter: blur(8px); }
-    .glyph { mask-image: radial-gradient(ellipse at center, black, transparent 70%); opacity:.08 }
+    :root { --da-blue:#0B5DB3; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .serif { font-family: "Playfair Display", Georgia, serif; }
+    /* hide scrollbars for the mobile strip */
+    .no-scrollbar::-webkit-scrollbar{ display:none; } .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
   </style>
 </head>
-<body class="min-h-screen text-white bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,.06),transparent_40%),linear-gradient(rgba(0,87,184,.55),rgba(0,87,184,.55)),url('./img/even_larger_about_background.png')] bg-cover bg-fixed">
-  <!-- Header -->
-  <header class="max-w-6xl mx-auto px-4 pt-6 pb-2">
-    <h1 class="serif text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">Collections</h1>
-    <p class="mt-2 text-white/80 max-w-prose">Choose a collection, then browse its paintings. Subtle transitions, clear hierarchy, and lore-driven captions keep the immersion.</p>
-  </header>
+<body class="min-h-screen bg-[color:var(--da-blue)] text-white/95 selection:bg-white/20">
 
-  <!-- Active Collection Banner -->
-  <section id="activeCollection" class="max-w-6xl mx-auto px-4 mt-6">
-    <div class="relative overflow-hidden rounded-2xl soft-card glass">
-      <div class="absolute inset-0 glyph bg-[url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\"><g fill=\"white\" opacity=\"0.7\"><circle cx=\"100\" cy=\"100\" r=\"20\"/><path d=\"M100 20 l10 20 h-20z\"/></g></svg>')] bg-no-repeat bg-center"></div>
-      <div class="relative grid md:grid-cols-[1.1fr_.9fr] gap-6 p-5 sm:p-7">
-        <figure class="aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-xl bg-black/30">
-          <img id="activeCollectionImg" src="./img/new_collections/symbols-in-motion.jpg" alt="Collection cover" class="w-full h-full object-cover">
-        </figure>
-        <div class="flex flex-col justify-center">
-          <div class="flex items-center gap-3">
-            <span class="inline-flex items-center rounded-full px-3 py-1 text-xs uppercase tracking-wide bg-white/10 ring-1 ring-white/15">Active Collection</span>
-          </div>
-          <h2 id="activeCollectionTitle" class="serif mt-3 text-2xl sm:text-3xl md:text-4xl font-semibold"></h2>
-          <p id="activeCollectionSubtitle" class="mt-2 text-white/80"></p>
-          <div class="mt-4 flex items-center gap-2 text-sm">
-            <button id="prevCollection" class="group inline-flex items-center gap-2 rounded-lg px-4 py-2 ring-1 ring-white/20 hover:ring-white/40 active:translate-y-px transition">
-              <span class="i">◀</span><span class="hidden sm:inline">Prev Collection</span>
-            </button>
-            <button id="nextCollection" class="group inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/20 active:translate-y-px transition">
-              <span class="hidden sm:inline">Next Collection</span><span class="i">▶</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Collection Selector (horizontal scroll on mobile) -->
-  <section class="max-w-6xl mx-auto px-4 mt-6">
-    <div class="flex items-center justify-between mb-3">
-      <h3 class="serif text-xl sm:text-2xl">Select a collection</h3>
-      <div class="hidden sm:flex gap-2 text-sm text-white/70"><span>Tip:</span><span>Use ← → to switch</span></div>
-    </div>
-    <div id="collectionStrip" class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
-      <!-- Cards injected by JS -->
-    </div>
-  </section>
-
-  <!-- Artwork Viewer -->
-  <section class="max-w-6xl mx-auto px-4 mt-10 mb-16">
-    <div class="grid lg:grid-cols-2 gap-6 items-stretch">
-      <!-- Artwork image -->
-      <figure class="relative overflow-hidden rounded-2xl soft-card bg-black/40 aspect-[3/4] md:aspect-[4/3]">
-        <img id="artImg" src="" alt="Artwork" class="w-full h-full object-cover">
-        <div class="absolute bottom-3 left-3 flex gap-2">
-          <button id="prevArt" class="rounded-full px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/25 active:translate-y-px transition" aria-label="Previous painting">◀</button>
-          <button id="nextArt" class="rounded-full px-4 py-2 bg-white/10 hover:bg-white/20 ring-1 ring-white/25 active:translate-y-px transition" aria-label="Next painting">▶</button>
-        </div>
-      </figure>
-
-      <!-- Artwork meta -->
-      <article class="rounded-2xl p-6 soft-card glass flex flex-col">
-        <div class="flex items-center gap-2 text-xs text-white/70">
-          <span id="artIndexBadge" class="inline-flex items-center rounded-full px-2 py-1 bg-white/10 ring-1 ring-white/15">1 / 1</span>
-          <span id="artYear" class="hidden sm:inline"></span>
-        </div>
-        <h3 id="artTitle" class="serif mt-2 text-2xl sm:text-3xl font-semibold"></h3>
-        <p id="artMeta" class="mt-1 text-white/70 text-sm"></p>
-        <p id="artDesc" class="mt-4 text-white/85 leading-relaxed max-h-56 overflow-auto pr-2"></p>
-
-        <div class="mt-5 grid grid-cols-2 sm:inline-grid sm:grid-flow-col gap-3">
-          <a id="viewBtn" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white bg-blue-500 ring-1 ring-blue-400 shadow hover:bg-blue-500/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 active:translate-y-[1px]">View</a>
-          <a id="collectBtn" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/25 hover:bg-white/10 active:translate-y-[1px]">Collect on XRP Café</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <footer class="max-w-6xl mx-auto px-4 pb-14">
-    <a href="#top" class="mx-auto block w-full sm:w-auto text-center rounded-xl px-6 py-3 ring-1 ring-white/20 hover:bg-white/10 active:translate-y-px">Back to Home</a>
-  </footer>
-
+  <!-- =============== DATA =============== -->
   <script>
-    // ---- Demo Data (swap with your real data) ----
-    const DATA = [
-      {
-        id: 'symbols',
-        title: 'Symbols in Motion',
-        subtitle: 'Recurring signs caught in perpetual drift.',
-        cover: './img/new_collections/Symbols in Motion.png',
-        artworks: [
-          {
-            title: 'Picture One',
-            year: '2024',
-            meta: 'oil-style · mythic symbols',
-            desc: `I do not paint men. I paint covenants. This one wears a star and carries an axe, but it is not for conquest...`,
-            img: './img/pictures/the-tech-era.png',
-            viewUrl: '#',
-            collectUrl: 'https://xrpcafe.market/'
-          },
-          {
-            title: 'Liquidity Spectators',
-            year: '2025',
-            meta: 'oil-style · finance lore',
-            desc: `Eyes at the rail, watching the tides of value lap against the docks of memory.`,
-            img: './img/pictures/crypto_fish_tank.png',
-            viewUrl: '#',
-            collectUrl: 'https://xrpcafe.market/'
-          }
-        ]
+  // Example data. Swap this for a fetch('/api/collections/...') if you prefer.
+  const COLLECTIONS = [
+  {
+    slug: "symbols-in-motion",
+    title: "Symbols In Motion",
+    subtitle: "Recurring signs in perpetual drift",
+    startYear: 2017,
+    endYear: 2025,
+    works: [
+       {
+        slug: "some-things-were-meant",
+        title: "Some Things were meant to last Forever",
+        year: 2024,
+        style: "Oil-style",
+        motifs: ["cathedrals", "oven", "surreal"],
+         image: "https://picsum.photos/800/600?random=2", 
+        thumb: "https://picsum.photos/400/400?random=2",
+        description: [
+          "This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence,",
+          "where iconic cathedrals and basilicas from around the world rise like delicacies atop ",
+          "silver cake stands. Each structure — intricate, fragile, historic — floats in a domestic kitchen space,",
+          "blurring the line between the sacred and the mundane",
+          "In this world, spiritual and cultural grandeur is both preserved and 'baked in,'",
+        ],
+        marketplaces: {
+          xrpCafe: "https://xrpcafe.market/…",
+          openSea: "https://opensea.io/…",
+          superRare: "https://superrare.com/…"
+        }
       },
       {
-        id: 'industrial',
-        title: 'Industrial Scriptures',
-        subtitle: 'Machines that pray in factories of light.',
-        cover: './img/new_collections/Industrial Scriptures.png',
-        artworks: [
-          {
-            title: 'Bottling the Republic',
-            year: '2024',
-            meta: 'oil-style · industry · myth',
-            desc: 'The assembly line does not move—history does.',
-            img: './img/pictures/internet_of_the_old_world.png',
-            viewUrl: '#',
-            collectUrl: 'https://xrpcafe.market/'
-          }
-        ]
+        slug: "title-number-one",
+        title: "Title Number One",
+        year: 2021, style: "Oil-style", motifs: ["fruit","yellow"],
+        image: "https://picsum.photos/800/600?random=2", 
+        thumb: "https://picsum.photos/400/400?random=2",
+        description: ["Short description of the piece."],
+        marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
+      },
+      {
+        slug: "title-number-two",
+        title: "Title Number Two",
+        year: 2021, style: "Oil-style", motifs: ["fruit","yellow"],
+        image: "https://picsum.photos/800/600?random=3", 
+        thumb: "https://picsum.photos/400/400?random=3",
+        description: ["Another description paragraph."],
+        marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
+      },
+      {
+        slug: "title-number-three",
+        title: "Title Number Three",
+        year: 2020, style: "Oil-style", motifs: ["city"],
+        image: "https://picsum.photos/800/600?random=4", 
+        thumb: "https://picsum.photos/400/400?random=4",
+        description: ["A third work with notes."],
+        marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
       }
-    ];
+    ]
+  }
+];
+  // const COLLECTIONS = [
+  //   {
+  //     slug: "symbols-in-motion",
+  //     title: "Symbols In Motion",
+  //     subtitle: "Recurring signs in perpetual drift",
+  //     startYear: 2017,
+  //     endYear: 2025,
+  //     works: [
+  //       {
+  //         slug: "some-things-were-meant",
+  //         title: "Some Things were meant to last Forever",
+  //         year: 2024,
+  //         style: "Oil-style",
+  //         motifs: ["cathedrals", "oven", "surreal"],
+  //         image: "img/some_things_were_meant.png",
+  //         thumb: "./img/some_things_were_meant.png",
+  //         description: [
+  //           "This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence,",
+  //           "where iconic cathedrals and basilicas from around the world rise like delicacies atop ",
+  //           "silver cake stands. Each structure — intricate, fragile, historic — floats in a domestic kitchen space,",
+  //           "blurring the line between the sacred and the mundane",
+  //           "In this world, spiritual and cultural grandeur is both preserved and 'baked in,'",
+  //         ],
+  //         marketplaces: {
+  //           xrpCafe: "https://xrpcafe.market/…",
+  //           openSea: "https://opensea.io/…",
+  //           superRare: "https://superrare.com/…"
+  //         }
+  //       },
+  //       {
+  //         slug: "title-number-one",
+  //         title: "Title Number One",
+  //         year: 2021, style: "Oil-style", motifs: ["fruit","yellow"],
+  //         image: "images/work-1-hero.jpg", thumb: "images/work-1-thumb.jpg",
+  //         description: ["Short description of the piece."],
+  //         marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
+  //       },
+  //       {
+  //         slug: "title-number-two",
+  //         title: "Title Number Two",
+  //         year: 2021, style: "Oil-style", motifs: ["fruit","yellow"],
+  //         image: "images/work-2-hero.jpg", thumb: "images/work-2-thumb.jpg",
+  //         description: ["Another description paragraph."],
+  //         marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
+  //       },
+  //       {
+  //         slug: "title-number-three",
+  //         title: "Title Number Three",
+  //         year: 2020, style: "Oil-style", motifs: ["city"],
+  //         image: "images/work-3-hero.jpg", thumb: "images/work-3-thumb.jpg",
+  //         description: ["A third work with notes."],
+  //         marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
+  //       }
+  //     ]
+  //   }
+  // ];
+  </script>
 
-    // ---- State ----
-    let cIndex = 0;   // active collection index
-    let aIndex = 0;   // active artwork index within collection
+  <!-- =============== HEADER =============== -->
+  <header class="max-w-6xl mx-auto px-4 pt-8">
+    <nav class="text-white/70 text-sm">
+      <a href="index.html" class="hover:text-white/90">Collections</a>
+      <span class="mx-1">›</span>
+      <span id="crumbCollection" class="text-white">Loading…</span>
+    </nav>
 
-    const els = {
-      activeCollectionImg: document.getElementById('activeCollectionImg'),
-      activeCollectionTitle: document.getElementById('activeCollectionTitle'),
-      activeCollectionSubtitle: document.getElementById('activeCollectionSubtitle'),
-      collectionStrip: document.getElementById('collectionStrip'),
-      prevCollection: document.getElementById('prevCollection'),
-      nextCollection: document.getElementById('nextCollection'),
-      artImg: document.getElementById('artImg'),
-      artTitle: document.getElementById('artTitle'),
-      artMeta: document.getElementById('artMeta'),
-      artDesc: document.getElementById('artDesc'),
-      artYear: document.getElementById('artYear'),
-      artIndexBadge: document.getElementById('artIndexBadge'),
-      prevArt: document.getElementById('prevArt'),
-      nextArt: document.getElementById('nextArt'),
-      viewBtn: document.getElementById('viewBtn'),
-      collectBtn: document.getElementById('collectBtn')
-    };
+    <div class="mt-6 flex items-start gap-4">
+      <div class="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-gradient-to-br from-[#0e2e69] to-[#142a66] ring-1 ring-white/10"></div>
+      <div>
+        <h1 id="collectionTitle" class="serif text-3xl sm:text-4xl font-semibold">—</h1>
+        <p id="collectionSubtitle" class="text-white/85 mt-1">—</p>
+        <p id="collectionMeta" class="text-white/70 text-sm mt-1">—</p>
+      </div>
+    </div>
+  </header>
 
-    function renderCollectionBanner() {
-      const c = DATA[cIndex];
-      els.activeCollectionImg.src = c.cover;
-      els.activeCollectionTitle.textContent = c.title;
-      els.activeCollectionSubtitle.textContent = c.subtitle;
+  <!-- =============== BODY =============== -->
+  <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- LEFT: artwork + story -->
+    <section class="lg:col-span-8">
+      <article class="rounded-2xl bg-white/5 backdrop-blur p-5 sm:p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+        <div class="hidden lg:flex mb-4">
+          <a href="#" class="inline-flex items-center gap-2 rounded-lg px-3 py-2 ring-1 ring-white/15 hover:bg-white/10">
+            <span class="text-lg">‹</span> Back to Collections
+          </a>
+        </div>
+
+        <h2 id="workTitle" class="serif text-xl sm:text-2xl text-white/95 text-center">—</h2>
+
+        <figure class="mt-4">
+          <div class="relative mx-auto max-w-xl overflow-hidden rounded-2xl bg-black/20 ring-1 ring-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
+            <img id="workImage" src="" alt="Artwork" class="w-full h-auto object-cover">
+            <button id="btnPrev" class="absolute inset-y-0 left-0 px-3 text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/60" aria-label="Previous artwork">‹</button>
+            <button id="btnNext" class="absolute inset-y-0 right-0 px-3 text-white/80 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/60" aria-label="Next artwork">›</button>
+          </div>
+          <figcaption id="workMeta" class="text-center text-white/70 text-sm mt-3">—</figcaption>
+        </figure>
+
+        <div id="workDescription" class="mt-6 leading-relaxed text-[15px] text-white/90 space-y-4"></div>
+
+        <!-- Mobile strip -->
+        <div class="mt-6 lg:hidden">
+          <h3 class="serif text-lg mb-3">More in this collection</h3>
+          <div id="mobileStrip" class="flex gap-3 overflow-x-auto pb-1 no-scrollbar"></div>
+        </div>
+
+        <!-- Collect -->
+        <div class="mt-6">
+          <p class="text-white/80 mb-3">Collect</p>
+          <div class="flex items-center gap-4">
+            <a id="linkCafe" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15" aria-label="Collect on XRP Café">🌀</a>
+            <a id="linkOpenSea" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15" aria-label="Collect on OpenSea">🌊</a>
+            <a id="linkSuperRare" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15" aria-label="Collect on SuperRare">⭐</a>
+          </div>
+        </div>
+
+        <!-- Back (mobile) -->
+        <div class="mt-6 lg:hidden">
+          <a href="#" class="w-full inline-flex items-center justify-center rounded-lg px-4 py-2 ring-1 ring-white/15 hover:bg-white/10">Back to Collections</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- RIGHT: sidebar grid -->
+    <aside class="lg:col-span-4">
+      <div class="rounded-2xl bg-white/5 backdrop-blur p-5 sm:p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] hidden lg:block">
+        <h3 class="serif text-lg mb-4">All works in this collection</h3>
+        <div id="sidebarGrid" class="grid grid-cols-2 gap-4 max-h-[72vh] overflow-auto pr-1"></div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- =============== LOGIC =============== -->
+  <script>
+    console.log('Script loaded');
+    console.log('Collections data:', COLLECTIONS);
+
+    // Test if DOM elements exist
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded');
+        console.log('Work image element:', document.querySelector('#workImage'));
+        console.log('Work title element:', document.querySelector('#workTitle'));
+        
+        // Force set the image for testing
+        const img = document.querySelector('#workImage');
+        if (img) {
+            img.src = 'https://via.placeholder.com/400x300';
+            console.log('Image src set to:', img.src);
+        } else {
+            console.log('ERROR: Could not find #workImage element');
+        }
+    });
+    // --- Utilities ---
+    const qs = (s,el=document)=>el.querySelector(s);
+    const qsa = (s,el=document)=>[...el.querySelectorAll(s)];
+    const slugify = s => (s||"").toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    const bySlug = (list, slug)=> list.find(x => (x.slug || slugify(x.title)) === slug);
+
+    // Read route as /collections/:collection/:work OR #collection/work
+    function readRoute() {
+      const path = location.pathname.replace(/\/+$/, '');
+      const hash = location.hash.replace(/^#/, '');
+      // Try pathname first
+      const parts = path.split('/').filter(Boolean); // e.g. ["collections","symbols-in-motion","the-rusher"]
+      if (parts.length >= 3 && parts[0]==='collections') {
+        return { collectionSlug: parts[1], workSlug: parts[2] };
+      }
+      // Fallback to hash
+      if (hash.includes('/')) {
+        const [c,w] = hash.split('/');
+        return { collectionSlug: c, workSlug: w };
+      }
+      // Default to first collection/work
+      return { collectionSlug: COLLECTIONS[0].slug, workSlug: COLLECTIONS[0].works[0].slug };
     }
 
-    function renderArtwork() {
-      const c = DATA[cIndex];
-      const a = c.artworks[aIndex];
-      els.artImg.src = a.img;
-      els.artTitle.textContent = a.title;
-      els.artMeta.textContent = a.meta;
-      els.artDesc.textContent = a.desc;
-      els.artYear.textContent = a.year;
-      els.viewBtn.href = a.viewUrl;
-      els.collectBtn.href = a.collectUrl;
-      els.artIndexBadge.textContent = `${aIndex + 1} / ${c.artworks.length}`;
+    function pushRoute(collectionSlug, workSlug) {
+      const path = `/collections/${collectionSlug}/${workSlug}`;
+      history.replaceState(null, "", path); // feel free to use pushState if you want browser back stack
     }
 
-    function renderCollectionStrip() {
-      els.collectionStrip.innerHTML = '';
-      DATA.forEach((c, i) => {
+    // --- Rendering state ---
+    let activeCollection = null;
+    let activeIndex = 0;
+
+    function init() {
+      const { collectionSlug, workSlug } = readRoute();
+      activeCollection = bySlug(COLLECTIONS, collectionSlug) || COLLECTIONS[0];
+
+      // header
+      qs('#crumbCollection').textContent = activeCollection.title;
+      qs('#collectionTitle').textContent = activeCollection.title;
+      qs('#collectionSubtitle').textContent = activeCollection.subtitle || '';
+      qs('#collectionMeta').textContent = `${activeCollection.works.length} Works · ${activeCollection.startYear} – ${activeCollection.endYear}`;
+
+      // pick active index
+      const idx = activeCollection.works.findIndex(w => (w.slug||slugify(w.title)) === workSlug);
+      activeIndex = idx >= 0 ? idx : 0;
+
+      renderAll();
+      wireKeys();
+    }
+
+    function renderAll() {
+      renderWork();
+      renderSidebar();
+      renderMobileStrip();
+    }
+
+    function renderWork() {
+      const w = activeCollection.works[activeIndex];
+      const cslug = activeCollection.slug;
+      const wslug = w.slug || slugify(w.title);
+      pushRoute(cslug, wslug);
+
+      qs('#workTitle').textContent = w.title;
+      qs('#workImage').src = w.image;
+      qs('#workMeta').textContent = `${w.year} · ${w.style}${w.motifs?.length ? ' · ' + w.motifs.join(' • ') : ''}`;
+
+      // description
+      const descEl = qs('#workDescription');
+      descEl.innerHTML = "";
+      (w.description || []).forEach(p => {
+        const el = document.createElement('p');
+        el.textContent = p;
+        descEl.appendChild(el);
+      });
+
+      // marketplace links (hide if missing)
+      const setLink = (id, url) => {
+        const a = qs(id);
+        if (url) { a.href = url; a.classList.remove('opacity-40','pointer-events-none'); }
+        else { a.href = '#'; a.classList.add('opacity-40','pointer-events-none'); }
+      };
+      setLink('#linkCafe', w.marketplaces?.xrpCafe);
+      setLink('#linkOpenSea', w.marketplaces?.openSea);
+      setLink('#linkSuperRare', w.marketplaces?.superRare);
+
+      // prev/next
+      qs('#btnPrev').onclick = () => { activeIndex = (activeIndex-1+activeCollection.works.length)%activeCollection.works.length; renderAll(); };
+      qs('#btnNext').onclick = () => { activeIndex = (activeIndex+1)%activeCollection.works.length; renderAll(); };
+
+      // active highlight in sidebar/strip
+      highlightActive();
+      // Optional: preload neighbors
+      preloadNeighbors();
+      // Scroll to top of page on change (nice on mobile)
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderSidebar() {
+      const grid = qs('#sidebarGrid');
+      grid.innerHTML = "";
+      activeCollection.works.forEach((w,i) => {
+        const wslug = w.slug || slugify(w.title);
         const card = document.createElement('button');
-        card.className = `snap-start shrink-0 w-[220px] text-left group rounded-2xl overflow-hidden soft-card ${i===cIndex ? 'ring-2 ring-white/50' : 'ring-1 ring-white/15'} hover:ring-white/40 transition`;
+        card.className = "group text-left";
+        card.setAttribute('aria-label', `View ${w.title}`);
         card.innerHTML = `
-          <figure class="aspect-[16/11] bg-black/30 overflow-hidden">
-            <img src="${c.cover}" alt="${c.title}" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform"/>
-          </figure>
-          <div class="p-3">
-            <h4 class="serif text-lg font-medium leading-tight">${c.title}</h4>
-            <p class="mt-1 text-xs text-white/70 line-clamp-2">${c.subtitle}</p>
-          </div>`;
-        card.addEventListener('click', () => { cIndex = i; aIndex = 0; update(); });
-        els.collectionStrip.appendChild(card);
+          <div class="aspect-square rounded-xl overflow-hidden ring-1 ring-white/15 shadow hover:shadow-lg transition ${i===activeIndex?'ring-2 ring-white/60':''}">
+            <img src="${w.thumb}" alt="" class="w-full h-full object-cover group-hover:scale-[1.02] transition">
+          </div>
+          <div class="mt-2">
+            <p class="text-sm text-white/95">${w.title}</p>
+            <p class="text-xs text-white/60">${w.year} · ${w.style}${w.motifs?.length ? ' · ' + w.motifs[0] : ''}</p>
+          </div>
+        `;
+        card.onclick = () => { activeIndex = i; renderAll(); };
+        grid.appendChild(card);
       });
     }
 
-    function nextCollection() { cIndex = (cIndex + 1) % DATA.length; aIndex = 0; update(); }
-    function prevCollection() { cIndex = (cIndex - 1 + DATA.length) % DATA.length; aIndex = 0; update(); }
-    function nextArt() {
-      const len = DATA[cIndex].artworks.length; aIndex = (aIndex + 1) % len; update();
+    function renderMobileStrip() {
+      const strip = qs('#mobileStrip');
+      strip.innerHTML = "";
+      activeCollection.works.forEach((w,i) => {
+        const b = document.createElement('button');
+        b.className = "shrink-0 w-28";
+        b.setAttribute('aria-label', `View ${w.title}`);
+        b.innerHTML = `
+          <div class="aspect-square rounded-xl overflow-hidden ring-1 ${i===activeIndex?'ring-white/60':'ring-white/15'}">
+            <img src="${w.thumb}" alt="" class="w-full h-full object-cover">
+          </div>
+          <p class="mt-2 text-xs ${i===activeIndex?'text-white':'text-white/80'} line-clamp-2">${w.title}</p>
+        `;
+        b.onclick = () => { activeIndex = i; renderAll(); };
+        strip.appendChild(b);
+      });
     }
-    function prevArt() {
-      const len = DATA[cIndex].artworks.length; aIndex = (aIndex - 1 + len) % len; update();
+
+    function highlightActive() {
+      // Sidebar and strip already re-render with active styles; this is here if you later switch to partial updates.
     }
 
-    function update() {
-      renderCollectionBanner();
-      renderCollectionStrip();
-      renderArtwork();
+    function preloadNeighbors() {
+      const urls = [];
+      const wPrev = activeCollection.works[(activeIndex-1+activeCollection.works.length)%activeCollection.works.length];
+      const wNext = activeCollection.works[(activeIndex+1)%activeCollection.works.length];
+      if (wPrev?.image) urls.push(wPrev.image);
+      if (wNext?.image) urls.push(wNext.image);
+      urls.forEach(u => { const img = new Image(); img.src = u; });
     }
 
-    // Keyboard shortcuts
-    window.addEventListener('keydown', (e) => {
-      if (['INPUT','TEXTAREA'].includes(e.target.tagName)) return;
-      if (e.key === 'ArrowRight') nextCollection();
-      if (e.key === 'ArrowLeft') prevCollection();
-      if (e.key === 'ArrowDown') nextArt();
-      if (e.key === 'ArrowUp') prevArt();
-    });
+    function wireKeys() {
+      window.addEventListener('keydown', (e) => {
+        if (['INPUT','TEXTAREA','SELECT'].includes((e.target||{}).tagName)) return;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); qs('#btnPrev').click(); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); qs('#btnNext').click(); }
+      });
+      window.addEventListener('popstate', () => {
+        // If user navigates via back/forward, re-read route
+        const { collectionSlug, workSlug } = readRoute();
+        if (activeCollection.slug !== collectionSlug) {
+          activeCollection = bySlug(COLLECTIONS, collectionSlug) || COLLECTIONS[0];
+        }
+        const idx = activeCollection.works.findIndex(w => (w.slug||slugify(w.title)) === workSlug);
+        activeIndex = idx >= 0 ? idx : 0;
+        renderAll();
+      });
+    }
 
-    els.nextCollection.addEventListener('click', nextCollection);
-    els.prevCollection.addEventListener('click', prevCollection);
-    els.nextArt.addEventListener('click', nextArt);
-    els.prevArt.addEventListener('click', prevArt);
-
-    // init
-    update();
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
