@@ -33,8 +33,8 @@
         year: 2024,
         style: "Oil-style",
         motifs: ["cathedrals", "oven", "surreal"],
-         image: "https://picsum.photos/800/600?random=2", 
-        thumb: "https://picsum.photos/400/400?random=2",
+        image: "./pictures/some_things_were_meant.png", 
+        thumb: "./pictures/some_things_were_meant.png",
         description: [
           "This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence,",
           "where iconic cathedrals and basilicas from around the world rise like delicacies atop ",
@@ -49,13 +49,29 @@
         }
       },
       {
-        slug: "title-number-one",
-        title: "Title Number One",
-        year: 2021, style: "Oil-style", motifs: ["fruit","yellow"],
-        image: "https://picsum.photos/800/600?random=2", 
-        thumb: "https://picsum.photos/400/400?random=2",
-        description: ["Short description of the piece."],
-        marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
+        slug: "the-great-divide",
+        title: "The Great Divide",
+        year: 2021, style: "Oil-style", motifs: ["mother","green"],
+        image: "./pictures/the_great_divide.png", 
+        thumb: "./pictures/the_great_divide.png",
+        description: ["The Great Divide is a meditation on the birth of digital value",
+                       "amidst generational and ideological conflict. A solemn green matriarch cradles a golden baby",
+                       "marked with the Bitcoin symbol — a digital messiah wrapped in swaddling wealth. Around her,",
+                        "the youth sit silently with laptops, bearing the weight of a new world, while protesters and skeptics", 
+                        "stand on the opposing cliff, holding blank signs and accusations.",
+                        "Set against a cosmic desert canyon under constellations of coded systems,",
+                        "this painting questions what is inherited, what is mined, and what is rejected.",
+                         "The gold rock at the feet of the critic speaks to the relics of the past;", 
+                         "the baby to a future still being written.",
+                        "🪐 Blockchain as womb. Protest as ritual. Code as constellation.",
+                        "This is not just a divide — it is a rebirth.",
+                        "Unlockable Content:Bonus commentary “Birth of the Block”"
+                        ],
+        marketplaces: {
+          xrpCafe: "https://xrpcafe.market/…",
+          openSea: "https://opensea.io/…",
+          superRare: "https://superrare.com/…"
+        }
       },
       {
         slug: "title-number-two",
@@ -64,7 +80,11 @@
         image: "https://picsum.photos/800/600?random=3", 
         thumb: "https://picsum.photos/400/400?random=3",
         description: ["Another description paragraph."],
-        marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
+         marketplaces: {
+          xrpCafe: "https://xrpcafe.market/…",
+          openSea: "https://opensea.io/…",
+          superRare: "https://superrare.com/…"
+        }
       },
       {
         slug: "title-number-three",
@@ -194,7 +214,7 @@
         </div>
 
         <!-- Back (desktop) -->
-        <div class="hidden lg:flex mb-4">
+        <div class="hidden lg:flex mt-5">
           <a href="#" class="inline-flex items-center gap-2 rounded-lg px-3 py-2 ring-1 ring-white/15 hover:bg-white/10">
             <span class="text-lg">‹</span> Back to Collections
           </a>
@@ -261,9 +281,13 @@
     }
 
     function pushRoute(collectionSlug, workSlug) {
-      const path = `/collections/${collectionSlug}/${workSlug}`;
-      history.replaceState(null, "", path); // feel free to use pushState if you want browser back stack
+      location.hash = `#${collectionSlug}/${workSlug}`;
     }
+
+    // function pushRoute(collectionSlug, workSlug) {
+    //   const path = `/collections/${collectionSlug}/${workSlug}`;
+    //   history.replaceState(null, "", path); // feel free to use pushState if you want browser back stack
+    // }
 
     // --- Rendering state ---
     let activeCollection = null;
