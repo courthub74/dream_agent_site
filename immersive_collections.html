@@ -145,13 +145,16 @@
     </nav>
 
     <div class="mt-6 flex items-start gap-4">
-      <div class="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-gradient-to-br from-[#0e2e69] to-[#142a66] ring-1 ring-white/10"></div>
-      <div>
-        <h1 id="collectionTitle" class="serif text-3xl sm:text-4xl font-semibold">—</h1>
-        <p id="collectionSubtitle" class="text-white/85 mt-1">—</p>
-        <p id="collectionMeta" class="text-white/70 text-sm mt-1">—</p>
-      </div>
-    </div>
+  <img id="collectionImage"
+       src="./img/new_collections/Symbols in Motion.png"
+       alt="Collection avatar"
+       class="h-16 w-16 sm:h-20 sm:w-20 rounded-full object-cover ring-1 ring-white/10 shadow-xl bg-gradient-to-br from-[#0e2e69] to-[#142a66]" />
+  <div>
+    <h1 id="collectionTitle" class="serif text-3xl sm:text-4xl font-semibold">—</h1>
+    <p id="collectionSubtitle" class="text-white/85 mt-1">—</p>
+    <p id="collectionMeta" class="text-white/70 text-sm mt-1">—</p>
+  </div>
+</div>
   </header>
 
   <!-- =============== BODY =============== -->
@@ -160,12 +163,7 @@
     <!-- LEFT: artwork + story -->
     <section class="lg:col-span-8">
       <article class="rounded-2xl bg-white/5 backdrop-blur p-5 sm:p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-        <div class="hidden lg:flex mb-4">
-          <a href="#" class="inline-flex items-center gap-2 rounded-lg px-3 py-2 ring-1 ring-white/15 hover:bg-white/10">
-            <span class="text-lg">‹</span> Back to Collections
-          </a>
-        </div>
-
+        <!-- Artwork viewer -->
         <h2 id="workTitle" class="serif text-xl sm:text-2xl text-white/95 text-center">—</h2>
 
         <figure class="mt-4">
@@ -193,6 +191,13 @@
             <a id="linkOpenSea" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15" aria-label="Collect on OpenSea">🌊</a>
             <a id="linkSuperRare" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15" aria-label="Collect on SuperRare">⭐</a>
           </div>
+        </div>
+
+        <!-- Back (desktop) -->
+        <div class="hidden lg:flex mb-4">
+          <a href="#" class="inline-flex items-center gap-2 rounded-lg px-3 py-2 ring-1 ring-white/15 hover:bg-white/10">
+            <span class="text-lg">‹</span> Back to Collections
+          </a>
         </div>
 
         <!-- Back (mobile) -->
