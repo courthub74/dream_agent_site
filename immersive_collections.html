@@ -303,6 +303,20 @@
       qs('#workImage').src = w.image;
       qs('#workMeta').textContent = `${w.year} · ${w.style}${w.motifs?.length ? ' · ' + w.motifs.join(' • ') : ''}`;
 
+       // DEBUG: Log what's happening with the image
+  console.log('Setting image src to:', w.image);
+  const imgElement = qs('#workImage');
+  console.log('Image element found:', imgElement);
+  imgElement.src = w.image;
+  console.log('Image src actually set to:', imgElement.src);
+  
+  // DEBUG: Test if image loads
+  imgElement.onload = () => console.log('✅ Image loaded successfully');
+  imgElement.onerror = () => console.log('❌ Image failed to load');
+  
+  // qs('#workMeta').textContent = `${w.year} · ${w.style}${w.motifs?.length ? ' · ' + w.motifs.join(' • ') : ''}`;
+  
+
       // description
       const descEl = qs('#workDescription');
       descEl.innerHTML = "";
