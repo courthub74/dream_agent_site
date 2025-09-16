@@ -188,12 +188,39 @@
     </section>
 
     <!-- RIGHT: sidebar grid -->
+     <!-- CHANGE THIS TO SLIDER -->
     <aside class="lg:col-span-4">
       <div class="rounded-2xl bg-white/5 backdrop-blur p-5 sm:p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] hidden lg:block">
         <h3 class="serif text-lg mb-4">All works in this collection</h3>
-        <div id="sidebarGrid" class="grid grid-cols-2 gap-4 max-h-[72vh] overflow-auto pr-1"></div>
+
+        <!-- LIST (replaces the grid) -->
+        <ul id="sidebarList"
+            class="flex flex-col max-h-[72vh] overflow-auto pr-1 divide-y divide-white/10">
+            <li class="py-4">
+              <a href="#" class="flex items-center gap-4 group">
+                <!-- The IMAGE -->
+                <img src="IMG_URL"
+                    alt="TITLE"
+                    class="h-20 w-20 rounded-2xl object-cover shrink-0" />
+
+                <!-- THE TITLE -->
+                <div class="min-w-0">
+                  <h4 class="font-medium leading-tight truncate">TITLE</h4>
+                  <p class="text-xs text-white/70">YEAR · Oil-style · TAGS</p>
+
+                  <!-- THE VIEW AND COLLECT -->
+                  <div class="mt-1 text-xs text-white/70 flex items-center gap-2">
+                    <a href="VIEW_URL" class="hover:underline">view</a>
+                    <span>·</span>
+                    <a href="COLLECT_URL" class="hover:underline">collect</a>
+                  </div>
+                </div>
+              </a>
+            </li>
+        </ul>
       </div>
-    </aside>
+</aside>
+
   </main>
 
   <!-- =============== LOGIC =============== -->
@@ -273,7 +300,8 @@
 
     function renderAll() {
       renderWork();
-      renderSidebar();
+      // renderSidebar();
+      renderSidebarList(activeCollection.works);
       renderMobileStrip();
     }
 
@@ -288,15 +316,15 @@
       qs('#workMeta').textContent = `${w.year} · ${w.style}${w.motifs?.length ? ' · ' + w.motifs.join(' • ') : ''}`;
 
        // DEBUG: Log what's happening with the image
-  console.log('Setting image src to:', w.image);
-  const imgElement = qs('#workImage');
-  console.log('Image element found:', imgElement);
-  imgElement.src = w.image;
-  console.log('Image src actually set to:', imgElement.src);
-  
-  // DEBUG: Test if image loads
-  imgElement.onload = () => console.log('✅ Image loaded successfully');
-  imgElement.onerror = () => console.log('❌ Image failed to load');
+      console.log('Setting image src to:', w.image);
+      const imgElement = qs('#workImage');
+      console.log('Image element found:', imgElement);
+      imgElement.src = w.image;
+      console.log('Image src actually set to:', imgElement.src);
+      
+      // DEBUG: Test if image loads
+      imgElement.onload = () => console.log('✅ Image loaded successfully');
+      imgElement.onerror = () => console.log('❌ Image failed to load');
   
   // qs('#workMeta').textContent = `${w.year} · ${w.style}${w.motifs?.length ? ' · ' + w.motifs.join(' • ') : ''}`;
   
@@ -332,27 +360,51 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function renderSidebar() {
-      const grid = qs('#sidebarGrid');
-      grid.innerHTML = "";
-      activeCollection.works.forEach((w,i) => {
-        const wslug = w.slug || slugify(w.title);
-        const card = document.createElement('button');
-        card.className = "group text-left";
-        card.setAttribute('aria-label', `View ${w.title}`);
-        card.innerHTML = `
-          <div class="aspect-square rounded-xl overflow-hidden ring-1 ring-white/15 shadow hover:shadow-lg transition ${i===activeIndex?'ring-2 ring-white/60':''}">
-            <img src="${w.thumb}" alt="" class="w-full h-full object-cover group-hover:scale-[1.02] transition">
+    // function renderSidebar() {
+    //   const grid = qs('#sidebarGrid');
+    //   grid.innerHTML = "";
+    //   activeCollection.works.forEach((w,i) => {
+    //     const wslug = w.slug || slugify(w.title);
+    //     const card = document.createElement('button');
+    //     card.className = "group text-left";
+    //     card.setAttribute('aria-label', `View ${w.title}`);
+    //     card.innerHTML = `
+    //       <div class="aspect-square rounded-xl overflow-hidden ring-1 ring-white/15 shadow hover:shadow-lg transition ${i===activeIndex?'ring-2 ring-white/60':''}">
+    //         <img src="${w.thumb}" alt="" class="w-full h-full object-cover group-hover:scale-[1.02] transition">
+    //       </div>
+    //       <div class="mt-2">
+    //         <p class="text-sm text-white/95">${w.title}</p>
+    //         <p class="text-xs text-white/60">${w.year} · ${w.style}${w.motifs?.length ? ' · ' + w.motifs[0] : ''}</p>
+    //       </div>
+    //     `;
+    //     card.onclick = () => { activeIndex = i; renderAll(); };
+    //     grid.appendChild(card);
+    //   });
+    // }
+
+    function renderSidebarList(works) {
+    const el = document.getElementById('sidebarList');
+    el.innerHTML = works.map(w => `
+      <li class="py-4 flex">
+        <a href="${w.viewUrl || '#'}" class="flex items-start gap-4 group">
+          <img src="${w.thumb}" alt="${w.title}"
+              class="h-20 w-20 rounded-2xl object-cover shrink-0">
+          <div class="min-w-0 flex flex-col">
+            <h4 class="font-medium leading-tight truncate text-base">${w.title}</h4>
+            <p class="text-xs text-white/70 truncate">
+              ${w.year} · ${w.style || 'Oil-style'}${w.tags?.length ? ' · ' + w.tags.join(' · ') : ''}
+            </p>
+            <div class="mt-1 text-xs text-white/70 flex items-center gap-2">
+              <a href="${w.viewUrl || '#'}" class="hover:underline">view</a>
+              <span>·</span>
+              <a href="${w.collectUrl || '#'}" class="hover:underline" target="_blank" rel="noopener">collect</a>
+            </div>
           </div>
-          <div class="mt-2">
-            <p class="text-sm text-white/95">${w.title}</p>
-            <p class="text-xs text-white/60">${w.year} · ${w.style}${w.motifs?.length ? ' · ' + w.motifs[0] : ''}</p>
-          </div>
-        `;
-        card.onclick = () => { activeIndex = i; renderAll(); };
-        grid.appendChild(card);
-      });
-    }
+        </a>
+      </li>
+    `).join('');
+  }
+
 
     function renderMobileStrip() {
       const strip = qs('#mobileStrip');
