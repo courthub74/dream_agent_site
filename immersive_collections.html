@@ -107,26 +107,26 @@
     </nav>
 
     <div class="mt-6 flex items-start gap-4">
-  <img id="collectionImage"
-       src="./img/new_collections/Symbols in Motion.png"
-       alt="Collection avatar"
-       class="h-16 w-16 sm:h-20 sm:w-20 rounded-full object-cover ring-1 ring-white/10 shadow-xl bg-gradient-to-br from-[#0e2e69] to-[#142a66]" />
-  <div>
-    <h1 id="collectionTitle" class="serif text-2xl sm:text-3xl font-semibold">—</h1>
-    <p id="collectionSubtitle" class="text-white/85 mt-1">—</p>
-    <p id="collectionMeta" class="text-white/70 text-sm mt-1">—</p>
-  </div>
-</div>
+      <img id="collectionImage"
+          src="./img/new_collections/Symbols in Motion.png"
+          alt="Collection avatar"
+          class="h-16 w-16 sm:h-20 sm:w-20 rounded-full object-cover ring-1 ring-white/10 shadow-xl bg-gradient-to-br from-[#0e2e69] to-[#142a66]" />
+      <div>
+        <h1 id="collectionTitle" class="serif text-2xl sm:text-3xl font-semibold">—</h1>
+        <p id="collectionSubtitle" class="text-white/85 mt-1">—</p>
+        <p id="collectionMeta" class="text-white/70 text-sm mt-1">—</p>
+      </div>
+    </div>
   </header>
 
   <!-- =============== BODY =============== -->
   <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
     <!-- LEFT: artwork + story -->
-    <section class="lg:col-span-8">
+    <section class="lg:col-span-6">
       <article class="rounded-2xl bg-white/5 backdrop-blur p-5 sm:p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
         <!-- Artwork viewer -->
-        <h2 id="workTitle" class="serif text-xl sm:text-2xl text-white/95 text-center">—</h2>
+        <h2 id="workTitle" class="serif text-lg sm:text-xl text-white/95 text-center">—</h2>
 
        <figure class="mt-4">
         <div class="relative mx-auto max-w-xl overflow-hidden rounded-2xl bg-black/20 ring-1 ring-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
@@ -189,34 +189,36 @@
 
     <!-- RIGHT: sidebar grid -->
      <!-- CHANGE THIS TO SLIDER -->
-    <aside class="lg:col-span-4">
+    <aside class="lg:col-span-5">
       <div class="rounded-2xl bg-white/5 backdrop-blur p-5 sm:p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] hidden lg:block">
         <h3 class="serif text-lg mb-4">All works in this collection</h3>
 
         <!-- LIST (replaces the grid) -->
         <ul id="sidebarList"
             class="flex flex-col max-h-[72vh] overflow-auto pr-1 divide-y divide-white/10">
-            <li class="py-4">
-              <a href="#" class="flex items-center gap-4 group">
-                <!-- The IMAGE -->
+            <!-- <li class="py-4">
+              <a href="#" class="flex items-start gap-4 group">
+               
                 <img src="IMG_URL"
                     alt="TITLE"
                     class="h-20 w-20 rounded-2xl object-cover shrink-0" />
 
-                <!-- THE TITLE -->
-                <div class="min-w-0">
-                  <h4 class="font-medium leading-tight truncate">TITLE</h4>
-                  <p class="text-xs text-white/70">YEAR · Oil-style · TAGS</p>
-
-                  <!-- THE VIEW AND COLLECT -->
-                  <div class="mt-1 text-xs text-white/70 flex items-center gap-2">
-                    <a href="VIEW_URL" class="hover:underline">view</a>
-                    <span>·</span>
-                    <a href="COLLECT_URL" class="hover:underline">collect</a>
-                  </div>
+              
+                <div class="min-w-0 flex flex-col w-full">
+                <h4 class="font-medium leading-tight text-sm">
+                  TITLE
+                </h4>
+                <p class="text-xs text-white/70">
+                  YEAR · Oil-style · TAGS
+                </p>
+                <div class="mt-1 text-xs text-white/70 flex items-center gap-2">
+                  <a href="VIEW_URL" class="hover:underline">view</a>
+                  <span>·</span>
+                  <a href="COLLECT_URL" class="hover:underline">collect</a>
                 </div>
+              </div>
               </a>
-            </li>
+            </li> -->
         </ul>
       </div>
 </aside>
@@ -388,13 +390,14 @@
       <li class="py-4 flex">
         <a href="${w.viewUrl || '#'}" class="flex items-start gap-4 group">
           <img src="${w.thumb}" alt="${w.title}"
-              class="h-20 w-20 rounded-2xl object-cover shrink-0">
+              class="h-16 w-16 rounded-2xl object-cover shrink-0">
           <div class="min-w-0 flex flex-col">
-            <h4 class="font-medium leading-tight truncate text-base">${w.title}</h4>
-            <p class="text-xs text-white/70 truncate">
-              ${w.year} · ${w.style || 'Oil-style'}${w.tags?.length ? ' · ' + w.tags.join(' · ') : ''}
-            </p>
+            <h4 class="leading-tight text-sm">${w.title}</h4>
+           
             <div class="mt-1 text-xs text-white/70 flex items-center gap-2">
+               <p class="text-xs text-white/70">
+                ${w.year} · ${w.style || 'Oil-style'}${w.tags?.length ? ' · ' + w.tags.join(' · ') : ''}
+              </p>
               <a href="${w.viewUrl || '#'}" class="hover:underline">view</a>
               <span>·</span>
               <a href="${w.collectUrl || '#'}" class="hover:underline" target="_blank" rel="noopener">collect</a>
@@ -404,7 +407,6 @@
       </li>
     `).join('');
   }
-
 
     function renderMobileStrip() {
       const strip = qs('#mobileStrip');
