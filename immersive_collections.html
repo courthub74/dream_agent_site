@@ -26,128 +26,76 @@
 
   <!-- =============== DATA =============== -->
   <script>
-  // Example data. Swap this for a fetch('/api/collections/...') if you prefer.
-  const COLLECTIONS = [
-  {
-    slug: "symbols-in-motion",
-    title: "Symbols In Motion",
-    subtitle: "Recurring signs in perpetual drift",
-    startYear: 2017,
-    endYear: 2025,
-    works: [
-       {
-        slug: "some-things-were-meant",
-        title: "Some Things were meant to last Forever",
-        year: 2024,
-        style: "Oil-style",
-        motifs: ["cathedrals", "oven", "surreal"],
-        image: "./pictures/some_things_were_meant.png", 
-        thumb: "./pictures/some_things_were_meant.png",
-        description: [
-          "This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence, where iconic cathedrals and basilicas from around the world rise like delicacies atopsilver cake stands. Each structure — intricate, fragile, historic — floats in a domestic kitchen space,blurring the line between the sacred and the mundane In this world, spiritual and cultural grandeur is both preserved and 'baked in'"
-        ],
-        marketplaces: {
-          xrpCafe: "https://xrpcafe.market/…",
-          openSea: "https://opensea.io/…",
-          superRare: "https://superrare.com/…"
-        }
-      },
+      // Example data. Swap this for a fetch('/api/collections/...') if you prefer.
+      const COLLECTIONS = [
       {
-        slug: "the-great-divide",
-        title: "The Great Divide",
-        year: 2021, style: "Oil-style", motifs: ["mother","green"],
-        image: "./pictures/the_great_divide.png", 
-        thumb: "./pictures/the_great_divide.png",
-        description: [
-                       "The Great Divide is a meditation on the birth of digital value amidst generational and ideological conflict. A solemn green matriarch cradles a golden babymarked with the Bitcoin symbol — a digital messiah wrapped in swaddling wealth. Around her,the youth sit silently with laptops, bearing the weight of a new world, while protesters and skepticsstand on the opposing cliff, holding blank signs and accusations. Set against a cosmic desert canyon under constellations of coded systems,this painting questions what is inherited, what is mined, and what is rejected. The gold rock at the feet of the critic speaks to the relics of the past; the baby to a future still being written. 🪐 Blockchain as womb. Protest as ritual. Code as constellation. This is not just a divide — it is a rebirth. Unlockable Content:Bonus commentary “Birth of the Block”", 
-                        ],
-        marketplaces: {
-          xrpCafe: "https://xrpcafe.market/…",
-          openSea: "https://opensea.io/…",
-          superRare: "https://superrare.com/…"
-        }
-      },
-      {
-        slug: "title-number-two",
-        title: "Title Number Two",
-        year: 2021, style: "Oil-style", motifs: ["fruit","yellow"],
-        image: "https://picsum.photos/800/600?random=3", 
-        thumb: "https://picsum.photos/400/400?random=3",
-        description: ["Another description paragraph."],
-         marketplaces: {
-          xrpCafe: "https://xrpcafe.market/…",
-          openSea: "https://opensea.io/…",
-          superRare: "https://superrare.com/…"
-        }
-      },
-      {
-        slug: "title-number-three",
-        title: "Title Number Three",
-        year: 2020, style: "Oil-style", motifs: ["city"],
-        image: "https://picsum.photos/800/600?random=4", 
-        thumb: "https://picsum.photos/400/400?random=4",
-        description: ["A third work with notes."],
-        marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
+        slug: "symbols-in-motion",
+        title: "Symbols In Motion",
+        subtitle: "Recurring signs in perpetual drift",
+        startYear: 2017,
+        endYear: 2025,
+        works: [
+          {
+            slug: "some-things-were-meant",
+            title: "Some Things were meant to last Forever",
+            year: 2024,
+            style: "Oil-style",
+            motifs: ["cathedrals", "oven", "surreal"],
+            image: "./pictures/some_things_were_meant.png", 
+            thumb: "./pictures/some_things_were_meant.png",
+            description: [
+              "This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence, where iconic cathedrals and basilicas from around the world rise like delicacies atopsilver cake stands. Each structure — intricate, fragile, historic — floats in a domestic kitchen space,blurring the line between the sacred and the mundane In this world, spiritual and cultural grandeur is both preserved and 'baked in'"
+            ],
+            marketplaces: {
+              xrpCafe: "https://xrpcafe.market/…",
+              openSea: "https://opensea.io/…",
+              superRare: "https://superrare.com/…"
+            }
+          },
+          {
+            slug: "the-great-divide",
+            title: "The Great Divide",
+            year: 2021, style: "Oil-style", motifs: ["mother","green"],
+            image: "./pictures/the_great_divide.png", 
+            thumb: "./pictures/the_great_divide.png",
+            description: [
+                          "The Great Divide is a meditation on the birth of digital value amidst generational and ideological conflict. A solemn green matriarch cradles a golden babymarked with the Bitcoin symbol — a digital messiah wrapped in swaddling wealth. Around her,the youth sit silently with laptops, bearing the weight of a new world, while protesters and skepticsstand on the opposing cliff, holding blank signs and accusations. Set against a cosmic desert canyon under constellations of coded systems,this painting questions what is inherited, what is mined, and what is rejected. The gold rock at the feet of the critic speaks to the relics of the past; the baby to a future still being written. 🪐 Blockchain as womb. Protest as ritual. Code as constellation. This is not just a divide — it is a rebirth. Unlockable Content:Bonus commentary “Birth of the Block”", 
+                            ],
+            marketplaces: {
+              xrpCafe: "https://xrpcafe.market/…",
+              openSea: "https://opensea.io/…",
+              superRare: "https://superrare.com/…"
+            }
+          },
+          {
+            slug: "The Rusher, The Incrementer, and The Protester",
+            title: "The Rusher, The Incrementer, and The Protester",
+            year: 2025, style: "Oil-style", motifs: ["bar","archetypes"],
+            image: "./pictures/the_rusher_the_incrementer_and_the_protester.png", 
+            thumb: "./pictures/the_rusher_the_incrementer_and_the_protester.png",
+            description: ["Three men sit at a dimly lit bar — a timeless tribunal of modern archetypes: The Rusher, clenched in frustration, his glass half-empty and fists tighter still; The Incrementer, precise and calculating, a monocled figure clad in pinstripes, sipping with a measured grace; and The Protester, puffed-cheeked and clad in a tracksuit, caught mid-reaction, somewhere between rebellion and retreat. Each man drinks from a different vessel — a whiskey tumbler, a wine glass, and a crushed beer can — reflecting their strategy in the silent war of agency. Crushed sugar cubes and spent lighters scatter the bar, symbols of fuel and burnout. This oil-style portrait isn’t just a study in temperament — it’s a tension-filled séance of capitalism, identity, and pacing in the digital age. Which one are you?"],
+            marketplaces: {
+              xrpCafe: "https://xrpcafe.market/…",
+              openSea: "https://opensea.io/…",
+              superRare: "https://superrare.com/…"
+            }
+          },
+          {
+            slug: "Them guys and the older guys",
+            title: "Them guys and the older guys",
+            year: 2025, style: "Oil-style", motifs: ["saloon", "planning"],
+            image: "./pictures/them_guys_and_the_older_guys.png", 
+            thumb: "./pictures/them_guys_and_the_older_guys.png",
+            description: ["A third work with notes."],
+            marketplaces: {
+              xrpCafe: "https://xrpcafe.market/…",
+              openSea: "https://opensea.io/…",
+              superRare: "https://superrare.com/…"
+            }
+          }
+        ]
       }
-    ]
-  }
-];
-  // const COLLECTIONS = [
-  //   {
-  //     slug: "symbols-in-motion",
-  //     title: "Symbols In Motion",
-  //     subtitle: "Recurring signs in perpetual drift",
-  //     startYear: 2017,
-  //     endYear: 2025,
-  //     works: [
-  //       {
-  //         slug: "some-things-were-meant",
-  //         title: "Some Things were meant to last Forever",
-  //         year: 2024,
-  //         style: "Oil-style",
-  //         motifs: ["cathedrals", "oven", "surreal"],
-  //         image: "img/some_things_were_meant.png",
-  //         thumb: "./img/some_things_were_meant.png",
-  //         description: [
-  //           "This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence,",
-  //           "where iconic cathedrals and basilicas from around the world rise like delicacies atop ",
-  //           "silver cake stands. Each structure — intricate, fragile, historic — floats in a domestic kitchen space,",
-  //           "blurring the line between the sacred and the mundane",
-  //           "In this world, spiritual and cultural grandeur is both preserved and 'baked in,'",
-  //         ],
-  //         marketplaces: {
-  //           xrpCafe: "https://xrpcafe.market/…",
-  //           openSea: "https://opensea.io/…",
-  //           superRare: "https://superrare.com/…"
-  //         }
-  //       },
-  //       {
-  //         slug: "title-number-one",
-  //         title: "Title Number One",
-  //         year: 2021, style: "Oil-style", motifs: ["fruit","yellow"],
-  //         image: "images/work-1-hero.jpg", thumb: "images/work-1-thumb.jpg",
-  //         description: ["Short description of the piece."],
-  //         marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
-  //       },
-  //       {
-  //         slug: "title-number-two",
-  //         title: "Title Number Two",
-  //         year: 2021, style: "Oil-style", motifs: ["fruit","yellow"],
-  //         image: "images/work-2-hero.jpg", thumb: "images/work-2-thumb.jpg",
-  //         description: ["Another description paragraph."],
-  //         marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
-  //       },
-  //       {
-  //         slug: "title-number-three",
-  //         title: "Title Number Three",
-  //         year: 2020, style: "Oil-style", motifs: ["city"],
-  //         image: "images/work-3-hero.jpg", thumb: "images/work-3-thumb.jpg",
-  //         description: ["A third work with notes."],
-  //         marketplaces: { xrpCafe: "#", openSea: "#", superRare: "#" }
-  //       }
-  //     ]
-  //   }
-  // ];
+    ];
   </script>
 
   <!-- =============== HEADER =============== -->
@@ -193,23 +141,10 @@
         <figcaption id="workMeta" class="text-center text-white/70 text-sm mt-3">—</figcaption>
       </figure>
 
-        <div id="workDescription" class="mt-6 leading-relaxed text-[15px] text-white/90 space-y-4"></div>
+      <!-- Artwork Description -->
+      <div id="workDescription" class="mt-6 leading-relaxed text-[15px] text-white/90 space-y-4"></div>
 
-        <!-- Mobile strip -->
-        <div class="mt-6 lg:hidden">
-          <h3 class="serif text-lg mb-3">More in this collection</h3>
-          <div id="mobileStrip" class="flex gap-3 overflow-x-auto pb-1 no-scrollbar"></div>
-        </div>
-
-        <!-- Collect -->
-        <!-- <div class="mt-6">
-          <p class="text-white/80 mb-3">Collect</p>
-          <div class="flex items-center gap-4">
-            <a id="linkCafe" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15" aria-label="Collect on XRP Café">🌀</a>
-            <a id="linkOpenSea" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15" aria-label="Collect on OpenSea">🌊</a>
-            <a id="linkSuperRare" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15" aria-label="Collect on SuperRare">⭐</a>
-          </div>
-        </div> -->
+        <!-- Collect Art Work Options -->
         <div class="mt-6">
           <p class="text-white/80 mb-3">Collect this Artwork</p>
           <div class="flex items-center gap-4">
@@ -229,6 +164,13 @@
               <img src="./img/round_logos/superrare_circle.png" alt="SuperRare" class="w-full h-full object-cover rounded-full" />
             </a>
           </div>
+
+        <!-- Mobile strip -->
+        <div class="mt-6 lg:hidden">
+          <h3 class="serif text-lg mb-3">More in this collection</h3>
+          <div id="mobileStrip" class="flex gap-3 overflow-x-auto pb-1 no-scrollbar"></div>
+        </div>
+
         </div>
 
         <!-- Back (desktop) -->
