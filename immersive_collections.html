@@ -144,11 +144,10 @@
       <!-- Artwork Description -->
       <div id="workDescription" class="mt-6 leading-relaxed text-[15px] text-white/90 space-y-4"></div>
 
-        <!-- View and Collect Buttons -->
-        <div class="mt-6 flex flex-col sm:flex-row items-start gap-6">
-          <!-- View Artwork Button -->
+      <!-- Action Buttons Div -->
+      <div class="mt-6 flex flex-row sm:flex-row sm:items-center sm:justify-between gap-4">
+         <!-- View Artwork Button -->
           <div>
-            <p class="text-white/80 mb-3">View this Artwork</p>
             <a id="linkViewArtwork" target="_blank" rel="noopener"
               class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 ring-1 ring-white/20 hover:bg-white/15 text-white/90 hover:text-white transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,27 +157,32 @@
               View Full Size
             </a>
           </div>
-
-        <!-- Collect Art Work Options -->
-        <div class="mt-6">
-          <p class="text-white/80 mb-3">Collect this Artwork</p>
-          <div class="flex items-center gap-4">
-            <a id="linkCafe" target="_blank" rel="noopener"
-              class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
-              aria-label="Collect on XRP Café">
-              <img src="./img/round_logos/xrpcafe_circle.png" alt="XRP Café" class="w-full h-full object-cover rounded-full" />
-            </a>
-            <a id="linkOpenSea" target="_blank" rel="noopener"
-              class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
-              aria-label="Collect on OpenSea">
-              <img src="./img/round_logos/opensea_circle.png" alt="OpenSea" class="w-full h-full object-cover rounded-full" />
-            </a>
-            <a id="linkSuperRare" target="_blank" rel="noopener"
-              class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
-              aria-label="Collect on SuperRare">
-              <img src="./img/round_logos/superrare_circle.png" alt="SuperRare" class="w-full h-full object-cover rounded-full" />
-            </a>
+          
+          <!-- Collect Artwork Section -->
+          <div class="mb-5 flex items-center">
+            <!-- <p class="text-white/80 mb-3">Collect</p> -->
+            <div class="flex items-center gap-4">
+              <a id="linkCafe" target="_blank" rel="noopener"
+                class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
+                aria-label="Collect on XRP Café">
+                <img src="./img/round_logos/xrpcafe_circle.png" alt="XRP Café" class="w-full h-full object-cover rounded-full" />
+              </a>
+              <a id="linkOpenSea" target="_blank" rel="noopener"
+                class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
+                aria-label="Collect on OpenSea">
+                <img src="./img/round_logos/opensea_circle.png" alt="OpenSea" class="w-full h-full object-cover rounded-full" />
+              </a>
+              <a id="linkSuperRare" target="_blank" rel="noopener"
+                class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15"
+                aria-label="Collect on SuperRare">
+                <img src="./img/round_logos/superrare_circle.png" alt="SuperRare" class="w-full h-full object-cover rounded-full" />
+              </a>
+            </div>
           </div>
+
+      </div>
+        
+        
 
           <!-- Mobile strip -->
           <div class="mt-6 lg:hidden">
@@ -188,16 +192,16 @@
         </div>
 
         <!-- Back (desktop) -->
-        <div class="hidden lg:flex mt-5">
+        <!-- <div class="hidden lg:flex mt-5">
           <a href="index.html/#mobile_about" class="inline-flex items-center gap-2 rounded-lg px-3 py-2 ring-1 ring-white/15 hover:bg-white/10">
             <span class="text-lg">‹</span> Back to Collections
           </a>
-        </div>
+        </div> -->
 
         <!-- Back (mobile) -->
-        <div class="mt-6 lg:hidden">
+        <!-- <div class="mt-6 lg:hidden">
           <a href="index.html/#mobile_about" class="w-full inline-flex items-center justify-center rounded-lg px-4 py-2 ring-1 ring-white/15 hover:bg-white/10">Back to Collections</a>
-        </div>
+        </div> -->
       </article>
     </section>
 
@@ -405,7 +409,7 @@
       <li class="py-4 flex">
         <a href="${w.viewUrl || '#'}" class="flex items-start gap-4 group">
           <img src="${w.thumb}" alt="${w.title}"
-              class="h-16 w-16 rounded-2xl object-cover shrink-0">
+              class="h-20 w-20 rounded-2xl object-cover shrink-0">
           <div class="min-w-0 flex flex-col pl-3">
             <h4 class="leading-tight text-sm">${w.title}</h4>
            
