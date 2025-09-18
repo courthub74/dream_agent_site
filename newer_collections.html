@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dream Agent — Symbols In Motion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --glass: rgba(255,255,255,0.06); }
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color: white;
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(255,255,255,0.05), transparent),
+        linear-gradient(180deg, rgba(11,93,179,.55), rgba(11,93,179,.42)),
+        url('./img/even_larger_about_background.png') center/cover no-repeat;
+    }
+    .serif{ font-family:"Playfair Display", Georgia, serif; }
+    .panel{ background: rgba(255,255,255,.05); backdrop-filter: blur(6px); box-shadow: inset 0 1px 0 0 var(--glass); }
+  </style>
+
+  <!-- put this in <head> after Tailwind -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+</head>
+<body class="min-h-screen">
+  <header class="max-w-6xl mx-auto px-4 pt-6">
+    <nav class="text-white/70 text-sm mb-4">
+      <a href="#" class="hover:text-white">Collections</a>
+      <span class="mx-2">›</span>
+      <span class="text-white">Symbols In Motion</span>
+    </nav>
+
+    <div class="flex items-start gap-4">
+      <img src="./img/new_collections/Symbols in Motion.png" alt="collections" class="h-12 w-12 rounded-full ring-1 ring-white/20">
+      <div class="flex flex-col gap-0">
+        <h1 class="serif text-3xl sm:text-4xl font-semibold leading-tight">Symbols In Motion</h1>
+        <p class="text-white/80 text-sm mt-1">Recurring signs in perpetual drift • <span class="opacity-90">4 Works</span> • <span class="opacity-90">2017–2025</span></p>
+        <!-- <p class="text-white/85 text-sm mt-3 max-w-3xl">A cabinet of moving emblems—objects that migrate between memory and myth, pausing just long enough to be seen.</p> -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Grid -->
+  <main class="max-w-6xl mx-auto px-4 pb-20 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Artwork column -->
+    <section class="lg:col-span-7">
+      <article class="panel rounded-2xl p-4 sm:p-6 -mt-2">
+        <!-- Artwork title -->
+        <h2 id="artTitle" class="serif text-xl sm:text-2xl mb-3">Some Things were meant to last Forever</h2>
+
+        <!-- Image viewer -->
+        <figure class="relative overflow-hidden rounded-2xl bg-black/25">
+          <img id="artImg" src="" alt="" class="w-full h-auto object-contain max-h-[62vh] mx-auto">
+          <!-- arrows -->
+          <button id="prevBtn" aria-label="Previous" class="absolute top-1/2 -translate-y-1/2 left-2 sm:left-3 p-2 rounded-full bg-black/40 hover:bg-black/55 ring-1 ring-white/30 transition">‹</button>
+          <button id="nextBtn" aria-label="Next" class="absolute top-1/2 -translate-y-1/2 right-2 sm:right-3 p-2 rounded-full bg-black/40 hover:bg-black/55 ring-1 ring-white/30 transition">›</button>
+
+          <!-- CTA buttons -->
+          <div class="absolute inset-x-0 bottom-0 p-3 sm:p-4 bg-gradient-to-t from-black/35 to-transparent flex flex-wrap items-center justify-between gap-3">
+            <a id="viewBtn" href="#" class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white bg-white/10 hover:bg-white/15 ring-1 ring-white/30">View Full Size</a>
+            <div class="flex flex-wrap gap-2">
+                <a id="xrpBtn" href="#"><img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe" class="w-12 h-12 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover"></a>
+                <a id="osBtn" href="#"><img src="./img//round_logos/opensea_circle.png" alt="opensea" class="w-12 h-12 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover"></a>
+                <a id="srBtn" href="#"><img src="./img/round_logos/superrare_circle.png" alt="superrare" class="w-12 h-12 rounded-full ring-1 ring-pink-400 hover:opacity-90 object-cover"></a>
+              <!-- <a href="#"><img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe" class="w-12 h-12 px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded-full ring-1 ring-blue-400 hover:bg-blue-500/90"></a>              <a id="xrpBtn" href="https://xrpcafe.market" target="_blank" rel="noopener" class="px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded-full ring-1 ring-blue-400 hover:bg-blue-500/90">XRP Café</a> -->
+              <!-- <a id="osBtn" href="https://opensea.io" target="_blank" rel="noopener" class="px-4 py-2 text-sm font-semibold text-white bg-indigo-500 rounded-full ring-1 ring-indigo-400 hover:bg-indigo-500/90">OpenSea</a> -->
+              <!-- <a id="srBtn" href="https://superrare.com" target="_blank" rel="noopener" class="px-4 py-2 text-sm font-semibold text-white bg-pink-500 rounded-full ring-1 ring-pink-400 hover:bg-pink-500/90">SuperRare</a> -->
+            </div>
+          </div>
+        </figure>
+
+        <!-- Meta -->
+        <div id="artMeta" class="mt-4 flex flex-wrap items-center gap-2 text-white/85 text-sm">
+          <span>2024</span><span>•</span><span>Oil-style</span><span>•</span><span>Surreal</span>
+        </div>
+
+        <!-- Description -->
+        <p id="artDesc" class="mt-4 text-[15px] leading-7 text-white/90">
+          This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence…
+        </p>
+
+        <!-- Prev / Next below copy -->
+        <div class="mt-6 flex items-center justify-between gap-3">
+          <a id="prevLink" href="#" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-white/8 hover:bg-white/12 ring-1 ring-white/15">← Previous</a>
+          <a id="nextLink" href="#" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-white/8 hover:bg-white/12 ring-1 ring-white/15">Next →</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Sidebar -->
+    <aside class="lg:col-span-5">
+      <div class="panel rounded-2xl p-4 sm:p-6 lg:sticky lg:top-8">
+        <h3 class="serif text-lg sm:text-xl mb-4">All works in this collection</h3>
+        <div id="sidebarList" class="divide-y divide-white/10">
+          <!-- Items dynamically injected -->
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+  // ---- Data (same as before) ----
+  const works = [
+    { title:"Some Things were meant to last Forever", year:"2024", style:"Oil-style",
+      tags:["cathedrals","oven","surreal"],
+      img:"./pictures/some_things_were_meant.png",
+      desc:"This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence, where iconic cathedrals and basilicas from around the world rise like delicacies atop silver cake stands. Each structure — intricate, fragile, historic — floats in a domestic kitchen space, blurring the line between the sacred and the mundane. In this world, spiritual and cultural grandeur is both preserved and 'baked in,' as if civilization itself is something to be curated and cared for at home. The scene asks: What are we preserving? What do we consume? And what—if anything—transcends time? An homage to heritage, architecture, and memory, this painting is a quiet meditation on legacy in an age of impermanence. Unlockable content: High-resolution master file + audio commentary from Dream Agent",
+      links:{ xrp:"https://xrpcafe.market", os:"https://opensea.io", sr:"https://superrare.com" }
+    },
+    { title:"The Great Divide", year:"2021", style:"Oil-style",
+      tags:["mythic","split"],
+      img:"./pictures/the_great_divide.png",
+      desc:"The Great Divide explores tensions between halves made whole…",
+      links:{ xrp:"#", os:"#", sr:"#"}
+    },
+    { title:"The Rusher, The Incrementer, and The Protester", year:"2025", style:"Oil-style",
+      tags:["figures","ritual"],
+      img:"./pictures/the_rusher_the_incrementer_and_the_protester.png",
+      desc:"Three archetypes gather in a symbolic tribunal of progress…",
+      links:{ xrp:"#", os:"#", sr:"#"}
+    },
+    { title:"Them guys and the older guys", year:"2025", style:"Oil-style",
+      tags:["crowd","generations"],
+      img:"./pictures/them_guys_and_the_older_guys.png",
+      desc:"A surreal congregation of eras overlapping in ritual space…",
+      links:{ xrp:"#", os:"#", sr:"#"}
+    }
+  ];
+
+  // ---- Elements ----
+  let current = 0, switching = false;
+  const artImg   = document.getElementById("artImg");
+  const artTitle = document.getElementById("artTitle");
+  const artMeta  = document.getElementById("artMeta");
+  const artDesc  = document.getElementById("artDesc");
+  const xrpBtn   = document.getElementById("xrpBtn");
+  const osBtn    = document.getElementById("osBtn");
+  const srBtn    = document.getElementById("srBtn");
+
+  // Respect reduced motion
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const animate = (el, from, to, dur = 0.5) => {
+    if (prefersReduced) { gsap.set(el, to); return; }
+    gsap.fromTo(el, from, { ...to, duration: dur, ease: "power2.out" });
+  };
+
+  // Preload helper
+  function preload(src) {
+    return new Promise((resolve, reject) => {
+      const i = new Image();
+      i.decoding = "async";
+      i.loading = "eager";
+      i.src = src;
+      i.onload = () => resolve(i);
+      i.onerror = reject;
+    });
+  }
+
+  // Render with crossfade/scale
+  async function renderWork(i){
+    if (switching) return;
+    switching = true;
+
+    const w = works[i];
+    // Disable nav while animating
+    document.getElementById("prevBtn").disabled = true;
+    document.getElementById("nextBtn").disabled = true;
+
+    // Fade out current image/content
+    animate(artImg, {opacity:1, scale:1}, {opacity:0, scale:0.98}, 0.18);
+    animate([artTitle, artMeta, artDesc], {opacity:1, y:0}, {opacity:0, y:6}, 0.18);
+
+    try {
+      const img = await preload(w.img);
+
+      // Swap content
+      artImg.src = img.src;
+      artTitle.textContent = w.title;
+      artMeta.innerHTML = `<span>${w.year}</span><span>•</span><span>${w.style}</span>`;
+      artDesc.textContent = w.desc;
+      xrpBtn.href = w.links.xrp; osBtn.href = w.links.os; srBtn.href = w.links.sr;
+
+      // Animate in
+      animate(artImg, {opacity:0, scale:0.985}, {opacity:1, scale:1}, 0.4);
+      animate([artTitle, artMeta, artDesc], {opacity:0, y:6}, {opacity:1, y:0}, 0.35);
+    } catch (e) {
+      console.error("Image failed to load:", e);
+    } finally {
+      document.getElementById("prevBtn").disabled = false;
+      document.getElementById("nextBtn").disabled = false;
+      switching = false;
+    }
+
+    // Preload the next image opportunistically
+    const nextIndex = (i + 1) % works.length;
+    preload(works[nextIndex].img).catch(()=>{});
+  }
+
+  // Build sidebar (with lazy thumbs)
+  const sidebar = document.getElementById("sidebarList");
+  works.forEach((w,i)=>{
+    const item=document.createElement("div");
+    item.className="flex items-center gap-4 py-3 px-2 hover:bg-white/5 rounded-xl transition cursor-pointer";
+    item.innerHTML=`
+      <img src="${w.img}" loading="lazy" class="h-16 w-16 rounded-xl object-cover ring-1 ring-white/15" alt="">
+      <div class="min-w-0">
+        <div class="font-medium text-white truncate">${w.title}</div>
+        <div class="text-xs text-white/75 mt-1 flex items-center gap-2">
+          <span>${w.year}</span><span>•</span><span>${w.style}</span>
+        </div>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <a href="${w.links.xrp}" target="_blank" class="text-xs px-3 py-1 bg-blue-500 rounded-full">XRP Café</a>
+          <a href="${w.links.os}"  target="_blank" class="text-xs px-3 py-1 bg-indigo-500 rounded-full">OpenSea</a>
+          <a href="${w.links.sr}"  target="_blank" class="text-xs px-3 py-1 bg-pink-500 rounded-full">SuperRare</a>
+        </div>
+      </div>`;
+    item.onclick=()=>{ current=i; renderWork(current); };
+    sidebar.appendChild(item);
+  });
+
+    // Nav buttons
+    document.getElementById("prevBtn").onclick = ()=>{ current=(current-1+works.length)%works.length; renderWork(current); };
+    document.getElementById("nextBtn").onclick = ()=>{ current=(current+1)%works.length; renderWork(current); };
+
+    // First paint: let the image fade in on load
+    artImg.addEventListener("load", ()=>{
+        animate(artImg, {opacity:0, scale:0.985}, {opacity:1, scale:1}, 0.45);
+    }, { once:true });
+
+    renderWork(current);
+    </script>
+
+
+</body>
+</html>
