@@ -211,9 +211,9 @@
           <span>${w.year}</span><span>•</span><span>${w.style}</span>
         </div>
         <div class="mt-2 flex flex-wrap gap-2">
-          <a href="${w.links.xrp}" target="_blank" class="text-xs px-3 py-1 bg-blue-500 rounded-full">XRP Café</a>
-          <a href="${w.links.os}"  target="_blank" class="text-xs px-3 py-1 bg-indigo-500 rounded-full">OpenSea</a>
-          <a href="${w.links.sr}"  target="_blank" class="text-xs px-3 py-1 bg-pink-500 rounded-full">SuperRare</a>
+            <a id="xrpBtn" href="${w.links.xrp}"><img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe" class="w-8 h-8 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover"></a>
+            <a id="osBtn" href="${w.links.os}"><img src="./img//round_logos/opensea_circle.png" alt="opensea" class="w-8 h-8 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover"></a>
+            <a id="srBtn" href="${w.links.sr}"><img src="./img/round_logos/superrare_circle.png" alt="superrare" class="w-8 h-8 rounded-full ring-1 ring-pink-400 hover:opacity-90 object-cover"></a>
         </div>
       </div>`;
     item.onclick=()=>{ current=i; renderWork(current); };
