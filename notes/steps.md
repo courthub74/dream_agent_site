@@ -12,9 +12,9 @@
 
 \*~Size the pics~
 
-\*Make collection title smaller in newer collections
+\*~Make collection title smaller in newer collections~
 
-\*Make 4 works span flex on desktop only
+\*~Make 4 works span flex on desktop only~
 
 \*Add View button to collection list items
 
