@@ -3,225 +3,226 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dream Agent — Collection</title>
+  <title>Dream Agent — Symbols in Motion</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root { --ink:#0e3b73; --ink-2:#0b2f5a; }
-    body { background: radial-gradient(1200px 800px at 20% -10%, rgba(255,255,255,0.06), transparent 60%), #0f3f7e; }
-    .serif { font-family: 'Playfair Display', serif; }
+    body{font-family: Inter, system-ui,-apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial}
+    .serif{font-family:"Playfair Display", Georgia, serif}
   </style>
 </head>
-<body class="text-white/95 antialiased">
+<body class="text-white bg-[radial-gradient(1200px_600px_at_20%_-10%,rgba(11,93,179,.45),transparent),radial-gradient(900px_500px_at_110%_-20%,rgba(11,93,179,.35),transparent),linear-gradient(rgba(11,93,179,.55),rgba(11,93,179,.4))]">
 
-  <!-- PAGE WRAPPER -->
-  <!-- PAGE WRAPPER -->
-<main class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
 
-  <!-- HEADER / HERO -->
-<header class="flex flex-row items-center gap-4 md:gap-6 flex-nowrap">
-  <!-- avatar -->
-  <img src="./img/new_collections/Symbols in Motion.png" alt="Collection avatar"
-       class="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover ring-1 ring-white/10 shadow-xl">
-
-  <!-- title + meta -->
-  <div>
-    <h1 class="serif text-lg sm:text-xl md:text-2xl lg:text-3xl font-normal leading-tight">
-      Symbols in Motion
-    </h1>
-    <p class="mt-1 text-white/80 max-w-xl text-sm sm:text-base">
-      Recurring signs caught in perpetual drift.
-    </p>
-    <p class="mt-1 text-white/60 text-xs sm:text-sm">
-      17 works · 2019–2025
-    </p>
-  </div>
-</header>
-
-
-  <!-- SPLIT LAYOUT -->
-  <section class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
-
-    <!-- LEFT: ARTWORK (framed) -->
-    <div class="lg:col-span-7">
-      <div class="rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 backdrop-blur shadow-lg">
-
-        <!-- frame top (title) -->
-        <div class="px-4 py-3 border-b border-white/10 bg-black/30 flex items-center justify-between">
-          <h2 id="artTitleFrame" class="serif text-md md:text-lg font-medium"></h2>
-          <p id="artMeta" class="text-white/70 rounded-lg px-3 py-2"></p>
-        </div>
-
-        <!-- artwork image -->
-        <figure id="artFigure" class="relative bg-black/30">
-          <img id="artImg" src="" alt=""
-               class="block w-full h-auto max-h-[70vh] object-contain mx-auto select-none">
-        </figure>
-        <!-- meta and caption inside frame, under image -->
-        <div class="px-4 pt-3 pb-1 bg-black/30">
-          <!-- <p id="artMeta" class="text-white/70 rounded-lg px-3 py-2"></p> -->
-          <p id="artCaption" class="mt-4 text-white/85 leading-relaxed max-w-prose rounded-lg px-3 py-2"></p>
-        </div>
-
-        <!-- frame bottom (nav) -->
-        <div class="px-4 py-3 border-t border-white/10 bg-black/30 flex items-center justify-between">
-          <button id="prevBtnFrame"
-                  class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm">
-            ‹ Previous
-          </button>
-
-          <div id="dots" class="flex items-center gap-2"></div>
-
-          <button id="nextBtnFrame"
-                  class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-sm">
-            Next ›
-          </button>
+    <!-- Sticky collection header -->
+    <header class="sticky top-0 z-10 -mx-4 sm:-mx-6 px-4 sm:px-6 py-4 bg-[#0b5db3]/50 backdrop-blur">
+      <div class="flex items-center gap-3">
+        <img src="./img/new_collections/Symbols in Motion.png" alt="" class="h-12 w-12 rounded-full object-cover ring-1 ring-white/15">
+        <div class="min-w-0">
+          <h1 class="serif font-semibold text-2xl sm:text-3xl leading-tight">Symbols in Motion</h1>
+          <p class="text-white/70 text-sm mt-1">Recurring signs in perpetual drift <span class="mx-1">·</span><span class="text-white/50" id="collectionMeta">4 works • 2017–2025</span></p>
         </div>
       </div>
+    </header>
 
-      <!-- thumbnail strip below -->
-      <div id="thumbs" class="mt-5 flex gap-3 overflow-x-auto pb-1"></div>
-    </div>
+    <div class="grid lg:grid-cols-12 gap-6 mt-6">
+      <!-- Artwork column -->
+      <section class="lg:col-span-8">
+        <article class="bg-white/5 rounded-2xl p-5 md:p-6 backdrop-blur shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
 
-    <!-- RIGHT: DETAILS PANEL -->
-    <aside class="lg:col-span-5">
-      <article class="bg-white/5 backdrop-blur rounded-2xl p-5 md:p-6 ring-1 ring-white/10">
-        <!-- CTAs -->
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a id="viewBtn" href="#" target="_blank" rel="noopener"
-             class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white bg-white/10 hover:bg-white/20 ring-1 ring-white/15">
-            View full size
-          </a>
-          <a id="collectBtn" href="#" target="_blank" rel="noopener"
-             class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-600/90">
-            Collect on XRP Café
-          </a>
+          <!-- Title above image -->
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h3 id="artTitle" class="serif text-xl sm:text-2xl font-semibold"></h3>
+              <p id="artMeta" class="mt-1 text-white/60 text-sm"></p>
+            </div>
+            <span id="artIndex" class="text-white/60 text-sm shrink-0"></span>
+          </div>
+
+          <!-- Image -->
+          <figure class="relative overflow-hidden rounded-xl bg-black/20 mt-4">
+            <img id="artImg" src="" alt="" class="w-full h-auto max-h-[60vh] object-contain mx-auto">
+            <!-- Brand badge -->
+            <div class="absolute bottom-3 right-3">
+              <span class="inline-flex items-center gap-2 rounded-full bg-black/40 backdrop-blur px-3 py-1.5 text-xs ring-1 ring-white/20">
+                <span class="size-2 rounded-full bg-white/70"></span> Dream Agent <span id="artBadgeYear" class="text-white/60"></span>
+              </span>
+            </div>
+            <!-- Prev/Next -->
+            <button id="prevBtn" aria-label="Previous" class="absolute left-2 top-1/2 -translate-y-1/2 grid place-items-center size-9 rounded-full bg-black/35 hover:bg-black/50 ring-1 ring-white/15">‹</button>
+            <button id="nextBtn" aria-label="Next" class="absolute right-2 top-1/2 -translate-y-1/2 grid place-items-center size-9 rounded-full bg-black/35 hover:bg-black/50 ring-1 ring-white/15">›</button>
+          </figure>
+
+          <!-- Description -->
+          <div id="artDesc" class="mt-5 space-y-4 leading-relaxed text-[15px]"></div>
+
+          <!-- ACTION ZONE -->
+          <div class="mt-5 flex flex-wrap items-center gap-3">
+            <a id="viewFullBtn" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold text-white bg-blue-500 ring-1 ring-blue-400 shadow hover:bg-blue-500/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 active:translate-y-[1px]">View Full Size</a>
+
+            <a id="xrpBtn" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center size-11 rounded-full ring-1 ring-white/15 bg-white/10 hover:bg-white/15" title="XRP Café">🅧</a>
+            <a id="openseaBtn" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center size-11 rounded-full ring-1 ring-white/15 bg-white/10 hover:bg-white/15" title="OpenSea">🌊</a>
+            <a id="superrareBtn" href="#" target="_blank" rel="noopener" class="inline-flex items-center justify-center size-11 rounded-full ring-1 ring-white/15 bg-white/10 hover:bg-white/15" title="SuperRare">◆</a>
+          </div>
+        </article>
+      </section>
+
+      <!-- Sidebar -->
+      <aside class="lg:col-span-4">
+        <div class="rounded-2xl bg-white/5 backdrop-blur p-5 sm:p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+          <h3 class="serif text-lg mb-4">All works in this collection</h3>
+          <ul id="sidebarList" class="space-y-3 max-h-[72vh] overflow-auto pr-1"></ul>
         </div>
-      </article>
-    </aside>
-  </section>
-</main>
+      </aside>
+    </div>
+  </main>
 
-
-  <!-- DATA + LOGIC -->
   <script>
-    // —— Replace with your real artworks for the collection ——
+    // === EDIT THESE URLS / METADATA ===
     const artworks = [
       {
-        title: "Them guys and the Older Guys",
-        year: 2025,
-        image: "./img/pictures/them_guys_and_the_older_guys.png",
-        caption: "An overheard strategy session—smoke, crystal, and chalk carving the ‘Strategy Wood’.",
-        collectUrl: "https://xrpcafe.market/",
-        viewUrl: "./img/pictures/them_guys_and_the_older_guys.png"
-      },
-      {
-        title: "The Fear Room",
+        title: "Some Things Were Meant to Last Forever",
         year: 2024,
-        image: "./img/pictures/the_fear_room.png",
-        caption: "Migrating signs rising like radio towers in fog.",
-        collectUrl: "https://xrpcafe.market/",
-        viewUrl: "./img/pictures/the_fear_room.png"
+        style: "Oil-style",
+        image: "./img/forever-main.jpg",          // full image used on the big card
+        fullSize: "https://your-cdn.com/forever-4k.jpg", // opens when user clicks View Full Size
+        thumb: "./img/thumbs/forever.jpg",
+        description: [
+          "This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence, where iconic cathedrals and basilicas from around the world rise like delicacies atop silver cake stands.",
+          "Each structure—intricate, fragile, historic—floats in a domestic kitchen space, blurring the line between sacred and mundane. The scene asks: What are we preserving? What do we consume? And what—if anything—transcends time?",
+          "An homage to heritage, architecture, and memory, this painting is a quiet meditation on legacy in an age of impermanence.",
+          "<span class='text-white/70 text-sm'>Unlockable content: High-resolution master file + audio commentary from Dream Agent.</span>"
+        ],
+        marketplaces: {
+          xrp: "https://xrpl.cafe/asset/your-token-id",
+          opensea: "https://opensea.io/assets/ethereum/contract/123/token/1",
+          superrare: "https://superrare.com/artwork/forever-abc123"
+        }
       },
       {
         title: "The Great Divide",
-        year: 2023,
-        image: "./img/pictures/the_great_divide.png",
-        caption: "Chalk, smoke, and ledger lines of a humming factory gospel.",
-        collectUrl: "https://xrpcafe.market/",
-        viewUrl: "./img/pictures/the_great_divide.png"
+        year: 2021,
+        style: "Oil-style",
+        image: "./img/divide-main.jpg",
+        fullSize: "https://your-cdn.com/divide-4k.jpg",
+        thumb: "./img/thumbs/divide.jpg",
+        description: ["Short description for Great Divide…"],
+        marketplaces: {
+          xrp: "https://xrpl.cafe/asset/your-token-id-2",
+          opensea: "https://opensea.io/assets/.../2",
+          superrare: "https://superrare.com/artwork/divide-xyz"
+        }
+      },
+      {
+        title: "The Rusher, The Incrementer, and The…",
+        year: 2025,
+        style: "Oil-style",
+        image: "./img/rusher-main.jpg",
+        fullSize: "https://your-cdn.com/rusher-4k.jpg",
+        thumb: "./img/thumbs/rusher.jpg",
+        description: ["Short description for Rusher…"],
+        marketplaces: {
+          xrp: "https://xrpl.cafe/asset/your-token-id-3",
+          opensea: "https://opensea.io/assets/.../3",
+          superrare: "https://superrare.com/artwork/rusher-ghi"
+        }
+      },
+      {
+        title: "Them Guys and the Older Guys",
+        year: 2025,
+        style: "Oil-style",
+        image: "./img/older-main.jpg",
+        fullSize: "https://your-cdn.com/older-4k.jpg",
+        thumb: "./img/thumbs/older.jpg",
+        description: ["Short description for Older Guys…"],
+        marketplaces: {
+          xrp: "https://xrpl.cafe/asset/your-token-id-4",
+          opensea: "https://opensea.io/assets/.../4",
+          superrare: "https://superrare.com/artwork/older-jkl"
+        }
       }
     ];
 
-    // —— DOM refs ——
-    const img = document.getElementById('artImg');
-    const title = document.getElementById('artTitle');
-    const meta = document.getElementById('artMeta');
-    const caption = document.getElementById('artCaption');
-    const indexEl = document.getElementById('artIndex');
-    const viewBtn = document.getElementById('viewBtn');
-    const collectBtn = document.getElementById('collectBtn');
-    const thumbs = document.getElementById('thumbs');
-    const dots = document.getElementById('dots');
-    const prev = document.getElementById('prevBtn');
-    const next = document.getElementById('nextBtn');
-    const prevM = document.getElementById('prevBtnMobile');
-    const nextM = document.getElementById('nextBtnMobile');
-    const fig = document.getElementById('artFigure');
+    // === RENDERER ===
+    const artTitle = document.getElementById('artTitle');
+    const artMeta = document.getElementById('artMeta');
+    const artIndex = document.getElementById('artIndex');
+    const artImg = document.getElementById('artImg');
+    const artDesc = document.getElementById('artDesc');
+    const artBadgeYear = document.getElementById('artBadgeYear');
+
+    const viewFullBtn = document.getElementById('viewFullBtn');
+    const xrpBtn = document.getElementById('xrpBtn');
+    const openseaBtn = document.getElementById('openseaBtn');
+    const superrareBtn = document.getElementById('superrareBtn');
+
+    const sidebarList = document.getElementById('sidebarList');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
     let i = 0;
 
-    function renderDots() {
-      dots.innerHTML = '';
-      artworks.forEach((_, idx) => {
-        const b = document.createElement('button');
-        b.className = 'w-2.5 h-2.5 rounded-full ring-1 ring-white/20 ' + (idx === i ? 'bg-white' : 'bg-white/30');
-        b.ariaLabel = `Go to item ${idx+1}`;
-        b.addEventListener('click', () => { i = idx; render(); });
-        dots.appendChild(b);
+    function render(idx){
+      const a = artworks[idx];
+      artTitle.textContent = a.title;
+      artMeta.textContent = `${a.year} • ${a.style}`;
+      artBadgeYear.textContent = a.year;
+      artIndex.textContent = `${idx+1} / ${artworks.length}`;
+
+      artImg.src = a.image;
+      artImg.alt = a.title;
+
+      artDesc.innerHTML = a.description.map(p => `<p>${p}</p>`).join("");
+
+      viewFullBtn.href = a.fullSize;
+      xrpBtn.href = a.marketplaces.xrp;
+      openseaBtn.href = a.marketplaces.opensea;
+      superrareBtn.href = a.marketplaces.superrare;
+
+      // Update selected state in sidebar
+      [...sidebarList.querySelectorAll('a')].forEach((el, j) => {
+        el.classList.toggle('bg-white/10', j === idx);
+        el.setAttribute('aria-current', j === idx ? 'true' : 'false');
       });
     }
 
-    function renderThumbs() {
-      thumbs.innerHTML = '';
-      artworks.forEach((art, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'group shrink-0';
-        btn.addEventListener('click', () => { i = idx; render(); });
+    function renderSidebar(){
+      sidebarList.innerHTML = artworks.map((a, idx)=>`
+        <li>
+          <a href="#" data-idx="${idx}" class="group flex items-center gap-3 rounded-xl p-2 hover:bg-white/5">
+            <img src="${a.thumb}" alt="" class="size-14 rounded-lg object-cover ring-1 ring-white/10">
+            <div class="min-w-0">
+              <p class="text-sm font-medium truncate" title="${a.title}">${a.title}</p>
+              <p class="text-xs text-white/60 mt-0.5">${a.year} <span class="mx-1">•</span> ${a.style}</p>
+            </div>
+            <div class="ml-auto flex items-center gap-1 opacity-80 group-hover:opacity-100">
+              <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="View full size">🔍</span>
+              <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Collect">💠</span>
+              <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Metadata">⚙️</span>
+            </div>
+          </a>
+        </li>
+      `).join("");
 
-        btn.innerHTML = `
-          <figure class="w-28 h-20 rounded-xl overflow-hidden ring-1 ${idx===i?'ring-white/60':'ring-white/10'} bg-black/30">
-            <img src="${art.image}" alt="${art.title}"
-                 class="w-full h-full object-cover group-hover:scale-[1.03] transition">
-          </figure>
-          <p class="mt-1 text-xs text-white/70 line-clamp-1">${art.title}</p>
-        `;
-        thumbs.appendChild(btn);
+      sidebarList.addEventListener('click', (e)=>{
+        const link = e.target.closest('a[data-idx]');
+        if(!link) return;
+        e.preventDefault();
+        i = +link.dataset.idx;
+        render(i);
       });
     }
 
-    const titleFrame = document.getElementById('artTitleFrame');
-    function render() {
-      const a = artworks[i];
-    img.src = a.image;
-    img.alt = a.title;
-    titleFrame.textContent = a.title; // frame title
-    meta.textContent = `${a.year}`;
-    caption.textContent = a.caption;
-      viewBtn.href = a.viewUrl;
-      collectBtn.href = a.collectUrl;
-      indexEl.textContent = `${i+1} of ${artworks.length}`;
-      renderDots();
-      renderThumbs();
-    }
-
-    function nextItem() { i = (i + 1) % artworks.length; render(); }
-    function prevItem() { i = (i - 1 + artworks.length) % artworks.length; render(); }
-
-    // keyboard navigation
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') nextItem();
-      if (e.key === 'ArrowLeft')  prevItem();
-    });
-
-    // click navigation
-    next?.addEventListener('click', nextItem);
-    prev?.addEventListener('click', prevItem);
-    nextM?.addEventListener('click', nextItem);
-    prevM?.addEventListener('click', prevItem);
-
-    // swipe (simple)
-    let startX = null;
-    fig.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, {passive:true});
-    fig.addEventListener('touchend', (e) => {
-      if (startX === null) return;
-      const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 40) { dx < 0 ? nextItem() : prevItem(); }
-      startX = null;
-    }, {passive:true});
+    prevBtn.addEventListener('click', ()=>{ i = (i - 1 + artworks.length) % artworks.length; render(i); });
+    nextBtn.addEventListener('click', ()=>{ i = (i + 1) % artworks.length; render(i); });
 
     // init
-    render();
+    renderSidebar();
+    render(0);
+    // collection meta (count & min/max years)
+    const years = artworks.map(a=>a.year).sort((a,b)=>a-b);
+    document.getElementById('collectionMeta').textContent = `${artworks.length} works • ${years[0]}–${years[years.length-1]}`;
   </script>
 </body>
 </html>
