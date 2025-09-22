@@ -155,6 +155,18 @@
   const osBtn    = document.getElementById("osBtn");
   const srBtn    = document.getElementById("srBtn");
 
+  // Normalize dash spacing and build paragraphs
+  function paragraphsHTML(arr) {
+    const normalize = s =>
+      s.replace(/\s*—\s*/g, "—")  // tighten em-dash spacing
+      .replace(/\s{2,}/g, " ")   // collapse double spaces
+      .trim();
+
+    const body = arr.map(p => `<p class="mb-5">${normalize(p)}</p>`).join("");
+    const unlockable = `<p class="mt-1 text-sm text-white/70">Unlockable content: High-resolution master file + audio commentary from Dream Agent.</p>`;
+    return body + unlockable;
+  }
+
   // Respect reduced motion
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const animate = (el, from, to, dur = 0.5) => {
@@ -212,6 +224,8 @@
     // Preload the next image opportunistically
     const nextIndex = (i + 1) % works.length;
     preload(works[nextIndex].img).catch(()=>{});
+
+    artDesc.innerHTML = paragraphsHTML(w.desc);
   }
 
   // Build sidebar (with lazy thumbs)
