@@ -21,9 +21,10 @@
   </style>
 
   <!-- put this in <head> after Tailwind -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 </head>
+
+<!-- The ACTUAL PAGE -->
 <body class="min-h-screen">
   <header class="max-w-6xl mx-auto px-4 pt-6">
     <nav class="text-white/70 text-sm mb-4">
@@ -33,15 +34,15 @@
     </nav>
 
     <div class="flex items-start gap-4">
-      <img src="./img/new_collections/Symbols in Motion.png" alt="collections" class="h-12 w-12 rounded-full ring-1 ring-white/20">
+      <img src="./img/new_collections/Symbols in Motion.png" alt="collections" class="h-16 w-16 sm:h-20 sm:w-20 lg:h-16 lg:w-16 rounded-full ring-1 ring-white/20">
       <div class="flex flex-col gap-0">
           <h1 class="serif text-2xl sm:text-3xl font-semibold leading-tight">Symbols In Motion</h1>
           <div class="flex flex-col lg:flex-row lg:items-center lg:gap-0">
           <p class="text-white/80 text-sm mt-1 lg:mt-0">Recurring signs in perpetual drift</p>
           <p class="text-white/80 text-sm lg:ml-4">
-    <span class="opacity-90">4 Works</span> • <span class="opacity-90">2017–2025</span>
-  </p>
-</div>
+          <span class="opacity-90">4 Works</span> • <span class="opacity-90">2017–2025</span>
+        </p>
+      </div>
         <!-- <p class="text-white/85 text-sm mt-3 max-w-3xl">A cabinet of moving emblems—objects that migrate between memory and myth, pausing just long enough to be seen.</p> -->
       </div>
     </div>
@@ -57,7 +58,7 @@
 
         <!-- Image viewer -->
         <figure class="relative overflow-hidden rounded-2xl bg-black/25">
-          <img id="artImg" src="" alt="" class="w-full h-auto object-contain max-h-[62vh] mx-auto">
+          <img id="artImg" src="" alt="" class="w-full h-auto object-contain max-h-[80vh] mx-auto">
           <!-- arrows -->
           <button id="prevBtn" aria-label="Previous" class="absolute top-1/2 -translate-y-1/2 left-2 sm:left-3 p-2 rounded-full bg-black/40 hover:bg-black/55 ring-1 ring-white/30 transition">‹</button>
           <button id="nextBtn" aria-label="Next" class="absolute top-1/2 -translate-y-1/2 right-2 sm:right-3 p-2 rounded-full bg-black/40 hover:bg-black/55 ring-1 ring-white/30 transition">›</button>
@@ -67,7 +68,7 @@
 
         <!-- Meta -->
         <div id="artMeta" class="mt-4 flex flex-wrap items-center gap-2 text-white/85 text-sm">
-          <span>2024</span><span>•</span><span>Oil-style</span><span>•</span><span>Surreal</span>
+          <span>2024</span><span>•</span><span>Digital-Oil-style</span><span>•</span><span>Surreal</span>
         </div>
 
         <!-- Description -->
@@ -118,7 +119,7 @@
   <script>
   // ---- Data (same as before) ----
   const works = [
-    { title:"Some Things were meant to last Forever", year:"2024", style:"Oil-style",
+    { title:"Some Things were meant to last Forever", year:"2024", style:"Digital-Oil-style",
       tags:["cathedrals","oven","surreal"],
       img:"./pictures/some_things_were_meant.png",
       desc: [
@@ -128,13 +129,18 @@
       ],
       links:{ xrp:"https://xrpcafe.market", os:"https://opensea.io", sr:"https://superrare.com" }
     },
-    { title:"The Great Divide", year:"2021", style:"Oil-style",
+    { title:"The Great Divide", year:"2021", style:"Digital-Oil-style",
       tags:["mythic","split"],
       img:"./pictures/the_great_divide.png",
-      desc:"The Great Divide explores tensions between halves made whole…",
-      links:{ xrp:"#", os:"#", sr:"#"}
+      desc: [
+            "The Great Divide is a meditation on the birth of digital value amidst generational and ideological conflict. A solemn green matriarch cradles a golden baby marked with the Bitcoin symbol — a digital messiah wrapped in swaddling wealth.", 
+            "Around her, the youth sit silently with laptops, bearing the weight of a new world while protesters and skeptics stand on the opposing cliff, holding blank signs and accusations.",
+            "Set against a cosmic desert canyon under constellations of coded systems, this painting questions what is inherited, what is mined, and what is rejected. The gold rock at the feet of the critic speaks to the relics of the past the baby to a future still being written.", 
+            "Blockchain as womb. Protest as ritual. Code as constellation. This is not just a divide — it is a rebirth.",
+      ],
+      links:{ xrp:"https://xrpcafe.market", os:"https://opensea.io", sr:"https://superrare.com" }
     },
-    { title:"The Rusher, The Incrementer, and The Protester", year:"2025", style:"Oil-style",
+    { title:"The Rusher, The Incrementer, and The Protester", year:"2025", style:"Digital-Oil-style",
       tags:["figures","ritual"],
       img:"./pictures/the_rusher_the_incrementer_and_the_protester.png",
       desc:"Three archetypes gather in a symbolic tribunal of progress…",
@@ -244,6 +250,17 @@
           <span>${w.year}</span><span>•</span><span>${w.style}</span>
         </div>
         <div class="mt-2 flex flex-wrap gap-2">
+             <!-- View Full Size button -->
+              <a id="viewBtn" href="${w.img}" target="_blank" aria-label="View Full Size"
+                class="w-8 h-8 flex items-center justify-center rounded-full bg-[#0097fb] ring-1 ring-[#0097fb] hover:opacity-90">
+                <!-- Magnifying glass icon (SVG) -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="w-4 h-4">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </a>
             <a id="xrpBtn" href="${w.links.xrp}"><img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe" class="w-8 h-8 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover"></a>
             <a id="osBtn" href="${w.links.os}"><img src="./img//round_logos/opensea_circle.png" alt="opensea" class="w-8 h-8 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover"></a>
             <a id="srBtn" href="${w.links.sr}"><img src="./img/round_logos/superrare_circle.png" alt="superrare" class="w-8 h-8 rounded-full ring-1 ring-pink-400 hover:opacity-90 object-cover"></a>
