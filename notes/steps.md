@@ -16,11 +16,11 @@
 
 \*~Make 4 works span flex on desktop only~
 
-\*Add View button to collection list items
+\*~Add View button to collection list items~
 
-\*Get rid of shadow on collections buttons background
+\*~Get rid of shadow on collections buttons background~
 
-\*Set Collections buttons next to view full size
+\*~Set Collections buttons next to view full size~
 
 ## Things to Add
 
