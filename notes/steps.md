@@ -22,6 +22,10 @@
 
 \*~Set Collections buttons next to view full size~
 
+\*Background to Collection Title
+
+\*Make Collection Title only sticky
+
 ## Things to Add
 
 \* The Slide in Menu
