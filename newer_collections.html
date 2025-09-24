@@ -252,19 +252,10 @@
         </div>
         <div class="mt-2 flex flex-wrap gap-2">
              <!-- View Full Size button -->
-              <a id="viewBtn" href="${w.img}" target="_blank" aria-label="View Full Size"
-                class="w-8 h-8 flex items-center justify-center rounded-full bg-[#0097fb] ring-1 ring-[#0097fb] hover:opacity-90">
-                <!-- Magnifying glass icon (SVG) -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="w-4 h-4">
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
+              <a id="viewBtn" aria-label="View">
+                 <p class="text-sm opacity-60">View</p>
               </a>
-            <a id="xrpBtn" href="${w.links.xrp}"><img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe" class="w-8 h-8 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover"></a>
-            <a id="osBtn" href="${w.links.os}"><img src="./img//round_logos/opensea_circle.png" alt="opensea" class="w-8 h-8 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover"></a>
-            <a id="srBtn" href="${w.links.sr}"><img src="./img/round_logos/superrare_circle.png" alt="superrare" class="w-8 h-8 rounded-full ring-1 ring-pink-400 hover:opacity-90 object-cover"></a>
+              <a class="text-sm opacity-60">Collect</a>
         </div>
       </div>`;
     item.onclick=()=>{ current=i; renderWork(current); };
