@@ -3,171 +3,388 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dream Agent — Symbols in Motion</title>
+  <title>Dream Agent — Symbols In Motion</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --da-blue: 11 93 179;
-      --glass: rgba(255,255,255,.06);
+    :root { --glass: rgba(255,255,255,0.06); }
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color: white;
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(255,255,255,0.05), transparent),
+        linear-gradient(180deg, rgba(11,93,179,.55), rgba(11,93,179,.42)),
+        url('./img/even_larger_about_background.png') center/cover no-repeat;
     }
- 
-    body{font-family: Inter, system-ui,-apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      font-size: 15px;
-      line-height: 1.6;
-      background-color: #0b5db3;
-      background-image: radial-gradient(1200px 600px at 20% -10%, rgba(11,93,179,.45), transparent),
-                        radial-gradient(900px 500px at 110% -20%, rgba(11,93,179,.35), transparent),
-                        linear-gradient(rgba(11,93,179,.55), rgba(11,93,179,.4));}
-    .serif{font-family:"Playfair Display", Georgia, serif}
+    .serif{ font-family:"Playfair Display", Georgia, serif; }
+    .panel{ background: rgba(255,255,255,.05); backdrop-filter: blur(6px); box-shadow: inset 0 1px 0 0 var(--glass); }
   </style>
+
+  <!-- put this in <head> after Tailwind -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 </head>
-<body class="text-white bg-[radial-gradient(1200px_600px_at_20%_-10%,rgba(11,93,179,.45),transparent),radial-gradient(900px_500px_at_110%_-20%,rgba(11,93,179,.35),transparent),linear-gradient(rgba(11,93,179,.55),rgba(11,93,179,.4))]">
 
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+<!-- The ACTUAL PAGE -->
+<body class="min-h-screen">
+  <header class="max-w-6xl mx-auto px-4 pt-6">
+    <nav class="text-white/70 text-sm mb-4">
+      <a href="#" class="hover:text-white">Collections</a>
+      <span class="mx-2">›</span>
+      <span class="text-white">Symbols In Motion</span>
+    </nav>
 
-    <!-- Sticky collection header -->
-    <header class="sticky top-0 z-10 -mx-4 sm:-mx-6 px-4 sm:px-6 py-4 bg-[#0b5db3]/50 backdrop-blur">
-      <div class="flex items-center gap-3">
-        <img src="./img/new_collections/Symbols in Motion.png" alt="" class="h-12 w-12 rounded-full object-cover ring-1 ring-white/15">
-        <div class="min-w-0">
-          <h1 class="serif font-semibold text-2xl sm:text-3xl leading-tight">Symbols in Motion</h1>
-          <p class="text-white/70 text-sm mt-1">Recurring signs in perpetual drift <span class="mx-1">·</span><span class="text-white/50">4 works • 2017–2025</span></p>
-        </div>
+    <!-- COLLECTION HEADER -->
+    <div class="panel rounded-2xl p-4 sm:p-6 flex items-start gap-4">
+      <img src="./img/new_collections/Symbols in Motion.png" alt="collections" class="h-16 w-16 sm:h-20 sm:w-20 lg:h-16 lg:w-16 rounded-full ring-1 ring-white/20">
+      <div class="flex flex-col gap-0">
+          <h1 class="serif text-2xl sm:text-3xl font-semibold leading-tight">Symbols In Motion</h1>
+          <div class="flex flex-col lg:flex-row lg:items-center lg:gap-0">
+          <p class="text-white/80 text-sm mt-1 lg:mt-0">Recurring signs in perpetual drift</p>
+          <p class="text-white/80 text-sm lg:ml-4">
+          <span class="opacity-90">4 Works</span> • <span class="opacity-90">2017–2025</span>
+        </p>
       </div>
-    </header>
+        <!-- <p class="text-white/85 text-sm mt-3 max-w-3xl">A cabinet of moving emblems—objects that migrate between memory and myth, pausing just long enough to be seen.</p> -->
+      </div>
+    </div>
+  </header>
 
-    <div class="grid lg:grid-cols-12 gap-6 mt-6">
+  <!-- Main Grid -->
+  <main class="max-w-6xl mx-auto px-4 pb-20 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Artwork column -->
+    <section class="lg:col-span-7">
+      <article class="panel rounded-2xl p-4 sm:p-6 -mt-2">
+        <!-- Artwork title -->
+        <h2 id="artTitle" class="serif text-xl sm:text-2xl mb-3">Some Things were meant to last Forever</h2>
 
-      <!-- Artwork column -->
-      <section class="lg:col-span-8">
-        <article class="bg-white/5 rounded-2xl p-5 md:p-6 backdrop-blur shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+        <!-- Image viewer -->
+        <figure class="relative overflow-hidden rounded-2xl bg-black/25">
+          <img id="artImg" src="" alt="" class="w-full h-auto object-contain max-h-[80vh] mx-auto">
+          <!-- arrows -->
+          <button id="prevBtn" aria-label="Previous" class="absolute top-1/2 -translate-y-1/2 left-2 sm:left-3 p-2 rounded-full bg-black/40 hover:bg-black/55 ring-1 ring-white/30 transition">‹</button>
+          <button id="nextBtn" aria-label="Next" class="absolute top-1/2 -translate-y-1/2 right-2 sm:right-3 p-2 rounded-full bg-black/40 hover:bg-black/55 ring-1 ring-white/30 transition">›</button>
 
-          <!-- Title above image -->
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <h3 class="serif text-xl sm:text-2xl font-semibold">Some Things Were Meant to Last Forever</h3>
-              <p class="mt-1 text-white/60 text-sm">2024 <span class="mx-1">•</span> Oil-style</p>
-            </div>
-            <span class="text-white/60 text-sm shrink-0">1 / 4</span> <!-- progress indicator -->
-          </div>
+          
+        </figure>
 
-          <!-- Image -->
-          <figure class="relative overflow-hidden rounded-xl bg-black/20 mt-4">
-            <img src="./pictures/some_things_were_meant.png" alt="Some Things Were Meant to Last Forever" class="w-full h-auto max-h-[60vh] object-contain mx-auto">
-            <!-- Smaller brand seal (tucked and toned down) -->
-            <div class="absolute bottom-3 right-3">
-              <span class="inline-flex items-center gap-2 rounded-full bg-black/40 backdrop-blur px-3 py-1.5 text-xs ring-1 ring-white/20">
-                <span class="size-2 rounded-full bg-white/70"></span> Dream Agent <span class="text-white/60">2025</span>
-              </span>
-            </div>
-            <!-- Prev/Next buttons -->
-            <button aria-label="Previous" class="absolute left-2 top-1/2 -translate-y-1/2 grid place-items-center size-9 rounded-full bg-black/35 hover:bg-black/50 ring-1 ring-white/15">‹</button>
-            <button aria-label="Next" class="absolute right-2 top-1/2 -translate-y-1/2 grid place-items-center size-9 rounded-full bg-black/35 hover:bg-black/50 ring-1 ring-white/15">›</button>
-          </figure>
+        <!-- Meta -->
+        <div id="artMeta" class="mt-4 flex flex-wrap items-center gap-2 text-white/85 text-sm">
+          <span>2024</span><span>•</span><span>Digital-Oil-style</span><span>•</span><span>Surreal</span>
+        </div>
 
-          <!-- Description -->
-          <div class="mt-5 space-y-4 leading-relaxed text-[15px]">
-            <p>This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence, where iconic cathedrals and basilicas from around the world rise like delicacies atop silver cake stands.</p>
-            <p>Each structure—intricate, fragile, historic—floats in a domestic kitchen space, blurring the line between sacred and mundane. The scene asks: What are we preserving? What do we consume? And what—if anything—transcends time?</p>
-            <p>An homage to heritage, architecture, and memory, this painting is a quiet meditation on legacy in an age of impermanence.</p>
-            <p class="text-white/70 text-sm">Unlockable content: High-resolution master file + audio commentary from Dream Agent.</p>
-          </div>
+        <!-- Description -->
+        <p id="artDesc" class="mt-4 text-[15px] leading-7 text-white/90">
+          This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence…
+        </p>
 
-          <!-- ACTION ZONE: below description -->
-          <div class="mt-5 flex flex-wrap items-center gap-3">
-            <a href="#" class="inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold text-white bg-blue-500 ring-1 ring-blue-400 shadow hover:bg-blue-500/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 active:translate-y-[1px]">View Full Size</a>
+      <!-- CTA buttons -->
+     <!-- CTA buttons -->
+<div class="mt-10 flex flex-wrap items-center gap-3 rounded-b-2xl">
+  <a href="#"
+     class="inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold text-white 
+            bg-[#0097fb] ring-1 ring-[#0097fb] shadow 
+            hover:bg-[#0097fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#133B70] 
+            active:translate-y-[1px]">
+    View Full Size
+  </a>
 
-            <!-- marketplaces -->
-            <a href="#" class="inline-flex items-center justify-center size-11 rounded-full ring-1 ring-white/15 bg-white/10 hover:bg-white/15" title="XRP Café">
-              🅧
-            </a>
-            <a href="#" class="inline-flex items-center justify-center size-11 rounded-full ring-1 ring-white/15 bg-white/10 hover:bg-white/15" title="OpenSea">
-              🌊
-            </a>
-            <a href="#" class="inline-flex items-center justify-center size-11 rounded-full ring-1 ring-white/15 bg-white/10 hover:bg-white/15" title="SuperRare">
-              ◆
-            </a>
-          </div>
+  <!-- Collect buttons -->
+  <a id="xrpBtn" href="#" aria-label="Collect on XRP Café">
+    <img src="./img/round_logos/xrpcafe_circle.png" alt="XRP Café" class="w-10 h-10 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover">
+  </a>
+  <a id="osBtn" href="#" aria-label="Collect on OpenSea">
+    <img src="./img/round_logos/opensea_circle.png" alt="OpenSea" class="w-10 h-10 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover">
+  </a>
+  <a id="srBtn" href="#" aria-label="Collect on SuperRare">
+    <img src="./img/round_logos/superrare_circle.png" alt="SuperRare" class="w-10 h-10 rounded-full ring-1 ring-pink-400 hover:opacity-90 object-cover">
+  </a>
+</div>
+
+
+
+
         </article>
       </section>
 
-      <!-- Sidebar: all works in this collection -->
-      <aside class="lg:col-span-4">
-        <div class="rounded-2xl bg-white/5 backdrop-blur p-5 sm:p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-          <h3 class="serif text-lg mb-4">All works in this collection</h3>
-          <ul class="space-y-3 max-h-[72vh] overflow-auto pr-1">
-
-            <!-- item -->
-            <li>
-              <a href="#" class="group flex items-center gap-3 rounded-xl p-2 hover:bg-white/5">
-                <img src="./pictures/cursor_of_fate.png" alt="" class="size-14 rounded-lg object-cover ring-1 ring-white/10">
-                <div class="min-w-0">
-                  <p class="text-sm font-medium truncate" title="Some Things Were Meant to Last Forever">Some Things Were Meant to Last Forever</p>
-                  <p class="text-xs text-white/60 mt-0.5">2024 <span class="mx-1">•</span> Oil-style</p>
-                </div>
-                <div class="ml-auto flex items-center gap-1 opacity-80 group-hover:opacity-100">
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="View full size">🔍</span>
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Collect">💠</span>
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Metadata">⚙️</span>
-                </div>
-              </a>
-            </li>
-
-            <!-- item -->
-            <li>
-              <a href="#" class="group flex items-center gap-3 rounded-xl p-2 hover:bg-white/5">
-                <img src="./pictures/sephardic_tango.png" alt="" class="size-14 rounded-lg object-cover ring-1 ring-white/10">
-                <div class="min-w-0">
-                  <p class="text-sm font-medium truncate" title="The Great Divide">The Great Divide</p>
-                  <p class="text-xs text-white/60 mt-0.5">2021 <span class="mx-1">•</span> Oil-style</p>
-                </div>
-                <div class="ml-auto flex items-center gap-1 opacity-80 group-hover:opacity-100">
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="View full size">🔍</span>
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Collect">💠</span>
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Metadata">⚙️</span>
-                </div>
-              </a>
-            </li>
-
-            <!-- item with truncated title + tooltip -->
-            <li>
-              <a href="#" class="group flex items-center gap-3 rounded-xl p-2 hover:bg-white/5">
-                <img src="./pictures/the_great_divide.png" alt="" class="size-14 rounded-lg object-cover ring-1 ring-white/10">
-                <div class="min-w-0">
-                  <p class="text-sm font-medium truncate" title="The Rusher, The Incrementer, and The…">The Rusher, The Incrementer, and The…</p>
-                  <p class="text-xs text-white/60 mt-0.5">2025 <span class="mx-1">•</span> Oil-style</p>
-                </div>
-                <div class="ml-auto flex items-center gap-1 opacity-80 group-hover:opacity-100">
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="View full size">🔍</span>
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Collect">💠</span>
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Metadata">⚙️</span>
-                </div>
-              </a>
-            </li>
-
-            <!-- item -->
-            <li>
-              <a href="#" class="group flex items-center gap-3 rounded-xl p-2 hover:bg-white/5">
-                <img src="./pictures/the_rusher_the_incrementer_and_the_protester.png" alt="" class="size-14 rounded-lg object-cover ring-1 ring-white/10">
-                <div class="min-w-0">
-                  <p class="text-sm font-medium truncate" title="Them Guys and the Older Guys">Them Guys and the Older Guys</p>
-                  <p class="text-xs text-white/60 mt-0.5">2025 <span class="mx-1">•</span> Oil-style</p>
-                </div>
-                <div class="ml-auto flex items-center gap-1 opacity-80 group-hover:opacity-100">
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="View full size">🔍</span>
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Collect">💠</span>
-                  <span class="inline-flex items-center justify-center size-7 rounded-full ring-1 ring-white/15 bg-white/10" title="Metadata">⚙️</span>
-                </div>
-              </a>
-            </li>
-
-          </ul>
+    <!-- Sidebar -->
+    <aside class="lg:col-span-5">
+      <div class="panel rounded-2xl p-4 sm:p-6 lg:sticky lg:top-8">
+        <h3 class="serif text-lg sm:text-xl mb-4">All works in this collection</h3>
+        <div id="sidebarList" class="divide-y divide-white/10">
+          <!-- Items dynamically injected -->
         </div>
-      </aside>
-    </div>
+      </div>
+    </aside>
   </main>
+
+  <script>
+  // ---- Data (same as before) ----
+  const works = [
+    { title:"Some Things were meant to last Forever", year:"2024", style:"Digital-Oil-style",
+      tags:["cathedrals","oven","surreal"],
+      img:"./pictures/some_things_were_meant.png",
+      desc: [
+        "This surreal composition by Dream Agent presents an oven labeled Prosperity as an altar of permanence, where iconic cathedrals and basilicas from around the world rise like delicacies atop silver cake stands.",
+        "Each structure — intricate, fragile, historic — floats in a domestic kitchen space, blurring the line between the sacred and the mundane. In this world, spiritual and cultural grandeur is both preserved and 'baked in,' as if civilization itself is something to be curated and cared for at home.",
+        "The scene asks: What are we preserving? What do we consume? And what—if anything—transcends time? An homage to heritage, architecture, and memory, this painting is a quiet meditation on legacy in an age of impermanence."
+      ],
+      links:{ xrp:"https://xrpcafe.market", os:"https://opensea.io", sr:"https://superrare.com" }
+    },
+    { title:"The Great Divide", year:"2021", style:"Digital-Oil-style",
+      tags:["mythic","split"],
+      img:"./pictures/the_great_divide.png",
+      desc: [
+            "The Great Divide is a meditation on the birth of digital value amidst generational and ideological conflict. A solemn green matriarch cradles a golden baby marked with the Bitcoin symbol — a digital messiah wrapped in swaddling wealth.", 
+            "Around her, the youth sit silently with laptops, bearing the weight of a new world while protesters and skeptics stand on the opposing cliff, holding blank signs and accusations.",
+            "Set against a cosmic desert canyon under constellations of coded systems, this painting questions what is inherited, what is mined, and what is rejected. The gold rock at the feet of the critic speaks to the relics of the past the baby to a future still being written.", 
+            "Blockchain as womb. Protest as ritual. Code as constellation. This is not just a divide — it is a rebirth.",
+      ],
+      links:{ xrp:"https://xrpcafe.market", os:"https://opensea.io", sr:"https://superrare.com" }
+    },
+    { title:"The Rusher, The Incrementer, and The Protester", year:"2025", style:"Digital-Oil-style",
+      tags:["figures","ritual"],
+      img:"./pictures/the_rusher_the_incrementer_and_the_protester.png",
+      desc:"Three archetypes gather in a symbolic tribunal of progress…",
+      links:{ xrp:"#", os:"#", sr:"#"}
+    },
+    { title:"Them guys and the older guys", year:"2025", style:"Oil-style",
+      tags:["crowd","generations"],
+      img:"./pictures/them_guys_and_the_older_guys.png",
+      desc:"A surreal congregation of eras overlapping in ritual space…",
+      links:{ xrp:"#", os:"#", sr:"#"}
+    }
+  ];
+
+  // ---- Elements ----
+  let current = 0, switching = false;
+  const artImg   = document.getElementById("artImg");
+  const artTitle = document.getElementById("artTitle");
+  const artMeta  = document.getElementById("artMeta");
+  const artDesc  = document.getElementById("artDesc");
+  const xrpBtn   = document.getElementById("xrpBtn");
+  const osBtn    = document.getElementById("osBtn");
+  const srBtn    = document.getElementById("srBtn");
+
+  // Normalize dash spacing and build paragraphs
+  function paragraphsHTML(arr) {
+    const normalize = s =>
+      s.replace(/\s*—\s*/g, "—")  // tighten em-dash spacing
+      .replace(/\s{2,}/g, " ")   // collapse double spaces
+      .trim();
+
+    const body = arr.map(p => `<p class="mb-5">${normalize(p)}</p>`).join("");
+    const unlockable = `<p class="mt-1 text-sm text-white/70">Unlockable content: High-resolution master file + audio commentary from Dream Agent.</p>`;
+    return body + unlockable;
+  }
+
+  // Respect reduced motion
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const animate = (el, from, to, dur = 0.5) => {
+    if (prefersReduced) { gsap.set(el, to); return; }
+    gsap.fromTo(el, from, { ...to, duration: dur, ease: "power2.out" });
+  };
+
+  // Preload helper
+  function preload(src) {
+    return new Promise((resolve, reject) => {
+      const i = new Image();
+      i.decoding = "async";
+      i.loading = "eager";
+      i.src = src;
+      i.onload = () => resolve(i);
+      i.onerror = reject;
+    });
+  }
+
+  // Render with crossfade/scale
+  async function renderWork(i){
+    if (switching) return;
+    switching = true;
+
+    const w = works[i];
+    // Disable nav while animating
+    document.getElementById("prevBtn").disabled = true;
+    document.getElementById("nextBtn").disabled = true;
+
+    // Fade out current image/content
+    animate(artImg, {opacity:1, scale:1}, {opacity:0, scale:0.98}, 0.18);
+    animate([artTitle, artMeta, artDesc], {opacity:1, y:0}, {opacity:0, y:6}, 0.18);
+
+    try {
+      const img = await preload(w.img);
+
+      // Swap content
+      artImg.src = img.src;
+      artTitle.textContent = w.title;
+      artMeta.innerHTML = `<span>${w.year}</span><span>•</span><span>${w.style}</span>`;
+      artDesc.textContent = w.desc;
+      xrpBtn.href = w.links.xrp; osBtn.href = w.links.os; srBtn.href = w.links.sr;
+
+      // Animate in
+      animate(artImg, {opacity:0, scale:0.985}, {opacity:1, scale:1}, 0.4);
+      animate([artTitle, artMeta, artDesc], {opacity:0, y:6}, {opacity:1, y:0}, 0.35);
+    } catch (e) {
+      console.error("Image failed to load:", e);
+    } finally {
+      document.getElementById("prevBtn").disabled = false;
+      document.getElementById("nextBtn").disabled = false;
+      switching = false;
+    }
+
+    // Preload the next image opportunistically
+    const nextIndex = (i + 1) % works.length;
+    preload(works[nextIndex].img).catch(()=>{});
+
+    artDesc.innerHTML = paragraphsHTML(w.desc);
+  }
+
+  // Build sidebar (with lazy thumbs)
+// ===== helpers =====
+const sidebar = document.getElementById("sidebarList");   // desktop stacked list container
+const mobileStrip = document.getElementById("mobileStrip"); // optional: mobile horizontal strip
+
+// Active highlight utility
+const ACTIVE_CLASSES = ["ring-1","ring-blue-400","bg-white/10"];
+function highlightActive(workId) {
+  const all = document.querySelectorAll('.work-link[data-work-id]');
+  all.forEach(el => el.classList.remove(...ACTIVE_CLASSES));
+  const targets = document.querySelectorAll(`.work-link[data-work-id="${workId}"]`);
+  targets.forEach(el => el.classList.add(...ACTIVE_CLASSES));
+}
+
+// Normalize an id for data-work-id/href
+function toId(title, idx){
+  return (title || `work-${idx}`).toLowerCase()
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'') || `work-${idx}`;
+}
+
+// Centralized click → set current & render
+function onSelectWork(idx, scrollIntoView=false){
+  if (idx < 0 || idx >= works.length) return;
+  current = idx;
+  renderWork(current);
+  const id = toId(works[current].title, current);
+  highlightActive(id);
+  // keep URL hash in sync for deep links (optional)
+  try { history.replaceState(null, '', `#${id}`); } catch {}
+  if (scrollIntoView) {
+    const artCard = document.getElementById('artCard');
+    artCard?.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+// ===== build: desktop sidebar (stacked cards) =====
+if (sidebar) {
+  sidebar.innerHTML = ""; // clear
+  works.forEach((w, i) => {
+    const id = toId(w.title, i);
+    const a = document.createElement("a");
+    a.href = `#${id}`;
+    a.dataset.workId = id;
+    a.className = "work-link flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 transition ring-1 ring-transparent hover:ring-white/10 cursor-pointer";
+    a.innerHTML = `
+      <img src="${w.img}" loading="lazy"
+           class="h-14 w-14 rounded-lg object-cover flex-shrink-0 ring-1 ring-white/20"
+           alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}">
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-medium truncate" title="${w.title || ''}">${w.title || 'Untitled'}</p>
+        <p class="text-xs text-white/60">${w.year ?? ''} • ${w.style ?? ''}</p>
+        <div class="flex gap-3 mt-1 text-xs text-blue-300">
+          <span class="pointer-events-none">View</span><span>·</span>
+          <a href="${w.links?.collect || '#'}" class="hover:underline">Collect</a>
+        </div>
+      </div>
+    `;
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      onSelectWork(i, /*scrollIntoView*/ window.innerWidth < 1024);
+    });
+    sidebar.appendChild(a);
+  });
+}
+
+// ===== build: mobile strip (horizontal cards) — optional =====
+// Add <section id="mobileStrip" class="block lg:hidden mt-4"></section> in your HTML if you want this.
+if (mobileStrip) {
+  mobileStrip.innerHTML = ""; // clear
+  // header
+  const h = document.createElement('h3');
+  h.className = "serif text-base mb-2 px-1";
+  h.textContent = "All works in this collection";
+  mobileStrip.appendChild(h);
+
+  // wrapper with gradient edges
+  const wrapper = document.createElement('div');
+  wrapper.className = "relative";
+  wrapper.innerHTML = `
+    <div class="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-[#0b5db3]/40 to-transparent rounded-l-xl"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-[#0b5db3]/40 to-transparent rounded-r-xl"></div>
+  `;
+  const ul = document.createElement('ul');
+  ul.className = "flex gap-3 overflow-x-auto snap-x snap-mandatory px-1 pb-2 [-ms-overflow-style:none] [scrollbar-width:none]";
+  ul.style.webkitOverflowScrolling = "touch";
+  // hide scrollbar (webkit)
+  const style = document.createElement('style');
+  style.textContent = `ul::-webkit-scrollbar{display:none}`;
+  wrapper.appendChild(style);
+
+  works.forEach((w, i) => {
+    const id = toId(w.title, i);
+    const li = document.createElement('li');
+    li.className = "min-w-[220px] snap-start";
+    li.innerHTML = `
+      <a href="#${id}" data-work-id="${id}" class="work-link flex items-center gap-3 p-2 rounded-xl bg-white/5 hover:bg-white/10 transition ring-1 ring-white/10">
+        <img src="${w.img}" loading="lazy"
+             class="h-14 w-14 rounded-lg object-cover flex-shrink-0 ring-1 ring-white/20"
+             alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}" />
+        <div class="min-w-0">
+          <p class="text-sm font-medium truncate" title="${w.title || ''}">${w.title || 'Untitled'}</p>
+          <p class="text-[11px] text-white/60">${w.year ?? ''} • ${w.style ?? ''}</p>
+          <div class="flex gap-3 mt-1 text-[11px] text-blue-300">
+            <span class="pointer-events-none">View</span><span>·</span>
+            <a href="${w.links?.collect || '#'}" class="hover:underline">Collect</a>
+          </div>
+        </div>
+      </a>
+    `;
+    // click wiring
+    li.querySelector('a')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      onSelectWork(i, /*scrollIntoView*/ true);
+    });
+    ul.appendChild(li);
+  });
+
+  wrapper.appendChild(ul);
+  mobileStrip.appendChild(wrapper);
+}
+
+// ===== initial highlight from hash (or current) =====
+(function initSelectFromHash(){
+  let startIdx = typeof current === 'number' ? current : 0;
+  const hash = (location.hash || '').replace('#','').trim();
+  if (hash) {
+    const idx = works.findIndex((w, i) => toId(w.title, i) === hash);
+    if (idx >= 0) startIdx = idx;
+  }
+  onSelectWork(startIdx, false);
+})();
+
+
+
+    // Nav buttons
+    document.getElementById("prevBtn").onclick = ()=>{ current=(current-1+works.length)%works.length; renderWork(current); };
+    document.getElementById("nextBtn").onclick = ()=>{ current=(current+1)%works.length; renderWork(current); };
+
+    // First paint: let the image fade in on load
+    artImg.addEventListener("load", ()=>{
+        animate(artImg, {opacity:0, scale:0.985}, {opacity:1, scale:1}, 0.45);
+    }, { once:true });
+
+    renderWork(current);
+    </script>
+
+
 </body>
 </html>
