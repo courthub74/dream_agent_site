@@ -26,28 +26,41 @@
 
 <!-- The ACTUAL PAGE -->
 <body class="min-h-screen">
-  <header class="max-w-6xl mx-auto px-4 pt-6">
-    <nav class="text-white/70 text-sm mb-4">
-      <a href="#" class="hover:text-white">Collections</a>
-      <span class="mx-2">›</span>
-      <span class="text-white">Symbols In Motion</span>
-    </nav>
+ <header class="max-w-6xl mx-auto px-4 pt-6">
+  <nav class="text-white/70 text-sm mb-4">
+    <a href="#" class="hover:text-white">Collections</a>
+    <span class="mx-2">›</span>
+    <span class="text-white">Symbols In Motion</span>
+  </nav>
+</header>
 
-    <!-- COLLECTION HEADER -->
-    <div class="panel rounded-2xl p-4 sm:p-6 flex items-start gap-4">
-      <img src="./img/new_collections/Symbols in Motion.png" alt="collections" class="h-16 w-16 sm:h-20 sm:w-20 lg:h-16 lg:w-16 rounded-full ring-1 ring-white/20">
-      <div class="flex flex-col gap-0">
-          <h1 class="serif text-2xl sm:text-3xl font-semibold leading-tight">Symbols In Motion</h1>
-          <div class="flex flex-col lg:flex-row lg:items-center lg:gap-0">
-          <p class="text-white/80 text-sm mt-1 lg:mt-0">Recurring signs in perpetual drift</p>
-          <p class="text-white/80 text-sm lg:ml-4">
-          <span class="opacity-90">4 Works</span> • <span class="opacity-90">2017–2025</span>
+<!-- Sticky ONLY on mobile -->
+<div class="max-w-6xl mx-auto px-4">
+  <div class="panel rounded-2xl p-4 sm:p-6 flex items-start gap-4
+              sticky top-0 z-50 lg:static lg:top-auto lg:z-auto">
+    <img src="./img/new_collections/Symbols in Motion.png" 
+         alt="collections"
+         class="h-16 w-16 sm:h-20 sm:w-20 lg:h-16 lg:w-16 rounded-full ring-1 ring-white/20">
+
+    <div class="flex flex-col gap-1">
+      <h1 class="serif text-2xl sm:text-3xl font-semibold leading-tight">
+        Symbols In Motion
+      </h1>
+
+      <div class="flex flex-col lg:flex-row lg:items-center lg:gap-0">
+        <p class="text-white/80 text-sm mt-1 lg:mt-0">
+          Recurring signs in perpetual drift
+        </p>
+        <p class="text-white/80 text-sm lg:ml-4">
+          <span class="opacity-90">4 Works</span> • 
+          <span class="opacity-90">2017–2025</span>
         </p>
       </div>
-        <!-- <p class="text-white/85 text-sm mt-3 max-w-3xl">A cabinet of moving emblems—objects that migrate between memory and myth, pausing just long enough to be seen.</p> -->
-      </div>
     </div>
-  </header>
+  </div>
+</div>
+
+
 
   <!-- Main Grid -->
   <main class="max-w-6xl mx-auto px-4 pb-20 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -239,28 +252,139 @@
   }
 
   // Build sidebar (with lazy thumbs)
-  const sidebar = document.getElementById("sidebarList");
-  works.forEach((w,i)=>{
-    const item=document.createElement("div");
-    item.className="flex items-center gap-4 py-3 px-2 hover:bg-white/5 rounded-xl transition cursor-pointer";
-    item.innerHTML=`
-      <img src="${w.img}" loading="lazy" class="h-16 w-16 rounded-xl object-cover ring-1 ring-white/15" alt="">
-      <div class="min-w-0">
-        <div class="font-medium text-white truncate">${w.title}</div>
-        <div class="text-xs text-white/75 mt-1 flex items-center gap-2">
-          <span>${w.year}</span><span>•</span><span>${w.style}</span>
+// ===== helpers =====
+const sidebar = document.getElementById("sidebarList");   // desktop stacked list container
+const mobileStrip = document.getElementById("mobileStrip"); // optional: mobile horizontal strip
+
+// Active highlight utility
+const ACTIVE_CLASSES = ["ring-1","ring-blue-400","bg-white/10"];
+function highlightActive(workId) {
+  const all = document.querySelectorAll('.work-link[data-work-id]');
+  all.forEach(el => el.classList.remove(...ACTIVE_CLASSES));
+  const targets = document.querySelectorAll(`.work-link[data-work-id="${workId}"]`);
+  targets.forEach(el => el.classList.add(...ACTIVE_CLASSES));
+}
+
+// Normalize an id for data-work-id/href
+function toId(title, idx){
+  return (title || `work-${idx}`).toLowerCase()
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'') || `work-${idx}`;
+}
+
+// Centralized click → set current & render
+function onSelectWork(idx, scrollIntoView=false){
+  if (idx < 0 || idx >= works.length) return;
+  current = idx;
+  renderWork(current);
+  const id = toId(works[current].title, current);
+  highlightActive(id);
+  // keep URL hash in sync for deep links (optional)
+  try { history.replaceState(null, '', `#${id}`); } catch {}
+  if (scrollIntoView) {
+    const artCard = document.getElementById('artCard');
+    artCard?.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
+// ===== build: desktop sidebar (stacked cards) =====
+if (sidebar) {
+  sidebar.innerHTML = ""; // clear
+  works.forEach((w, i) => {
+    const id = toId(w.title, i);
+    const a = document.createElement("a");
+    a.href = `#${id}`;
+    a.dataset.workId = id;
+    a.className = "work-link flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 transition ring-1 ring-transparent hover:ring-white/10 cursor-pointer";
+    a.innerHTML = `
+      <img src="${w.img}" loading="lazy"
+           class="h-14 w-14 rounded-lg object-cover flex-shrink-0 ring-1 ring-white/20"
+           alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}">
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-medium truncate" title="${w.title || ''}">${w.title || 'Untitled'}</p>
+        <p class="text-xs text-white/60">${w.year ?? ''} • ${w.style ?? ''}</p>
+        <div class="flex gap-3 mt-1 text-xs text-blue-300">
+          <span class="pointer-events-none">View</span><span>·</span>
+          <a href="${w.links?.collect || '#'}" class="hover:underline">Collect</a>
         </div>
-        <div class="mt-2 flex flex-wrap gap-2">
-             <!-- View Full Size button -->
-              <a id="viewBtn" aria-label="View">
-                 <p class="text-sm opacity-60">View</p>
-              </a>
-              <a class="text-sm opacity-60">Collect</a>
-        </div>
-      </div>`;
-    item.onclick=()=>{ current=i; renderWork(current); };
-    sidebar.appendChild(item);
+      </div>
+    `;
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      onSelectWork(i, /*scrollIntoView*/ window.innerWidth < 1024);
+    });
+    sidebar.appendChild(a);
   });
+}
+
+// ===== build: mobile strip (horizontal cards) — optional =====
+// Add <section id="mobileStrip" class="block lg:hidden mt-4"></section> in your HTML if you want this.
+if (mobileStrip) {
+  mobileStrip.innerHTML = ""; // clear
+  // header
+  const h = document.createElement('h3');
+  h.className = "serif text-base mb-2 px-1";
+  h.textContent = "All works in this collection";
+  mobileStrip.appendChild(h);
+
+  // wrapper with gradient edges
+  const wrapper = document.createElement('div');
+  wrapper.className = "relative";
+  wrapper.innerHTML = `
+    <div class="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-[#0b5db3]/40 to-transparent rounded-l-xl"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-[#0b5db3]/40 to-transparent rounded-r-xl"></div>
+  `;
+  const ul = document.createElement('ul');
+  ul.className = "flex gap-3 overflow-x-auto snap-x snap-mandatory px-1 pb-2 [-ms-overflow-style:none] [scrollbar-width:none]";
+  ul.style.webkitOverflowScrolling = "touch";
+  // hide scrollbar (webkit)
+  const style = document.createElement('style');
+  style.textContent = `ul::-webkit-scrollbar{display:none}`;
+  wrapper.appendChild(style);
+
+  works.forEach((w, i) => {
+    const id = toId(w.title, i);
+    const li = document.createElement('li');
+    li.className = "min-w-[220px] snap-start";
+    li.innerHTML = `
+      <a href="#${id}" data-work-id="${id}" class="work-link flex items-center gap-3 p-2 rounded-xl bg-white/5 hover:bg-white/10 transition ring-1 ring-white/10">
+        <img src="${w.img}" loading="lazy"
+             class="h-14 w-14 rounded-lg object-cover flex-shrink-0 ring-1 ring-white/20"
+             alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}" />
+        <div class="min-w-0">
+          <p class="text-sm font-medium truncate" title="${w.title || ''}">${w.title || 'Untitled'}</p>
+          <p class="text-[11px] text-white/60">${w.year ?? ''} • ${w.style ?? ''}</p>
+          <div class="flex gap-3 mt-1 text-[11px] text-blue-300">
+            <span class="pointer-events-none">View</span><span>·</span>
+            <a href="${w.links?.collect || '#'}" class="hover:underline">Collect</a>
+          </div>
+        </div>
+      </a>
+    `;
+    // click wiring
+    li.querySelector('a')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      onSelectWork(i, /*scrollIntoView*/ true);
+    });
+    ul.appendChild(li);
+  });
+
+  wrapper.appendChild(ul);
+  mobileStrip.appendChild(wrapper);
+}
+
+// ===== initial highlight from hash (or current) =====
+(function initSelectFromHash(){
+  let startIdx = typeof current === 'number' ? current : 0;
+  const hash = (location.hash || '').replace('#','').trim();
+  if (hash) {
+    const idx = works.findIndex((w, i) => toId(w.title, i) === hash);
+    if (idx >= 0) startIdx = idx;
+  }
+  onSelectWork(startIdx, false);
+})();
+
+
 
     // Nav buttons
     document.getElementById("prevBtn").onclick = ()=>{ current=(current-1+works.length)%works.length; renderWork(current); };
