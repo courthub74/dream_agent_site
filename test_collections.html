@@ -57,7 +57,7 @@
     <section class="lg:col-span-7">
       <article class="panel rounded-2xl p-4 sm:p-6 -mt-2">
         <!-- Artwork title -->
-        <h2 id="artTitle" class="serif text-xl sm:text-3xl mb-3"></h2>
+        <h2 id="artTitle" class="serif text-xl sm:text-2xl mb-3"></h2>
 
         <!-- Image viewer -->
         <figure class="relative overflow-hidden rounded-2xl bg-black/25">
@@ -83,9 +83,9 @@
      <!-- CTA buttons -->
 <div class="mt-10 flex flex-wrap items-center gap-3 rounded-b-2xl">
   <a href="#"
-     class="inline-flex items-center justify-center rounded-full px-5 py-3 text-base font-semibold text-white 
-            bg-[#0097fb] ring-1 ring-[#0097fb] shadow 
-            hover:bg-[#0097fb] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#133B70] 
+     class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-blue-900 
+            bg-[#ffffff] ring-1 ring-[#ffffff] shadow 
+            hover:bg-[#ffffff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#133B70] 
             active:translate-y-[1px]">
             View Full Size
   </a>
@@ -175,7 +175,15 @@
       .trim();
 
     const body = arr.map(p => `<p class="mb-5">${normalize(p)}</p>`).join("");
-    const unlockable = `<p class="mt-1 text-sm text-white/70">Unlockable content: High-resolution master file + audio commentary from Dream Agent.</p>`;
+    const unlockable = `
+              <div class="mt-4 rounded-xl bg-white/[0.06] ring-1 ring-white/15 p-4 flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 opacity-90 mt-0.5"><path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v2.25H6a3 3 0 00-3 3v6.75A3.75 3.75 0 006.75 22.5h10.5A3.75 3.75 0 0021 18.75V12a3 3 0 00-3-3h-.75V6.75A5.25 5.25 0 0012 1.5zm-2.25 5.25A2.25 2.25 0 0112 4.5a2.25 2.25 0 012.25 2.25V9H9.75V6.75z"/></svg>
+                <div>
+                  <p class="font-medium">Unlockable</p>
+                  <p class="text-white/80 text-[15px]">High‑resolution master file + audio commentary from Dream Agent.</p>
+                </div>
+              </div>`
+    // const unlockable = `<p class="mt-1 text-sm text-white/70">Unlockable content: High-resolution master file + audio commentary from Dream Agent.</p>`;
     return body + unlockable;
   }
 
