@@ -20,9 +20,35 @@
     .panel{ background: rgba(255,255,255,.05); backdrop-filter: blur(6px); box-shadow: inset 0 1px 0 0 var(--glass); }
 
     @keyframes auraPulse {
-      0%, 100% { box-shadow: 0 0 0 0 var(--aura, transparent); }
-      50%      { box-shadow: 0 0 10px 1px var(--aura, transparent); }
-    }
+  0%, 100% { box-shadow: 0 0 0 0 var(--aura, transparent); }
+  50%      { box-shadow: 0 0 14px 3px var(--aura, transparent); }
+}
+
+.market-btn {
+  position: relative;
+  transition: all 0.35s ease-out;
+  animation: auraPulse 5s ease-in-out infinite;
+}
+
+/* Tooltip */
+.market-btn::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: -1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.market-btn:hover::after {
+  opacity: 1;
+  color: rgba(255,255,255,0.75);
+}
+
 
   </style>
 
@@ -121,21 +147,34 @@
 </a>
 
 
+  <div class="flex items-center gap-5 bg-[#0B5DB3]/10 p-6 rounded-2xl justify-center">
 
-
-
-
-
-  <!-- Collect buttons -->
-  <a id="xrpBtn" href="#" aria-label="Collect on XRP Café">
-    <img src="./img/round_logos/xrpcafe_circle.png" alt="XRP Café" class="w-10 h-10 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover">
+  <!-- XRP Café -->
+  <a id="xrpBtn" href="#" data-label="XRP Café" style="--aura: rgba(54,161,255,0.25);"
+     class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full ring-1 ring-white/20 
+            hover:ring-white/50 hover:scale-[1.06] hover:shadow-[0_0_16px_rgba(54,161,255,0.25)]
+            transition-all duration-300 object-cover">
+      <img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe" class="w-9 h-9 rounded-full object-cover">
   </a>
-  <a id="osBtn" href="#" aria-label="Collect on OpenSea">
-    <img src="./img/round_logos/opensea_circle.png" alt="OpenSea" class="w-10 h-10 rounded-full ring-1 ring-blue-400 hover:opacity-90 object-cover">
+
+  <!-- OpenSea -->
+  <a id="osBtn" href="#" data-label="OpenSea" style="--aura: rgba(86,204,242,0.25);"
+     class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full ring-1 ring-white/20 
+            hover:ring-white/50 hover:scale-[1.06] hover:shadow-[0_0_16px_rgba(86,204,242,0.25)]
+            transition-all duration-300 object-cover">
+      <img src="./img/round_logos/opensea_circle.png" alt="opensea" class="w-9 h-9 rounded-full object-cover">
   </a>
-  <a id="srBtn" href="#" aria-label="Collect on SuperRare">
-    <img src="./img/round_logos/superrare_circle.png" alt="SuperRare" class="w-10 h-10 rounded-full ring-1 ring-pink-400 hover:opacity-90 object-cover">
+
+  <!-- SuperRare -->
+  <a id="srBtn" href="#" data-label="SuperRare" style="--aura: rgba(255,182,255,0.25);"
+     class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full ring-1 ring-white/20 
+            hover:ring-white/50 hover:scale-[1.06] hover:shadow-[0_0_16px_rgba(255,182,255,0.25)]
+            transition-all duration-300 object-cover">
+      <img src="./img/round_logos/superrare_circle.png" alt="superrare" class="w-9 h-9 rounded-full object-cover">
   </a>
+
+</div>
+
 </div>
 
 
@@ -203,39 +242,60 @@
   const osBtn    = document.getElementById("osBtn");
   const srBtn    = document.getElementById("srBtn");
 
+  function paragraphsHTML(desc) {
+  const arr = Array.isArray(desc) ? desc : [desc || ""];
+  const normalize = s => s.replace(/\s*—\s*/g,"—").replace(/\s{2,}/g," ").trim();
+  const body = arr.map(p => `<p class="mb-5">${normalize(p)}</p>`).join("");
+  const unlockable = `
+      <div class="flex items-center gap-3 bg-white/10 border border-white/20 rounded-xl p-3">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            fill="currentColor" 
+            class="w-6 h-6 opacity-90 mt-0.5 flex-shrink-0">
+          <path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v2.25H6a3 3 0 00-3 3v6.75A3.75 3.75 0 006.75 22.5h10.5A3.75 3.75 0 0021 18.75V12a3 3 0 00-3-3h-.75V6.75A5.25 5.25 0 0012 1.5zm-2.25 5.25A2.25 2.25 0 0112 4.5a2.25 2.25 0 012.25 2.25V9H9.75V6.75z"/>
+        </svg>
+        <p class="text-xs text-white/70">
+          Unlockable content: High-resolution master file + audio commentary.
+        </p>
+      </div>
+    `;
+  return body + unlockable;
+}
+
+
   // Normalize dash spacing and build paragraphs
-  function paragraphsHTML(arr) {
-    const normalize = s =>
-      s.replace(/\s*—\s*/g, "—")  // tighten em-dash spacing
-      .replace(/\s{2,}/g, " ")   // collapse double spaces
-      .trim();
+  // function paragraphsHTML(arr) {
+  //   const normalize = s =>
+  //     s.replace(/\s*—\s*/g, "—")  // tighten em-dash spacing
+  //     .replace(/\s{2,}/g, " ")   // collapse double spaces
+  //     .trim();
 
-    const body = arr.map(p => `<p class="mb-5">${normalize(p)}</p>`).join("");
-    // const unlockable = `
-    //           <div class="mt-4 rounded-xl bg-white/[0.06] ring-1 ring-white/15 p-4 flex items-start gap-3">
-    //             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 opacity-90 mt-0.5"><path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v2.25H6a3 3 0 00-3 3v6.75A3.75 3.75 0 006.75 22.5h10.5A3.75 3.75 0 0021 18.75V12a3 3 0 00-3-3h-.75V6.75A5.25 5.25 0 0012 1.5zm-2.25 5.25A2.25 2.25 0 0112 4.5a2.25 2.25 0 012.25 2.25V9H9.75V6.75z"/></svg>
-    //             <div>
-    //               <p class="font-medium">Unlockable</p>
-    //               <p class="text-white/80 text-[15px]">High‑resolution master file + audio commentary from Dream Agent.</p>
-    //             </div>
-    //           </div>`
+  //   const body = arr.map(p => `<p class="mb-5">${normalize(p)}</p>`).join("");
+  //   // const unlockable = `
+  //   //           <div class="mt-4 rounded-xl bg-white/[0.06] ring-1 ring-white/15 p-4 flex items-start gap-3">
+  //   //             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 opacity-90 mt-0.5"><path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v2.25H6a3 3 0 00-3 3v6.75A3.75 3.75 0 006.75 22.5h10.5A3.75 3.75 0 0021 18.75V12a3 3 0 00-3-3h-.75V6.75A5.25 5.25 0 0012 1.5zm-2.25 5.25A2.25 2.25 0 0112 4.5a2.25 2.25 0 012.25 2.25V9H9.75V6.75z"/></svg>
+  //   //             <div>
+  //   //               <p class="font-medium">Unlockable</p>
+  //   //               <p class="text-white/80 text-[15px]">High‑resolution master file + audio commentary from Dream Agent.</p>
+  //   //             </div>
+  //   //           </div>`
                 
-    const unlockable = `
-  <div class="flex items-center gap-3 bg-white/10 border border-white/20 rounded-xl p-3">
-    <svg xmlns="http://www.w3.org/2000/svg" 
-         viewBox="0 0 24 24" 
-         fill="currentColor" 
-         class="w-6 h-6 opacity-90 mt-0.5 flex-shrink-0">
-      <path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v2.25H6a3 3 0 00-3 3v6.75A3.75 3.75 0 006.75 22.5h10.5A3.75 3.75 0 0021 18.75V12a3 3 0 00-3-3h-.75V6.75A5.25 5.25 0 0012 1.5zm-2.25 5.25A2.25 2.25 0 0112 4.5a2.25 2.25 0 012.25 2.25V9H9.75V6.75z"/>
-    </svg>
-    <p class="text-xs text-white/70">
-      Unlockable content: High-resolution master file + audio commentary.
-    </p>
-  </div>
-`;
+  //   const unlockable = `
+  //     <div class="flex items-center gap-3 bg-white/10 border border-white/20 rounded-xl p-3">
+  //       <svg xmlns="http://www.w3.org/2000/svg" 
+  //           viewBox="0 0 24 24" 
+  //           fill="currentColor" 
+  //           class="w-6 h-6 opacity-90 mt-0.5 flex-shrink-0">
+  //         <path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v2.25H6a3 3 0 00-3 3v6.75A3.75 3.75 0 006.75 22.5h10.5A3.75 3.75 0 0021 18.75V12a3 3 0 00-3-3h-.75V6.75A5.25 5.25 0 0012 1.5zm-2.25 5.25A2.25 2.25 0 0112 4.5a2.25 2.25 0 012.25 2.25V9H9.75V6.75z"/>
+  //       </svg>
+  //       <p class="text-xs text-white/70">
+  //         Unlockable content: High-resolution master file + audio commentary.
+  //       </p>
+  //     </div>
+  //   `;
 
-    return body + unlockable;
-  }
+  //   return body + unlockable;
+  // }
 
   // Respect reduced motion
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -261,6 +321,10 @@
     if (switching) return;
     switching = true;
 
+    // artTitle.textContent = w.title || "";
+    // // ensure it’s visible before the enter animation kicks in
+    // gsap.set(artTitle, { opacity: 1, y: 0 });   // <- add this line
+
     const w = works[i];
     // Disable nav while animating
     document.getElementById("prevBtn").disabled = true;
@@ -274,11 +338,20 @@
       const img = await preload(w.img);
 
       // Swap content
+      // Swap content
       artImg.src = img.src;
-      artTitle.textContent = w.title;
-      artMeta.innerHTML = `<span>${w.year}</span><span>•</span><span>${w.style}</span>`;
-      artDesc.textContent = w.desc;
-      xrpBtn.href = w.links.xrp; osBtn.href = w.links.os; srBtn.href = w.links.sr;
+      artTitle.textContent = w.title || "";
+      artMeta.innerHTML = `<span>${w.year||""}</span><span>•</span><span>${w.style||""}</span>`;
+      artDesc.innerHTML = paragraphsHTML(w.desc);
+      xrpBtn.href = w.links?.xrp || "#";
+      osBtn.href  = w.links?.os  || "#";
+      srBtn.href  = w.links?.sr  || "#";
+
+      // artImg.src = img.src;
+      // artTitle.textContent = w.title;
+      // artMeta.innerHTML = `<span>${w.year}</span><span>•</span><span>${w.style}</span>`;
+      // artDesc.textContent = w.desc;
+      // xrpBtn.href = w.links.xrp; osBtn.href = w.links.os; srBtn.href = w.links.sr;
 
       // Animate in
       animate(artImg, {opacity:0, scale:0.985}, {opacity:1, scale:1}, 0.4);
