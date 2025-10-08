@@ -24,11 +24,13 @@
   50%      { box-shadow: 0 0 14px 3px var(--aura, transparent); }
 }
 
+/* Remove the pulse/glow from market buttons */
 .market-btn {
   position: relative;
-  transition: all 0.35s ease-out;
-  animation: auraPulse 5s ease-in-out infinite;
+  transition: all 0.25s ease-out;
+  animation: none;            /* was: auraPulse ... */
 }
+
 
 /* Tooltip */
 .market-btn::after {
@@ -130,52 +132,47 @@
         </p>
 
      <!-- CTA buttons -->
-      <div class="mt-10 flex flex-wrap items-center gap-3 rounded-b-2xl">
-      <!-- <a class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white 
-        bg-white/20 ring-1 ring-white/30 shadow 
-        hover:bg-white/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#133B70] 
-        active:translate-y-[1px]">
-        View Full Size
-      </a> -->
-  <a style="--aura: rgba(255,255,255,0.18)"
-   class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white
-          bg-white/20 ring-1 ring-white/30 shadow transition-all duration-300 ease-out
-          hover:bg-white/30 hover:scale-[1.02]
-          focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#133B70]
-          active:translate-y-[1px] animate-[auraPulse_4.5s_ease-in-out_infinite]">
-  View Full Size
-</a>
+      <div class="mt-10 flex items-center gap-3 flex-wrap">
+        <!-- View Full Size (no glow, same border as unlockable) -->
+        <a
+          class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white
+                bg-white/10 border border-white/20 ring-0 shadow-none transition-colors
+                hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#133B70]
+                active:translate-y-[1px]">
+          View Full Size
+        </a>
 
+        <!-- Marketplace icons inline with the button (no glow) -->
+        <div class="flex items-center gap-2 flex-nowrap">
+          <!-- XRP Café -->
+          <a id="xrpBtn" href="#" data-label="XRP Café"
+            class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full
+                    border border-white/20 ring-0 shadow-none
+                    hover:border-white/30 transition">
+            <img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe"
+                class="w-9 h-9 rounded-full object-cover">
+          </a>
 
-  <div class="flex items-center gap-5 bg-[#0B5DB3]/10 p-6 rounded-2xl justify-center">
+          <!-- OpenSea -->
+          <a id="osBtn" href="#" data-label="OpenSea"
+            class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full
+                    border border-white/20 ring-0 shadow-none
+                    hover:border-white/30 transition">
+            <img src="./img/round_logos/opensea_circle.png" alt="opensea"
+                class="w-9 h-9 rounded-full object-cover">
+          </a>
 
-  <!-- XRP Café -->
-  <a id="xrpBtn" href="#" data-label="XRP Café" style="--aura: rgba(54,161,255,0.25);"
-     class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full ring-1 ring-white/20 
-            hover:ring-white/50 hover:scale-[1.06] hover:shadow-[0_0_16px_rgba(54,161,255,0.25)]
-            transition-all duration-300 object-cover">
-      <img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe" class="w-9 h-9 rounded-full object-cover">
-  </a>
+          <!-- SuperRare -->
+          <a id="srBtn" href="#" data-label="SuperRare"
+            class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full
+                    border border-white/20 ring-0 shadow-none
+                    hover:border-white/30 transition">
+            <img src="./img/round_logos/superrare_circle.png" alt="superrare"
+                class="w-9 h-9 rounded-full object-cover">
+          </a>
+        </div>
+      </div>
 
-  <!-- OpenSea -->
-  <a id="osBtn" href="#" data-label="OpenSea" style="--aura: rgba(86,204,242,0.25);"
-     class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full ring-1 ring-white/20 
-            hover:ring-white/50 hover:scale-[1.06] hover:shadow-[0_0_16px_rgba(86,204,242,0.25)]
-            transition-all duration-300 object-cover">
-      <img src="./img/round_logos/opensea_circle.png" alt="opensea" class="w-9 h-9 rounded-full object-cover">
-  </a>
-
-  <!-- SuperRare -->
-  <a id="srBtn" href="#" data-label="SuperRare" style="--aura: rgba(255,182,255,0.25);"
-     class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full ring-1 ring-white/20 
-            hover:ring-white/50 hover:scale-[1.06] hover:shadow-[0_0_16px_rgba(255,182,255,0.25)]
-            transition-all duration-300 object-cover">
-      <img src="./img/round_logos/superrare_circle.png" alt="superrare" class="w-9 h-9 rounded-full object-cover">
-  </a>
-
-</div>
-
-</div>
 
 
 
