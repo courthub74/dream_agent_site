@@ -54,10 +54,15 @@
   transition: opacity 0.3s ease, color 0.3s ease;
 }
 
-.market-btn:hover::after {
-  opacity: 1;
-  color: rgba(255,255,255,0.85);
-}
+    .market-btn:hover::after {
+      opacity: 1;
+      color: rgba(255,255,255,0.85);
+    }
+
+    #sidebarList {
+      scroll-behavior: smooth;
+    }
+
 
 
 
@@ -194,15 +199,21 @@
     <aside class="lg:col-span-5">
       <div class="panel rounded-2xl p-4 sm:p-6 lg:sticky lg:top-8">
         <h3 class="serif text-lg sm:text-xl mb-4">All works in this collection</h3>
-        <div id="sidebarList" class="divide-y divide-white/10">
-          <!-- Items dynamically injected -->
+        <div id="sidebarList" class="divide-y divide-white/10 max-h-[28rem] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 hover:scrollbar-thumb-white/20">
+          <!-- JS builds this list -->
         </div>
+
       </div>
     </aside>
   </main>
 
   <script>
-  // ---- Data (same as before) ----
+  // ALL THE PICTURES & DATA
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////
   const works = [
     { title:"Sephardic Tango", year:"2024", style:"Digital-Oil-style",
       tags:["cathedrals","oven","surreal"],
@@ -236,7 +247,27 @@
       img:"./pictures/them_guys_and_the_older_guys.png",
       desc:"A surreal congregation of eras overlapping in ritual space…",
       links:{ xrp:"#", os:"#", sr:"#"}
-    }
+    },
+    { title:"Them guys and the older guys", year:"2025", style:"Oil-style",
+      tags:["crowd","generations"],
+      img:"./pictures/them_guys_and_the_older_guys.png",
+      desc:"A surreal congregation of eras overlapping in ritual space…",
+      links:{ xrp:"#", os:"#", sr:"#"}
+    },
+    { title:"Them guys and the older guys", year:"2025", style:"Oil-style",
+      tags:["crowd","generations"],
+      img:"./pictures/them_guys_and_the_older_guys.png",
+      desc:"A surreal congregation of eras overlapping in ritual space…",
+      links:{ xrp:"#", os:"#", sr:"#"}
+    },
+    { title:"Them guys and the older guys", year:"2025", style:"Oil-style",
+      tags:["crowd","generations"],
+      img:"./pictures/them_guys_and_the_older_guys.png",
+      desc:"A surreal congregation of eras overlapping in ritual space…",
+      links:{ xrp:"#", os:"#", sr:"#"}
+    },
+
+    
   ];
 
   // ---- Elements ----
@@ -269,40 +300,6 @@
   return body + unlockable;
 }
 
-
-  // Normalize dash spacing and build paragraphs
-  // function paragraphsHTML(arr) {
-  //   const normalize = s =>
-  //     s.replace(/\s*—\s*/g, "—")  // tighten em-dash spacing
-  //     .replace(/\s{2,}/g, " ")   // collapse double spaces
-  //     .trim();
-
-  //   const body = arr.map(p => `<p class="mb-5">${normalize(p)}</p>`).join("");
-  //   // const unlockable = `
-  //   //           <div class="mt-4 rounded-xl bg-white/[0.06] ring-1 ring-white/15 p-4 flex items-start gap-3">
-  //   //             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 opacity-90 mt-0.5"><path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v2.25H6a3 3 0 00-3 3v6.75A3.75 3.75 0 006.75 22.5h10.5A3.75 3.75 0 0021 18.75V12a3 3 0 00-3-3h-.75V6.75A5.25 5.25 0 0012 1.5zm-2.25 5.25A2.25 2.25 0 0112 4.5a2.25 2.25 0 012.25 2.25V9H9.75V6.75z"/></svg>
-  //   //             <div>
-  //   //               <p class="font-medium">Unlockable</p>
-  //   //               <p class="text-white/80 text-[15px]">High‑resolution master file + audio commentary from Dream Agent.</p>
-  //   //             </div>
-  //   //           </div>`
-                
-  //   const unlockable = `
-  //     <div class="flex items-center gap-3 bg-white/10 border border-white/20 rounded-xl p-3">
-  //       <svg xmlns="http://www.w3.org/2000/svg" 
-  //           viewBox="0 0 24 24" 
-  //           fill="currentColor" 
-  //           class="w-6 h-6 opacity-90 mt-0.5 flex-shrink-0">
-  //         <path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v2.25H6a3 3 0 00-3 3v6.75A3.75 3.75 0 006.75 22.5h10.5A3.75 3.75 0 0021 18.75V12a3 3 0 00-3-3h-.75V6.75A5.25 5.25 0 0012 1.5zm-2.25 5.25A2.25 2.25 0 0112 4.5a2.25 2.25 0 012.25 2.25V9H9.75V6.75z"/>
-  //       </svg>
-  //       <p class="text-xs text-white/70">
-  //         Unlockable content: High-resolution master file + audio commentary.
-  //       </p>
-  //     </div>
-  //   `;
-
-  //   return body + unlockable;
-  // }
 
   // Respect reduced motion
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
