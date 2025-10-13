@@ -103,12 +103,13 @@
   <main class="max-w-6xl mx-auto px-4 pb-20 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
     <!-- Artwork column -->
     <section class="lg:col-span-7">
-      <article class="panel rounded-2xl p-4 sm:p-6 -mt-2 pb-12 sm:pb-14">
+      <article class="panel rounded-2xl px-4 sm:px-6 py-2 sm:py-3 -mt-2">
         <!-- Artwork title -->
-        <h2 id="artTitle" class="serif text-xl sm:text-2xl mb-3"></h2>
+        <h2 id="artTitle" class="serif text-lg sm:text-xl md:text-2xl mb-3"></h2>
+
 
         <!-- Image viewer -->
-        <figure class="relative overflow-hidden rounded-2xl bg-black/25 
+        <figure class="relative overflow-hidden rounded-2xl bg-black/20  
                h-[400px] sm:h-[500px] lg:h-[600px] 
                flex items-center justify-center">
           <img id="artImg" 
@@ -152,9 +153,10 @@
           class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white
                 bg-white/10 border border-white/20 ring-0 shadow-none transition-colors
                 hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#133B70]
-                active:translate-y-[1px]">
+                active:translate-y-[1px] cursor-default md:cursor-pointer">
           View Full Size
         </a>
+
 
         <!-- Marketplace icons inline with the button (no glow) -->
         <div class="flex items-center gap-2 flex-nowrap">
@@ -192,8 +194,8 @@
 
 
 
-        </article>
-      </section>
+      </article>
+    </section>
 
     <!-- Sidebar -->
     <aside class="lg:col-span-5">
@@ -231,7 +233,7 @@
       img:"./pictures/Dream Agent Making Birds.png",
       desc:[
          "'Dream Agent Making Birds' captures the faceless spy in a sacred moment of release. Standing before a red cage that holds a glowing machine, the spy extends his gloved hands—not to release a bird, but to reveal wings of light.", 
-         "Above, a chain of birds arcs through the morning sky, echoing the engraving *Soli Deo Gloria* on the window sill. It is both prayer and ritual: an act of making, not owning—where flight itself becomes the art.",
+         "Above, a chain of birds arcs through the morning sky, echoing the engraving 'Soli Deo Gloria' (To God be the Glory) on the window sill. It is both prayer and ritual: an act of making, not owning—where flight itself becomes the art.",
          "This piece bridges mystery and devotion, weaving together technology, faith, and surreal transformation. A meditation on creation, release, and the unseen hands that move history.",
       ],
       links:{ xrp:"#", os:"#", sr:"#"}
