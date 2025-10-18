@@ -229,24 +229,15 @@
       ],
       links:{ xrp:"#", os:"#", sr:"#"}
     },
-    // DREAM AGENT MAKING BIRDS
-    { title:"Dream Agent Making Birds", year:"2025", style:"Oil-style",
-      tags:["spy","birds"],
-      img:"./pictures/Dream Agent Making Birds.png",
+    // THE TECH ERA
+    { title:"The Tech Era", year:"2025", style:"Oil-style",
+      tags:["employees","tooth"],
+      img:"./pictures/The Tech Era.png",
       desc:[
-         "'Dream Agent Making Birds' captures the faceless spy in a sacred moment of release. Standing before a red cage that holds a glowing machine, the spy extends his gloved hands—not to release a bird, but to reveal wings of light.", 
-         "Above, a chain of birds arcs through the morning sky, echoing the engraving 'Soli Deo Gloria' (To God be the Glory) on the window sill. It is both prayer and ritual: an act of making, not owning—where flight itself becomes the art.",
-         "This piece bridges mystery and devotion, weaving together technology, faith, and surreal transformation. A meditation on creation, release, and the unseen hands that move history.",
-      ],
-      links:{ xrp:"#", os:"#", sr:"#"}
-    },
-    // LIQUIDITY SPECTATORS
-    { title:"Liquidity Spectators", year:"2021", style:"Oil-style",
-      tags:["fish","investors"],
-      img:"./pictures/Crypto Fish Tank.png",
-      desc:[
-          "In Crypto Fish Tank, the speculative frenzy of the crypto market is rendered as a surreal aquatic arena. Inside the tank, symbolic fish swim through hoops—each representing a major cryptocurrency: Bitcoin, Ethereum, XRP, Stellar, and Solana. Their colorful forms vie for dominance under the watchful eyes of well-dressed businessmen, holding up betting slips like sports fans at a race. Their euphoric expressions capture the thrill of profit and the spectacle of volatility.",
-          "This piece captures not only the chaos and energy of the crypto boom but also its performative nature—an aquarium of algorithms, markets, and speculation, where value is in constant motion.",
+          "In 'The Tech Era,' Dream Agent conjures a surreal crossroads of technological elegance and ancient mystery. A cadre of faceless urbanites—Yuppies, Buppies, and Cypherpunks—glide through a snow-laced city on electric scooters, disconnected yet synchronized.", 
+          "They pass a glowing crystal ball ceremony, a hypnotic marble garage spewing water from the mountains, and a mystical Zoltar figure beside a woman carefully sewing a half-finished turban.",
+          "Above, a giant floating tooth—a relic or prophecy?—hovers between two epochs: analog ruin and digital rebirth. Symbols abound: the neon globe of globalism, the ever-watching mountain temple, and a store sign encoded in planetary language.",
+          "This is not just a painting—it’s a portal.", 
       ],
       links:{ xrp:"#", os:"#", sr:"#"}
     },
@@ -273,6 +264,17 @@
           "The cursor on the screen invites, yet Prince Carl resists — denying himself the seduction of spectacle, prophecy, or command. This is the portrait of power in a moment of withdrawal.",
           "Surveillance, strategy, and prophecy lie at arm's reach… but he waits.",
           "What happens when a sovereign refuses the screen? A meditation on control, voyeurism, and the quiet rebellion of inaction.", 
+      ],
+      links:{ xrp:"#", os:"#", sr:"#"}
+    },
+    // DREAM AGENT MAKING BIRDS
+    { title:"Dream Agent Making Birds", year:"2025", style:"Oil-style",
+      tags:["spy","birds"],
+      img:"./pictures/Dream Agent Making Birds.png",
+      desc:[
+         "'Dream Agent Making Birds' captures the faceless spy in a sacred moment of release. Standing before a red cage that holds a glowing machine, the spy extends his gloved hands—not to release a bird, but to reveal wings of light.", 
+         "Above, a chain of birds arcs through the morning sky, echoing the engraving 'Soli Deo Gloria' (To God be the Glory) on the window sill. It is both prayer and ritual: an act of making, not owning—where flight itself becomes the art.",
+         "This piece bridges mystery and devotion, weaving together technology, faith, and surreal transformation. A meditation on creation, release, and the unseen hands that move history.",
       ],
       links:{ xrp:"#", os:"#", sr:"#"}
     },
@@ -466,25 +468,25 @@ if (sidebar) {
     a.className =
       "work-link flex items-center gap-4 py-3 px-2 hover:bg-white/5 rounded-xl transition cursor-pointer";
 
-   a.innerHTML = `
-  <div class="thumb relative z-10 rounded-xl ring-1 ring-white/15 overflow-hidden flex-shrink-0">
-    <img src="${w.img}" loading="lazy"
-         class="h-16 w-16 object-cover"
-         alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}">
-  </div>
-
-  <div class="min-w-0">
-    <div class="serif font-medium text-white truncate" title="${w.title || ''}">
-      ${w.title || 'Untitled'}
+    a.innerHTML = `
+    <div class="thumb relative z-10 rounded-xl ring-1 ring-white/15 overflow-hidden flex-shrink-0">
+      <img src="${w.img}" loading="lazy"
+          class="h-16 w-16 object-cover"
+          alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}">
     </div>
 
-    <div class="text-xs text-white/75 mt-1 flex items-center gap-2">
-      ${meta ? meta.split(" • ").map((s, idx) =>
-        idx === 0 ? `<span>${s}</span>` : `<span>•</span><span>${s}</span>`
-      ).join("") : ""}
+    <div class="min-w-0">
+      <div class="serif font-medium text-white truncate" title="${w.title || ''}">
+        ${w.title || 'Untitled'}
+      </div>
+
+      <div class="text-xs text-white/75 mt-1 flex items-center gap-2">
+        ${meta ? meta.split(" • ").map((s, idx) =>
+          idx === 0 ? `<span>${s}</span>` : `<span>•</span><span>${s}</span>`
+        ).join("") : ""}
+      </div>
     </div>
-  </div>
-`;
+  `;
 
 
     a.addEventListener("click", (e) => {
