@@ -201,10 +201,11 @@
     <aside class="lg:col-span-5">
       <div class="panel rounded-2xl p-4 sm:p-6 lg:sticky lg:top-8">
         <h3 class="serif text-lg sm:text-xl mb-4">All works in this collection</h3>
-        <div id="sidebarList" class="divide-y divide-white/10 max-h-[28rem] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 hover:scrollbar-thumb-white/20">
-          <!-- JS builds this list -->
-        </div>
-
+        <div id="sidebarList"
+             class="space-y-2 pl-2 pr-2 py-1  max-h-[28rem] overflow-y-auto
+            scrollbar-thin scrollbar-thumb-white/10 hover:scrollbar-thumb-white/20">
+            <!-- JS builds this list --> 
+        </div> 
       </div>
     </aside>
   </main>
@@ -397,20 +398,42 @@ const mobileStrip = document.getElementById("mobileStrip"); // optional: mobile 
 //CHANGE HERE
 // Active highlight for just the thumbnail box
 // so basically you are setting them all to have a tailwind ring 
-const THUMB_ACTIVE = ["ring-2","ring-blue-400","ring-offset-2","ring-offset-black/30"];
+// const THUMB_ACTIVE = ["ring-2","ring-blue-400","ring-offset-2","ring-offset-black/30"];
+// Full-row highlight ring (even border) + soft background
+const ROW_ACTIVE = [
+  "ring-[0.5px]",          // hairline
+  "ring-white/40",         // dimmer
+  "ring-offset-1",         // pull ring off the edge slightly
+  "ring-offset-transparent",
+  "bg-white/5"
+];
 
-// When the function is called with a workId, it removes the active classes from all thumbnails 
-  // And that's when someone clicks on the work link
+
+
+// const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 function highlightActive(workId) {
-  // clear any previous highlights
-  document.querySelectorAll('.work-link .thumb').forEach(el => {
-    el.classList.remove(...THUMB_ACTIVE);
-  });
-  // add to the currently active one (both desktop & any mobile clones)
-  document.querySelectorAll(`.work-link[data-work-id="${workId}"] .thumb`).forEach(el => {
-    el.classList.add(...THUMB_ACTIVE);
+  // remove highlight from all rows
+  const allRows = document.querySelectorAll('.work-link');
+  allRows.forEach(el => el.classList.remove(...ROW_ACTIVE));
+
+  // add highlight to active row(s)
+  const activeRows = document.querySelectorAll(`.work-link[data-work-id="${workId}"]`);
+  activeRows.forEach(el => {
+    el.classList.add(...ROW_ACTIVE);
+
+    // smooth pop-in on selection
+    if (!prefersReduced && window.gsap) {
+      gsap.killTweensOf(el);
+      gsap.fromTo(
+        el,
+        { scale: 0.985 },
+        { scale: 1, duration: 0.22, ease: "power2.out" }
+      );
+    }
   });
 }
+
 
 // Active highlight utility
 // const ACTIVE_CLASSES = ["ring-1","ring-blue-400","bg-white/10"];
@@ -465,8 +488,11 @@ if (sidebar) {
     a.dataset.workId = id;
 
     // gallery-style row
-    a.className =
-      "work-link flex items-center gap-4 py-3 px-2 hover:bg-white/5 rounded-xl transition cursor-pointer";
+  a.className =
+  "work-link flex items-center gap-4 py-3 px-3 rounded-xl cursor-pointer \
+   ring-1 ring-transparent bg-white/5 hover:bg-white/10 hover:ring-white/10 \
+   transition-colors transition-shadow duration-200 will-change-transform";
+
 
     a.innerHTML = `
     <div class="thumb relative z-10 rounded-xl ring-1 ring-white/15 overflow-hidden flex-shrink-0">
