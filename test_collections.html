@@ -388,14 +388,40 @@
 const sidebar = document.getElementById("sidebarList");   // desktop stacked list container
 const mobileStrip = document.getElementById("mobileStrip"); // optional: mobile horizontal strip
 
-// Active highlight utility
-const ACTIVE_CLASSES = ["ring-1","ring-blue-400","bg-white/10"];
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//CHANGE HERE
+// Active highlight for just the thumbnail box
+// so basically you are setting them all to have a tailwind ring 
+const THUMB_ACTIVE = ["ring-2","ring-blue-400","ring-offset-2","ring-offset-black/30"];
+
+// When the function is called with a workId, it removes the active classes from all thumbnails 
+  // And that's when someone clicks on the work link
 function highlightActive(workId) {
-  const all = document.querySelectorAll('.work-link[data-work-id]');
-  all.forEach(el => el.classList.remove(...ACTIVE_CLASSES));
-  const targets = document.querySelectorAll(`.work-link[data-work-id="${workId}"]`);
-  targets.forEach(el => el.classList.add(...ACTIVE_CLASSES));
+  // clear any previous highlights
+  document.querySelectorAll('.work-link .thumb').forEach(el => {
+    el.classList.remove(...THUMB_ACTIVE);
+  });
+  // add to the currently active one (both desktop & any mobile clones)
+  document.querySelectorAll(`.work-link[data-work-id="${workId}"] .thumb`).forEach(el => {
+    el.classList.add(...THUMB_ACTIVE);
+  });
 }
+
+// Active highlight utility
+// const ACTIVE_CLASSES = ["ring-1","ring-blue-400","bg-white/10"];
+// function highlightActive(workId) {
+//   const all = document.querySelectorAll('.work-link[data-work-id]');
+//   all.forEach(el => el.classList.remove(...ACTIVE_CLASSES));
+//   const targets = document.querySelectorAll(`.work-link[data-work-id="${workId}"]`);
+//   targets.forEach(el => el.classList.add(...ACTIVE_CLASSES));
+// }
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
 // Normalize an id for data-work-id/href
 function toId(title, idx){
@@ -440,23 +466,26 @@ if (sidebar) {
     a.className =
       "work-link flex items-center gap-4 py-3 px-2 hover:bg-white/5 rounded-xl transition cursor-pointer";
 
-    a.innerHTML = `
-      <img src="${w.img}" loading="lazy"
-           class="h-16 w-16 rounded-xl object-cover ring-1 ring-white/15 flex-shrink-0"
-           alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}">
+   a.innerHTML = `
+  <div class="thumb relative z-10 rounded-xl ring-1 ring-white/15 overflow-hidden flex-shrink-0">
+    <img src="${w.img}" loading="lazy"
+         class="h-16 w-16 object-cover"
+         alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}">
+  </div>
 
-      <div class="min-w-0">
-        <div class="serif font-medium text-white truncate" title="${w.title || ''}">
-          ${w.title || 'Untitled'}
-        </div>
+  <div class="min-w-0">
+    <div class="serif font-medium text-white truncate" title="${w.title || ''}">
+      ${w.title || 'Untitled'}
+    </div>
 
-        <div class="text-xs text-white/75 mt-1 flex items-center gap-2">
-          ${meta ? meta.split(" • ").map((s, idx) =>
-              idx === 0 ? `<span>${s}</span>` : `<span>•</span><span>${s}</span>`
-            ).join("") : ""}
-        </div>
-      </div>
-    `;
+    <div class="text-xs text-white/75 mt-1 flex items-center gap-2">
+      ${meta ? meta.split(" • ").map((s, idx) =>
+        idx === 0 ? `<span>${s}</span>` : `<span>•</span><span>${s}</span>`
+      ).join("") : ""}
+    </div>
+  </div>
+`;
+
 
     a.addEventListener("click", (e) => {
       e.preventDefault();
