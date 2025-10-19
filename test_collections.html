@@ -63,19 +63,23 @@
       scroll-behavior: smooth;
     }
 
-    /* Sidebar scrollbar to match white ring outline */
+    /* Match scrollbar color to row ring */
     #sidebarList::-webkit-scrollbar {
       width: 6px;
     }
+
     #sidebarList::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.4);
+      background-color: rgba(255,255,255,0.4);  /* same as ring-white/40 */
       border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.25); /* faint edge definition */
     }
+
     #sidebarList:hover::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.5);
+      background-color: rgba(255,255,255,0.5);  /* slightly brighter on hover */
     }
+
     #sidebarList::-webkit-scrollbar-track {
-      background: transparent;
+      background-color: transparent;            /* remove gray background */
     }
   </style>
 
@@ -173,17 +177,17 @@
         <div class="flex items-center gap-2 flex-nowrap">
           <!-- XRP Café -->
             <a id="xrpBtn" href="#" data-label="XRP Café"
-       class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full
+              class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full
               border border-white/20 ring-0 shadow-none
               hover:border-white/30 transition">
-      <img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe"
-           class="w-9 h-9 rounded-full object-cover">
-    </a>
+              <img src="./img/round_logos/xrpcafe_circle.png" alt="xrpcafe"
+              class="w-9 h-9 rounded-full object-cover">
+            </a>
 
 
           <!-- OpenSea -->
           <a id="osBtn" href="#" data-label="OpenSea"
-            class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full
+             class="market-btn inline-flex items-center justify-center w-10 h-10 rounded-full
                     border border-white/20 ring-0 shadow-none
                     hover:border-white/30 transition">
             <img src="./img/round_logos/opensea_circle.png" alt="opensea"
