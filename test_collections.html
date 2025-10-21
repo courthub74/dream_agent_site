@@ -463,10 +463,14 @@ function syncActiveHighlight() {
   const id = toId(works[current].title, current);
   highlightActive(id);
 
-  // keep the active row visible in the sidebar
-  const row = document.querySelector(`.work-link[data-work-id="${id}"]`);
-  row?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+  // Only nudge the sidebar into view on desktop
+  const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+  if (isDesktop) {
+    const row = document.querySelector(`.work-link[data-work-id="${id}"]`);
+    row?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+  }
 }
+
 
 
 
