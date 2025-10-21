@@ -392,6 +392,10 @@
       switching = false;
     }
 
+    // Keep sidebar highlight in
+    syncActiveHighlight();
+
+
     // Preload the next image opportunistically
     const nextIndex = (i + 1) % works.length;
     preload(works[nextIndex].img).catch(()=>{});
@@ -414,12 +418,13 @@ const mobileStrip = document.getElementById("mobileStrip"); // optional: mobile 
 // const THUMB_ACTIVE = ["ring-2","ring-blue-400","ring-offset-2","ring-offset-black/30"];
 // Full-row highlight ring (even border) + soft background
 const ROW_ACTIVE = [
-  "ring-[0.5px]",          // hairline
-  "ring-white/40",         // dimmer
-  "ring-offset-1",         // pull ring off the edge slightly
+  "ring-1",            // stronger than base ring
+  "ring-white/60",     // clearer contrast
+  "ring-offset-1",
   "ring-offset-transparent",
-  "bg-white/5"
+  "bg-white/10"        // subtle lift
 ];
+
 
 
 
@@ -446,6 +451,17 @@ function highlightActive(workId) {
     }
   });
 }
+
+// Sync highlight and scroll sidebar
+function syncActiveHighlight() {
+  const id = toId(works[current].title, current);
+  highlightActive(id);
+
+  // keep the active row visible in the sidebar
+  const row = document.querySelector(`.work-link[data-work-id="${id}"]`);
+  row?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+}
+
 
 
 // Active highlight utility
@@ -502,8 +518,8 @@ if (sidebar) {
 
     // gallery-style row
   a.className =
-  "work-link flex items-center gap-4 py-3 px-3 rounded-xl cursor-pointer \
-   ring-1 ring-transparent bg-white/5 hover:bg-white/10 hover:ring-white/10 \
+  "work-link relative flex items-center gap-4 py-3 px-3 rounded-xl cursor-pointer \
+   ring-1 ring-white/10 bg-white/5 hover:bg-white/10 hover:ring-white/20 \
    transition-colors transition-shadow duration-200 will-change-transform";
 
 
@@ -608,8 +624,16 @@ if (mobileStrip) {
 
 
     // Nav buttons
-    document.getElementById("prevBtn").onclick = ()=>{ current=(current-1+works.length)%works.length; renderWork(current); };
-    document.getElementById("nextBtn").onclick = ()=>{ current=(current+1)%works.length; renderWork(current); };
+    document.getElementById("prevBtn").onclick = () => {
+        current = (current - 1 + works.length) % works.length;
+        renderWork(current);
+        syncActiveHighlight();
+    };
+    document.getElementById("nextBtn").onclick = () => {
+        current = (current + 1) % works.length;
+        renderWork(current);
+        syncActiveHighlight();
+    };
 
     // First paint: let the image fade in on load
     artImg.addEventListener("load", ()=>{
