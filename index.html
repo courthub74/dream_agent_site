@@ -39,6 +39,8 @@
       --content-pad: 1rem;
       /* For the Arrows */
       --cc-offset: -1.9rem;
+      --footer-height: 10rem; /* change to match your footer */
+      --header-height: 4rem;  /* change if you have a sticky header */
     }
 
     /* Slide In Menu */
@@ -50,23 +52,29 @@
     html.has-drawer { overflow: hidden; }
 
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+      * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     html, body { height: 100%; color: beige; scroll-behavior: smooth; }
 
     body {
-      min-height: 100%;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/larger_about_background.png');
+      background-image: linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)), url('./img/largest_about_background.png');
       /* background-color: #0057B8; */
-      background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;
+      background-position: center; 
+      background-repeat: repeat; 
+      background-size: cover; 
+      background-attachment: scroll;
     }
 
     h1, h2, h3, h4, #title, .about-link, .overlay-text, .mobile_about_header, .mobile_about_collections_header, #cta {
       font-family: 'Playfair Display', serif;
     }
 
-    main { flex: 1 0 auto; }
+    main { flex: 1 0 auto;  background:
+      linear-gradient(rgba(0, 87, 184, 0.5), rgba(0, 87, 184, 0.4)),
+      url('./img/even_larger_about_background.png') center/cover no-repeat;
+    }
 
     /* HERO */
     .mobile_hero { height: 100vh; background: center/cover no-repeat url('./img/plain_background_bigger.png'); }
@@ -75,12 +83,33 @@
     .about-link { background:#0057B8; color: white; padding: 10px 20px; border-radius: 6px; font-size: 1rem; text-decoration: none; transition: background-color .3s ease, transform .3s ease; }
 
     /* ABOUT SECTION*/
-    /* section.mobile_about { width: 100%; color: white; background:
-      linear-gradient(rgba(0, 86, 184, 0.375), rgba(0, 86, 184, 0.512)),
-      url('./img/even_larger_about_background.png') center/cover no-repeat; } */
-    section.mobile_about { width: 100%; color: white; background:
-      linear-gradient(rgba(0, 87, 184, 0.5), rgba(0, 87, 184, 0.4)),
-      url('./img/even_larger_about_background.png') center/cover no-repeat; }
+    section.mobile_about {
+      width: 100%;
+      color: white;
+      /* background:
+        linear-gradient(rgba(0, 87, 184, 0.5), rgba(0, 87, 184, 0.4)),
+        url('./img/largest_about_background.png') center/100% 100% no-repeat; */
+      min-height: 55vh;
+      padding-top: 1rem;
+    
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Desktop: slightly taller than mobile but still shorter than full viewport */
+    @media (min-width: 1024px) {
+      section.mobile_about {
+        min-height: 60vh;
+        padding-top: 1.5rem;
+        padding-bottom: 2rem;
+      }
+    }
+
+    /* Force override for any other desktop media rules that previously set 100vh */
+    @media (min-width: 1025px) {
+      section.mobile_about { min-height: 60vh !important; }
+    }
+
     .mobile_about_container { max-width: var(--content-max); margin-inline: auto; padding-inline: var(--content-pad); }
     .mobile_about_header { text-align: left; font-size: 1.5rem; font-weight: 700; padding-left: .25rem; margin-top: 1rem; }
     .mobile_about_paragraph { line-height: 1.7; margin: 1rem 0 2rem; }
@@ -164,7 +193,7 @@
     #collections .cc-dot.is-active::after { opacity: 1; }
 
     /* Footer */
-    footer { text-align: center; color: #EAEFF7; background: linear-gradient(to bottom, #114C92, #022A54); position: relative; margin-top: auto; border-radius: 5px; padding-block: 2rem; border-top: 1px solid rgba(255,255,255,0.2); }
+    footer { text-align: center; color: #EAEFF7; background: linear-gradient(to bottom, #114C92, #022A54); position: relative; margin-top: auto; border-radius: 5px; padding-block: 4rem; border-top: 1px solid rgba(255,255,255,0.2); }
 
     /* Mobile tweaks */
     @media (max-width: 480px) {
@@ -636,47 +665,32 @@
         </section>
       </div>
     </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="mobile_about_container py-6 sm:py-4">
-      <div class="flex flex-col sm:flex-row items-center w-full sm:justify-between gap-4">
-        <div class="sm:flex sm:flex-col sm:gap-4 items-center">
-          <p class="hidden sm:block text-sm text-center">No face, No fame, just the vision</p>
-          <div class="logo flex items-center gap-5 mb-2 p-1">
-            <img src="./img/logos/DreamAgent Logo 11.png" alt="Dream Agent logo" class="w-[50px] h-[50px] rounded-full border border-white/10" width="50" height="50" />
-            <a href="#" aria-label="Twitter"><img src="./img/round_logos/twitter_black_circle.png" alt="Twitter" class="w-[40px] h-[40px] cursor-pointer" width="40" height="40" /></a>
-            <a href="#" aria-label="Twitter"><img src="../img/round_logos/Sora.png" alt="Twitter" class="w-[40px] h-[40px] cursor-pointer" width="40" height="40" /></a>
-            <a href="#" aria-label="Instagram"><img src="./img/round_logos/instagram_red_circle.png" alt="Instagram" class="w-[42px] h-[42px] cursor-pointer" width="42" height="42" /></a>
-            <a href="#" aria-label="Bluesky"><img src="./img/round_logos/bluesky_liteblue_circle.png" alt="Bluesky" class="w-[42px] h-[42px] cursor-pointer" width="42" height="42" /></a>
-            <a href="#" aria-label="TikTok"><img src="./img/round_logos/tiktok_black_circle.png" alt="TikTok" class="w-[42px] h-[42px] cursor-pointer" width="42" height="42" /></a>
-          </div>
+    <!-- FOOTER -->
+  <footer class="mt-10">
+    <div class="max-w-6xl mx-auto px-4 py-10 rounded-xl">
+      <div class="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-6">
+        <!-- left text -->
+        <div class="text-center lg:text-left">
+          <p class="mt-2 text-white/80 text-sm flex flex-row justify-center lg:justify-start items-center gap-2">  
+             <span class="text-white/70 font-bold">No face. No fame. Just the vision.</span>
+          </p>
         </div>
 
-        <div class="hidden sm:flex sm:flex-col sm:items-center sm:gap-4">
-          <p class="text-sm text-center">NFT Marketplaces:</p>
-          <div class="nft_icons flex items-center justify-center gap-5 p-1">
-            <a href="#" aria-label="XRP Café"><img src="./img/round_logos/xrpcafe_circle.png" alt="XRP Café" class="w-[42px] h-[42px] cursor-pointer" width="42" height="42" /></a>
-            <a href="#" aria-label="OpenSea"><img src="./img/round_logos/opensea_circle.png" alt="OpenSea" class="w-[42px] h-[42px] cursor-pointer" width="42" height="42" /></a>
-            <a href="#" aria-label="SuperRare"><img src="./img/round_logos/superrare_circle.png" alt="SuperRare" class="w-[42px] h-[42px] cursor-pointer" width="42" height="42" /></a>
-          </div>
+        <!-- right logos -->
+        <div class="flex items-center gap-5">
+            <img src="../img/logos/DreamAgent Logo 11.png" alt="Dream Agent logo" class="w-[50px] h-[50px] rounded-full border border-white/10" width="50" height="50" /> 
+            <a href="#" aria-label="Twitter"><img src="../img/round_logos/twitter_black_circle.png" alt="Twitter" class="w-[40px] h-[40px] cursor-pointer" width="40" height="40" /></a>
+            <a href="#" aria-label="Twitter"><img src="../img/round_logos/Sora.png" alt="Twitter" class="w-[40px] h-[40px] cursor-pointer" width="40" height="40" /></a>
+            <a href="#" aria-label="Instagram"><img src="../img/round_logos/instagram_red_circle.png" alt="Instagram" class="w-[42px] h-[42px] cursor-pointer" width="42" height="42" /></a>
+            <a href="#" aria-label="Bluesky"><img src="../img/round_logos/bluesky_liteblue_circle.png" alt="Bluesky" class="w-[42px] h-[42px] cursor-pointer" width="42" height="42" /></a>
+            <a href="#" aria-label="TikTok"><img src="../img/round_logos/tiktok_black_circle.png" alt="TikTok" class="w-[42px] h-[42px] cursor-pointer" width="42" height="42" /></a>
         </div>
       </div>
-
-    <!-- Copywright and Powered by -->
-      <p class="mt-4 text-xs text-[#cccccc]" id="copyright">&copy; 2023 Dream Agent. All rights reserved.</p>
-
-      <p class="mt-1 text-xs text-[#cccccc] flex items-center justify-center gap-1">
-        Powered by 
-        <a href="https://courdevelops.com" target="_blank" class="inline-flex items-center gap-1 text-[#cccccc] hover:text-blue-400 transition">
-          <img src="./img/round_logos/Courdevelops.svg" alt="CourDevelops logo" class="h-4 w-4 inline-block align-text-bottom">
-          <span>CourDevelops</span>
-        </a>
-     </p>
-
     </div>
   </footer>
+  </main>
+
+  
 
   <script>
     // Fade-ins on hero
