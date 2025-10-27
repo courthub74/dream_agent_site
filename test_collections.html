@@ -153,17 +153,17 @@
 
 
     /* VERY SOFT LINEAR FLOW AURA DIVIDER */
-    @keyframes auraLineFlow {
-      0%   { opacity: 0.35; transform: translateX(-20%); }
-      100% { opacity: 0.35; transform: translateX(20%); }
+    /* @keyframes auraLineFlow {
+      0%   { opacity: 0.35; transform: translateX(-7%); }
+      100% { opacity: 0.35; transform: translateX(7%); }
     }
 
     .animate-auraLineFlow {
-      animation: auraLineFlow 14s linear infinite;
-      background-size: 200% 100%;
+      animation: auraLineFlow 20s linear infinite;
+      background-size: 200% 200%;
       filter: drop-shadow(0 0 2px rgba(255,255,255,0.15));
       will-change: transform;
-    }
+    } */
 
   </style>
 
@@ -315,60 +315,62 @@
 
     <!-- Sidebar and Other collections -->
     <aside class="lg:col-span-5">
-    <!-- Sticky panel -->
-    <div class="panel rounded-2xl p-4 sm:p-6 lg:sticky lg:top-8">
-      <h3 class="serif text-lg sm:text-xl mb-4">All works in this collection</h3>
+      <!-- Sticky panel -->
+      <div class="panel rounded-2xl p-4 sm:p-6 lg:sticky lg:top-8">
+        <h3 class="serif text-lg sm:text-xl mb-4">All works in this collection</h3>
 
-      <!-- Works list (scrolls vertically inside the panel) -->
-      <div id="sidebarList"
-          class="space-y-2 pl-2 pr-2 py-1 max-h-[28rem] overflow-y-auto
-                  scrollbar-thin scrollbar-thumb-white/40 scrollbar-track-transparent
-                  hover:scrollbar-thumb-white/50 rounded-xl">
-        <!-- JS builds this list -->
-      </div>
+        <!-- Works list (scrolls vertically inside the panel) -->
+        <div id="sidebarList"
+            class="space-y-2 pl-2 pr-2 py-1 max-h-[28rem] overflow-y-auto
+                    scrollbar-thin scrollbar-thumb-white/40 scrollbar-track-transparent
+                    hover:scrollbar-thumb-white/50 rounded-xl">
+          <!-- JS builds this list -->
+        </div>
 
-      <!-- Animated glowing divider -->
-      <div class="relative my-4 h-px overflow-hidden rounded-full">
-        <div class="absolute inset-0 bg-gradient-to-r from-white/15 via-white to-white/15 animate-auraLine"></div>
-      </div>
+        <!-- Animated glowing divider -->
+        <!-- <div class="relative my-4 h-px overflow-hidden rounded-full">
+          <div class="absolute inset-0 bg-gradient-to-r
+                from-white/10 via-white/40 to-white/10
+                opacity-50 animate-auraLineFlow"></div>
+        </div> -->
 
 
-      <!-- Other Collections: horizontal strip with thumbs + arrows -->
-      <div id="otherCollectionsStrip" class="mt-4 overflow-hidden">
-        <h3 class="serif text-base sm:text-lg mb-2">Other collections</h3>
+        <!-- Other Collections: horizontal strip with thumbs + arrows -->
+        <div id="otherCollectionsStrip" class="mt-4 overflow-hidden">
+          <h3 class="serif text-base sm:text-lg mb-2">Other collections</h3>
 
-        <div class="relative">
-          <!-- gradient edges -->
-          <div class="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/40 to-transparent z-10"></div>
-          <div class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/40 to-transparent z-10"></div>
+          <div class="relative">
+            <!-- gradient edges -->
+            <div class="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/40 to-transparent z-10"></div>
+            <div class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/40 to-transparent z-10"></div>
 
-          <!-- arrows -->
-          <button id="ocPrev"
-                  aria-label="Scroll left"
-                  class="absolute left-1 top-1/2 -translate-y-1/2 z-20
-                        w-8 h-8 rounded-full bg-black/40 ring-1 ring-white/30
-                        hover:bg-black/55 transition flex items-center justify-center">
-            ‹
-          </button>
-          <button id="ocNext"
-                  aria-label="Scroll right"
-                  class="absolute right-1 top-1/2 -translate-y-1/2 z-20
-                        w-8 h-8 rounded-full bg-black/40 ring-1 ring-white/30
-                        hover:bg-black/55 transition flex items-center justify-center">
-            ›
-          </button>
+            <!-- arrows -->
+            <button id="ocPrev"
+                    aria-label="Scroll left"
+                    class="absolute left-1 top-1/2 -translate-y-1/2 z-20
+                          w-8 h-8 rounded-full bg-black/40 ring-1 ring-white/30
+                          hover:bg-black/55 transition flex items-center justify-center">
+              ‹
+            </button>
+            <button id="ocNext"
+                    aria-label="Scroll right"
+                    class="absolute right-1 top-1/2 -translate-y-1/2 z-20
+                          w-8 h-8 rounded-full bg-black/40 ring-1 ring-white/30
+                          hover:bg-black/55 transition flex items-center justify-center">
+              ›
+            </button>
 
-          <!-- one-line scroller -->
-          <div id="ocScroller"
-              class="flex items-center gap-2 sm:gap-3 overflow-x-auto whitespace-nowrap no-scrollbar
-                      snap-x snap-mandatory px-2 py-1">
-            <!-- JS injects cards -->
+            <!-- one-line scroller -->
+            <div id="ocScroller"
+                class="flex items-center gap-2 sm:gap-3 overflow-x-auto whitespace-nowrap no-scrollbar
+                        snap-x snap-mandatory px-2 py-1">
+              <!-- JS injects cards -->
+            </div>
           </div>
         </div>
-      </div>
 
-    </div>
-  </aside>
+      </div>
+    </aside>
   </main>
 
   <!-- FOOTER -->
