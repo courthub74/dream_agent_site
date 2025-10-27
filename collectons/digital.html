@@ -59,6 +59,105 @@
       color: rgba(255,255,255,0.85);
     }
 
+    /* --- Marketplace icon: size, aura, hover like footer icons --- */
+
+/* Button shell (same footprint as your current 40–44px pills) */
+.market-btn {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;              /* outer button size */
+  height: 44px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,.20);
+  background: transparent;
+  isolation: isolate;       /* keep aura behind */
+  transition:
+    transform .20s ease,
+    box-shadow .25s ease,
+    border-color .20s ease;
+}
+
+/* Tooltip now uses ::before so ::after is free for the aura */
+.market-btn::before {
+  content: attr(data-label);
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  bottom: -2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0);
+  background: rgba(0,0,0,0.4);
+  padding: 2px 8px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease, color .3s ease;
+}
+
+.market-btn:hover::before {
+  opacity: 1;
+  color: rgba(255,255,255,0.85);
+}
+
+/* Glow aura (matches footer icon glow) */
+.market-btn::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: radial-gradient(60% 60% at 50% 50%,
+              rgba(255,255,255,.35),
+              rgba(0,87,184,.18) 55%,
+              rgba(255,255,255,0) 100%);
+  filter: blur(10px);
+  opacity: .35;
+  transition: opacity .25s ease, transform .25s ease, filter .25s ease;
+  z-index: 0;
+}
+
+/* Respect reduced motion for the soft pulse */
+@media (prefers-reduced-motion: no-preference) {
+  .market-btn[data-pulse]::after {
+    animation: daAuraPulse 4.5s ease-in-out infinite;
+  }
+}
+
+/* The actual icon image */
+.market-btn img {            /* or use .market-icon if you prefer */
+  position: relative;
+  z-index: 1;
+  width: 34px;               /* inner icon matches footer-icon sizing */
+  height: 34px;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.18);
+  transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
+  object-fit: cover;
+}
+
+/* Hover lift + stronger halo (same feel as footer icons) */
+.market-btn:hover {
+  transform: translateY(-1px) scale(1.04);
+  border-color: rgba(255,255,255,.30);
+}
+
+.market-btn:hover::after {
+  opacity: .6;
+  transform: scale(1.06);
+}
+
+.market-btn:hover img {
+  filter: drop-shadow(0 0 12px rgba(255,255,255,.55));
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.26),
+    0 6px 18px rgba(0,0,0,.28);
+}
+
+
     #sidebarList {
       scroll-behavior: smooth;
     }
@@ -81,6 +180,72 @@
     #sidebarList::-webkit-scrollbar-track {
       background-color: transparent;            /* remove gray background */
     }
+
+    /* --- Footer icon glow (Dream Agent) --- */
+    .footer-icons .icon-wrap {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 9999px;
+    isolation: isolate;               /* keep glow behind the icon */
+    }
+
+    .footer-icons .icon-wrap::after {
+    content: "";
+    position: absolute;
+    inset: -6px;                      /* size of aura spread */
+    border-radius: inherit;
+    /* white core with a whisper of Dream Agent blue */
+    background: radial-gradient(60% 60% at 50% 50%,
+                rgba(255,255,255,.35),
+                rgba(0,87,184,.18) 55%,
+                rgba(255,255,255,0) 100%);
+    filter: blur(10px);
+    opacity: .40;                     /* idle aura */
+    transition: opacity .25s ease, transform .25s ease, filter .25s ease;
+    z-index: 0;                       /* behind the icon */
+    }
+
+    /* Soft pulse (dreamlike) */
+    @keyframes daAuraPulse {
+    0%, 100% { opacity: .22; transform: scale(1);   filter: blur(10px); }
+    50%      { opacity: .38; transform: scale(1.05); filter: blur(12px); }
+    }
+
+    /* Respect user preference */
+    @media (prefers-reduced-motion: no-preference) {
+    .footer-icons .icon-wrap[data-pulse]::after {
+        animation: daAuraPulse 4.5s ease-in-out infinite;
+    }
+    }
+
+    /* Icon itself: crisp with a faint ring */
+    .footer-icons img.footer-icon {
+    position: relative;
+    z-index: 1;
+    width: 34px; height: 34px;        /* your sizes; keep round */
+    border-radius: 9999px;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.18); /* hairline ring */
+    transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
+    }
+
+    /* Hover / focus: lift + stronger glow */
+    .footer-icons .icon-wrap:hover::after,
+    .footer-icons .icon-wrap:focus-within::after {
+    opacity: .6;
+    transform: scale(1.06);
+    }
+
+    .footer-icons .icon-wrap:hover img.footer-icon,
+    .footer-icons .icon-wrap:focus-within img.footer-icon {
+    transform: translateY(-1px) scale(1.04);
+    filter: drop-shadow(0 0 12px rgba(255,255,255,.55));
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.26),
+        0 6px 18px rgba(0,0,0,.28);
+    }
+
   </style>
 
   <!-- put this in <head> after Tailwind -->
@@ -105,7 +270,7 @@
      <div class="panel rounded-2xl p-4 sm:p-6 flex items-start gap-4 ">
       <img src="../img/collections/Digital Unconscious.png" alt="collections" class="h-16 w-16 sm:h-20 sm:w-20 lg:h-16 lg:w-16 rounded-full ring-1 ring-white/20">
       <div class="flex flex-col gap-0">
-          <h1 class="serif text-xl sm:text-2xl font-semibold leading-tight">Digital Unconscious</h1>
+          <h1 class="serif text-xl sm:text-2xl font-semibold leading-tight">The Digital Unconscious</h1>
           <div class="flex flex-col lg:flex-row lg:items-center lg:gap-0">
           <p class="text-white/80 text-sm mt-1 lg:mt-0">Where AI dreams and data remembers.</p>
           <p class="text-white/80 text-sm lg:ml-4">
@@ -235,34 +400,45 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="mt-10">
-    <div class="max-w-6xl mx-auto px-4 py-10 bg-white/5 rounded-xl">
-      <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-          <div class="text-center sm:text-left">
+  <footer class="mt-10 bg-white/5">
+    <div class="max-w-6xl mx-auto px-4 py-20 sm:pt-12 rounded-xl">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+   
+            <div class="text-center sm:text-left">
             <p class="text-white/80 text-sm font-bold">No face. No fame. Just the vision.</p>
-          </div>
-          <!-- logos moved next to the text and tightened gap -->
-          <div class="footer-icons flex items-center gap-3">
-          <span class="icon-wrap" data-pulse>
+            </div>
+            <!-- logos moved next to the text and tightened gap -->
+            <div class="footer-icons flex items-center gap-3">
+            <span class="icon-wrap" data-pulse>
             <img src="../img/logos/DreamAgent Logo 11.png" alt="Dream Agent" class="footer-icon" width="44" height="44">
-          </span>
+            </span>
             <a href="#" aria-label="Twitter" class="icon-wrap" data-pulse title="Twitter">
-              <img src="../img/round_logos/twitter_black_circle.png" alt="Twitter" class="footer-icon">
+                <img src="../img/round_logos/twitter_black_circle.png" alt="Twitter" class="footer-icon">
             </a>
             <a href="#" aria-label="Sora" class="icon-wrap" data-pulse title="Sora">
-              <img src="../img/round_logos/Sora.png" alt="Sora" class="footer-icon">
+                <img src="../img/round_logos/Sora.png" alt="Sora" class="footer-icon">
             </a>
             <a href="#" aria-label="Instagram" class="icon-wrap" data-pulse title="Instagram">
-              <img src="../img/round_logos/instagram_red_circle.png" alt="Instagram" class="footer-icon">
+                <img src="../img/round_logos/instagram_red_circle.png" alt="Instagram" class="footer-icon">
             </a>
             <a href="#" aria-label="Bluesky" class="icon-wrap" data-pulse title="Bluesky">
-              <img src="../img/round_logos/bluesky_liteblue_circle.png" alt="Bluesky" class="footer-icon">
+                <img src="../img/round_logos/bluesky_liteblue_circle.png" alt="Bluesky" class="footer-icon">
             </a>
             <a href="#" aria-label="TikTok" class="icon-wrap" data-pulse title="TikTok">
-              <img src="../img/round_logos/tiktok_black_circle.png" alt="TikTok" class="footer-icon">
+                <img src="../img/round_logos/tiktok_black_circle.png" alt="TikTok" class="footer-icon">
             </a>
+         </div>
+       
+         
+         <!-- right group: copyright / attribution -->
+        <div class="flex flex-col items-center gap-2 text-xs text-white/30">
+          <p>© 2025 Dream Agent. All rights reserved.</p>
+          <!-- <p class="flex items-center gap-1">
+            <img src="../img/round_logos/Courdevelops.svg" alt="CourDevelops logo" class="w-6 h-6 opacity-30" width="16" height="16">
+            Powered by CourDevelops
+          </p> -->
         </div>
-        </div>
+      </div>
     </div>
   </footer>
 
@@ -275,25 +451,25 @@
   ////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////
   const works = [
-    //  THE GREAT DIVIDE
-    { title:"The Great Divide", year:"2018", style:"Oil-style",
-      tags:["dollar","bitcoin"],
-      img:"../pictures/The Great Divide.png",
+    //  CURSOR OF FATE
+    { title:"Cursor of Fate", year:"2025", style:"Oil-style",
+      tags:["fortune teller","cursor"],
+      img:"../pictures/Cursor of Fate.png",
       desc:[
-        "The Great Divide is a meditation on the birth of digital value amidst generational and ideological conflict. A solemn green matriarch cradles a golden baby marked with the Bitcoin symbol — a digital messiah wrapped in swaddling wealth. Around her, the youth sit silently with laptops, bearing the weight of a new world, while protesters and skeptics stand on the opposing cliff, holding blank signs and accusations.",
-        "Set against a cosmic desert canyon under constellations of coded systems, this painting questions what is inherited, what is mined, and what is rejected. The gold rock at the feet of the critic speaks to the relics of the past; the baby to a future still being written.",
-        "🪐 Blockchain as womb. Protest as ritual. Code as constellation.",
-        "This is not just a divide — it is a rebirth.",
+        "A modern oracle trapped between code and karma. In Cursor of Fate, Dream Agent reimagines the iconic Zoltar fortune teller with a surrealist twist—his face replaced by a glowing screen and cursor, a digital mask for divination in the information age. Surrounded by axes, chainsaws, laptops, and a glowing orb, this techno-mystic peers through the algorithms of destiny.",
+        "On the table: a toy dump truck, sports car, bonsai waterfall, and a pixelated crystal ball represent choices both mundane and monumental. The cursor hovers as if awaiting your decision—fortune, or feedback loop?",
+        "This piece is a meditation on agency, automation, and the illusion of choice in an era where prompts shape prophecy.",
       ],
       links:{ xrp:"#", os:"#", sr:"#"}
     },
     //  THE FUTURE OF INDUSTRY
-    { title:"The Future of Industry", year:"2025", style:"Oil-style",
-      tags:["turban","brains"],
-      img:"../pictures/The Future of Industry.png",
+    { title:"Internet of the Middle World", year:"2025", style:"Oil-style",
+      tags:["mall","crystal ball"],
+      img:"../pictures/Internet of the Middle World.png",
       desc:[
-         "'The Future of Industry' envisions a new era where human thought, machine learning, and ritual merge. In a shadowed hall, a faceless oracle—its visage replaced by scrolling code—presides over a circle of thinkers. Before them lie luminous brains and crystal spheres, symbols of creativity, computation, and prophecy.",
-         "This surrealist work asks: When machines divine and humans compute, who guides the future of labor?",
+         "'Internet of the Middle World' captures a surreal 1980s-style mall scene where the digital age seeps into analog life. Neon signs divide the corridor into 'INTER' and 'NET', while glowing orbs—crystal-ball-like internet terminals—float atop fountains and pedestals. Shoppers gaze into them with reverence, as if accessing forgotten futures.", 
+         "The color palette leans into nostalgic earth tones, contrasted with electric blues, subtly evoking early digital aesthetics. The arcade machines flicker like proto-portals, while every character appears paused between eras—caught between the physical and the virtual, the mundane and the mythic.", 
+         "This piece reimagines the birth of the internet not as a tech boom, but as a spiritual-commercial ritual in the temple of capitalism.",
         ],
       links:{ xrp:"#", os:"#", sr:"#"}
     },
