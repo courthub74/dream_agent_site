@@ -87,18 +87,82 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* SOFT AURA DIVIDER */
-    @keyframes auraLineSoft {
-      0%   { opacity: 0.85; transform: scaleX(0.98) translateX(-3%); }
-      50%  { opacity: 1;    transform: scaleX(1.02) translateX(3%); }
-      100% { opacity: 0.85; transform: scaleX(0.98) translateX(-3%); }
+    /* --- Footer icon glow (Dream Agent) --- */
+    .footer-icons .icon-wrap {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 9999px;
+    isolation: isolate;               /* keep glow behind the icon */
     }
 
-    .animate-auraLineSoft {
-      animation: auraLineSoft 6s ease-in-out infinite;
+    .footer-icons .icon-wrap::after {
+    content: "";
+    position: absolute;
+    inset: -6px;                      /* size of aura spread */
+    border-radius: inherit;
+    /* white core with a whisper of Dream Agent blue */
+    background: radial-gradient(60% 60% at 50% 50%,
+                rgba(255,255,255,.35),
+                rgba(0,87,184,.18) 55%,
+                rgba(255,255,255,0) 100%);
+    filter: blur(10px);
+    opacity: .40;                     /* idle aura */
+    transition: opacity .25s ease, transform .25s ease, filter .25s ease;
+    z-index: 0;                       /* behind the icon */
+    }
+
+    .footer-icons img.footer-icon {
+      position: relative;
+      z-index: 1;
+      width: 34px;
+      height: 34px;
+      border-radius: 9999px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.18);
+      transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
+      object-fit: cover;
+    }
+
+     /* Icon itself: crisp with a faint ring */
+    .footer-icons img.footer-icon {
+    position: relative;
+    z-index: 1;
+    width: 34px; height: 34px;        /* your sizes; keep round */
+    border-radius: 9999px;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.18); /* hairline ring */
+    transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
+    }
+
+    /* Hover / focus: lift + stronger glow */
+    .footer-icons .icon-wrap:hover::after,
+    .footer-icons .icon-wrap:focus-within::after {
+    opacity: .6;
+    transform: scale(1.06);
+    }
+
+    .footer-icons .icon-wrap:hover img.footer-icon,
+    .footer-icons .icon-wrap:focus-within img.footer-icon {
+    transform: translateY(-1px) scale(1.04);
+    filter: drop-shadow(0 0 12px rgba(255,255,255,.55));
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.26),
+        0 6px 18px rgba(0,0,0,.28);
+    }
+
+
+
+    /* VERY SOFT LINEAR FLOW AURA DIVIDER */
+    @keyframes auraLineFlow {
+      0%   { opacity: 0.35; transform: translateX(-20%); }
+      100% { opacity: 0.35; transform: translateX(20%); }
+    }
+
+    .animate-auraLineFlow {
+      animation: auraLineFlow 14s linear infinite;
       background-size: 200% 100%;
-      filter: drop-shadow(0 0 5px rgba(255,255,255,0.25));
-      will-change: transform, opacity;
+      filter: drop-shadow(0 0 2px rgba(255,255,255,0.15));
+      will-change: transform;
     }
 
   </style>
@@ -246,11 +310,6 @@
            <!-- <p class="text-white/80 text-[9px]">SuperRare</p> -->
         </div>
       </div>
-
-
-
-
-
       </article>
     </section>
 
@@ -270,7 +329,7 @@
 
       <!-- Animated glowing divider -->
       <div class="relative my-4 h-px overflow-hidden rounded-full">
-        <div class="absolute inset-0 bg-gradient-to-r from-white/20 via-white to-white/20 animate-auraLine"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-white/15 via-white to-white/15 animate-auraLine"></div>
       </div>
 
 
@@ -310,9 +369,50 @@
 
     </div>
   </aside>
-
-
   </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-10 bg-white/5">
+    <div class="max-w-6xl mx-auto px-4 py-20 sm:pt-12 rounded-xl">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+   
+            <div class="text-center sm:text-left">
+            <p class="text-white/80 text-sm font-bold">No face. No fame. Just the vision.</p>
+            </div>
+            <!-- logos moved next to the text and tightened gap -->
+            <div class="footer-icons flex items-center gap-3">
+            <span class="icon-wrap" data-pulse>
+            <img src="../img/logos/DreamAgent Logo 11.png" alt="Dream Agent" class="footer-icon">
+            </span>
+            <a href="#" aria-label="Twitter" class="icon-wrap" data-pulse title="Twitter">
+                <img src="../img/round_logos/twitter_black_circle.png" alt="Twitter" class="footer-icon">
+            </a>
+            <a href="#" aria-label="Sora" class="icon-wrap" data-pulse title="Sora">
+                <img src="../img/round_logos/Sora.png" alt="Sora" class="footer-icon">
+            </a>
+            <a href="#" aria-label="Instagram" class="icon-wrap" data-pulse title="Instagram">
+                <img src="../img/round_logos/instagram_red_circle.png" alt="Instagram" class="footer-icon">
+            </a>
+            <a href="#" aria-label="Bluesky" class="icon-wrap" data-pulse title="Bluesky">
+                <img src="../img/round_logos/bluesky_liteblue_circle.png" alt="Bluesky" class="footer-icon">
+            </a>
+            <a href="#" aria-label="TikTok" class="icon-wrap" data-pulse title="TikTok">
+                <img src="../img/round_logos/tiktok_black_circle.png" alt="TikTok" class="footer-icon">
+            </a>
+         </div>
+       
+         
+         <!-- right group: copyright / attribution -->
+        <div class="flex flex-col items-center gap-2 text-xs text-white/30">
+          <p>© 2025 Dream Agent. All rights reserved.</p>
+          <!-- <p class="flex items-center gap-1">
+            <img src="../img/round_logos/Courdevelops.svg" alt="CourDevelops logo" class="w-6 h-6 opacity-30" width="16" height="16">
+            Powered by CourDevelops
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script>
   // ALL THE PICTURES & DATA
