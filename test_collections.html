@@ -87,6 +87,20 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* SOFT AURA DIVIDER */
+    @keyframes auraLineSoft {
+      0%   { opacity: 0.85; transform: scaleX(0.98) translateX(-3%); }
+      50%  { opacity: 1;    transform: scaleX(1.02) translateX(3%); }
+      100% { opacity: 0.85; transform: scaleX(0.98) translateX(-3%); }
+    }
+
+    .animate-auraLineSoft {
+      animation: auraLineSoft 6s ease-in-out infinite;
+      background-size: 200% 100%;
+      filter: drop-shadow(0 0 5px rgba(255,255,255,0.25));
+      will-change: transform, opacity;
+    }
+
   </style>
 
   <!-- put this in <head> after Tailwind -->
@@ -253,6 +267,12 @@
                   hover:scrollbar-thumb-white/50 rounded-xl">
         <!-- JS builds this list -->
       </div>
+
+      <!-- Animated glowing divider -->
+      <div class="relative my-4 h-px overflow-hidden rounded-full">
+        <div class="absolute inset-0 bg-gradient-to-r from-white/20 via-white to-white/20 animate-auraLine"></div>
+      </div>
+
 
       <!-- Other Collections: horizontal strip with thumbs + arrows -->
       <div id="otherCollectionsStrip" class="mt-4 overflow-hidden">
