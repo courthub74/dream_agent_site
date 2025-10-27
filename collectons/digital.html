@@ -255,14 +255,34 @@
 <!-- The ACTUAL PAGE -->
 <body class="min-h-screen">
   <header class="max-w-6xl mx-auto px-4 pt-6">
-    <nav class="text-white/70 text-sm mb-4">
+    <nav class="text-white/70 text-sm mb-4 flex items-center justify-between">
+        <!-- Back to Collections -->
+        <a id="backLink" href="../index.html#mobile_about"
+            class="flex items-center text-white/70 hover:text-white transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Collections
+        </a>
+
+        <!-- Next Collection -->
+        <a id="nextLink" href="../collectons/dominion.html"
+            class="flex items-center text-white/70 hover:text-white transition">
+            Next Collection
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+        </a>
+    </nav>
+
+    <!-- <nav class="text-white/70 text-sm mb-4">
      <a href="../index.html#mobile_about" class="flex items-center text-white/70 hover:text-white transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
         Back to Collections
       </a>
-    </nav>
+    </nav> -->
   </header>
 
   <!-- COLLECTION HEADER -->
@@ -474,14 +494,12 @@
       links:{ xrp:"#", os:"#", sr:"#"}
     },
     // THE FEAR ROOM
-    { title:"The Fear Room", year:"2023", style:"Oil-style",
-      tags:["priest","war"],
-      img:"../pictures/The Fear Room.png",
+    { title:"Lactation of the Ledger", year:"2025", style:"Oil-style",
+      tags:["bridges","mother"],
+      img:"../pictures/Lactation of the Ledger.png",
       desc:[
-         "'In The Fear Room', Dream Agent dissects the systemic machinery of submission and indoctrination. A lineup of children—bent, broken, and bowed—passes through gateways of authority and assimilation, watched over by figures of religion, capital, and control. Behind them, a portrait of soldiers against fire echoes the violence of inherited obedience.",
-         "A suited man holds out cash while guiding heads into future-making devices, beneath the glow of a microchip idol labeled 'FUTURE'—a cynical altar to technological determinism. The atmosphere is thick with unease, yet calculated and quiet. This is not chaos—it’s organized despair.",
-         "This NFT immortalizes a moment of ideological conditioning, where hope flickers in the cracks of institutionally imposed fear. One child, far right, sits upright—an ambiguous figure of peace or resignation.", 
-         "The painting invites collectors to reckon with the infrastructures of fear and the quiet violence of societal programming.",
+         "In 'Lactation of the Ledger', Bitcoin becomes the green Madonna — the mother of digital value — nursing her black-and-white child, XRP. Around them stand veiled nations, watching as the milk of liquidity flows across rivers and bridges — the arteries of a new global economy. “Healthy Bacteria” packets line the earth below: symbols of the unseen agents that keep systems alive — the microbes of trust and decay.",
+         "This piece visualizes the paradox of decentralization: motherhood and machinery, faith and finance, blockchain and body. It is both nurturing and unsettling, inviting viewers to question who feeds the future and who digests it.",
         ],
       links:{ xrp:"#", os:"#", sr:"#"}
     },
@@ -674,170 +692,195 @@ function syncActiveHighlight() {
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 
-// Normalize an id for data-work-id/href
-function toId(title, idx){
-  return (title || `work-${idx}`).toLowerCase()
-    .replace(/[^a-z0-9]+/g,'-')
-    .replace(/^-+|-+$/g,'') || `work-${idx}`;
-}
+    // Normalize an id for data-work-id/href
+    function toId(title, idx){
+    return (title || `work-${idx}`).toLowerCase()
+        .replace(/[^a-z0-9]+/g,'-')
+        .replace(/^-+|-+$/g,'') || `work-${idx}`;
+    }
 
-// Centralized click → set current & render
-function onSelectWork(idx, scrollIntoView=false){
-  if (idx < 0 || idx >= works.length) return;
-  current = idx;
-  renderWork(current);
-  const id = toId(works[current].title, current);
-  highlightActive(id);
-  // keep URL hash in sync for deep links (optional)
-  try { history.replaceState(null, '', `#${id}`); } catch {}
-  if (scrollIntoView) {
-    const artCard = document.getElementById('artCard');
-    artCard?.scrollIntoView({ behavior:'smooth', block:'start' });
-  }
-}
-
-// ===== build: desktop sidebar (stacked cards) =====
-if (sidebar) {
-  sidebar.innerHTML = ""; // clear
-
-  works.forEach((w, i) => {
-    const id = toId(w.title, i);
-
-    // build "2025 • Digital-Oil-style" safely
-    const metaParts = [];
-    if (w.year) metaParts.push(String(w.year));
-    if (w.style) metaParts.push(w.style);
-    const meta = metaParts.join(" • ");
-
-    const a = document.createElement("a");
-    a.href = `#${id}`;
-    a.dataset.workId = id;
-
-    // gallery-style row
-  a.className =
-  "work-link relative flex items-center gap-4 py-3 px-3 rounded-xl cursor-pointer \
-   ring-1 ring-white/10 bg-white/5 hover:bg-white/10 hover:ring-white/20 \
-   transition-colors transition-shadow duration-200 will-change-transform";
-
-
-    a.innerHTML = `
-    <div class="thumb relative z-10 rounded-xl ring-1 ring-white/15 overflow-hidden flex-shrink-0">
-      <img src="${w.img}" loading="lazy"
-          class="h-16 w-16 object-cover"
-          alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}">
-    </div>
-
-    <div class="min-w-0">
-      <div class="serif font-medium text-white truncate" title="${w.title || ''}">
-        ${w.title || 'Untitled'}
-      </div>
-
-      <div class="text-xs text-white/75 mt-1 flex items-center gap-2">
-        ${meta ? meta.split(" • ").map((s, idx) =>
-          idx === 0 ? `<span>${s}</span>` : `<span>•</span><span>${s}</span>`
-        ).join("") : ""}
-      </div>
-    </div>
-  `;
-
-
-    a.addEventListener("click", (e) => {
-      e.preventDefault();
-      onSelectWork(i, /*scrollIntoView*/ window.innerWidth < 1024);
-    });
-
-    sidebar.appendChild(a);
-  });
-}
-
-
-// ===== build: mobile strip (horizontal cards) — optional =====
-// Add <section id="mobileStrip" class="block lg:hidden mt-4"></section> in your HTML if you want this.
-if (mobileStrip) {
-  mobileStrip.innerHTML = ""; // clear
-  // header
-  const h = document.createElement('h3');
-  h.className = "serif text-base mb-2 px-1";
-  h.textContent = "All works in this collection";
-  mobileStrip.appendChild(h);
-
-  // wrapper with gradient edges
-  const wrapper = document.createElement('div');
-  wrapper.className = "relative";
-  wrapper.innerHTML = `
-    <div class="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-[#0b5db3]/40 to-transparent rounded-l-xl"></div>
-    <div class="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-[#0b5db3]/40 to-transparent rounded-r-xl"></div>
-  `;
-  const ul = document.createElement('ul');
-  ul.className = "flex gap-3 overflow-x-auto snap-x snap-mandatory px-1 pb-2 [-ms-overflow-style:none] [scrollbar-width:none]";
-  ul.style.webkitOverflowScrolling = "touch";
-  // hide scrollbar (webkit)
-  const style = document.createElement('style');
-  style.textContent = `ul::-webkit-scrollbar{display:none}`;
-  wrapper.appendChild(style);
-
-  works.forEach((w, i) => {
-    const id = toId(w.title, i);
-    const li = document.createElement('li');
-    li.className = "min-w-[220px] snap-start";
-    li.innerHTML = `
-      <a href="#${id}" data-work-id="${id}" class="work-link flex items-center gap-3 p-2 rounded-xl bg-white/5 hover:bg-white/10 transition ring-1 ring-white/10">
-        <img src="${w.img}" loading="lazy"
-             class="h-14 w-14 rounded-lg object-cover flex-shrink-0 ring-1 ring-white/20"
-             alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}" />
-        <div class="min-w-0">
-          <p class="text-sm font-medium truncate" title="${w.title || ''}">${w.title || 'Untitled'}</p>
-          <p class="text-[11px] text-white/60">${w.year ?? ''} • ${w.style ?? ''}</p>
-          <div class="flex gap-3 mt-1 text-[11px] text-blue-300">
-            <span class="pointer-events-none">View</span><span>·</span>
-            <a href="${w.links?.collect || '#'}" class="hover:underline">Collect</a>
-          </div>
-        </div>
-      </a>
-    `;
-    // click wiring
-    li.querySelector('a')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      onSelectWork(i, /*scrollIntoView*/ true);
-    });
-    ul.appendChild(li);
-  });
-
-  wrapper.appendChild(ul);
-  mobileStrip.appendChild(wrapper);
-}
-
-// ===== initial highlight from hash (or current) =====
-(function initSelectFromHash(){
-  let startIdx = typeof current === 'number' ? current : 0;
-  const hash = (location.hash || '').replace('#','').trim();
-  if (hash) {
-    const idx = works.findIndex((w, i) => toId(w.title, i) === hash);
-    if (idx >= 0) startIdx = idx;
-  }
-  onSelectWork(startIdx, false);
-})();
-
-
-
-    // Nav buttons
-    document.getElementById("prevBtn").onclick = () => {
-        current = (current - 1 + works.length) % works.length;
-        renderWork(current);
-        syncActiveHighlight();
-    };
-    document.getElementById("nextBtn").onclick = () => {
-        current = (current + 1) % works.length;
-        renderWork(current);
-        syncActiveHighlight();
-    };
-
-    // First paint: let the image fade in on load
-    artImg.addEventListener("load", ()=>{
-        animate(artImg, {opacity:0, scale:0.985}, {opacity:1, scale:1}, 0.45);
-    }, { once:true });
-
+    // Centralized click → set current & render
+    function onSelectWork(idx, scrollIntoView=false){
+    if (idx < 0 || idx >= works.length) return;
+    current = idx;
     renderWork(current);
+    const id = toId(works[current].title, current);
+    highlightActive(id);
+    // keep URL hash in sync for deep links (optional)
+    try { history.replaceState(null, '', `#${id}`); } catch {}
+    if (scrollIntoView) {
+        const artCard = document.getElementById('artCard');
+        artCard?.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+    }
+
+    // ===== build: desktop sidebar (stacked cards) =====
+    if (sidebar) {
+    sidebar.innerHTML = ""; // clear
+
+    works.forEach((w, i) => {
+        const id = toId(w.title, i);
+
+        // build "2025 • Digital-Oil-style" safely
+        const metaParts = [];
+        if (w.year) metaParts.push(String(w.year));
+        if (w.style) metaParts.push(w.style);
+        const meta = metaParts.join(" • ");
+
+        const a = document.createElement("a");
+        a.href = `#${id}`;
+        a.dataset.workId = id;
+
+        // gallery-style row
+    a.className =
+    "work-link relative flex items-center gap-4 py-3 px-3 rounded-xl cursor-pointer \
+    ring-1 ring-white/10 bg-white/5 hover:bg-white/10 hover:ring-white/20 \
+    transition-colors transition-shadow duration-200 will-change-transform";
+
+
+        a.innerHTML = `
+        <div class="thumb relative z-10 rounded-xl ring-1 ring-white/15 overflow-hidden flex-shrink-0">
+        <img src="${w.img}" loading="lazy"
+            class="h-16 w-16 object-cover"
+            alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}">
+        </div>
+
+        <div class="min-w-0">
+        <div class="serif font-medium text-white truncate" title="${w.title || ''}">
+            ${w.title || 'Untitled'}
+        </div>
+
+        <div class="text-xs text-white/75 mt-1 flex items-center gap-2">
+            ${meta ? meta.split(" • ").map((s, idx) =>
+            idx === 0 ? `<span>${s}</span>` : `<span>•</span><span>${s}</span>`
+            ).join("") : ""}
+        </div>
+        </div>
+    `;
+
+
+        a.addEventListener("click", (e) => {
+        e.preventDefault();
+        onSelectWork(i, /*scrollIntoView*/ window.innerWidth < 1024);
+        });
+
+        sidebar.appendChild(a);
+    });
+    }
+
+
+    // ===== build: mobile strip (horizontal cards) — optional =====
+    // Add <section id="mobileStrip" class="block lg:hidden mt-4"></section> in your HTML if you want this.
+    if (mobileStrip) {
+    mobileStrip.innerHTML = ""; // clear
+    // header
+    const h = document.createElement('h3');
+    h.className = "serif text-base mb-2 px-1";
+    h.textContent = "All works in this collection";
+    mobileStrip.appendChild(h);
+
+    // wrapper with gradient edges
+    const wrapper = document.createElement('div');
+    wrapper.className = "relative";
+    wrapper.innerHTML = `
+        <div class="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-[#0b5db3]/40 to-transparent rounded-l-xl"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-[#0b5db3]/40 to-transparent rounded-r-xl"></div>
+    `;
+    const ul = document.createElement('ul');
+    ul.className = "flex gap-3 overflow-x-auto snap-x snap-mandatory px-1 pb-2 [-ms-overflow-style:none] [scrollbar-width:none]";
+    ul.style.webkitOverflowScrolling = "touch";
+    // hide scrollbar (webkit)
+    const style = document.createElement('style');
+    style.textContent = `ul::-webkit-scrollbar{display:none}`;
+    wrapper.appendChild(style);
+
+    works.forEach((w, i) => {
+        const id = toId(w.title, i);
+        const li = document.createElement('li');
+        li.className = "min-w-[220px] snap-start";
+        li.innerHTML = `
+        <a href="#${id}" data-work-id="${id}" class="work-link flex items-center gap-3 p-2 rounded-xl bg-white/5 hover:bg-white/10 transition ring-1 ring-white/10">
+            <img src="${w.img}" loading="lazy"
+                class="h-14 w-14 rounded-lg object-cover flex-shrink-0 ring-1 ring-white/20"
+                alt="${w.title ? w.title.replace(/"/g,'&quot;') : 'Artwork'}" />
+            <div class="min-w-0">
+            <p class="text-sm font-medium truncate" title="${w.title || ''}">${w.title || 'Untitled'}</p>
+            <p class="text-[11px] text-white/60">${w.year ?? ''} • ${w.style ?? ''}</p>
+            <div class="flex gap-3 mt-1 text-[11px] text-blue-300">
+                <span class="pointer-events-none">View</span><span>·</span>
+                <a href="${w.links?.collect || '#'}" class="hover:underline">Collect</a>
+            </div>
+            </div>
+        </a>
+        `;
+        // click wiring
+        li.querySelector('a')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        onSelectWork(i, /*scrollIntoView*/ true);
+        });
+        ul.appendChild(li);
+    });
+
+    wrapper.appendChild(ul);
+    mobileStrip.appendChild(wrapper);
+    }
+
+    // ===== initial highlight from hash (or current) =====
+    (function initSelectFromHash(){
+    let startIdx = typeof current === 'number' ? current : 0;
+    const hash = (location.hash || '').replace('#','').trim();
+    if (hash) {
+        const idx = works.findIndex((w, i) => toId(w.title, i) === hash);
+        if (idx >= 0) startIdx = idx;
+    }
+    onSelectWork(startIdx, false);
+    })();
+
+
+
+        // Nav buttons
+        document.getElementById("prevBtn").onclick = () => {
+            current = (current - 1 + works.length) % works.length;
+            renderWork(current);
+            syncActiveHighlight();
+        };
+        document.getElementById("nextBtn").onclick = () => {
+            current = (current + 1) % works.length;
+            renderWork(current);
+            syncActiveHighlight();
+        };
+
+        // First paint: let the image fade in on load
+        artImg.addEventListener("load", ()=>{
+            animate(artImg, {opacity:0, scale:0.985}, {opacity:1, scale:1}, 0.45);
+        }, { once:true });
+
+        renderWork(current);
+
+        // Bulletproof header link animation
+        document.addEventListener('DOMContentLoaded', () => {
+        // 1) Grab elements (make sure your nav uses these exact IDs)
+        const back = document.getElementById('backLink');
+        const next = document.getElementById('nextLink');
+
+        // 2) If GSAP or elements aren't present, bail safely
+        if (!window.gsap || !back || !next) return;
+
+        // 3) Respect reduced motion locally (no external var needed)
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (reduce) {
+            gsap.set([back, next], { opacity: 1, y: 0 });
+            return;
+        }
+
+        // 4) Animate (use .fromTo for reliability)
+        gsap.fromTo([back, next],
+            { opacity: 0, y: -6 },
+            { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.06 }
+        );
+        });
+
     </script>
 
 
