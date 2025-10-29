@@ -81,6 +81,76 @@
     #sidebarList::-webkit-scrollbar-track {
       background-color: transparent;            /* remove gray background */
     }
+
+      /* --- Footer icon glow (Dream Agent) --- */
+    .footer-icons .icon-wrap {
+      position: relative;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 9999px;
+      isolation: isolate;               /* keep glow behind the icon */
+    }
+
+    .footer-icons .icon-wrap::after {
+      content: "";
+      position: absolute;
+      inset: -6px;                      /* size of aura spread */
+      border-radius: inherit;
+      /* white core with a whisper of Dream Agent blue */
+      background: radial-gradient(60% 60% at 50% 50%,
+                  rgba(255,255,255,.35),
+                  rgba(0,87,184,.18) 55%,
+                  rgba(255,255,255,0) 100%);
+      filter: blur(10px);
+      opacity: .40;                     /* idle aura */
+      transition: opacity .25s ease, transform .25s ease, filter .25s ease;
+      z-index: 0;                       /* behind the icon */
+    }
+
+     /* Soft pulse (dreamlike) */
+    @keyframes daAuraPulse {
+    0%, 100% { opacity: .22; transform: scale(1);   filter: blur(10px); }
+    50%      { opacity: .38; transform: scale(1.05); filter: blur(12px); }
+    }
+
+    /* Respect user preference */
+    @media (prefers-reduced-motion: no-preference) {
+    .footer-icons .icon-wrap[data-pulse]::after {
+        animation: daAuraPulse 4.5s ease-in-out infinite;
+    }
+    }
+
+    /* Icon itself: crisp with a faint ring */
+    .footer-icons img.footer-icon {
+    position: relative;
+    z-index: 1;
+    width: 34px; height: 34px;        /* your sizes; keep round */
+    border-radius: 9999px;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.18); /* hairline ring */
+    transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
+    }
+
+    /* Hover / focus: lift + stronger glow */
+    .footer-icons .icon-wrap:hover::after,
+    .footer-icons .icon-wrap:focus-within::after {
+    opacity: .6;
+    transform: scale(1.06);
+    }
+
+    .footer-icons .icon-wrap:hover img.footer-icon,
+    .footer-icons .icon-wrap:focus-within img.footer-icon {
+    transform: translateY(-1px) scale(1.04);
+    filter: drop-shadow(0 0 12px rgba(255,255,255,.55));
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.26),
+        0 6px 18px rgba(0,0,0,.28);
+    }
+
+    /* --- No scrollbar class for horizontal scroller (OTHER COLLECTIONS) --- */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
   </style>
 
   <!-- put this in <head> after Tailwind -->
@@ -239,10 +309,86 @@
             scrollbar-thin scrollbar-thumb-white/40 scrollbar-track-transparent
             hover:scrollbar-thumb-white/50 rounded-xl">
             <!-- JS builds this list --> 
+        </div>
+         <!-- Other Collections: horizontal strip with thumbs + arrows -->
+        <div id="otherCollectionsStrip" class="mt-4 overflow-hidden">
+          <h3 class="serif text-base sm:text-lg mb-2">Other collections</h3>
+
+          <div class="relative">
+            <!-- gradient edges -->
+            <div class="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-black/40 to-transparent z-10"></div>
+            <div class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/40 to-transparent z-10"></div>
+
+            <!-- arrows -->
+            <button id="ocPrev"
+                    aria-label="Scroll left"
+                    class="absolute left-1 top-1/2 -translate-y-1/2 z-20
+                          w-8 h-8 rounded-full bg-black/40 ring-1 ring-white/30
+                          hover:bg-black/55 transition flex items-center justify-center">
+              ‹
+            </button>
+            <button id="ocNext"
+                    aria-label="Scroll right"
+                    class="absolute right-1 top-1/2 -translate-y-1/2 z-20
+                          w-8 h-8 rounded-full bg-black/40 ring-1 ring-white/30
+                          hover:bg-black/55 transition flex items-center justify-center">
+              ›
+            </button>
+
+            <!-- one-line scroller -->
+            <div id="ocScroller"
+                class="flex items-center gap-2 sm:gap-3 overflow-x-auto whitespace-nowrap no-scrollbar
+                        snap-x snap-mandatory px-2 py-1">
+              <!-- JS injects cards -->
+            </div>
+          </div>
         </div> 
       </div>
     </aside>
   </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-10 bg-white/5">
+    <div class="max-w-6xl mx-auto px-4 py-20 sm:pt-12 rounded-xl">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+   
+            <div class="text-center sm:text-left">
+            <p class="text-white/80 text-sm font-bold serif">No face. No fame. Just the vision.</p>
+            </div>
+            <!-- logos moved next to the text and tightened gap -->
+            <div class="footer-icons flex items-center gap-3">
+            <span class="icon-wrap" data-pulse>
+            <img src="../img/logos/DreamAgent Logo 11.png" alt="Dream Agent" class="footer-icon" width="44" height="44">
+            </span>
+            <a href="#" aria-label="Twitter" class="icon-wrap" data-pulse title="Twitter">
+                <img src="../img/round_logos/twitter_black_circle.png" alt="Twitter" class="footer-icon">
+            </a>
+            <a href="#" aria-label="Sora" class="icon-wrap" data-pulse title="Sora">
+                <img src="../img/round_logos/Sora.png" alt="Sora" class="footer-icon">
+            </a>
+            <a href="#" aria-label="Instagram" class="icon-wrap" data-pulse title="Instagram">
+                <img src="../img/round_logos/instagram_red_circle.png" alt="Instagram" class="footer-icon">
+            </a>
+            <a href="#" aria-label="Bluesky" class="icon-wrap" data-pulse title="Bluesky">
+                <img src="../img/round_logos/bluesky_liteblue_circle.png" alt="Bluesky" class="footer-icon">
+            </a>
+            <a href="#" aria-label="TikTok" class="icon-wrap" data-pulse title="TikTok">
+                <img src="../img/round_logos/tiktok_black_circle.png" alt="TikTok" class="footer-icon">
+            </a>
+         </div>
+       
+         
+         <!-- right group: copyright / attribution -->
+        <div class="flex flex-col items-center gap-2 text-xs text-white/30">
+          <p>© 2025 Dream Agent. All rights reserved.</p>
+          <!-- <p class="flex items-center gap-1">
+            <img src="../img/round_logos/Courdevelops.svg" alt="CourDevelops logo" class="w-6 h-6 opacity-30" width="16" height="16">
+            Powered by CourDevelops
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script>
   // ALL THE PICTURES & DATA
@@ -306,6 +452,125 @@
       links:{ xrp:"#", os:"#", sr:"#"}
     },
   ];
+
+   const OTHER_COLLECTIONS = [
+        {
+          title: "Symbols In Motion",
+          href: "./test_collections.html",
+          img: "./img/collections/Symbols in Motion.png",
+          count: 6,
+          years: "2020–2025"
+        },
+        {
+          title: "Signals & Ascensions",
+          href: "./collections/signals.html",
+          img: "./img/collections/Signals and Ascensions.png",
+          count: 6,
+          years: "2020–2025"
+        },
+        {
+          title: "The Digital Unconscious",
+          href: "./collections/digital.html",
+          img: "./img/collections/Digital Unconscious.png",
+          count: 7,
+          years: "2019–2025"
+        },
+        {
+          title: "Industrial Myths",
+          href: "./collections/industrial.html",
+          img: "./img/collections/Industrial Myths.png",
+          count: 5,
+          years: "2018–2024"
+        },
+        {
+          title: "Dominion Archive",
+          href: "./collections/dominion-archive.html",
+          img: "./img/collections/Dominion Archives.png",
+          count: 9,
+          years: "2017–2024"
+        }
+      ];
+
+   // Build the Other Collections strip
+        (function renderOtherCollectionsStrip() {
+          const wrap  = document.getElementById("ocScroller");
+          const prev  = document.getElementById("ocPrev");
+          const next  = document.getElementById("ocNext");
+          if (!wrap || !prev || !next) return;
+
+          // Normalize title to exclude current collection (ignore leading "the")
+          const norm = s => (s || "").toLowerCase().replace(/^the\s+/, "").trim();
+          const currentCollectionName =
+            norm(document.querySelector("h1.serif")?.textContent || "");
+
+          // Fix relative paths (this page uses ../ for images/links)
+          const items = (OTHER_COLLECTIONS || [])
+            .filter(c => norm(c.title) !== currentCollectionName)
+            .map(c => ({
+              ...c,
+              href: (c.href || "").replace("./collections/", "../collections/"),
+              img:  (c.img  || "").replace("./img/", "../img/")
+            }));
+
+          // Inject cards
+          wrap.innerHTML = items.map(c => `
+            <a href="${c.href}"
+              class="group inline-flex items-center gap-3 rounded-xl
+                      ring-1 ring-white/15 bg-white/5
+                      hover:bg-white/10 hover:ring-white/30 transition
+                      snap-start pr-3">
+              <span class="block h-14 w-24 sm:h-16 sm:w-28 overflow-hidden rounded-l-xl">
+                <img src="${c.img}" loading="lazy" alt="${c.title}" class="h-full w-full object-cover">
+              </span>
+              <span class="flex items-baseline gap-2 pr-1">
+                <span class="serif text-sm sm:text-base">${c.title}</span>
+                <span class="text-[11px] text-white/70">· ${c.count}</span>
+              </span>
+            </a>
+          `).join("");
+
+          // Arrow + scroll behavior
+          const SCROLL_STEP = () => Math.max(200, Math.floor(wrap.clientWidth * 0.8));
+          const scrollByDir = dir => wrap.scrollBy({ left: dir * SCROLL_STEP(), behavior: 'smooth' });
+
+          prev.addEventListener('click', () => scrollByDir(-1));
+          next.addEventListener('click', () => scrollByDir(1));
+
+          // Mouse wheel → horizontal scroll
+          wrap.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+              wrap.scrollLeft += e.deltaY * 0.9;
+              e.preventDefault();
+            }
+          }, { passive: false });
+
+          // Enable/disable arrows at ends
+          function updateArrows() {
+            const max = wrap.scrollWidth - wrap.clientWidth - 1;
+            const left = wrap.scrollLeft;
+            const atStart = left <= 0;
+            const atEnd   = left >= max;
+            prev.disabled = atStart; next.disabled = atEnd;
+            prev.classList.toggle('opacity-40', atStart);
+            next.classList.toggle('opacity-40', atEnd);
+          }
+          wrap.addEventListener('scroll', updateArrows, { passive: true });
+          window.addEventListener('resize', updateArrows);
+
+          // Keyboard support
+          wrap.setAttribute('tabindex', '0');
+          wrap.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') { scrollByDir(1); e.preventDefault(); }
+            if (e.key === 'ArrowLeft')  { scrollByDir(-1); e.preventDefault(); }
+          });
+
+          // Optional entrance animation
+          if (window.gsap) {
+            gsap.from("#ocScroller a", { opacity: 0, y: 4, duration: 0.3, ease: "power2.out", stagger: 0.03 });
+          }
+
+          updateArrows();
+        })();
 
   // ---- Elements ----
   let current = 0, switching = false;
