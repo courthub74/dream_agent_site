@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dream Agent — Gallery Sizing Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink: #0B5DB3; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    .bg-veil { background:
+      radial-gradient(1200px 600px at 20% 0%, rgba(255,255,255,0.05), transparent),
+      linear-gradient(180deg, rgba(11,93,179,.55), rgba(11,93,179,.42));
+    }
+
+    .gallery-frame {
+      @apply aspect-[4/3] sm:aspect-square overflow-hidden bg-white/5 flex items-center justify-center;
+      max-width: 100%;
+      max-height: 85vh; /* fits within viewport height */
+    }
+
+    .gallery-img {
+      @apply object-contain w-auto h-auto max-w-full max-h-full transition-transform duration-500 ease-in-out hover:scale-[1.02];
+    }
+
+    img {
+      height: 500px;
+      width: auto;
+    }
+
+  </style>
+</head>
+<body class="min-h-screen text-white bg-veil">
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <header class="mb-6">
+      <h1 class="text-3xl sm:text-4xl font-semibold">Gallery Sizing Preview</h1>
+      <p class="text-white/80">Compare original varied ratios vs normalized framed style.</p>
+    </header>
+
+    <!-- Two-column layout on desktop -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Original Varied Ratios -->
+      <section class="rounded-2xl bg-white/5 backdrop-blur-sm shadow-inner shadow-black/40 overflow-hidden">
+        <div class="p-5 border-b border-white/10">
+          <h2 class="text-xl font-semibold">1 Original — Natural Ratios</h2>
+          <p class="text-white/70 text-sm">Images keep native aspect ratios. Can cause uneven card heights.</p>
+        </div>
+
+        <!-- Card A -->
+        <article class="p-4">
+          <h3 class="font-medium mb-2">Dream Agent Making Birds (portrait)</h3>
+          <div class="rounded-xl overflow-hidden bg-black/20">
+            <img src="./pictures/Dream Agent Making Birds.png" alt="Dream Agent Making Birds"
+                 class="w-[100px] h-auto object-contain">
+          </div>
+        </article>
+
+        <!-- Card B -->
+        <article class="p-4">
+          <h3 class="font-medium mb-2">Hollywood Moderne (landscape)</h3>
+          <div class="rounded-xl overflow-hidden bg-black/20">
+            <img src="./pictures/Hollywood Moderne.png" alt="Hollywood Moderne"
+                 class="w-full h-auto object-contain">
+          </div>
+        </article>
+      </section>
+
+      <!-- Normalized Framed Style -->
+      <section class="rounded-2xl bg-white/5 backdrop-blur-sm shadow-inner shadow-black/40 overflow-hidden">
+        <div class="p-5 border-b border-white/10">
+          <h2 class="text-xl font-semibold">2) Normalized — Framed Aspect</h2>
+          <p class="text-white/70 text-sm">Uniform frame (`aspect-[4/3]` on mobile, square on sm+) with <code>object-contain</code> to preserve composition.</p>
+        </div>
+
+        <!-- Card A -->
+        <article class="p-4">
+          <h3 class="font-medium mb-2">Dream Agent Making Birds (portrait)</h3>
+          <div class="gallery-frame rounded-xl">
+            <img src="./pictures/Dream Agent Making Birds.png" alt="Dream Agent Making Birds"
+                 class="gallery-img">
+          </div>
+        </article>
+
+        <!-- Card B -->
+        <article class="p-4">
+          <h3 class="font-medium mb-2">Hollywood Moderne (landscape)</h3>
+          <div class="gallery-frame rounded-xl">
+            <img src="./pictures/Hollywood Moderne.png" alt="Hollywood Moderne"
+                 class="gallery-img">
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <!-- Toggle section to see object-cover version quickly -->
+    <section class="mt-8 rounded-2xl bg-white/5 backdrop-blur-sm shadow-inner shadow-black/40 overflow-hidden">
+      <div class="p-5 border-b border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h2 class="text-xl font-semibold">Optional: Edge-to-edge crop</h2>
+          <p class="text-white/70 text-sm">Switch framed images to <code>object-cover</code> for full-bleed look.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="coverBtn" class="px-4 py-2 rounded-full bg-white/20 ring-1 ring-white/30 hover:bg-white/30 active:translate-y-[1px]">Use object-cover</button>
+          <button id="containBtn" class="px-4 py-2 rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/20 active:translate-y-[1px]">Use object-contain</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+        <div class="gallery-frame rounded-xl">
+          <img src="./pictures/Dream Agent Making Birds.png" alt="Dream Agent Making Birds" class="gallery-img">
+        </div>
+        <div class="gallery-frame rounded-xl">
+          <img src="./pictures/Hollywood Moderne.png" alt="Hollywood Moderne" class="gallery-img">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Utilities -->
+  <style>
+    @layer utilities {
+      .gallery-frame { @apply aspect-[4/3] sm:aspect-square overflow-hidden bg-white/5 flex items-center justify-center; }
+      .gallery-img   { @apply w-full h-full object-contain transition-transform duration-500 ease-in-out hover:scale-[1.02]; }
+      @media (max-width:640px){ .gallery-frame{ max-height: 420px; } }
+    }
+  </style>
+
+  <script>
+    // Simple toggle to preview object-cover vs object-contain
+    const coverBtn = document.getElementById('coverBtn');
+    const containBtn = document.getElementById('containBtn');
+    const imgs = Array.from(document.querySelectorAll('.gallery-frame .gallery-img'));
+
+    function setFit(mode) {
+      imgs.forEach(img => {
+        img.classList.remove('object-contain', 'object-cover');
+        img.classList.add(mode);
+      });
+    }
+
+    coverBtn?.addEventListener('click', () => setFit('object-cover'));
+    containBtn?.addEventListener('click', () => setFit('object-contain'));
+  </script>
+</body>
+</html>
