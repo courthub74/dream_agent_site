@@ -28,40 +28,88 @@
       50%      { box-shadow: 0 0 14px 3px var(--aura, transparent); }
     }
 
-    /* Remove the pulse/glow from market buttons */
-    .market-btn {
-      position: relative;
-      transition: all 0.25s ease-out;
-      animation: none;            /* was: auraPulse ... */
-    }
+    /* --- Marketplace buttons with glow and tooltip --- */
+.market-btn {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 9999px;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  animation: none; /* disable old pulse */
+  isolation: isolate; /* keep glow behind */
+}
+
+/* GLOW AURA LAYER (behind the icon) */
+.market-btn::before {
+  content: "";
+  position: absolute;
+  inset: -6px; /* aura spread */
+  border-radius: inherit;
+  background: radial-gradient(60% 60% at 50% 50%,
+              rgba(255,255,255,.35),
+              rgba(0,87,184,.18) 55%,
+              rgba(255,255,255,0) 100%);
+  filter: blur(10px);
+  opacity: 0; /* hidden until hover */
+  transition: opacity .25s ease, transform .25s ease;
+  z-index: 0;
+}
+
+/* TOOLTIP LAYER (existing behavior) */
+.market-btn::after {
+  content: attr(data-label);
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  bottom: -2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0);
+  background: rgba(0,0,0,0.4);
+  padding: 2px 8px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, color 0.3s ease;
+  z-index: 2;
+}
+
+/* IMAGE INSIDE BUTTON */
+.market-btn img {
+  position: relative;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.18);
+  transition: transform .25s ease, filter .25s ease, box-shadow .25s ease;
+}
+
+/* HOVER STATE — Glow + Lift + Tooltip */
+.market-btn:hover::before {
+  opacity: .6;
+  transform: scale(1.08);
+}
+
+.market-btn:hover img {
+  transform: translateY(-1px) scale(1.05);
+  filter: drop-shadow(0 0 12px rgba(255,255,255,.55));
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.25),
+    0 6px 18px rgba(0,0,0,.28);
+}
+
+/* Tooltip visible on hover */
+.market-btn:hover::after {
+  opacity: 1;
+  color: rgba(255,255,255,0.85);
+}
 
 
-    /* Tooltip */
-    /* Tooltip */
-    .market-btn::after {
-      content: attr(data-label);
-      position: absolute;
-      display: inline-flex;           /* makes label flex */
-      justify-content: center;
-      align-items: center;
-      white-space: nowrap;
-      bottom: -2.2rem;                /* more padding below for hover */
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0);
-      background: rgba(0,0,0,0.4);    /* subtle background for contrast */
-      padding: 2px 8px;
-      border-radius: 6px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease, color 0.3s ease;
-    }
-
-    .market-btn:hover::after {
-      opacity: 1;
-      color: rgba(255,255,255,0.85);
-    }
+    
 
     #sidebarList {
       scroll-behavior: smooth;
