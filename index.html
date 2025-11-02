@@ -903,6 +903,43 @@
     const origTrack   = collections.querySelector(':scope > .cc-track'); // original track
     const cardSelector = ':scope > a.group'; // anchors are direct children of the track
 
+   
+    // --- Shuffle collections order on each load ---
+    (function () {
+      const track = document.querySelector('#collections .cc-track');
+      if (!track) return;
+
+      // Optional opt-outs:
+      // 1) Add data-noshuffle="true" to .cc-track
+      // 2) Use ?order=fixed in the URL
+      const noshuffle = track.dataset.noshuffle === 'true'
+        || new URLSearchParams(location.search).get('order') === 'fixed';
+      if (noshuffle) return;
+
+      // Get direct child cards
+      const cards = Array.from(track.querySelectorAll(':scope > a.group'));
+      if (cards.length < 2) return;
+
+      // Fisher–Yates with crypto for better randomness
+      const rand = (max) => {
+        const buf = new Uint32Array(1);
+        crypto.getRandomValues(buf);
+        return Math.floor((buf[0] / 2**32) * max);
+      };
+
+      for (let i = cards.length - 1; i > 0; i--) {
+        const j = rand(i + 1);
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+      }
+
+      // Re-append in the new order
+      cards.forEach(card => track.appendChild(card));
+
+      // Optional: keep order stable for the current tab session
+      // sessionStorage.setItem('collectionsOrder', cards.map(c => c.outerHTML).join(''));
+    })();
+
+
 
     // Desktop carousel (finite, rightmost dot active)
     (function(){
