@@ -24,138 +24,84 @@
       50%      { box-shadow: 0 0 14px 3px var(--aura, transparent); }
     }
 
-    /* Remove the pulse/glow from market buttons */
-    .market-btn {
+        .market-btn {
       position: relative;
-      transition: all 0.25s ease-out;
-      animation: none;            /* was: auraPulse ... */
+      display: inline-grid;
+      place-items: center;
+      border-radius: 9999px;
+      transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      animation: none; /* disable old pulse */
+      isolation: isolate; /* keep glow behind */
     }
 
+    /* GLOW AURA LAYER (behind the icon) */
+    .market-btn::before {
+      content: "";
+      position: absolute;
+      inset: -6px; /* aura spread */
+      border-radius: inherit;
+      background: radial-gradient(60% 60% at 50% 50%,
+                  rgba(255,255,255,.35),
+                  rgba(0,87,184,.18) 55%,
+                  rgba(255,255,255,0) 100%);
+      filter: blur(10px);
+      opacity: 0; /* hidden until hover */
+      transition: opacity .25s ease, transform .25s ease;
+      z-index: 0;
+    }
 
-    /* Tooltip */
-    /* Tooltip */
+    /* TOOLTIP LAYER (existing behavior) */
     .market-btn::after {
       content: attr(data-label);
       position: absolute;
-      display: inline-flex;           /* makes label flex */
+      display: inline-flex;
       justify-content: center;
       align-items: center;
       white-space: nowrap;
-      bottom: -2.2rem;                /* more padding below for hover */
+      bottom: -2.2rem;
       left: 50%;
       transform: translateX(-50%);
       font-size: 0.75rem;
       color: rgba(255,255,255,0);
-      background: rgba(0,0,0,0.4);    /* subtle background for contrast */
+      background: rgba(0,0,0,0.4);
       padding: 2px 8px;
       border-radius: 6px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease, color 0.3s ease;
+      z-index: 2;
     }
 
+    /* IMAGE INSIDE BUTTON */
+    .market-btn img {
+      position: relative;
+      z-index: 1;
+      width: 36px;
+      height: 36px;
+      border-radius: 9999px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.18);
+      transition: transform .25s ease, filter .25s ease, box-shadow .25s ease;
+    }
+
+    /* HOVER STATE — Glow + Lift + Tooltip */
+    .market-btn:hover::before {
+      opacity: .6;
+      transform: scale(1.08);
+    }
+
+    .market-btn:hover img {
+      transform: translateY(-1px) scale(1.05);
+      filter: drop-shadow(0 0 12px rgba(255,255,255,.55));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.25),
+        0 6px 18px rgba(0,0,0,.28);
+    }
+
+    /* Tooltip visible on hover */
     .market-btn:hover::after {
       opacity: 1;
       color: rgba(255,255,255,0.85);
     }
-
-    /* --- Marketplace icon: size, aura, hover like footer icons --- */
-
-/* Button shell (same footprint as your current 40–44px pills) */
-.market-btn {
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  width: 44px;              /* outer button size */
-  height: 44px;
-  border-radius: 9999px;
-  border: 1px solid rgba(255,255,255,.20);
-  background: transparent;
-  isolation: isolate;       /* keep aura behind */
-  transition:
-    transform .20s ease,
-    box-shadow .25s ease,
-    border-color .20s ease;
-}
-
-/* Tooltip now uses ::before so ::after is free for the aura */
-.market-btn::before {
-  content: attr(data-label);
-  position: absolute;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  white-space: nowrap;
-  bottom: -2.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0);
-  background: rgba(0,0,0,0.4);
-  padding: 2px 8px;
-  border-radius: 6px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .3s ease, color .3s ease;
-}
-
-.market-btn:hover::before {
-  opacity: 1;
-  color: rgba(255,255,255,0.85);
-}
-
-/* Glow aura (matches footer icon glow) */
-.market-btn::after {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: inherit;
-  background: radial-gradient(60% 60% at 50% 50%,
-              rgba(255,255,255,.35),
-              rgba(0,87,184,.18) 55%,
-              rgba(255,255,255,0) 100%);
-  filter: blur(10px);
-  opacity: .35;
-  transition: opacity .25s ease, transform .25s ease, filter .25s ease;
-  z-index: 0;
-}
-
-/* Respect reduced motion for the soft pulse */
-@media (prefers-reduced-motion: no-preference) {
-  .market-btn[data-pulse]::after {
-    animation: daAuraPulse 4.5s ease-in-out infinite;
-  }
-}
-
-/* The actual icon image */
-.market-btn img {            /* or use .market-icon if you prefer */
-  position: relative;
-  z-index: 1;
-  width: 34px;               /* inner icon matches footer-icon sizing */
-  height: 34px;
-  border-radius: 9999px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.18);
-  transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
-  object-fit: cover;
-}
-
-/* Hover lift + stronger halo (same feel as footer icons) */
-.market-btn:hover {
-  transform: translateY(-1px) scale(1.04);
-  border-color: rgba(255,255,255,.30);
-}
-
-.market-btn:hover::after {
-  opacity: .6;
-  transform: scale(1.06);
-}
-
-.market-btn:hover img {
-  filter: drop-shadow(0 0 12px rgba(255,255,255,.55));
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.26),
-    0 6px 18px rgba(0,0,0,.28);
-}
 
 
     #sidebarList {
